@@ -1,0 +1,28 @@
+{
+    "basePagesUrl": "/pages/",
+    "profile": {
+        "username": "Dossier Explorer",
+        "avatar": "/assets/images/dossier-explorer.png"
+    },
+    "menu": {
+        "defaultMenuConfig": {
+            "icon": "fa-bars",
+            "type": "route",
+            "component": "psk-page-loader",
+            "exact": true,
+            "indexed": true,
+            "historyType": "browser"
+        },
+        "pages": [{
+                "name": "Dashboard",
+                "path": "/dashboard",
+                "icon": "fa-home",
+                "pageSrc": "index.html"
+            },
+            {
+                "name": "404",
+                "indexed": false
+            }
+        ]
+    }
+}

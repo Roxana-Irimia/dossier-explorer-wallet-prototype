@@ -1,0 +1,32 @@
+@import url(../../../commons/bootstrap/css/bootstrap.min.css);
+
+
+.btn-csb-new{
+    background-color: #616e7d;
+    border-color: #4e5a69;
+    color:#FFFFFF;
+}
+
+.btn-csb-new:hover,
+.btn-csb-new:active,
+.btn-csb-new:visited,
+.btn-csb-new:focus {
+    color:#FFFFFF;
+    background-color: #566271;
+    border-color: #4e5a69;
+}
+
+.btn-csb-restore{
+    background-color: #95799e;
+    border-color: #806489;
+    color:#FFFFFF;
+}
+
+.btn-csb-restore:hover,
+.btn-csb-restore:active,
+.btn-csb-restore:visited,
+.btn-csb-restore:focus {
+    color:#FFFFFF;
+    background-color: #8d7096;
+    border-color: #806489;
+}
