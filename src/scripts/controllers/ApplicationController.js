@@ -1,5 +1,6 @@
 import BindableController from "./base-controllers/BindableController.js";
 
+const EVENT_PREFIX = "@event:";
 const configUrl = "/app-config.json";
 
 export default class ApplicationController extends BindableController {
@@ -79,8 +80,8 @@ export default class ApplicationController extends BindableController {
 
         let filterIndexedItems = function (menuItems) {
             for(let i = 0; i<menuItems.length; i++){
-                if (menuItems[i].children) {
-                    filterIndexedItems(menuItems[i].children);
+                if (menuItems[i].children && menuItems[i].children.items) {
+                    filterIndexedItems(menuItems[i].children.items);
                 } else {
                     if (typeof menuItems[i].indexed !== "undefined" && menuItems[i].indexed.toString() === "false") {
                         menuItems.splice(i, 1);
@@ -138,8 +139,16 @@ export default class ApplicationController extends BindableController {
                     }
                 }
 
-                if (page.children) {
-                    fillOptionalPageProps(page.children, page.path);
+                if (typeof page.children === "object" && Array.isArray(page.children)) {
+                    page.children = {type: "known", items: JSON.parse(JSON.stringify(page.children))};
+                    fillOptionalPageProps(page.children.items, page.path);
+                }
+                else{
+                    if(typeof page.children ==="string" && page.children.indexOf(EVENT_PREFIX)==0){
+                        let eventName = page.children.substring(EVENT_PREFIX.length);
+                        page.children = {type: "event", event: eventName};
+                        page.component = "psk-ssapp-loader";
+                    }
                 }
             });
             return navigationPages
@@ -202,8 +211,12 @@ export default class ApplicationController extends BindableController {
                     };
                 }
 
-                if (leaf.children) {
-                    tree[pageName].children = leafSearch(leaf.children);
+                if (Array.isArray(leaf.children)) {
+                    tree[pageName].children = {type: "known", items: leafSearch(leaf.children)};
+                }
+                else if (typeof leaf.children === "string" && leaf.children.indexOf(EVENT_PREFIX) === 0) {
+                    let eventName = leaf.children.substring(EVENT_PREFIX.length);
+                    tree[pageName].children = {type: "event", event: eventName};
                 }
             });
             return tree;
