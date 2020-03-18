@@ -1,48 +1,59 @@
+@import url(../../../commons/styles/styles.css);
 * {
-    outline: none !important;
+  outline: none !important;
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
-:host {
-    display: block;
-    font-family: nunito;
+/* clean old style inherited from bootstrap */
+psk-card,
+.card.psk-card,
+.card.psk-card .card-header,
+.card.psk-card .card-body {
+  font-family: nunito;
+  background: none;
+  display: block;
+  border: none;
 }
 
-.card.psk-card {
-    margin-bottom: 20px;
-    background: none;
-    border: none;
+.card.psk-card .card-header {
+  background-color: #eee;
 }
 
-.card-header {
-    display: flex;
-    flex: 1;
+.card.psk-card .card-body {
+  padding: 2rem 4rem;
 }
 
+.card-header h5 {
+  width: 100%;
+  line-height: 2rem;
+  color: rgba(74, 74, 163, 0.75);
+  font-weight: bold;
+  padding-left: 16px;
+  font-size: 1.2rem;
+}
 
-/** first level*/
+/** first level of psk-card */
 
 .psk-card .card-header {
-    background: none;
-    border-bottom: none;
-    font-size: 130%;
-    padding-bottom: 0;
+  font-size: 130%;
 }
 
-.psk-card p.subtitle {
-    color: rgba(255, 0, 0, .75);
-    margin-top: -10px;
-}
-
-
-/** second level*/
+/** second level of psk-card */
 
 .psk-card .psk-card .card-header {
-    font-size: 120%;
+  font-size: 120%;
 }
 
-
-/** more than two levels*/
+/** more than two levels of psk-card*/
 
 .psk-card .psk-card .psk-card .card-header {
-    font-size: 110%;
+  font-size: 110%;
+}
+
+@media (max-width: 969px) {
+  .card.psk-card .card-body {
+    padding: 2rem 2rem;
+  }
 }

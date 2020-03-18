@@ -1,0 +1,77 @@
+<psk-page title="E-wallet">
+  <psk-container controller-name="ExplorerController">
+    <psk-button
+      button-class="@signOut.buttonClass"
+      event-name="@signOut.eventName"
+    >
+      <psk-icon icon="@signOut.icon" color="@signOut.iconColor"></psk-icon>
+      <psk-label label="@signOut.label"></psk-label>
+    </psk-button>
+
+    <psk-card title="@sectionTitle">
+      <psk-button
+        display-if-is="switchLayout.active | grid"
+        title="@switchLayout.grid.switchHover"
+        event-name="@switchLayout.grid.eventName"
+        button-class="@switchLayout.buttonClass"
+      >
+        <psk-icon
+          color="@switchLayout.grid.iconColor"
+          icon="@switchLayout.grid.icon"
+        ></psk-icon>
+      </psk-button>
+
+      <psk-button
+        display-if-is="switchLayout.active | list"
+        title="@switchLayout.list.switchHover"
+        event-name="@switchLayout.list.eventName"
+        button-class="@switchLayout.buttonClass"
+      >
+        <psk-icon
+          color="@switchLayout.list.iconColor"
+          icon="@switchLayout.list.icon"
+        ></psk-icon>
+      </psk-button>
+
+      <psk-grid
+        columns="3"
+        layout="xs=[7,3,2] s=[7,3,2] m=[7,3,2] l=[7,3,2] xl=[7,3,2]"
+      >
+        <psk-label label="@dossierDetails.nameLabel"></psk-label>
+        <psk-label label="@dossierDetails.lastModificationLabel"></psk-label>
+        <psk-label label="@dossierDetails.sizeLabel"></psk-label>
+      </psk-grid>
+
+      <psk-for-each data-view-model="dossierDetails.items">
+        <psk-grid
+          class="items"
+          columns="3"
+          layout="xs=[7,3,2] s=[7,3,2] m=[7,3,2] l=[7,3,2] xl=[7,3,2]"
+        >
+          <psk-label label="@name">
+            <psk-button
+              display-if-exists="action"
+              button-class="@action.buttonClass"
+              event-name="@action.eventName"
+            >
+              <psk-icon
+                display-if-exists="action.icon"
+                color="@action.iconColor"
+                icon="@action.icon"
+              ></psk-icon>
+              <psk-label label="@action.label"></psk-label>
+            </psk-button>
+
+            <psk-icon
+              display-if-exists="icon"
+              color="@iconColor"
+              icon="@icon"
+            ></psk-icon>
+          </psk-label>
+          <psk-label label="@lastModification"></psk-label>
+          <psk-label label="@size"></psk-label>
+        </psk-grid>
+      </psk-for-each>
+    </psk-card>
+  </psk-container>
+</psk-page>

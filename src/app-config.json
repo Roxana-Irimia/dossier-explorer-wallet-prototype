@@ -20,6 +20,11 @@
                 "pageSrc": "index.html"
             },
             {
+                "name": "E-wallet",
+                "path": "/e-wallet",
+                "pageSrc": "Wallet/wallet.html"
+            },
+            {
                 "name": "404",
                 "indexed": false
             }

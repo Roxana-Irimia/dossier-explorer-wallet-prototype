@@ -1,4 +1,5 @@
 @import url(../../../commons/fonts/font-awesome.min.css);
+@import url(../../../commons/styles/styles.css);
 div {
     display: inline-block;
     margin: 0;

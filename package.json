@@ -4,7 +4,8 @@
   "description": "CSB UI v2",
   "scripts": {
     "web-server": "cd release && ws --spa ./index.html",
-    "dev": "gulp build && npm run web-server"
+    "dev": "gulp build && npm run web-server",
+    "build": "gulp build"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
