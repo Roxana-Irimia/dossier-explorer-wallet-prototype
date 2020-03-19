@@ -8,52 +8,115 @@ export const explorerModel = {
     label: "Exit"
   },
   addItems: {
+    menuOrientation: "left",
     addButton: {
       label: "Add",
       icon: "plus",
-      iconColor: "#ffffff",
-      eventName: "open-add-menu"
+      iconColor: "#ffffff"
     },
-    addFile: {
-      label: "Add file",
-      eventName: "add-file"
+    addButtonsList: [
+      {
+        label: "Add file",
+        eventName: "add-file",
+        eventData: "{ path: '/' }",
+        buttonClass: "btn-menu"
+      },
+      {
+        label: "Add folder",
+        eventName: "add-folder",
+        eventData: "{ path: '/' }",
+        buttonClass: "btn-menu bottom-border"
+      },
+      {
+        label: "Create Dossier",
+        eventName: "create-dossier",
+        eventData: "{ path: '/' }",
+        buttonClass: "btn-menu"
+      },
+      {
+        label: "Import Dossier",
+        eventName: "import-dossier",
+        eventData: "{ path: '/' }",
+        buttonClass: "btn-menu"
+      },
+      {
+        label: "Receive Dossier",
+        eventName: "receive-dossier",
+        eventData: "{ path: '/' }",
+        buttonClass: "btn-menu"
+      }
+    ]
+  },
+  rightMenu: {
+    menuOrientation: "right",
+    icon: "ellipsis-v",
+    iconColor: "rgb(92, 12, 78)",
+    classes: "dots-menu",
+    menuActions: [
+      {
+        label: "Move",
+        eventName: "right-menu-move",
+        eventData: "{path: '/'}",
+        buttonClass: "btn-menu"
+      },
+      {
+        label: "Rename",
+        eventName: "right-menu-rename",
+        eventData: "{path: '/'}",
+        buttonClass: "btn-menu"
+      }
+    ],
+    viewIcon: {
+      icon: "eye",
+      iconColor: "rgb(92, 12, 78)",
+      eventData: "{path: '/'}",
+      eventName: "right-menu-view",
+      buttonClass: "no-btn"
     },
-    addFolder: {
-      label: "Add folder",
-      eventName: "add-folder"
+    exportIcon: {
+      icon: "download",
+      iconColor: "rgb(92, 12, 78)",
+      eventData: "{path: '/'}",
+      eventName: "right-menu-export",
+      buttonClass: "no-btn"
     },
-    createDossier: {
-      label: "Create Dossier",
-      eventName: "create-dossier"
+    shareIcon: {
+      icon: "share",
+      iconColor: "rgb(92, 12, 78)",
+      eventData: "{path: '/'}",
+      eventName: "right-menu-share",
+      buttonClass: "no-btn"
     },
-    importDossier: {
-      label: "Import Dossier",
-      eventName: "import-dossier"
-    },
-    receiveDossier: {
-      label: "Receive Dossier",
-      eventName: "receive-dossier"
+    deleteIcon: {
+      icon: "trash",
+      iconColor: "rgb(92, 12, 78)",
+      eventData: "{path: '/'}",
+      eventName: "right-menu-delete",
+      buttonClass: "no-btn"
     }
   },
   dossierDetails: {
     sizeLabel: "Size",
+    typeLabel: "Type",
     lastModificationLabel: "Last modification",
     nameLabel: "Name",
     items: [
       {
         name: "/assets",
         lastModification: "1584079000",
+        type: "folder",
         size: "78563"
       },
       {
-        name:
-          "/blockchainkasd laksjd laksjdhjakljsd lashdl jkasjf ljasdjkf has",
+        name: "/blockchainkasd  has",
         lastModification: "547856365631313213132132132131",
+        type: "file",
         size: "547856365631313213132132132131"
       },
       {
         name: "/app",
         lastModification: "1584079000",
+        type: "application",
         size: "2478563",
         action: {
           buttonClass: "btn-run",
@@ -67,6 +130,7 @@ export const explorerModel = {
         name: "/New Dossier",
         lastModification: "1584079000",
         size: "347856",
+        type: "dossier",
         icon: "lock",
         iconColor: "rgb(92, 12, 78)"
       }

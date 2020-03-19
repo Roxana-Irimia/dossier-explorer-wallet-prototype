@@ -6,18 +6,6 @@
   max-width: 100%;
 }
 
-/* Used wth shadow root components */
-:host(.hydrated.hidden) {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* Used with non-shadow components */
-.hydrated.hidden {
-  display: none !important;
-  visibility: hidden !important;
-}
-
 ::slotted(*) {
   cursor: pointer;
 }
@@ -38,16 +26,34 @@
 .btn-exit {
   border: none;
   position: absolute;
-  background: transparent;
+  background: none;
   top: 0px;
   right: 0px;
   padding: 1rem 2rem 1rem 1rem;
 }
 
-.btn-switch {
+.btn-switch,
+.no-btn {
   border: none;
-  background: transparent;
-  padding: 1rem 1rem 1rem 1rem;
+  background: none;
+  padding: 0.2rem 1.2rem 0.2rem 0.2rem;
+  font-size: 0;
+}
+
+.btn-menu {
+  margin: 0.25rem 0;
+  background: none;
+  border: none;
+  color: #fff;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.bottom-border {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 0;
+  padding-bottom: 0.25rem;
 }
 
 .btn-csb-new {

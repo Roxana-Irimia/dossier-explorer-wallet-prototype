@@ -9,35 +9,140 @@
     </psk-button>
 
     <psk-card title="@sectionTitle">
-      <psk-button
-        display-if-is="switchLayout.active | grid"
-        title="@switchLayout.grid.switchHover"
-        event-name="@switchLayout.grid.eventName"
-        button-class="@switchLayout.buttonClass"
-      >
-        <psk-icon
-          color="@switchLayout.grid.iconColor"
-          icon="@switchLayout.grid.icon"
-        ></psk-icon>
-      </psk-button>
-
-      <psk-button
-        display-if-is="switchLayout.active | list"
-        title="@switchLayout.list.switchHover"
-        event-name="@switchLayout.list.eventName"
-        button-class="@switchLayout.buttonClass"
-      >
-        <psk-icon
-          color="@switchLayout.list.iconColor"
-          icon="@switchLayout.list.icon"
-        ></psk-icon>
-      </psk-button>
-
+      <!-- 
+        Content heading:
+        Left Menu
+        Right Menu
+        Switch layout button  
+       -->
       <psk-grid
-        columns="3"
-        layout="xs=[7,3,2] s=[7,3,2] m=[7,3,2] l=[7,3,2] xl=[7,3,2]"
+        columns="2"
+        layout="xs[12,12] s=[12,12] m=[8,4] l=[8,4] lg=[8,4]"
+      >
+        <!-- 
+          Left menu here - add options
+         -->
+        <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]">
+          <psk-button-group view-model="addItems.addButton">
+            <psk-for-each data-view-model="addItems.addButtonsList">
+              <psk-button
+                label="@label"
+                event-name="@eventName"
+                event-data="@eventData"
+                button-class="@buttonClass"
+              >
+              </psk-button>
+            </psk-for-each>
+          </psk-button-group>
+        </psk-grid>
+        <!-- 
+          Right menu here - dossier management actions
+          view, export, share, delete + dropdown menu (like left menu)
+        -->
+        <psk-grid
+          columns="6"
+          layout="xs=[2,2,2,2,2,2] s=[2,2,2,2,2,2] m=[2,2,2,2,2,2] l=[2,2,2,2,2,2] xl=[2,2,2,2,2,2]"
+        >
+          <psk-button
+            event-name="@rightMenu.viewIcon.eventName"
+            event-data="@rightMenu.viewIcon.eventData"
+            button-class="@rightMenu.viewIcon.buttonClass"
+          >
+            <psk-icon
+              icon="@rightMenu.viewIcon.icon"
+              color="@rightMenu.viewIcon.iconColor"
+            ></psk-icon>
+          </psk-button>
+          <psk-button
+            event-name="@rightMenu.exportIcon.eventName"
+            event-data="@rightMenu.exportIcon.eventData"
+            button-class="@rightMenu.exportIcon.buttonClass"
+          >
+            <psk-icon
+              icon="@rightMenu.exportIcon.icon"
+              color="@rightMenu.exportIcon.iconColor"
+            ></psk-icon>
+          </psk-button>
+          <psk-button
+            event-name="@rightMenu.shareIcon.eventName"
+            event-data="@rightMenu.shareIcon.eventData"
+            button-class="@rightMenu.shareIcon.buttonClass"
+          >
+            <psk-icon
+              icon="@rightMenu.shareIcon.icon"
+              color="@rightMenu.shareIcon.iconColor"
+            ></psk-icon>
+          </psk-button>
+          <psk-button
+            event-name="@rightMenu.deleteIcon.eventName"
+            event-data="@rightMenu.deleteIcon.eventData"
+            button-class="@rightMenu.deleteIcon.buttonClass"
+          >
+            <psk-icon
+              icon="@rightMenu.deleteIcon.icon"
+              color="@rightMenu.deleteIcon.iconColor"
+            ></psk-icon>
+          </psk-button>
+
+          <!-- 
+          dropdown menu (like left menu)
+         -->
+          <psk-button-group
+            icon="@rightMenu.icon"
+            icon-color="@rightMenu.iconColor"
+            menu-orientation="@rightMenu.menuOrientation"
+            classes="@rightMenu.classes"
+          >
+            <psk-for-each data-view-model="rightMenu.menuActions">
+              <psk-button
+                label="@label"
+                event-name="@eventName"
+                event-data="@eventData"
+                button-class="@buttonClass"
+              >
+              </psk-button>
+            </psk-for-each>
+          </psk-button-group>
+          <!-- 
+            Switch layout button from list to grid and reverse
+          -->
+          <psk-button
+            display-if-is="switchLayout.active | grid"
+            title="@switchLayout.grid.switchHover"
+            event-name="@switchLayout.grid.eventName"
+            button-class="@switchLayout.buttonClass"
+          >
+            <psk-icon
+              color="@switchLayout.grid.iconColor"
+              icon="@switchLayout.grid.icon"
+            ></psk-icon>
+          </psk-button>
+          <!-- 
+            Switch layout button from list to grid and reverse
+          -->
+          <psk-button
+            display-if-is="switchLayout.active | list"
+            title="@switchLayout.list.switchHover"
+            event-name="@switchLayout.list.eventName"
+            button-class="@switchLayout.buttonClass"
+          >
+            <psk-icon
+              color="@switchLayout.list.iconColor"
+              icon="@switchLayout.list.icon"
+            ></psk-icon>
+          </psk-button>
+        </psk-grid>
+      </psk-grid>
+
+      <!-- 
+        The content to be displayed according to the current navigation path
+       -->
+      <psk-grid
+        columns="4"
+        layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
       >
         <psk-label label="@dossierDetails.nameLabel"></psk-label>
+        <psk-label label="@dossierDetails.typeLabel"></psk-label>
         <psk-label label="@dossierDetails.lastModificationLabel"></psk-label>
         <psk-label label="@dossierDetails.sizeLabel"></psk-label>
       </psk-grid>
@@ -45,8 +150,8 @@
       <psk-for-each data-view-model="dossierDetails.items">
         <psk-grid
           class="items"
-          columns="3"
-          layout="xs=[7,3,2] s=[7,3,2] m=[7,3,2] l=[7,3,2] xl=[7,3,2]"
+          columns="4"
+          layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
         >
           <psk-label label="@name">
             <psk-button
@@ -68,6 +173,7 @@
               icon="@icon"
             ></psk-icon>
           </psk-label>
+          <psk-label label="@type"></psk-label>
           <psk-label label="@lastModification"></psk-label>
           <psk-label label="@size"></psk-label>
         </psk-grid>
