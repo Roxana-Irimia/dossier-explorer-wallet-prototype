@@ -48,14 +48,14 @@ psk-button-group[opened] .list-group {
   padding-right: 0.75rem;
 }
 
-psk-button-group[opened] .list-group.left-orientation {
+psk-button-group[opened] .add-menu .list-group {
   left: 0px;
   right: auto;
   transform: translate3d(0px, 3rem, 0px);
   will-change: transform;
 }
 
-psk-button-group[opened] .list-group.right-orientation {
+psk-button-group[opened] .dots-menu .list-group {
   left: auto;
   right: 0px;
   transform: translate3d(0.5rem, 1.5rem, 0px);

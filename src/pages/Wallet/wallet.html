@@ -87,12 +87,7 @@
           <!-- 
           dropdown menu (like left menu)
          -->
-          <psk-button-group
-            icon="@rightMenu.icon"
-            icon-color="@rightMenu.iconColor"
-            menu-orientation="@rightMenu.menuOrientation"
-            classes="@rightMenu.classes"
-          >
+          <psk-button-group view-model="rightMenu.dotsMenu">
             <psk-for-each data-view-model="rightMenu.menuActions">
               <psk-button
                 label="@label"

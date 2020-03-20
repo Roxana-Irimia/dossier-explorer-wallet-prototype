@@ -8,11 +8,11 @@ export const explorerModel = {
     label: "Exit"
   },
   addItems: {
-    menuOrientation: "left",
     addButton: {
       label: "Add",
       icon: "plus",
-      iconColor: "#ffffff"
+      iconColor: "#ffffff",
+      classes: "add-menu"
     },
     addButtonsList: [
       {
@@ -48,10 +48,11 @@ export const explorerModel = {
     ]
   },
   rightMenu: {
-    menuOrientation: "right",
-    icon: "ellipsis-v",
-    iconColor: "rgb(92, 12, 78)",
-    classes: "dots-menu",
+    dotsMenu: {
+      icon: "ellipsis-v",
+      iconColor: "rgb(92, 12, 78)",
+      classes: "dots-menu"
+    },
     menuActions: [
       {
         label: "Move",
