@@ -1,0 +1,41 @@
+<psk-grid
+  columns="4"
+  layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
+>
+  <psk-label label="@dossierDetails.nameLabel"></psk-label>
+  <psk-label label="@dossierDetails.typeLabel"></psk-label>
+  <psk-label label="@dossierDetails.lastModificationLabel"></psk-label>
+  <psk-label label="@dossierDetails.sizeLabel"></psk-label>
+</psk-grid>
+
+<psk-for-each data-view-model="dossierDetails.items">
+  <psk-grid
+    class="items"
+    columns="4"
+    layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
+  >
+    <psk-label label="@name">
+      <psk-button
+        display-if-exists="action"
+        button-class="@action.buttonClass"
+        event-name="@action.eventName"
+      >
+        <psk-icon
+          display-if-exists="action.icon"
+          color="@action.iconColor"
+          icon="@action.icon"
+        ></psk-icon>
+        <psk-label label="@action.label"></psk-label>
+      </psk-button>
+
+      <psk-icon
+        display-if-exists="icon"
+        color="@iconColor"
+        icon="@icon"
+      ></psk-icon>
+    </psk-label>
+    <psk-label label="@type"></psk-label>
+    <psk-label label="@lastModification"></psk-label>
+    <psk-label label="@size"></psk-label>
+  </psk-grid>
+</psk-for-each>

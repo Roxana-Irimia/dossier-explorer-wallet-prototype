@@ -14,7 +14,7 @@
   scroll-behavior: smooth;
 }
 
-nav {
+.page-title {
   width: 100%;
   line-height: 4.375rem;
   background-color: #fff;
@@ -22,7 +22,7 @@ nav {
   padding: 16px;
 }
 
-nav h3 {
+.page-title h1 {
   margin-bottom: 0;
   padding: 0 0 0 20px;
   font-size: 1.75rem;

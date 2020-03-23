@@ -1,0 +1,64 @@
+<psk-grid
+  columns="6"
+  layout="xs=[2,2,2,2,2,2] s=[2,2,2,2,2,2] m=[2,2,2,2,2,2] l=[2,2,2,2,2,2] xl=[2,2,2,2,2,2]"
+>
+  <psk-button
+    event-name="@rightMenu.viewIcon.eventName"
+    event-data="@rightMenu.viewIcon.eventData"
+    button-class="@rightMenu.viewIcon.buttonClass"
+  >
+    <psk-icon
+      icon="@rightMenu.viewIcon.icon"
+      color="@rightMenu.viewIcon.iconColor"
+    ></psk-icon>
+  </psk-button>
+  <psk-button
+    event-name="@rightMenu.exportIcon.eventName"
+    event-data="@rightMenu.exportIcon.eventData"
+    button-class="@rightMenu.exportIcon.buttonClass"
+  >
+    <psk-icon
+      icon="@rightMenu.exportIcon.icon"
+      color="@rightMenu.exportIcon.iconColor"
+    ></psk-icon>
+  </psk-button>
+  <psk-button
+    event-name="@rightMenu.shareIcon.eventName"
+    event-data="@rightMenu.shareIcon.eventData"
+    button-class="@rightMenu.shareIcon.buttonClass"
+  >
+    <psk-icon
+      icon="@rightMenu.shareIcon.icon"
+      color="@rightMenu.shareIcon.iconColor"
+    ></psk-icon>
+  </psk-button>
+  <psk-button
+    event-name="@rightMenu.deleteIcon.eventName"
+    event-data="@rightMenu.deleteIcon.eventData"
+    button-class="@rightMenu.deleteIcon.buttonClass"
+  >
+    <psk-icon
+      icon="@rightMenu.deleteIcon.icon"
+      color="@rightMenu.deleteIcon.iconColor"
+    ></psk-icon>
+  </psk-button>
+
+  <!-- 
+          dropdown menu (like left menu)
+         -->
+  <psk-button-group view-model="rightMenu.dotsMenu">
+    <psk-for-each data-view-model="rightMenu.menuActions">
+      <psk-button
+        label="@label"
+        event-name="@eventName"
+        event-data="@eventData"
+        button-class="@buttonClass"
+      >
+      </psk-button>
+    </psk-for-each>
+  </psk-button-group>
+  <!-- 
+            Switch layout button from list to grid and reverse
+          -->
+  <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
+</psk-grid>

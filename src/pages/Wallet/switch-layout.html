@@ -1,0 +1,30 @@
+<psk-grid
+  columns="2"
+  layout="xs=[12,12] s=[12,12] m=[12,12] l=[12,12] xl=[12,12]"
+>
+  <psk-condition condition="@isGridLayout">
+    <psk-button
+      title="@switchLayout.grid.switchHover"
+      event-name="@switchLayout.grid.eventName"
+      button-class="@switchLayout.buttonClass"
+    >
+      <psk-icon
+        color="@switchLayout.grid.iconColor"
+        icon="@switchLayout.grid.icon"
+      ></psk-icon>
+    </psk-button>
+  </psk-condition>
+
+  <psk-condition condition="@isListLayout">
+    <psk-button
+      title="@switchLayout.list.switchHover"
+      event-name="@switchLayout.list.eventName"
+      button-class="@switchLayout.buttonClass"
+    >
+      <psk-icon
+        color="@switchLayout.list.iconColor"
+        icon="@switchLayout.list.icon"
+      ></psk-icon>
+    </psk-button>
+  </psk-condition>
+</psk-grid>
