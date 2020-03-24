@@ -1,12 +1,6 @@
 <psk-page title="E-wallet">
   <psk-container controller-name="ExplorerController">
-    <psk-button
-      button-class="@signOut.buttonClass"
-      event-name="@signOut.eventName"
-    >
-      <psk-icon icon="@signOut.icon" color="@signOut.iconColor"></psk-icon>
-      <psk-label label="@signOut.label"></psk-label>
-    </psk-button>
+    <psk-page-loader page-url="@pageLoader.signOut"></psk-page-loader>
 
     <psk-card title="@sectionTitle">
       <psk-grid

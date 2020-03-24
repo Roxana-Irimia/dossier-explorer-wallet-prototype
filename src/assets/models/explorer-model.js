@@ -6,7 +6,8 @@ const pageLoader = {
   leftMenu: `${basePagesPath}Wallet/left-menu.html`,
   rightMenu: `${basePagesPath}Wallet/right-menu.html`,
   walletContent: `${basePagesPath}Wallet/wallet-content.html`,
-  switchLayout: `${basePagesPath}Wallet/switch-layout.html`
+  switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
+  signOut: `${basePagesPath}Wallet/sign-out.html`
 };
 
 const addItems = {
@@ -73,6 +74,7 @@ const rightMenu = {
   viewIcon: {
     icon: "eye",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-view",
     buttonClass: "no-btn"
@@ -80,6 +82,7 @@ const rightMenu = {
   exportIcon: {
     icon: "download",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-export",
     buttonClass: "no-btn"
@@ -87,6 +90,7 @@ const rightMenu = {
   shareIcon: {
     icon: "share",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-share",
     buttonClass: "no-btn"
@@ -94,22 +98,26 @@ const rightMenu = {
   deleteIcon: {
     icon: "trash",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-delete",
     buttonClass: "no-btn"
-  }
+  },
+  selectedItems: []
 };
 
 const switchLayout = {
   grid: {
     icon: "th",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     switchHover: "Click to switch to list",
     eventName: "switch-layout"
   },
   list: {
     icon: "th-list",
     iconColor: "rgb(92, 12, 78)",
+    iconClass: "right-menu",
     switchHover: "Click to switch to grid",
     eventName: "switch-layout"
   },
@@ -149,7 +157,8 @@ const dossierDetails = {
         label: "Run",
         eventName: "run-app",
         iconColor: "rgb(92, 12, 78)",
-        icon: "play"
+        icon: "play",
+        iconClass: "icon-run-app"
       }
     },
     {
@@ -163,16 +172,23 @@ const dossierDetails = {
   ]
 };
 
+const signOut = {
+  eventName: "exit",
+  buttonClass: "btn-exit",
+  icon: "sign-out",
+  iconColor: "rgb(92, 12, 78)",
+  iconClass: "right-menu",
+  label: "Exit",
+  modal: {
+    opened: false,
+    title: "Exit Wallet"
+  }
+};
+
 export const explorerModel = {
   sectionTitle: "Dashboard",
   pageLoader: { ...pageLoader },
-  signOut: {
-    eventName: "exit",
-    buttonClass: "btn-exit",
-    icon: "sign-out",
-    iconColor: "rgb(92, 12, 78)",
-    label: "Exit"
-  },
+  signOut: { ...signOut },
   addItems: { ...addItems },
   rightMenu: { ...rightMenu },
   dossierDetails: { ...dossierDetails },

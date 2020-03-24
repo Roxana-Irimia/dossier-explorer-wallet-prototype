@@ -17,10 +17,10 @@ psk-button-group[opened] .list-group {
 
 .button-group-wrapper .list-group,
 .trigger {
-  padding: 0.25rem 1rem 0;
+  padding: 0.25rem 1rem;
   font-size: 1.1rem;
   color: #fff;
-  text-align: left;
+  text-align: center;
   background-color: rgb(92, 12, 78);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -36,16 +36,15 @@ psk-button-group[opened] .list-group {
 
 .button-group-wrapper.dots-menu .trigger {
   background-color: transparent;
-  padding-top: 0;
   border: none;
 }
 
-.trigger {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
+.button-group-wrapper.dots-menu .icon {
+  font-size: 1.5rem;
 }
-.trigger * {
-  padding-right: 0.75rem;
+
+.trigger {
+  cursor: pointer;
 }
 
 psk-button-group[opened] .add-menu .list-group {
@@ -58,7 +57,8 @@ psk-button-group[opened] .add-menu .list-group {
 psk-button-group[opened] .dots-menu .list-group {
   left: auto;
   right: 0px;
-  transform: translate3d(0.5rem, 1.5rem, 0px);
+  transform: translate3d(0rem, 2.5rem, 0px);
   will-change: transform;
   min-width: 10rem;
+  margin: 0;
 }

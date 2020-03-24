@@ -1,33 +1,27 @@
 import BindableController from "./base-controllers/BindableController.js";
 import { explorerModel } from "../../assets/models/explorer-model.js";
+import { explorerInitConditionalExpressions } from "../utils/controllerUtils.js";
 import {
-  isGridLayout,
-  isListLayout
-} from "../../assets/models/condition-expressions.js";
+  explorerExitHandler,
+  explorerSwitchLayoutHandler
+} from "../utils/eventHandlers.js";
 
 export default class ExplorerController extends BindableController {
   constructor(element) {
     super(element);
     this.model = this.setModel(explorerModel);
 
-    this._attachExpressions();
     this._initListeners();
+    explorerInitConditionalExpressions();
   }
 
-  _attachExpressions = () => {
-    if (!this.model.hasExpression("isGridLayout")) {
-      this.model.addExpression("isGridLayout", isGridLayout, [
-        "switchLayout.active"
-      ]);
-    }
-    if (!this.model.hasExpression("isListLayout")) {
-      this.model.addExpression("isListLayout", isListLayout, [
-        "switchLayout.active"
-      ]);
-    }
-  };
-
   _initListeners = () => {
+    this.on(
+      "exit cancel-exit confirm-exit",
+      this.element,
+      this._toggleExitModalOpened,
+      true
+    );
     this.on("switch-layout", this.element, this._handleSwitchLayout, true);
   };
 
@@ -35,9 +29,13 @@ export default class ExplorerController extends BindableController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    let layoutState = this.model.getChainValue("switchLayout.active");
-    layoutState = layoutState === "grid" ? "list" : "grid";
+    explorerSwitchLayoutHandler.call(this);
+  };
 
-    this.model.setChainValue("switchLayout.active", layoutState);
+  _toggleExitModalOpened = event => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    explorerExitHandler.call(this);
   };
 }
