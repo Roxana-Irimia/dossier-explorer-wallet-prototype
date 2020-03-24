@@ -8,7 +8,11 @@
 </psk-button>
 
 <psk-condition condition="@isSignOutModalOpened">
-  <psk-modal>
+  <psk-modal opened event-name="cancel-exit" class="exit-modal">
+    <psk-label slot="title" label="@signOut.modal.title"></psk-label>
+
+    <psk-label label="@signOut.modal.confirmQuestion"></psk-label>
+
     
   </psk-modal>
 </psk-condition>

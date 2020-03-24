@@ -2,7 +2,7 @@ export function explorerExitHandler() {
   let self = this;
 
   let modalState = self.model.getChainValue("signOut.modal.opened");
-  modalState = modalState & false;
+  modalState = !modalState;
 
   self.model.setChainValue("signOut.modal.opened", modalState);
 }

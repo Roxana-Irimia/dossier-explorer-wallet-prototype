@@ -19,6 +19,6 @@ export function isFileSelected() {
 
 export function isSignOutModalOpened() {
   let model = this;
-
+  
   return model.getChainValue("signOut.modal.opened") === true;
 }
