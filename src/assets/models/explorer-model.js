@@ -182,20 +182,26 @@ const signOut = {
   modal: {
     opened: false,
     title: "Exit Wallet",
-    confirmQuestion: "Would you also like to delete Walled SEED from this device?",
+    confirmQuestion:
+      "Would you also like to delete Walled SEED from this device?",
     checkbox: {
-      checked: false,
-      label: "I have a copy of this Wallet SEED"
+      checkboxLabel: "I have a copy of this Wallet SEED",
+      value: "unchecked"
     },
     confirmButton: {
+      disabled: true,
       label: "Yes",
-      eventName: 'confirm-exit',
-      buttonClass: 'btn-confirm'
+      eventName: "confirm-exit",
+      buttonClass: "btn-confirm"
     },
     justExitButton: {
       label: "No, just exit",
-      eventName: 'confirm-exit',
-      buttonClass: 'btn-confirm-primary'
+      eventName: "confirm-exit",
+      buttonClass: "btn-confirm-primary"
+    },
+    error: {
+      hasError: true,
+      errorMessage: "Service error"
     }
   }
 };
