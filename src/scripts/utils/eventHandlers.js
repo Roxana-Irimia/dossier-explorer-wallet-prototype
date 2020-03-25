@@ -24,10 +24,11 @@ export function explorerConfirmExitHandler() {
    * TODO: Check if this is necesary
    * Reset the model on initial state for the next wallet opening
    */
+  model.setChainValue("signOut.modal.opened", false);
+  model.setChainValue("signOut.modal.checkbox.checked", true);
   model.setChainValue("signOut.modal.checkbox.value", "unchecked");
   model.setChainValue("signOut.modal.error.hasError", false);
-  model.setChainValue("signOut.modal.error.errorMessage", null);
-  model.setChainValue("signOut.modal.opened", false);
+  model.setChainValue("signOut.modal.error.errorMessage", "");
 }
 
 export function explorerSwitchLayoutHandler() {

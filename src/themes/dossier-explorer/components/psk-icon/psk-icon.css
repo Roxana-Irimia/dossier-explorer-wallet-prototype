@@ -5,6 +5,7 @@ span.icon {
   font-size: 1rem;
   margin: 0;
   padding: calc(0.375rem + 1px) 0;
+  color: #572a57;
 }
 
 .icon.disable-color {

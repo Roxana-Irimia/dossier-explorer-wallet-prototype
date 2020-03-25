@@ -13,8 +13,9 @@
 .btn-run {
   border-radius: 0.2rem;
   border-width: 0px;
-  box-shadow: 0px 0px 3px rgb(92, 12, 78);
+  box-shadow: 0px 0px 3px #572a57;
   margin-left: 0.5rem;
+  background-color: #ffffff;
 }
 
 .btn-run:hover,

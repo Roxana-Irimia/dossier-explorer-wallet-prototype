@@ -54,7 +54,7 @@ const addItems = {
 const rightMenu = {
   dotsMenu: {
     icon: "ellipsis-v",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     classes: "dots-menu"
   },
   menuActions: [
@@ -73,7 +73,7 @@ const rightMenu = {
   ],
   viewIcon: {
     icon: "eye",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-view",
@@ -81,7 +81,7 @@ const rightMenu = {
   },
   exportIcon: {
     icon: "download",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-export",
@@ -89,7 +89,7 @@ const rightMenu = {
   },
   shareIcon: {
     icon: "share",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-share",
@@ -97,7 +97,7 @@ const rightMenu = {
   },
   deleteIcon: {
     icon: "trash",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     eventData: "{path: '/'}",
     eventName: "right-menu-delete",
@@ -109,14 +109,14 @@ const rightMenu = {
 const switchLayout = {
   grid: {
     icon: "th",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     switchHover: "Click to switch to list",
     eventName: "switch-layout"
   },
   list: {
     icon: "th-list",
-    iconColor: "rgb(92, 12, 78)",
+    iconColor: "#572a57",
     iconClass: "right-menu",
     switchHover: "Click to switch to grid",
     eventName: "switch-layout"
@@ -139,12 +139,16 @@ const dossierDetails = {
       name: "/assets",
       lastModification: "1584079000",
       type: "folder",
+      iconColor: "#572a57",
+      gridIcon: "folder",
       size: "78563"
     },
     {
       name: "/blockchainkasd  has",
       lastModification: "547856365631313213132132132131",
       type: "file",
+      iconColor: "#572a57",
+      gridIcon: "file",
       size: "547856365631313213132132132131"
     },
     {
@@ -152,11 +156,13 @@ const dossierDetails = {
       lastModification: "1584079000",
       type: "application",
       size: "2478563",
+      iconColor: "#572a57",
+      gridIcon: "cog",
       action: {
         buttonClass: "btn-run",
         label: "Run",
         eventName: "run-app",
-        iconColor: "rgb(92, 12, 78)",
+        iconColor: "#572a57",
         icon: "play",
         iconClass: "icon-run-app"
       }
@@ -167,7 +173,8 @@ const dossierDetails = {
       size: "347856",
       type: "dossier",
       icon: "lock",
-      iconColor: "rgb(92, 12, 78)"
+      iconColor: "#572a57",
+      gridIcon: "lock"
     }
   ]
 };
@@ -176,7 +183,7 @@ const signOut = {
   eventName: "exit",
   buttonClass: "btn-exit",
   icon: "sign-out",
-  iconColor: "rgb(92, 12, 78)",
+  iconColor: "#572a57",
   iconClass: "right-menu",
   label: "Exit",
   modal: {
@@ -185,6 +192,7 @@ const signOut = {
     confirmQuestion:
       "Would you also like to delete Walled SEED from this device?",
     checkbox: {
+      checked: false,
       checkboxLabel: "I have a copy of this Wallet SEED",
       value: "unchecked"
     },

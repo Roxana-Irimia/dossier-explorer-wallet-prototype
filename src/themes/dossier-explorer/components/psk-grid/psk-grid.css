@@ -1,14 +1,8 @@
 @import url(../../../commons/bootstrap/css/bootstrap.min.css);
 @import url(../../../commons/styles/styles.css);
-* {
-  outline: none !important;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-}
 
 .row {
-  color: rgb(92, 12, 78);
+  color: #572a57;
   font-weight: bold;
 }
 

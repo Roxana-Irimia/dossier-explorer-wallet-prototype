@@ -9,26 +9,25 @@
 /* clean old style inherited from bootstrap */
 psk-card,
 .card.psk-card,
-.card.psk-card .card-header,
-.card.psk-card .card-body {
+.card.psk-card .card-header {
   font-family: nunito;
   background: none;
   display: block;
   border: none;
 }
 
-.card.psk-card .card-header {
+.card-header {
   background-color: #eee;
 }
 
-.card.psk-card .card-body {
+.card-body {
   padding: 2rem 4rem;
 }
 
 .card-header h5 {
   width: 100%;
   line-height: 2rem;
-  color: rgba(74, 74, 163, 0.75);
+  color: #5076b3;
   font-weight: bold;
   padding-left: 16px;
   font-size: 1.2rem;
@@ -52,8 +51,60 @@ psk-card,
   font-size: 110%;
 }
 
-@media (max-width: 969px) {
-  .card.psk-card .card-body {
+@media (max-width: 991px) {
+  .card-body {
     padding: 2rem 2rem;
   }
 }
+
+/*** Special selectors ***/
+
+/** wallet-grid **/
+.wallet-grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.wallet-grid .card-body {
+  padding: 0 0.75rem;
+  border: 1px solid #572a57;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin: 1rem 3rem 1rem 0;
+}
+
+.wallet-grid {
+  position: relative;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.wallet-grid :not(psk-button) > psk-icon span.icon {
+  font-size: 20px;
+  padding-top: 1rem;
+}
+
+@media (max-width: 1499px) {
+  .wallet-grid {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
+@media (max-width: 1199px) {
+  .wallet-grid {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .wallet-grid:nth-child(2n) .card-body {
+    margin: 1rem 1rem 0 3rem;
+  }
+
+  .wallet-grid:nth-child(2n + 1) .card-body {
+    margin: 1rem 3rem 0 0;
+  }
+}
+/** end wallet-grid **/
