@@ -28,3 +28,10 @@ export function hasExitModalError() {
 
   return model.getChainValue("signOut.modal.error.hasError") === true;
 }
+
+export function isDossierEmpty() {
+  let model = this;
+  let dossierItems = model.getChainValue("dossierDetails.items");
+
+  return !dossierItems || !dossierItems.length;
+}

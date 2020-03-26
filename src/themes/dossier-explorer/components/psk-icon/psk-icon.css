@@ -8,6 +8,10 @@ span.icon {
   color: #572a57;
 }
 
+psk-button span.icon {
+  padding: 0;
+}
+
 .icon.disable-color {
   color: #999 !important;
 }

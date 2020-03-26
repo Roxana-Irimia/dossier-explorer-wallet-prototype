@@ -134,6 +134,7 @@ const dossierDetails = {
   typeLabel: "Type",
   lastModificationLabel: "Last modification",
   nameLabel: "Name",
+  noItemsLabel: "There are no items in the current folder/dossier. You can add some by using the Add button.",
   items: [
     {
       name: "/assets",

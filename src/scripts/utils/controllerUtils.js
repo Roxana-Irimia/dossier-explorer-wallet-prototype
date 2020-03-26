@@ -3,7 +3,8 @@ import {
   isListLayout,
   isFileSelected,
   hasExitModalError,
-  isSignOutModalOpened
+  isSignOutModalOpened,
+  isDossierEmpty
 } from "../../assets/models/condition-expressions.js";
 import { signOutCheckboxToggle } from "../../assets/models/chain-change-handlers.js";
 
@@ -22,11 +23,18 @@ export function explorerInitConditionalExpressions() {
     ]);
   }
 
+  if (!self.model.hasExpression("isDossierEmpty")) {
+    self.model.addExpression("isDossierEmpty", isDossierEmpty, [
+      "dossierDetails.items"
+    ]);
+  }
+
   if (!self.model.hasExpression("isFileSelected")) {
     self.model.addExpression("isFileSelected", isFileSelected, [
       "rightMenu.selectedItems"
     ]);
   }
+
   if (!self.model.hasExpression("isSignOutModalOpened")) {
     self.model.addExpression(
       "isSignOutModalOpened",

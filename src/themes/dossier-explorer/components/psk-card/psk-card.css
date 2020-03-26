@@ -68,7 +68,7 @@ psk-card,
 }
 
 .wallet-grid .card-body {
-  padding: 0 0.75rem;
+  padding: 0.25rem 0.75rem;
   border: 1px solid #572a57;
   border-radius: 10px;
   background-color: #ffffff;
@@ -83,7 +83,6 @@ psk-card,
 
 .wallet-grid :not(psk-button) > psk-icon span.icon {
   font-size: 20px;
-  padding-top: 1rem;
 }
 
 @media (max-width: 1499px) {
@@ -105,6 +104,17 @@ psk-card,
 
   .wallet-grid:nth-child(2n + 1) .card-body {
     margin: 1rem 3rem 0 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .wallet-grid {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .wallet-grid .card-body {
+    margin: 1.5rem 1rem !important;
   }
 }
 /** end wallet-grid **/

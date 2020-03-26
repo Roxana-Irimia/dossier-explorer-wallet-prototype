@@ -41,6 +41,7 @@ psk-button-group[opened] .list-group {
 
 .button-group-wrapper.dots-menu .icon {
   font-size: 1.5rem;
+  padding: 0;
 }
 
 .trigger {
