@@ -15,12 +15,6 @@
     },
     "pages": [
       {
-        "name": "Dashboard",
-        "path": "/dashboard",
-        "icon": "fa-home",
-        "pageSrc": "index.html"
-      },
-      {
         "name": "E-wallet",
         "path": "/e-wallet",
         "pageSrc": "Wallet/wallet.html"
