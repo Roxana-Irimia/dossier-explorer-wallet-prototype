@@ -39,3 +39,48 @@ export function explorerSwitchLayoutHandler() {
 
   model.setChainValue("switchLayout.active", layoutState);
 }
+
+export function toggleAddModalHandler(event) {
+  let model = this.model;
+
+  let selectedModal = "";
+  if (event.data) {
+    try {
+      const data = JSON.parse(event.data);
+      selectedModal = data.modalName;
+    } catch (e) {
+      console.error(`eventData object is not in JSON format: ${event.type}`);
+    }
+  }
+
+  model.setChainValue("addItems.selectedModal", selectedModal);
+}
+
+export function registerNewDossier() {
+  let model = this.model;
+
+  model.setChainValue("createDossierModal.hasError", false);
+  model.setChainValue("createDossierModal.createDossierButton.disabled", false);
+
+  let inputDossierName = model.getChainValue(
+    "createDossierModal.dossierInput.value"
+  );
+
+  let dossier = {
+    name: inputDossierName,
+    lastModification: new Date().getTime(),
+    type: "dossier",
+    size: "0"
+  };
+
+  let currentItems = model.getChainValue("dossierDetails.items");
+  if (!currentItems || !currentItems.length) {
+    currentItems = [dossier];
+  } else {
+    currentItems.push(dossier);
+  }
+
+  model.setChainValue("createDossierModal.createState", false);
+
+  console.log(model);
+}

@@ -1,0 +1,42 @@
+<psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
+  <psk-label slot="title" label="@createDossierModal.title"></psk-label>
+
+  <psk-condition condition="@isNewDossierCreateState">
+    <psk-icon
+      slot="condition-true"
+      view-model="createDossierModal.pencilIcon"
+    ></psk-icon>
+    <psk-text-input
+      slot="condition-true"
+      view-model="createDossierModal.dossierInput"
+    ></psk-text-input>
+
+    <psk-icon
+      slot="condition-false"
+      view-model="createDossierModal.checkIcon"
+    ></psk-icon>
+    <psk-text-input
+      slot="condition-false"
+      view-model="createDossierModal.seedInput"
+    ></psk-text-input>
+  </psk-condition>
+
+  <psk-condition condition="@hasNewDossierModalError">
+    <psk-label
+      label="@createDossierModal.errorMessage"
+      class="h6 error"
+    ></psk-label>
+  </psk-condition>
+
+  <psk-condition condition="@isNewDossierCreateState">
+    <psk-button
+      slot="condition-true"
+      view-model="createDossierModal.createDossierButton"
+    ></psk-button>
+
+    <psk-button
+      slot="condition-false"
+      view-model="createDossierModal.finishButton"
+    ></psk-button>
+  </psk-condition>
+</psk-modal>

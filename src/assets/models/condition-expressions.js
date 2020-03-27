@@ -35,3 +35,21 @@ export function isDossierEmpty() {
 
   return !dossierItems || !dossierItems.length;
 }
+
+export function isCreateDossierModal() {
+  let model = this;
+
+  return model.getChainValue("addItems.selectedModal") === "create-dossier";
+}
+
+export function isNewDossierCreateState() {
+  let model = this;
+
+  return model.getChainValue("createDossierModal.createState") === true;
+}
+
+export function hasNewDossierModalError() {
+  let model = this;
+
+  return model.getChainValue("createDossierModal.hasError") === true;
+}

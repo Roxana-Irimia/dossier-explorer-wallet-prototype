@@ -4,9 +4,25 @@ import {
   isFileSelected,
   hasExitModalError,
   isSignOutModalOpened,
-  isDossierEmpty
+  isDossierEmpty,
+  isCreateDossierModal,
+  isNewDossierCreateState,
+  hasNewDossierModalError
 } from "../../assets/models/condition-expressions.js";
-import { signOutCheckboxToggle } from "../../assets/models/chain-change-handlers.js";
+import {
+  signOutCheckboxToggle,
+  newDossierInputChangeHandler
+} from "../../assets/models/chain-change-handlers.js";
+
+// TODO: Refactor: Create a dictionary with the conditions and make a generic function (something similar with assert.true) that will get the condition result.
+
+// let dict = [
+//   {
+//     expression: "isGridLayout",
+//     callback: isGridLayout,
+//     chains: ["switchLayout.active"]
+//   }
+// ];
 
 export function explorerInitConditionalExpressions() {
   const self = this;
@@ -50,13 +66,37 @@ export function explorerInitConditionalExpressions() {
     ]);
   }
 
-  if (!self.model.hasExpression("signOutCheckboxToggle")) {
-    self.model.addExpression("signOutCheckboxToggle", function() {}, [
-      "signOut.modal.checkbox.value"
+  if (!self.model.hasExpression("isCreateDossierModal")) {
+    self.model.addExpression("isCreateDossierModal", isCreateDossierModal, [
+      "addItems.selectedModal"
     ]);
-    self.model.onChangeExpressionChain(
-      "signOutCheckboxToggle",
-      signOutCheckboxToggle.bind(self.model)
+  }
+
+  if (!self.model.hasExpression("isNewDossierCreateState")) {
+    self.model.addExpression(
+      "isNewDossierCreateState",
+      isNewDossierCreateState,
+      ["createDossierModal.createState"]
     );
   }
+
+  if (!self.model.hasExpression("hasNewDossierModalError")) {
+    self.model.addExpression(
+      "hasNewDossierModalError",
+      hasNewDossierModalError,
+      ["createDossierModal.hasError", "createDossierModal.errorMessage"]
+    );
+  }
+
+  /*****************  Chain change handlers - No Exprssions *********************/
+
+  self.model.onChange(
+    "signOut.modal.checkbox.value",
+    signOutCheckboxToggle.bind(self.model)
+  );
+
+  self.model.onChange(
+    "createDossierModal.dossierInput.value",
+    newDossierInputChangeHandler.bind(self.model)
+  );
 }

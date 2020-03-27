@@ -7,10 +7,51 @@ const pageLoader = {
   rightMenu: `${basePagesPath}Wallet/right-menu.html`,
   walletContent: `${basePagesPath}Wallet/wallet-content.html`,
   switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
-  signOut: `${basePagesPath}Wallet/sign-out.html`
+  signOut: `${basePagesPath}Wallet/sign-out.html`,
+  signOutModal: `${basePagesPath}Wallet/modals/sign-out-modal.html`,
+  fileDossierModals: `${basePagesPath}Wallet/modals/file-dossier-modals.html`,
+  createDossierModal: `${basePagesPath}Wallet/modals/new-dossier-modal.html`
+};
+
+const createDossierModal = {
+  title: "Create Dossier",
+  createState: true,
+  hasError: false,
+  errorMessage: "",
+  pencilIcon: {
+    icon: "pencil",
+    color: "#8197bc",
+    classes: "create-dossier-modal"
+  },
+  checkIcon: {
+    icon: "check",
+    color: "#8197bc",
+    classes: "create-dossier-modal"
+  },
+  dossierInput: {
+    label: "Name your new dossier"
+  },
+  seedInput: {
+    label: "Dossier with the SEED below has been successfully created!",
+    value: "ep8n5buype895ubye8netpmtu9rutepu9teertue58yuet7iy7tijht",
+    readonly: true
+  },
+  createDossierButton: {
+    disabled: true,
+    label: "Create Dossier",
+    eventName: "send-new-dossier",
+    buttonClass: "btn-confirm-primary"
+  },
+  finishButton: {
+    label: "Finish",
+    eventName: "new-dossier-seed-received",
+    buttonClass: "btn-confirm-primary"
+  }
 };
 
 const addItems = {
+  selectedModal: "",
+  closeModal: "add-modal",
   addButton: {
     label: "Add",
     icon: "plus",
@@ -20,32 +61,32 @@ const addItems = {
   addButtonsList: [
     {
       label: "Add file",
-      eventName: "add-file",
-      eventData: "{ path: '/' }",
+      eventName: "add-modal",
+      eventData: '{ "path": "/", "modalName": "add-file" }',
       buttonClass: "btn-menu"
     },
     {
       label: "Add folder",
-      eventName: "add-folder",
-      eventData: "{ path: '/' }",
+      eventName: "add-modal",
+      eventData: '{ "path": "/", "modalName": "add-folder" }',
       buttonClass: "btn-menu bottom-border"
     },
     {
       label: "Create Dossier",
-      eventName: "create-dossier",
-      eventData: "{ path: '/' }",
+      eventName: "add-modal",
+      eventData: '{ "path": "/", "modalName": "create-dossier" }',
       buttonClass: "btn-menu"
     },
     {
       label: "Import Dossier",
-      eventName: "import-dossier",
-      eventData: "{ path: '/' }",
+      eventName: "add-modal",
+      eventData: '{ "path": "/", "modalName": "import-dossier" }',
       buttonClass: "btn-menu"
     },
     {
       label: "Receive Dossier",
-      eventName: "receive-dossier",
-      eventData: "{ path: '/' }",
+      eventName: "add-modal",
+      eventData: '{ "path": "/", "modalName": "receive-dossier" }',
       buttonClass: "btn-menu"
     }
   ]
@@ -61,13 +102,13 @@ const rightMenu = {
     {
       label: "Move",
       eventName: "right-menu-move",
-      eventData: "{path: '/'}",
+      eventData: '{"path": "/"}',
       buttonClass: "btn-menu"
     },
     {
       label: "Rename",
       eventName: "right-menu-rename",
-      eventData: "{path: '/'}",
+      eventData: '{"path": "/"}',
       buttonClass: "btn-menu"
     }
   ],
@@ -75,7 +116,7 @@ const rightMenu = {
     icon: "eye",
     iconColor: "#572a57",
     iconClass: "right-menu",
-    eventData: "{path: '/'}",
+    eventData: '{"path": "/"}',
     eventName: "right-menu-view",
     buttonClass: "no-btn"
   },
@@ -83,7 +124,7 @@ const rightMenu = {
     icon: "download",
     iconColor: "#572a57",
     iconClass: "right-menu",
-    eventData: "{path: '/'}",
+    eventData: '{"path": "/"}',
     eventName: "right-menu-export",
     buttonClass: "no-btn"
   },
@@ -91,7 +132,7 @@ const rightMenu = {
     icon: "share",
     iconColor: "#572a57",
     iconClass: "right-menu",
-    eventData: "{path: '/'}",
+    eventData: '{"path": "/"}',
     eventName: "right-menu-share",
     buttonClass: "no-btn"
   },
@@ -99,7 +140,7 @@ const rightMenu = {
     icon: "trash",
     iconColor: "#572a57",
     iconClass: "right-menu",
-    eventData: "{path: '/'}",
+    eventData: '{"path": "/"}',
     eventName: "right-menu-delete",
     buttonClass: "no-btn"
   },
@@ -134,10 +175,11 @@ const dossierDetails = {
   typeLabel: "Type",
   lastModificationLabel: "Last modification",
   nameLabel: "Name",
-  noItemsLabel: "There are no items in the current folder/dossier. You can add some by using the Add button.",
+  noItemsLabel:
+    "There are no items in the current folder/dossier. You can add some by using the Add button.",
   items: [
     {
-      name: "/assets",
+      name: "assets",
       lastModification: "1584079000",
       type: "folder",
       iconColor: "#572a57",
@@ -145,7 +187,7 @@ const dossierDetails = {
       size: "78563"
     },
     {
-      name: "/blockchainkasd  has",
+      name: "blockchain",
       lastModification: "547856365631313213132132132131",
       type: "file",
       iconColor: "#572a57",
@@ -153,7 +195,7 @@ const dossierDetails = {
       size: "547856365631313213132132132131"
     },
     {
-      name: "/app",
+      name: "app",
       lastModification: "1584079000",
       type: "application",
       size: "2478563",
@@ -169,7 +211,7 @@ const dossierDetails = {
       }
     },
     {
-      name: "/New Dossier",
+      name: "New Dossier",
       lastModification: "1584079000",
       size: "347856",
       type: "dossier",
@@ -223,5 +265,6 @@ export const explorerModel = {
   rightMenu: { ...rightMenu },
   dossierDetails: { ...dossierDetails },
   switchLayout: { ...switchLayout },
-  pagination: { ...pagination }
+  pagination: { ...pagination },
+  createDossierModal: { ...createDossierModal }
 };
