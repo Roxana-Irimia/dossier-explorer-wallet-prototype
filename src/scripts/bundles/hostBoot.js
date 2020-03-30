@@ -1,12 +1,12 @@
-ssappBootRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\ssappBoot.js":[function(require,module,exports){
+hostBootRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot.js":[function(require,module,exports){
 const or = require('overwrite-require');
 or.enableForEnvironment(or.constants.BROWSER_ENVIRONMENT_TYPE);
-$$.log = $$.err = $$.fixMe = console.log;
-require("./ssappBoot_intermediar");
 
-},{"./ssappBoot_intermediar":"D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\ssappBoot_intermediar.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\ssappBoot_intermediar.js":[function(require,module,exports){
+require("./hostBoot_intermediar");
+
+},{"./hostBoot_intermediar":"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot_intermediar.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot_intermediar.js":[function(require,module,exports){
 (function (global){
-global.ssappBootLoadModules = function(){ 
+global.hostBootLoadModules = function(){ 
 
 	if(typeof $$.__runtimeModules["source-map-support"] === "undefined"){
 		$$.__runtimeModules["source-map-support"] = require("source-map-support");
@@ -20,26 +20,25 @@ global.ssappBootLoadModules = function(){
 		$$.__runtimeModules["buffer-from"] = require("buffer-from");
 	}
 
-	if(typeof $$.__runtimeModules["boot-ssapp"] === "undefined"){
-		$$.__runtimeModules["boot-ssapp"] = require("swarm-engine/bootScripts/browser/ssapp");
+	if(typeof $$.__runtimeModules["boot-host"] === "undefined"){
+		$$.__runtimeModules["boot-host"] = require("swarm-engine/bootScripts/browser/host");
 	}
 
 	if(typeof $$.__runtimeModules["pskcrypto"] === "undefined"){
 		$$.__runtimeModules["pskcrypto"] = require("pskcrypto");
 	}
-}
+};
 if (true) {
-	ssappBootLoadModules();
-}; 
-global.ssappBootRequire = require;
-if (typeof $$ !== "undefined") {            
-    $$.requireBundle("ssappBoot");
-    };
-    require('source-map-support').install({});
-    
+	hostBootLoadModules();
+}
+global.hostBootRequire = require;
+if (typeof $$ !== "undefined") {
+	$$.requireBundle("hostBoot");
+}
+require('source-map-support').install({});
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"buffer-from":"buffer-from","pskcrypto":"pskcrypto","source-map":"source-map","source-map-support":"source-map-support","swarm-engine/bootScripts/browser/ssapp":"swarm-engine/bootScripts/browser/ssapp"}],"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\index.js":[function(require,module,exports){
+},{"buffer-from":"buffer-from","pskcrypto":"pskcrypto","source-map":"source-map","source-map-support":"source-map-support","swarm-engine/bootScripts/browser/host":"swarm-engine/bootScripts/browser/host"}],"D:\\work\\git\\privatesky\\modules\\adler32\\index.js":[function(require,module,exports){
 
 "use strict";
 
@@ -52,7 +51,7 @@ exports.roll = algorithm.roll.bind(algorithm);
 exports.Hash = Hash;
 exports.register = register;
 
-},{"./lib/Hash":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\Hash.js","./lib/algorithm":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\algorithm.js","./lib/register":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\register.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\Hash.js":[function(require,module,exports){
+},{"./lib/Hash":"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\Hash.js","./lib/algorithm":"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\algorithm.js","./lib/register":"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\register.js"}],"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\Hash.js":[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -122,7 +121,7 @@ Hash.prototype._flush = function(callback)
 };
 }).call(this,require("buffer").Buffer)
 
-},{"./algorithm":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\algorithm.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\algorithm.js":[function(require,module,exports){
+},{"./algorithm":"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\algorithm.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\algorithm.js":[function(require,module,exports){
 "use strict";
 
 /**
@@ -186,7 +185,7 @@ exports.roll = function(sum, length, oldByte, newByte)
 
 	return ((b << 16) | a) >>> 0;
 };
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\register.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\register.js":[function(require,module,exports){
 "use strict";
 
 module.exports = function()
@@ -214,12 +213,12 @@ module.exports = function()
 	}
 	.bind(crypto.createHash.bind(this));
 };
-},{"./Hash":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\lib\\Hash.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\index.js":[function(require,module,exports){
+},{"./Hash":"D:\\work\\git\\privatesky\\modules\\adler32\\lib\\Hash.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\index.js":[function(require,module,exports){
 module.exports.createFsAdapter = () => {
     const FsAdapter = require("./lib/FsAdapter");
     return new FsAdapter();
 };
-},{"./lib/FsAdapter":"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\lib\\FsAdapter.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\lib\\FsAdapter.js":[function(require,module,exports){
+},{"./lib/FsAdapter":"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\lib\\FsAdapter.js"}],"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\lib\\FsAdapter.js":[function(require,module,exports){
 (function (Buffer){
 const fsModule = "fs";
 const fs = require(fsModule);
@@ -333,7 +332,7 @@ function FsAdapter() {
 module.exports = FsAdapter;
 }).call(this,require("buffer").Buffer)
 
-},{"./PathAsyncIterator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\lib\\PathAsyncIterator.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\lib\\PathAsyncIterator.js":[function(require,module,exports){
+},{"./PathAsyncIterator":"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\lib\\PathAsyncIterator.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\lib\\PathAsyncIterator.js":[function(require,module,exports){
 const fsModule = "fs";
 const fs = require(fsModule);
 const pathModule = "path";
@@ -458,7 +457,7 @@ function PathAsyncIterator(inputPath) {
 }
 
 module.exports = PathAsyncIterator;
-},{"swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\index.js":[function(require,module,exports){
+},{"swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\index.js":[function(require,module,exports){
 
 const ArchiveConfigurator = require("./lib/ArchiveConfigurator");
 const createFolderBrickStorage = require("./lib/FolderBrickStorage").createFolderBrickStorage;
@@ -490,7 +489,7 @@ module.exports.Seed = require('./lib/Seed');
 module.exports.createFolderBrickStorage = createFolderBrickStorage;
 module.exports.createFileBrickStorage = createFileBrickStorage;
 
-},{"./lib/Archive":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Archive.js","./lib/ArchiveConfigurator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\ArchiveConfigurator.js","./lib/Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","./lib/FileBrickStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FileBrickStorage.js","./lib/FolderBarMap":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FolderBarMap.js","./lib/FolderBrickStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FolderBrickStorage.js","./lib/Seed":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Seed.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Archive.js":[function(require,module,exports){
+},{"./lib/Archive":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Archive.js","./lib/ArchiveConfigurator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\ArchiveConfigurator.js","./lib/Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","./lib/FileBrickStorage":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FileBrickStorage.js","./lib/FolderBarMap":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FolderBarMap.js","./lib/FolderBrickStorage":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FolderBrickStorage.js","./lib/Seed":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Seed.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Archive.js":[function(require,module,exports){
 (function (Buffer){
 const Brick = require('./Brick');
 const pathModule = "path";
@@ -540,6 +539,11 @@ function Archive(archiveConfigurator) {
     this.getFolderHash = (folderBarPath, callback) => {
         loadBarMapThenExecute(() => {
             const fileList = barMap.getFileList(folderBarPath);
+            if (fileList.length === 1) {
+                return callback(undefined, __computeFileHash(fileList[0]).toString("hex"));
+            }
+            fileList.sort();
+
             let xor;
             for (let i = 0; i < fileList.length - 1; i++) {
                 xor = crypto.xorBuffers(__computeFileHash(fileList[i]), __computeFileHash(fileList[i + 1]));
@@ -734,10 +738,16 @@ function Archive(archiveConfigurator) {
         }
     };
 
-    this.writeFile = (fileBarPath, data, callback) => {
+    this.writeFile = (fileBarPath, data, options, callback) => {
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+            options.encrypt = true;
+        }
         loadBarMapThenExecute(__addData, callback);
 
         function __addData() {
+            archiveConfigurator.setIsEncrypted(options.encrypt);
             const brick = new Brick(archiveConfigurator);
             if (typeof data === "string") {
                 data = Buffer.from(data);
@@ -805,15 +815,16 @@ function Archive(archiveConfigurator) {
         }
     };
 
-    this.addFile = (fsFilePath, barPath, callback) => {
-        if (typeof barPath === "function") {
-            callback = barPath;
-            barPath = fsFilePath;
+    this.addFile = (fsFilePath, barPath, options, callback) => {
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+            options.encrypt = true;
         }
         loadBarMapThenExecute(__addFile, callback);
 
         function __addFile() {
-            createBricks(fsFilePath, barPath, archiveConfigurator.getBufferSize(), (err) => {
+            createBricks(fsFilePath, barPath, archiveConfigurator.getBufferSize(), options.encrypt, (err) => {
                 if (err) {
                     return callback(err);
                 }
@@ -828,29 +839,39 @@ function Archive(archiveConfigurator) {
         }
     };
 
-    /* TODO: do not create multiple BARMaps... */
-    this.addFiles = (arrWithFilePaths, barPath, callback) => {
+    this.addFiles = (arrWithFilePaths, barPath, options, callback) => {
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+            options.encrypt = true;
+        }
+
         let arr = arrWithFilePaths.slice();
-        let self = this;
+
+        loadBarMapThenExecute(() => {
+            recAdd()
+        }, callback);
 
         function recAdd() {
             if (arr.length > 0) {
                 let filePath = arr.pop();
-
                 let fileName = path.basename(filePath);
-                self.addFile(filePath, barPath + "/" + fileName, function (err, res) {
+
+                createBricks(filePath, barPath + "/" + fileName, archiveConfigurator.getBufferSize(), options.encrypt,(err) => {
                     if (err) {
-                        callback(err);
-                    } else {
-                        recAdd();
+                        return callback(err);
                     }
+
+                    recAdd();
                 });
             } else {
-                callback(null, true);
+                barMap.setConfig(archiveConfigurator);
+                if (archiveConfigurator.getMapEncryptionKey()) {
+                    barMap.setEncryptionKey(archiveConfigurator.getMapEncryptionKey());
+                }
+                storageProvider.putBarMap(barMap, callback);
             }
         }
-
-        recAdd();
     };
 
     this.extractFile = (fsFilePath, barPath, callback) => {
@@ -968,16 +989,11 @@ function Archive(archiveConfigurator) {
         }
     };
 
-    this.deleteFile = (filePath, callback) => {
-        loadBarMapThenExecute(() => {
-            storageProvider.deleteFile(filePath, callback);
-        }, callback);
-    };
-
-    this.addFolder = (fsFolderPath, barPath, callback) => {
-        if (typeof barPath === "function") {
-            callback = barPath;
-            barPath = fsFolderPath;
+    this.addFolder = (fsFolderPath, barPath, options, callback) => {
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+            options.encrypt = true;
         }
         const filesIterator = archiveFsAdapter.getFilesIterator(fsFolderPath);
 
@@ -994,7 +1010,7 @@ function Archive(archiveConfigurator) {
 
                 if (typeof file !== "undefined") {
                     const normalizedFilePath = file.split(path.sep).join("/");
-                    createBricks(path.join(rootFsPath, file), barPath + "/" + normalizedFilePath, archiveConfigurator.getBufferSize(), (err) => {
+                    createBricks(path.join(rootFsPath, file), barPath + "/" + normalizedFilePath, archiveConfigurator.getBufferSize(), options.encrypt, (err) => {
                         if (err) {
                             return callback(err);
                         }
@@ -1059,6 +1075,13 @@ function Archive(archiveConfigurator) {
         storageProvider.putBarMap(barMap, callback);
     };
 
+    this.delete = (barPath, callback) => {
+        loadBarMapThenExecute(() => {
+            barMap.delete(barPath);
+            callback();
+        }, callback);
+    };
+
     this.listFiles = (folderBarPath, callback) => {
         if (typeof folderBarPath === "function") {
             callback = folderBarPath;
@@ -1080,8 +1103,7 @@ function Archive(archiveConfigurator) {
         }, callback);
     };
 
-    this.clone = (targetStorage, preserveKeys = true, callback
-    ) => {
+    this.clone = (targetStorage, preserveKeys = true, callback) => {
         targetStorage.getBarMap((err, targetBarMap) => {
             if (err) {
                 return callback(err);
@@ -1194,8 +1216,11 @@ function Archive(archiveConfigurator) {
         });
     }
 
-    function createBricks(fsFilePath, barPath, blockSize, callback) {
-
+    function createBricks(fsFilePath, barPath, blockSize, areEncrypted, callback) {
+        if (typeof areEncrypted === "function") {
+            callback = areEncrypted;
+            areEncrypted = true;
+        }
         archiveFsAdapter.getFileSize(fsFilePath, (err, fileSize) => {
             if (err) {
                 return callback(err);
@@ -1206,8 +1231,6 @@ function Archive(archiveConfigurator) {
                 ++noBlocks;
             }
 
-            //todo: check if emptyList is called ok in this place.
-            // the scenario: adding a new file at an existing barPath should overwrite the initial content found there.
             if (!barMap.isEmpty(barPath)) {
                 barMap.emptyList(barPath);
             }
@@ -1219,8 +1242,8 @@ function Archive(archiveConfigurator) {
                         return callback(err);
                     }
 
+                    archiveConfigurator.setIsEncrypted(areEncrypted);
                     const brick = new Brick(archiveConfigurator);
-
                     brick.setRawData(blockData);
                     barMap.add(barPath, brick);
                     storageProvider.putBrick(brick, (err) => {
@@ -1266,7 +1289,7 @@ module.exports = Archive;
 
 }).call(this,require("buffer").Buffer)
 
-},{"../utils/isStream":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\isStream.js","./Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","adler32":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\index.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","pskcrypto":"pskcrypto","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\ArchiveConfigurator.js":[function(require,module,exports){
+},{"../utils/isStream":"D:\\work\\git\\privatesky\\modules\\bar\\utils\\isStream.js","./Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","adler32":"D:\\work\\git\\privatesky\\modules\\adler32\\index.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","pskcrypto":"pskcrypto","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\ArchiveConfigurator.js":[function(require,module,exports){
 const storageProviders = {};
 const fsAdapters = {};
 const Seed = require("./Seed");
@@ -1284,6 +1307,14 @@ function ArchiveConfigurator() {
 
     this.getBufferSize = () => {
         return config.bufferSize;
+    };
+
+    this.setIsEncrypted = (flag) => {
+        config.isEncrypted = flag;
+    };
+
+    this.getIsEncrypted = () => {
+        return config.isEncrypted;
     };
 
     this.setStorageProvider = (storageProviderName, ...args) => {
@@ -1451,9 +1482,6 @@ function ArchiveConfigurator() {
     function loadSeed() {
         if (!config.seed) {
             config.seed = new Seed(undefined, undefined, config.seedEndpoint, !!config.encryption);
-            if (config.seed.getId()) {
-                self.setMapDigest(config.seed.getId());
-            }
         }
     }
 }
@@ -1467,7 +1495,7 @@ ArchiveConfigurator.prototype.registerFsAdapter = (fsAdapterName, factory) => {
 };
 
 module.exports = ArchiveConfigurator;
-},{"./Seed":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Seed.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js":[function(require,module,exports){
+},{"./Seed":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Seed.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js":[function(require,module,exports){
 const crypto = require('pskcrypto');
 const BrickTransformFactory = require("./transforms/BrickTransformFactory");
 const transformFactory = new BrickTransformFactory();
@@ -1480,22 +1508,22 @@ function Brick(config) {
     let transformParameters;
     let transform = transformFactory.createBrickTransform(config);
 
-    this.setConfig = (newConfig)=> {
+    this.setConfig = (newConfig) => {
         config = newConfig;
         if (transform) {
             transform.setConfig(newConfig);
-        }else{
+        } else {
             transform = transformFactory.createBrickTransform(config);
         }
     };
 
-    this.createNewTransform = ()=> {
+    this.createNewTransform = () => {
         transform = transformFactory.createBrickTransform(config);
         transformParameters = undefined;
         transformData();
     };
 
-    this.getHash = ()=> {
+    this.getHash = () => {
         if (!hash) {
             hash = crypto.pskHash(this.getTransformedData()).toString("hex");
         }
@@ -1518,7 +1546,7 @@ function Brick(config) {
     this.getSeed = () => {
         return config.getSeed().toString();
     };
-    this.getAdler32 = ()=> {
+    this.getAdler32 = () => {
         return adler32.sum(this.getTransformedData());
     };
 
@@ -1529,7 +1557,7 @@ function Brick(config) {
         }
     };
 
-    this.getRawData = ()=> {
+    this.getRawData = () => {
         if (rawData) {
             return rawData;
         }
@@ -1550,11 +1578,11 @@ function Brick(config) {
         throw new Error("The brick does not contain any data.");
     };
 
-    this.setTransformedData = (data)=> {
+    this.setTransformedData = (data) => {
         transformedData = data;
     };
 
-    this.getTransformedData = ()=> {
+    this.getTransformedData = () => {
         if (!transformedData) {
             transformData();
         }
@@ -1570,14 +1598,14 @@ function Brick(config) {
         throw new Error("The brick does not contain any data.");
     };
 
-    this.getTransformParameters = ()=> {
+    this.getTransformParameters = () => {
         if (!transformedData) {
             transformData();
         }
         return transformParameters;
     };
 
-    this.setTransformParameters =  (newTransformParams) =>{
+    this.setTransformParameters = (newTransformParams) => {
         if (!newTransformParams) {
             return;
         }
@@ -1592,11 +1620,11 @@ function Brick(config) {
         });
     };
 
-    this.getRawSize = ()=> {
+    this.getRawSize = () => {
         return rawData.length;
     };
 
-    this.getTransformedSize = ()=> {
+    this.getTransformedSize = () => {
         if (!transformedData) {
             return rawData.length;
         }
@@ -1624,7 +1652,7 @@ function Brick(config) {
 
 module.exports = Brick;
 
-},{"./transforms/BrickTransformFactory":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransformFactory.js","adler32":"D:\\Catalin\\Munca\\privatesky\\modules\\adler32\\index.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FileBarMap.js":[function(require,module,exports){
+},{"./transforms/BrickTransformFactory":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransformFactory.js","adler32":"D:\\work\\git\\privatesky\\modules\\adler32\\index.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FileBarMap.js":[function(require,module,exports){
 (function (Buffer){
 const Brick = require("./Brick");
 const util = require("../utils/utilities");
@@ -1751,7 +1779,7 @@ function FileBarMap(header) {
 module.exports = FileBarMap;
 }).call(this,require("buffer").Buffer)
 
-},{"../utils/utilities":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\utilities.js","./Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FileBrickStorage.js":[function(require,module,exports){
+},{"../utils/utilities":"D:\\work\\git\\privatesky\\modules\\bar\\utils\\utilities.js","./Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FileBrickStorage.js":[function(require,module,exports){
 (function (Buffer){
 const BarMap = require("./FileBarMap");
 const util = require("../utils/utilities");
@@ -1971,11 +1999,19 @@ module.exports = {
 };
 }).call(this,require("buffer").Buffer)
 
-},{"../utils/AsyncDispatcher":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\AsyncDispatcher.js","../utils/utilities":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\utilities.js","./Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","./FileBarMap":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FileBarMap.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FolderBarMap.js":[function(require,module,exports){
+},{"../utils/AsyncDispatcher":"D:\\work\\git\\privatesky\\modules\\bar\\utils\\AsyncDispatcher.js","../utils/utilities":"D:\\work\\git\\privatesky\\modules\\bar\\utils\\utilities.js","./Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","./FileBarMap":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FileBarMap.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FolderBarMap.js":[function(require,module,exports){
 (function (Buffer){
 const Brick = require("./Brick");
 const pathModule = "path";
-const path = require(pathModule);
+let path;
+try {
+    path = require(pathModule);
+} catch (err) {
+} finally {
+    if (typeof path === "undefined") {
+        path = {sep: "/"};
+    }
+}
 
 function FolderBarMap(header) {
     header = header || {};
@@ -1990,13 +2026,11 @@ function FolderBarMap(header) {
         if (splitPath.length === 0) {
             throw Error("No filepath specified");
         }
-
         __addFileRecursively(header, splitPath, brick);
-
 
         function __addFileRecursively(barMapObj, splitPath, brick) {
             let fileName = splitPath.shift();
-            if (fileName === "") {
+            while (fileName === "") {
                 fileName = splitPath.shift();
             }
             if (splitPath.length === 0) {
@@ -2035,6 +2069,33 @@ function FolderBarMap(header) {
         header[filePath].splice(indexToRemove, 1);
     };
 
+    this.delete = (barPath) => {
+        if (typeof barPath === "undefined") {
+            throw Error("No path was provided");
+        }
+
+        if (barPath === "/" || barPath === "") {
+            header = {};
+        } else {
+            const splitPath = barPath.split("/");
+            if (splitPath[0] === "") {
+                splitPath.shift();
+            }
+            __removeRecursively(header, splitPath);
+        }
+
+        function __removeRecursively(folderObj, splitPath) {
+            const folderName = splitPath.shift();
+            if (folderObj[folderName]) {
+                if (splitPath.length === 0) {
+                    folderObj[folderName] = undefined;
+                } else {
+                    __removeRecursively(folderObj[folderName], splitPath);
+                }
+            }
+        }
+    };
+
     this.getDictionaryObject = () => {
         let objectDict = {};
         Object.keys(header).forEach((fileName) => {
@@ -2060,7 +2121,7 @@ function FolderBarMap(header) {
 
         function __getHashListRecursively(barMapObj, splitPath) {
             let folderName = splitPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitPath.shift();
             }
             if (barMapObj[folderName]) {
@@ -2097,7 +2158,7 @@ function FolderBarMap(header) {
             }
 
             let folderName = splitPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitPath.shift();
             }
 
@@ -2125,7 +2186,7 @@ function FolderBarMap(header) {
 
         function __emptyListRecursively(folderObj, splitPath) {
             let folderName = splitPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitPath.shift();
             }
 
@@ -2148,6 +2209,7 @@ function FolderBarMap(header) {
 
     this.toBrick = () => {
         this.load();
+        archiveConfig.setIsEncrypted(true);
         const brick = new Brick(archiveConfig);
         if (encryptionKey) {
             brick.setTransformParameters({key: encryptionKey});
@@ -2168,12 +2230,12 @@ function FolderBarMap(header) {
         } else {
             const splitFolderBarPath = folderBarPath.split("/");
             __getFileListRecursively(header, splitFolderBarPath);
-            return files.map(file => folderBarPath + "/" + file);
+            return files.map(file => file);
         }
 
         function __getFileListRecursively(folderObj, splitFolderBarPath) {
             let folderName = splitFolderBarPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitFolderBarPath.shift();
             }
             if (folderObj[folderName]) {
@@ -2193,12 +2255,18 @@ function FolderBarMap(header) {
 
         function __getAllFilesRecursively(folderObj, path) {
             Object.keys(folderObj).forEach(folderName => {
-
                 if (folderObj[folderName]) {
-                    if (Array.isArray(folderObj[folderName])) {
-                        files.push(path + "/" + folderName);
+                    let newPath;
+                    if (path === "" || path === "/") {
+                        newPath = "/" + folderName;
                     } else {
-                        __getAllFilesRecursively(folderObj[folderName], path + "/" + folderName);
+                        newPath = path + "/" + folderName;
+                    }
+
+                    if (Array.isArray(folderObj[folderName])) {
+                        files.push(newPath);
+                    } else {
+                        __getAllFilesRecursively(folderObj[folderName], newPath);
                     }
                 }
             });
@@ -2210,7 +2278,7 @@ function FolderBarMap(header) {
     this.getFolderList = (barPath) => {
         let folders = [];
         if (!barPath || barPath === "" || barPath === "/") {
-             __getAllFolders(header, "");
+            __getAllFolders(header, "");
             return folders;
         } else {
             const splitPath = barPath.split("/");
@@ -2229,7 +2297,7 @@ function FolderBarMap(header) {
 
         function __getFoldersRecursively(folderObj, splitPath, folderPath) {
             let folderName = splitPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitPath.shift();
             }
             if (folderObj[folderName]) {
@@ -2312,7 +2380,7 @@ function FolderBarMap(header) {
 
         function __getBricksForFileRecursively(folderObj, splitPath) {
             let folderName = splitPath.shift();
-            if (folderName === "") {
+            while (folderName === "") {
                 folderName = splitPath.shift();
             }
             if (folderObj[folderName]) {
@@ -2335,7 +2403,7 @@ function FolderBarMap(header) {
 module.exports = FolderBarMap;
 }).call(this,require("buffer").Buffer)
 
-},{"./Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FolderBrickStorage.js":[function(require,module,exports){
+},{"./Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FolderBrickStorage.js":[function(require,module,exports){
 const fs = require("fs");
 const path = require("path");
 const BarMap = require("./FolderBarMap");
@@ -2434,7 +2502,7 @@ module.exports = {
         return new FolderBrickStorage(location);
     }
 };
-},{"./Brick":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Brick.js","./FolderBarMap":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\FolderBarMap.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\Seed.js":[function(require,module,exports){
+},{"./Brick":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Brick.js","./FolderBarMap":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\FolderBarMap.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\Seed.js":[function(require,module,exports){
 (function (Buffer){
 const crypto = require("pskcrypto");
 
@@ -2571,7 +2639,7 @@ function Seed(compactSeed, id, endpoint, usedForEncryption  = true, randomLength
 module.exports = Seed;
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransform.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransform.js":[function(require,module,exports){
 (function (Buffer){
 function BrickTransform(transformGenerator) {
     let directTransform;
@@ -2628,7 +2696,7 @@ module.exports = BrickTransform;
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransformFactory.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransformFactory.js":[function(require,module,exports){
 const CompressionGenerator = require("./CompressionGenerator");
 const EncryptionGenerator= require("./EncryptionGenerator");
 const CompressionEncryptionGenerator = require("./CompressionEncryptionGenerator");
@@ -2665,7 +2733,7 @@ function BrickTransformFactory() {
 module.exports = BrickTransformFactory;
 
 
-},{"./BrickTransform":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransform.js","./CompressionEncryptionGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\CompressionEncryptionGenerator.js","./CompressionGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js","./EncryptionGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\CompressionEncryptionGenerator.js":[function(require,module,exports){
+},{"./BrickTransform":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\BrickTransform.js","./CompressionEncryptionGenerator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\CompressionEncryptionGenerator.js","./CompressionGenerator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js","./EncryptionGenerator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\CompressionEncryptionGenerator.js":[function(require,module,exports){
 const CompressionGenerator = require("./CompressionGenerator");
 const EncryptionGenerator = require("./EncryptionGenerator");
 
@@ -2708,7 +2776,7 @@ function CompressionEncryptionGenerator(config) {
 }
 
 module.exports = CompressionEncryptionGenerator;
-},{"./CompressionGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js","./EncryptionGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js":[function(require,module,exports){
+},{"./CompressionGenerator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js","./EncryptionGenerator":"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\CompressionGenerator.js":[function(require,module,exports){
 const zlib = require("zlib");
 
 function CompressionGenerator(config) {
@@ -2762,7 +2830,7 @@ function CompressionGenerator(config) {
 module.exports = CompressionGenerator;
 
 
-},{"zlib":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-zlib\\lib\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js":[function(require,module,exports){
+},{"zlib":"D:\\work\\git\\privatesky\\node_modules\\browserify-zlib\\lib\\index.js"}],"D:\\work\\git\\privatesky\\modules\\bar\\lib\\transforms\\EncryptionGenerator.js":[function(require,module,exports){
 const crypto = require("pskcrypto");
 
 function EncryptionGenerator(config) {
@@ -2778,7 +2846,7 @@ function EncryptionGenerator(config) {
         delete decryptionParameters.data;
         return {
             data: data,
-            params:decryptionParameters
+            params: decryptionParameters
         };
     };
 
@@ -2797,10 +2865,14 @@ function EncryptionGenerator(config) {
             return;
         }
 
+        if (config.getIsEncrypted() === false) {
+            return;
+        }
+
         const encOptions = config.getEncryptionOptions();
-        if(transformParameters && transformParameters.key){
+        if (transformParameters && transformParameters.key) {
             key = transformParameters.key;
-        }else{
+        } else {
             key = pskEncryption.generateEncryptionKey(algorithm);
         }
 
@@ -2822,6 +2894,11 @@ function EncryptionGenerator(config) {
         if (!algorithm) {
             return;
         }
+
+        if (config.getIsEncrypted() === false) {
+            return;
+        }
+
         const encOptions = config.getEncryptionOptions();
         let authTagLength = 0;
         if (!config.getEncryptionOptions() || !config.getAuthTagLength()) {
@@ -2840,7 +2917,7 @@ function EncryptionGenerator(config) {
 }
 
 module.exports = EncryptionGenerator;
-},{"pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\AsyncDispatcher.js":[function(require,module,exports){
+},{"pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\bar\\utils\\AsyncDispatcher.js":[function(require,module,exports){
 
 function AsyncDispatcher(finalCallback) {
 	let results = [];
@@ -2890,7 +2967,7 @@ function AsyncDispatcher(finalCallback) {
 }
 
 module.exports = AsyncDispatcher;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\isStream.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\bar\\utils\\isStream.js":[function(require,module,exports){
 function isStream(stream){
     return stream !== null && typeof stream === 'object' && typeof stream.pipe === 'function';
 }
@@ -2922,7 +2999,7 @@ module.exports = {
     isDuplex
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\utils\\utilities.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\bar\\utils\\utilities.js":[function(require,module,exports){
 const fs = require('fs');
 const OFFSET_SIZE = 8;
 
@@ -2941,7 +3018,7 @@ function ensureFileDoesNotExist(filePath, callback) {
 }
 
 module.exports = {getBarMapOffsetSize, ensureFileDoesNotExist};
-},{"fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\OBFTImplementation.js":[function(require,module,exports){
+},{"fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\OBFTImplementation.js":[function(require,module,exports){
 let pskcrypto = require("pskcrypto");
 let fs = require("fs");
 
@@ -3100,7 +3177,7 @@ exports.createConsensusManager = function (delegatedAgentName, communicationOutl
     return instance;
 }
 
-},{"./transactionsUtil":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\PulseUtil.js":[function(require,module,exports){
+},{"./transactionsUtil":"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\PulseUtil.js":[function(require,module,exports){
 function PulseUtil(signer, currentPulseNumber, block, newTransactions, vsd, top, last) {
     this.signer         = signer;               //a.k.a. delegatedAgentName
     this.currentPulse   = currentPulseNumber;
@@ -3124,7 +3201,7 @@ function PulseHistory(){
 module.exports.createPulseHistory = function () {
     return new PulseHistory();
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js":[function(require,module,exports){
 /*
 consensus helper functions when working with transactions
 */
@@ -3152,7 +3229,7 @@ module.exports.orderCRTransactions = function (pset) { //order in place the pset
     return arr;
 }
 
-},{"pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\asset_swarm_template.js":[function(require,module,exports){
+},{"pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\asset_swarm_template.js":[function(require,module,exports){
 var CNST = require("../moduleConstants");
 
 exports.createForObject = function(valueObject, thisObject, localId){
@@ -3199,7 +3276,7 @@ exports.createForObject = function(valueObject, thisObject, localId){
 
 	return ret;
 };
-},{"../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\transaction_swarm_template.js":[function(require,module,exports){
+},{"../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\transaction_swarm_template.js":[function(require,module,exports){
 let CNST = require("../moduleConstants");
 
 exports.createForObject = function(valueObject, thisObject, localId){
@@ -3246,7 +3323,7 @@ exports.createForObject = function(valueObject, thisObject, localId){
 
 	return ret;
 };
-},{"../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\ACLScope.js":[function(require,module,exports){
+},{"../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\ACLScope.js":[function(require,module,exports){
 
 $$.asset.describe("ACLScope", {
     public:{
@@ -3269,7 +3346,7 @@ $$.asset.describe("ACLScope", {
         return true;
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Agent.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Agent.js":[function(require,module,exports){
 
 $$.asset.describe("Agent", {
     public:{
@@ -3295,7 +3372,7 @@ $$.asset.describe("Agent", {
 
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Backup.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Backup.js":[function(require,module,exports){
 
 $$.asset.describe("Backup", {
     public:{
@@ -3309,7 +3386,7 @@ $$.asset.describe("Backup", {
     }
 });
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\BarAnchor.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\BarAnchor.js":[function(require,module,exports){
 $$.asset.describe("BarAnchor", {
     public: {
         alias: "string",
@@ -3336,7 +3413,7 @@ $$.asset.describe("BarAnchor", {
         this.writeList.push(agentId);
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\CSBMeta.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\CSBMeta.js":[function(require,module,exports){
 
 $$.asset.describe("CSBMeta", {
 	public:{
@@ -3359,7 +3436,7 @@ $$.asset.describe("CSBMeta", {
 
 });
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainConfig.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainConfig.js":[function(require,module,exports){
 
 $$.asset.describe("DomainConfig", {
     public:{
@@ -3401,7 +3478,7 @@ $$.asset.describe("DomainConfig", {
         this.workerStrategy = workerStrategy;
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainReference.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainReference.js":[function(require,module,exports){
 
 $$.asset.describe("DomainReference", {
     public:{
@@ -3427,7 +3504,7 @@ $$.asset.describe("DomainReference", {
         return this.workspace;
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\FileAnchor.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\FileAnchor.js":[function(require,module,exports){
 $$.asset.describe("FileAnchor", {
     public: {
         alias: "string",
@@ -3446,7 +3523,7 @@ $$.asset.describe("FileAnchor", {
 });
 
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Key.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Key.js":[function(require,module,exports){
 
 $$.asset.describe("key", {
     public:{
@@ -3460,7 +3537,7 @@ $$.asset.describe("key", {
         this.value = value;
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\index.js":[function(require,module,exports){
 module.exports = $$.library(function(){
     require("./DomainReference");
     require("./DomainConfig");
@@ -3473,7 +3550,7 @@ module.exports = $$.library(function(){
     require("./FileAnchor");
     require('./CSBMeta');
 });
-},{"../transactions/transactions":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\transactions.js","./ACLScope":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\ACLScope.js","./Agent":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Agent.js","./Backup":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Backup.js","./BarAnchor":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\BarAnchor.js","./CSBMeta":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\CSBMeta.js","./DomainConfig":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainConfig.js","./DomainReference":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainReference.js","./FileAnchor":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\FileAnchor.js","./Key":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Key.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\swarms\\index.js":[function(require,module,exports){
+},{"../transactions/transactions":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\transactions.js","./ACLScope":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\ACLScope.js","./Agent":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Agent.js","./Backup":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Backup.js","./BarAnchor":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\BarAnchor.js","./CSBMeta":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\CSBMeta.js","./DomainConfig":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainConfig.js","./DomainReference":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\DomainReference.js","./FileAnchor":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\FileAnchor.js","./Key":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\Key.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\swarms\\index.js":[function(require,module,exports){
 if($$.swarms){
     $$.swarms.describe("transactionHandler", {
         start: function (identity, transactionName, methodName, ...args) {
@@ -3485,7 +3562,7 @@ if($$.swarms){
     });
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\agentTransaction.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\agentTransaction.js":[function(require,module,exports){
 const sharedPhases = require('./sharedPhases');
 
 $$.transaction.describe("Agents", {
@@ -3506,7 +3583,7 @@ $$.transaction.describe("Agents", {
     getAgents: sharedPhases.getAllAssetsFactory('global.Agent')
 });
 
-},{"./sharedPhases":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainConfigTransaction.js":[function(require,module,exports){
+},{"./sharedPhases":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainConfigTransaction.js":[function(require,module,exports){
 const sharedPhases = require('./sharedPhases');
 
 $$.transaction.describe("DomainConfigTransaction", {
@@ -3540,7 +3617,7 @@ $$.transaction.describe("DomainConfigTransaction", {
     getDomains: sharedPhases.getAllAssetsFactory('global.DomainConfig')
 });
 
-},{"./sharedPhases":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainTransaction.js":[function(require,module,exports){
+},{"./sharedPhases":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainTransaction.js":[function(require,module,exports){
 const sharedPhases = require('./sharedPhases');
 
 $$.transaction.describe("Domain", {
@@ -3643,7 +3720,7 @@ $$.transaction.describe("Domain", {
     getDomains: sharedPhases.getAllAssetsFactory('global.DomainReference')
 });
 
-},{"./sharedPhases":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\firstTransactionWorkaroundDeleteThis.js":[function(require,module,exports){
+},{"./sharedPhases":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\firstTransactionWorkaroundDeleteThis.js":[function(require,module,exports){
 /**
  * FIXME
  * The first block in the blockchain is 0.
@@ -3663,13 +3740,13 @@ $$.transaction.describe("TooShortBlockChainWorkaroundDeleteThis", {
         this.commit();
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\index.js":[function(require,module,exports){
 require('./domainTransaction');
 require('./agentTransaction');
 require('./standardCSBTransactions');
 require('./domainConfigTransaction');
 require('./firstTransactionWorkaroundDeleteThis');
-},{"./agentTransaction":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\agentTransaction.js","./domainConfigTransaction":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainConfigTransaction.js","./domainTransaction":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainTransaction.js","./firstTransactionWorkaroundDeleteThis":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\firstTransactionWorkaroundDeleteThis.js","./standardCSBTransactions":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\standardCSBTransactions.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js":[function(require,module,exports){
+},{"./agentTransaction":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\agentTransaction.js","./domainConfigTransaction":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainConfigTransaction.js","./domainTransaction":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\domainTransaction.js","./firstTransactionWorkaroundDeleteThis":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\firstTransactionWorkaroundDeleteThis.js","./standardCSBTransactions":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\standardCSBTransactions.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\sharedPhases.js":[function(require,module,exports){
 module.exports = {
     getAssetFactory: function(assetType) {
         return function(alias) {
@@ -3693,7 +3770,7 @@ module.exports = {
         };
     }
 };
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\standardCSBTransactions.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\standardCSBTransactions.js":[function(require,module,exports){
 $$.transaction.describe("StandardCSBTransactions", {
     addBarAnchor: function (mountPoint, barMapDigest) {
         this.transaction.createAsset("BarAnchor", "init", mountPoint, barMapDigest);
@@ -3738,7 +3815,7 @@ $$.transaction.describe("StandardCSBTransactions", {
         }
     }
 });
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\transactions.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\transactions.js":[function(require,module,exports){
 $$.transaction.describe("transactions", {
     updateKey: function (key, value) {
         var transaction = $$.blockchain.beginTransaction(this);
@@ -3795,7 +3872,7 @@ usages:
 
  */
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\index.js":[function(require,module,exports){
 ___DISABLE_OBSOLETE_ZIP_ARCHIVER_WAIT_FOR_BARS = true;
 //require("../../../psknode/bundles/pskruntime.js");
 var callflowModule = require("callflow");
@@ -3809,7 +3886,7 @@ $$.transaction      = $$.transactions;
 module.exports = require('./moduleExports');
 
 
-},{"./blockchainSwarmTypes/asset_swarm_template":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\asset_swarm_template.js","./blockchainSwarmTypes/transaction_swarm_template":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\transaction_swarm_template.js","./moduleExports":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleExports.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js":[function(require,module,exports){
+},{"./blockchainSwarmTypes/asset_swarm_template":"D:\\work\\git\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\asset_swarm_template.js","./blockchainSwarmTypes/transaction_swarm_template":"D:\\work\\git\\privatesky\\modules\\blockchain\\blockchainSwarmTypes\\transaction_swarm_template.js","./moduleExports":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleExports.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js":[function(require,module,exports){
 module.exports = {
     ALIAS:"alias",
     ALIASES : '/aliases',
@@ -3824,7 +3901,7 @@ module.exports = {
     SWARMID:"swarmId",
     SWARMTYPE:"swarmTypeName"
 };
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleExports.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleExports.js":[function(require,module,exports){
 (function (process){
 module.exports = {
     createBlockchain:function(worldStateCache, historyStorage, consensusAlgorithm, signatureProvider, loadDefaultConstitution, forcedBoot){
@@ -3884,7 +3961,7 @@ module.exports = {
 }
 }).call(this,require('_process'))
 
-},{"./pskdb":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\index.js","./strategies/consensusAlgortims/consensusAlgoritmsRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\consensusAlgortims\\consensusAlgoritmsRegistry.js","./strategies/historyStorages/historyStoragesRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\historyStoragesRegistry.js","./strategies/networkCommunication/networkCommunicationStrategiesRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\networkCommunication\\networkCommunicationStrategiesRegistry.js","./strategies/signatureProvidersRegistry/signatureProvidersRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\signatureProvidersRegistry\\signatureProvidersRegistry.js","./strategies/votingStrategies/votingStrategiesRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\votingStrategies\\votingStrategiesRegistry.js","./strategies/worldStateCaches/worldStateCacheRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\worldStateCaches\\worldStateCacheRegistry.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\Blockchain.js":[function(require,module,exports){
+},{"./pskdb":"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\index.js","./strategies/consensusAlgortims/consensusAlgoritmsRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\consensusAlgortims\\consensusAlgoritmsRegistry.js","./strategies/historyStorages/historyStoragesRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\historyStoragesRegistry.js","./strategies/networkCommunication/networkCommunicationStrategiesRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\networkCommunication\\networkCommunicationStrategiesRegistry.js","./strategies/signatureProvidersRegistry/signatureProvidersRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\signatureProvidersRegistry\\signatureProvidersRegistry.js","./strategies/votingStrategies/votingStrategiesRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\votingStrategies\\votingStrategiesRegistry.js","./strategies/worldStateCaches/worldStateCacheRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\worldStateCaches\\worldStateCacheRegistry.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\Blockchain.js":[function(require,module,exports){
 const bm = require('../moduleExports');
 const beesHealer = require("swarmutils").beesHealer;
 var CNST = require("../moduleConstants");
@@ -4088,7 +4165,7 @@ function Transaction(blockchain, pdsHandler, transactionSwarm, worldStateCache, 
 }
 
 module.exports = Blockchain;
-},{"../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","../moduleExports":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleExports.js","./securityParadigms/securityParadigmRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\securityParadigmRegistry.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\index.js":[function(require,module,exports){
+},{"../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","../moduleExports":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleExports.js","./securityParadigms/securityParadigmRegistry":"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\securityParadigmRegistry.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\index.js":[function(require,module,exports){
 const Blockchain = require('./Blockchain');
 
 module.exports = {
@@ -4117,7 +4194,7 @@ module.exports = {
     }
 };
 
-},{"../defaultConstitution/assets/index":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\index.js","../defaultConstitution/swarms/index":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\swarms\\index.js","../defaultConstitution/transactions/index":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\index.js","./Blockchain":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\Blockchain.js","./pskdb":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\pskdb.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\pskdb.js":[function(require,module,exports){
+},{"../defaultConstitution/assets/index":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\assets\\index.js","../defaultConstitution/swarms/index":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\swarms\\index.js","../defaultConstitution/transactions/index":"D:\\work\\git\\privatesky\\modules\\blockchain\\defaultConstitution\\transactions\\index.js","./Blockchain":"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\Blockchain.js","./pskdb":"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\pskdb.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\pskdb.js":[function(require,module,exports){
 let CNST = require("../moduleConstants");
 let cutil = require("../OBFT/transactionsUtil");
 // let bm = require("../moduleExports");
@@ -4511,7 +4588,7 @@ function VerificationKeySpaceHandler(parentStorage, worldStateCache, blockchain)
 exports.newPSKDB = function (worldStateCache, historyStorage) {
     return new PSKDB(worldStateCache, historyStorage);
 };
-},{"../OBFT/transactionsUtil":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","./securityParadigms/localExecutionCache":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\localExecutionCache.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\localExecutionCache.js":[function(require,module,exports){
+},{"../OBFT/transactionsUtil":"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","./securityParadigms/localExecutionCache":"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\localExecutionCache.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\localExecutionCache.js":[function(require,module,exports){
 let CNST=require("../../moduleConstants");
 let cache = {};
 
@@ -4586,7 +4663,7 @@ module.exports = {
     }
 };
 
-},{"../../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\securityParadigmRegistry.js":[function(require,module,exports){
+},{"../../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\pskdb\\securityParadigms\\securityParadigmRegistry.js":[function(require,module,exports){
 
 var CNST = require("../../moduleConstants");
 
@@ -4694,7 +4771,7 @@ module.exports = {
         return new Registry();
     }
 }
-},{"../../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\signsensus\\SignSensusImplementation.js":[function(require,module,exports){
+},{"../../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\signsensus\\SignSensusImplementation.js":[function(require,module,exports){
 let pskcrypto = require("pskcrypto");
 let fs = require("fs");
 
@@ -4929,7 +5006,7 @@ exports.createConsensusManager = function (delegatedAgentName, communicationOutl
     return instance;
 }
 
-},{"../OBFT/transactionsUtil":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\consensusAlgortims\\consensusAlgoritmsRegistry.js":[function(require,module,exports){
+},{"../OBFT/transactionsUtil":"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\transactionsUtil.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\consensusAlgortims\\consensusAlgoritmsRegistry.js":[function(require,module,exports){
 var mod = require("../../moduleExports");
 
 function DirectCommitAlgorithm() {
@@ -5006,7 +5083,7 @@ module.exports = {
         }
     }
 };
-},{"../../OBFT/OBFTImplementation":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\OBFTImplementation.js","../../moduleExports":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleExports.js","../../signsensus/SignSensusImplementation":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\signsensus\\SignSensusImplementation.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\BarHistoryStorage.js":[function(require,module,exports){
+},{"../../OBFT/OBFTImplementation":"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\OBFTImplementation.js","../../moduleExports":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleExports.js","../../signsensus/SignSensusImplementation":"D:\\work\\git\\privatesky\\modules\\blockchain\\signsensus\\SignSensusImplementation.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\BarHistoryStorage.js":[function(require,module,exports){
 const LatestHashTracker = require("./LatestHashTracker");
 
 function BarHistoryStorage(archive) {
@@ -5079,7 +5156,7 @@ function BarHistoryStorage(archive) {
 }
 
 module.exports = BarHistoryStorage;
-},{"./LatestHashTracker":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\FsHistoryStorage.js":[function(require,module,exports){
+},{"./LatestHashTracker":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\FsHistoryStorage.js":[function(require,module,exports){
 const LatestHashTracker = require("./LatestHashTracker");
 
 function FsHistoryStorage(folder) {
@@ -5184,7 +5261,7 @@ function FsHistoryStorage(folder) {
 
 module.exports = FsHistoryStorage;
 
-},{"./LatestHashTracker":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js":[function(require,module,exports){
+},{"./LatestHashTracker":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js":[function(require,module,exports){
 function LatestHashTracker() {
     let hlb = "none";
     let maxBlockNumber = 0;
@@ -5201,7 +5278,7 @@ function LatestHashTracker() {
 }
 
 module.exports = LatestHashTracker;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\MemoryHistoryStorage.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\MemoryHistoryStorage.js":[function(require,module,exports){
 const LatestHashTracker = require("./LatestHashTracker");
 
 function MemoryHistoryStorage() {
@@ -5228,7 +5305,7 @@ function MemoryHistoryStorage() {
 }
 
 module.exports = MemoryHistoryStorage;
-},{"./LatestHashTracker":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\historyStoragesRegistry.js":[function(require,module,exports){
+},{"./LatestHashTracker":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\LatestHashTracker.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\historyStoragesRegistry.js":[function(require,module,exports){
 const FsHistoryStorage = require("./FsHistoryStorage");
 const MemoryHistoryStorage = require("./MemoryHistoryStorage");
 const BarHistoryStorage = require("./BarHistoryStorage");
@@ -5247,7 +5324,7 @@ module.exports = {
         }
     }
 };
-},{"./BarHistoryStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\BarHistoryStorage.js","./FsHistoryStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\FsHistoryStorage.js","./MemoryHistoryStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\MemoryHistoryStorage.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\networkCommunication\\networkCommunicationStrategiesRegistry.js":[function(require,module,exports){
+},{"./BarHistoryStorage":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\BarHistoryStorage.js","./FsHistoryStorage":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\FsHistoryStorage.js","./MemoryHistoryStorage":"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\historyStorages\\MemoryHistoryStorage.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\networkCommunication\\networkCommunicationStrategiesRegistry.js":[function(require,module,exports){
 (function (process){
 const mc = require("../../moduleConstants");
 let pulseUtil = require("../../OBFT/PulseUtil");
@@ -5313,7 +5390,7 @@ module.exports = {
 }
 }).call(this,require('_process'))
 
-},{"../../OBFT/PulseUtil":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\OBFT\\PulseUtil.js","../../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\signatureProvidersRegistry\\signatureProvidersRegistry.js":[function(require,module,exports){
+},{"../../OBFT/PulseUtil":"D:\\work\\git\\privatesky\\modules\\blockchain\\OBFT\\PulseUtil.js","../../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\signatureProvidersRegistry\\signatureProvidersRegistry.js":[function(require,module,exports){
 function PermissiveSignatureProvider(){
     /*
     return a signature of message ms for agent agentId
@@ -5340,7 +5417,7 @@ module.exports = {
     }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\votingStrategies\\votingStrategiesRegistry.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\votingStrategies\\votingStrategiesRegistry.js":[function(require,module,exports){
 
 function SimpleMajoritarianStrategy(shareHoldersCounter){
     this.refreshShares = function(){
@@ -5390,7 +5467,7 @@ module.exports = {
         }
     }
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\strategies\\worldStateCaches\\worldStateCacheRegistry.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\blockchain\\strategies\\worldStateCaches\\worldStateCacheRegistry.js":[function(require,module,exports){
 (function (setImmediate){
 const mc = require("../../moduleConstants");
 
@@ -5548,7 +5625,7 @@ module.exports = {
 };
 }).call(this,require("timers").setImmediate)
 
-},{"../../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\moduleConstants.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","timers":"D:\\Catalin\\Munca\\privatesky\\node_modules\\timers-browserify\\main.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\constants.js":[function(require,module,exports){
+},{"../../moduleConstants":"D:\\work\\git\\privatesky\\modules\\blockchain\\moduleConstants.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","timers":"D:\\work\\git\\privatesky\\node_modules\\timers-browserify\\main.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\constants.js":[function(require,module,exports){
 $$.CONSTANTS = {
     SWARM_FOR_EXECUTION:"swarm_for_execution",//TODO: remove
     INBOUND:"inbound",//TODO: remove
@@ -5560,6 +5637,7 @@ $$.CONSTANTS = {
     AFTER_INTERCEPTOR: 'after'//TODO: document
 };
 
+console.log("CONSTANTELE SUNT AICI",$$.CONSTANTS);
 
 $$.CONSTANTS.mixIn = function(otherConstants){
     for(let v in otherConstants){
@@ -5570,7 +5648,7 @@ $$.CONSTANTS.mixIn = function(otherConstants){
     }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\callflow\\index.js":[function(require,module,exports){
 function initialise() {
     if($$.callflow){
         throw new Error("Callflow already initialized!");
@@ -5654,7 +5732,8 @@ module.exports = {
     createStandardAPIsForSwarms: require("./lib/utilityFunctions/base").createForObject,
     initialise: initialise
 };
-},{"./constants":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\constants.js","./lib/InterceptorRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js","./lib/loadLibrary":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\loadLibrary.js","./lib/parallelJoinPoint":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js","./lib/serialJoinPoint":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js","./lib/swarmDescription":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\swarmDescription.js","./lib/utilityFunctions/base":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js","soundpubsub":"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js":[function(require,module,exports){
+
+},{"./constants":"D:\\work\\git\\privatesky\\modules\\callflow\\constants.js","./lib/InterceptorRegistry":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js","./lib/loadLibrary":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\loadLibrary.js","./lib/parallelJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js","./lib/serialJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js","./lib/swarmDescription":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\swarmDescription.js","./lib/utilityFunctions/base":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js","soundpubsub":"D:\\work\\git\\privatesky\\modules\\soundpubsub\\index.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js":[function(require,module,exports){
 // related to: SwarmSpace.SwarmDescription.createPhase()
 
 function InterceptorRegistry() {
@@ -5846,7 +5925,7 @@ exports.createInterceptorRegistry = function () {
     return new InterceptorRegistry();
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\loadLibrary.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\loadLibrary.js":[function(require,module,exports){
 /*
 Initial License: (c) Axiologic Research & Alboaie Sînică.
 Contributors: Axiologic Research , PrivateSky project
@@ -5950,7 +6029,7 @@ exports.loadLibrary = function(prefixName, folder){
 }
 
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js":[function(require,module,exports){
 (function (process){
 
 var globalJoinCounter = 0;
@@ -6090,7 +6169,7 @@ exports.createJoinPoint = function(swarm, callback, args){
 };
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js":[function(require,module,exports){
 
 var joinCounter = 0;
 
@@ -6215,7 +6294,7 @@ exports.createSerialJoinPoint = function(swarm, callback, args){
     jp.setProxyObject(p);
     return p;
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\swarmDescription.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\swarmDescription.js":[function(require,module,exports){
 const OwM = require("swarmutils").OwM;
 
 const swarmDescriptionsRegistry = {};
@@ -6325,6 +6404,18 @@ function SwarmSpace(swarmType, utils) {
         var myFunctions = createMembers(description);
 
         function createPhase(thisInstance, func, phaseName){
+            console.log("Tot aici",$$);
+            console.log("SUNT AICI",$$,$$.CONSTANTS);
+            $$.CONSTANTS = {
+                SWARM_FOR_EXECUTION:"swarm_for_execution",//TODO: remove
+                INBOUND:"inbound",//TODO: remove
+                OUTBOUND:"outbound",//TODO: remove
+                PDS:"PrivateDataSystem", //TODO: remove
+                CRL:"CommunicationReplicationLayer", //TODO: remove
+                SWARM_RETURN: 'swarm_return', //TODO: remove
+                BEFORE_INTERCEPTOR: 'before',//TODO: document
+                AFTER_INTERCEPTOR: 'after'//TODO: document
+            };
             var keyBefore = `${swarmTypeName}/${phaseName}/${$$.CONSTANTS.BEFORE_INTERCEPTOR}`;
             var keyAfter = `${swarmTypeName}/${phaseName}/${$$.CONSTANTS.AFTER_INTERCEPTOR}`;
 
@@ -6582,8 +6673,8 @@ exports.createSwarmEngine = function(swarmType, utils){
 };
 
 
-},{"./utilityFunctions/callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\callflow.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\SwarmDebug.js":[function(require,module,exports){
-(function (process){
+},{"./utilityFunctions/callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\callflow.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\SwarmDebug.js":[function(require,module,exports){
+(function (process,global){
 /*
  Initial License: (c) Axiologic Research & Alboaie Sînică.
  Contributors: Axiologic Research , PrivateSky project
@@ -6592,17 +6683,17 @@ exports.createSwarmEngine = function(swarmType, utils){
 
 var util = require("util");
 var fs = require("fs");
-cprint = console.log;
-wprint = console.warn;
-dprint = console.debug;
-eprint = console.error;
+global.cprint = console.log;
+global.wprint = console.warn;
+global.dprint = console.debug;
+global.eprint = console.error;
 
 
 /**
  * Shortcut to JSON.stringify
  * @param obj
  */
-J = function (obj) {
+global.J = function (obj) {
     return JSON.stringify(obj);
 }
 
@@ -6671,10 +6762,10 @@ exports.cleanDump = function (obj) {
  })
 
  */
-uncaughtExceptionString = "";
-uncaughtExceptionExists = false;
+global.uncaughtExceptionString = "";
+global.uncaughtExceptionExists = false;
 if(typeof globalVerbosity == 'undefined'){
-    globalVerbosity = false;
+    global.globalVerbosity = false;
 }
 
 var DEBUG_START_TIME = new Date().getTime();
@@ -6688,7 +6779,7 @@ function getDebugDelta(){
  * Debug functions, influenced by globalVerbosity global variable
  * @param txt
  */
-dprint = function (txt) {
+global.dprint = function (txt) {
     if (globalVerbosity == true) {
         if (thisAdapter.initilised ) {
             console.log("DEBUG: [" + thisAdapter.nodeName + "](" + getDebugDelta()+ "):"+txt);
@@ -6704,7 +6795,7 @@ dprint = function (txt) {
  * obsolete!?
  * @param txt
  */
-aprint = function (txt) {
+global.aprint = function (txt) {
     console.log("DEBUG: [" + thisAdapter.nodeName + "]: " + txt);
 }
 
@@ -6715,7 +6806,7 @@ aprint = function (txt) {
  * @param msg
  * @param timeout
  */
-delayExit = function (msg, retCode,timeout) {
+global.delayExit = function (msg, retCode,timeout) {
     if(retCode == undefined){
         retCode = ExitCodes.UnknownError;
     }
@@ -6779,9 +6870,9 @@ function localLog (logType, message, err) {
 // }
 
 
-}).call(this,require('_process'))
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js":[function(require,module,exports){
 var beesHealer = require("swarmutils").beesHealer;
 var swarmDebug = require("./SwarmDebug");
 
@@ -6913,12 +7004,12 @@ exports.createForObject = function(valueObject, thisObject, localId){
 
 };
 
-},{"../parallelJoinPoint":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js","../serialJoinPoint":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js","./SwarmDebug":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\SwarmDebug.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\callflow.js":[function(require,module,exports){
+},{"../parallelJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js","../serialJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js","./SwarmDebug":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\SwarmDebug.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\callflow.js":[function(require,module,exports){
 exports.createForObject = function(valueObject, thisObject, localId){
 	var ret = require("./base").createForObject(valueObject, thisObject, localId);
 	return ret;
 };
-},{"./base":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\dossier\\index.js":[function(require,module,exports){
+},{"./base":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js"}],"D:\\work\\git\\privatesky\\modules\\dossier\\index.js":[function(require,module,exports){
 (function (process){
 const se = require("swarm-engine");
 if(typeof $$ === "undefined" || typeof $$.swarmEngine === "undefined"){
@@ -6958,7 +7049,7 @@ module.exports.load = function(seed, identity, callback){
 };
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto","swarm-engine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-brick-storage\\EDFSBrickStorage.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs-brick-storage\\EDFSBrickStorage.js":[function(require,module,exports){
 function EDFSBrickStorage(endpoint) {
 
     const bar = require("bar");
@@ -7071,13 +7162,13 @@ function EDFSBrickStorage(endpoint) {
 module.exports = EDFSBrickStorage;
 
 
-},{"bar":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-brick-storage\\index.js":[function(require,module,exports){
+},{"bar":"D:\\work\\git\\privatesky\\modules\\bar\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs-brick-storage\\index.js":[function(require,module,exports){
 module.exports.create = (endpoint) => {
     const EDFSBrickStorage = require("./EDFSBrickStorage");
     return new EDFSBrickStorage(endpoint)
 };
 
-},{"./EDFSBrickStorage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-brick-storage\\EDFSBrickStorage.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\flows\\BricksManager.js":[function(require,module,exports){
+},{"./EDFSBrickStorage":"D:\\work\\git\\privatesky\\modules\\edfs-brick-storage\\EDFSBrickStorage.js"}],"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\flows\\BricksManager.js":[function(require,module,exports){
 (function (process){
 const pathModule = "path";
 const path = require(pathModule);
@@ -7245,7 +7336,7 @@ $$.flow.describe("BricksManager", {
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\index.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","pskcrypto":"pskcrypto"}],"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\index.js":[function(require,module,exports){
 module.exports.getEDFSMiddleware = () => require("./lib/EDFSMiddleware");
 module.exports.createEDFSClient = (url) => {
     const EDFSClient = require("./lib/EDFSClient");
@@ -7253,7 +7344,7 @@ module.exports.createEDFSClient = (url) => {
 };
 
 
-},{"./lib/EDFSClient":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\lib\\EDFSClient.js","./lib/EDFSMiddleware":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\lib\\EDFSMiddleware.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\lib\\EDFSClient.js":[function(require,module,exports){
+},{"./lib/EDFSClient":"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\lib\\EDFSClient.js","./lib/EDFSMiddleware":"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\lib\\EDFSMiddleware.js"}],"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\lib\\EDFSClient.js":[function(require,module,exports){
 require("psk-http-client");
 
 function EDFSClient(url) {
@@ -7279,7 +7370,7 @@ function EDFSClient(url) {
 }
 
 module.exports = EDFSClient;
-},{"psk-http-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\lib\\EDFSMiddleware.js":[function(require,module,exports){
+},{"psk-http-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\lib\\EDFSMiddleware.js":[function(require,module,exports){
 require("../flows/BricksManager");
 
 function EDFSMiddleware(server) {
@@ -7351,14 +7442,14 @@ function EDFSMiddleware(server) {
 
 module.exports = EDFSMiddleware;
 
-},{"../flows/BricksManager":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\flows\\BricksManager.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\FetchBrickTransportStrategy.js":[function(require,module,exports){
+},{"../flows/BricksManager":"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\flows\\BricksManager.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\FetchBrickTransportStrategy.js":[function(require,module,exports){
 (function (Buffer){
 
 function FetchBrickTransportStrategy(initialConfig) {
     const url = initialConfig;
     this.send = (name, data, callback) => {
 
-        fetch(url + "/EDFS/", {
+        fetch(url + "/EDFS/"+name, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -7369,7 +7460,10 @@ function FetchBrickTransportStrategy(initialConfig) {
             if(response.status>=400){
                 return callback(new Error(`An error occurred ${response.statusText}`))
             }
-            return response.json();
+            return response.json().catch((err) => {
+                // This happens when the response is empty
+                return {};
+            });
         }).then(function(data) {
             callback(null, data)
         }).catch(error=>{
@@ -7422,19 +7516,45 @@ function FetchBrickTransportStrategy(initialConfig) {
         });
     };
 
+    this.attachHashToAlias = (alias, name, callback) => {
+        fetch(url + '/EDFS/attachHashToAlias/' + name, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/octet-stream'
+            },
+            body: alias
+        }).then(response => {
+            if(response.status>=400){
+                return callback(new Error(`An error occurred ${response.statusText}`))
+            }
+            return response.json().catch((err) => {
+                // This happens when the response is empty
+                return {};
+            });
+        }).then(data => {
+            callback(null, data);
+        }).catch(error => {
+            callback(error);
+        })
+    }
+
     this.getLocator = () => {
         return url;
     };
 }
 //TODO:why we use this?
 FetchBrickTransportStrategy.prototype.FETCH_BRICK_TRANSPORT_STRATEGY = "FETCH_BRICK_TRANSPORT_STRATEGY";
+FetchBrickTransportStrategy.prototype.canHandleEndpoint = (endpoint) => {
+    return endpoint.indexOf("http:") === 0 || endpoint.indexOf("https:") === 0;
+};
 
 
 module.exports = FetchBrickTransportStrategy;
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js":[function(require,module,exports){
 
 function HTTPBrickTransportStrategy(endpoint) {
     require("psk-http-client");
@@ -7471,7 +7591,7 @@ HTTPBrickTransportStrategy.prototype.canHandleEndpoint = (endpoint) => {
 };
 
 module.exports = HTTPBrickTransportStrategy;
-},{"psk-http-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\brickTransportStrategiesRegistry.js":[function(require,module,exports){
+},{"psk-http-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\brickTransportStrategiesRegistry.js":[function(require,module,exports){
 function BrickTransportStrategiesRegistry() {
     const strategies = {};
 
@@ -7516,20 +7636,15 @@ function BrickTransportStrategiesRegistry() {
 if (!$$.brickTransportStrategiesRegistry) {
     $$.brickTransportStrategiesRegistry = new BrickTransportStrategiesRegistry();
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\edfs\\index.js":[function(require,module,exports){
 require("./brickTransportStrategies/brickTransportStrategiesRegistry");
 const constants = require("./moduleConstants");
-
-function generateUniqueStrategyName(prefix) {
-    const randomPart = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-    return prefix + "_" + randomPart;
-}
 
 const or = require("overwrite-require");
 const browserContexts = [or.constants.SERVICE_WORKER_ENVIRONMENT_TYPE];
 if (browserContexts.indexOf($$.environmentType) !== -1) {
     $$.brickTransportStrategiesRegistry.add("http", require("./brickTransportStrategies/FetchBrickTransportStrategy"));
-}else{
+} else {
     $$.brickTransportStrategiesRegistry.add("http", require("./brickTransportStrategies/HTTPBrickTransportStrategy"));
 }
 
@@ -7538,10 +7653,16 @@ module.exports = {
         const EDFS = require("./lib/EDFS");
         return new EDFS(endpoint);
     },
-    attachWithSeed(compactSeed) {
+    attachWithSeed(compactSeed, callback) {
         const SEED = require("bar").Seed;
-        const seed = new SEED(compactSeed);
-        return this.attachToEndpoint(seed.getEndpoint());
+        let seed;
+        try {
+            seed = new SEED(compactSeed);
+        } catch (err) {
+            return callback(err);
+        }
+
+        callback(undefined, this.attachToEndpoint(seed.getEndpoint()));
     },
     attachWithPin(pin, callback) {
         require("./seedCage").getSeed(pin, (err, seed) => {
@@ -7549,14 +7670,7 @@ module.exports = {
                 return callback(err);
             }
 
-            let edfs;
-            try {
-                edfs = this.attachWithSeed(seed);
-            } catch (e) {
-                return callback(e);
-            }
-
-            callback(undefined, edfs);
+            this.attachWithSeed(seed, callback);
         });
     },
     checkForSeedCage(callback) {
@@ -7564,7 +7678,7 @@ module.exports = {
     },
     constants: constants
 };
-},{"./brickTransportStrategies/FetchBrickTransportStrategy":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\FetchBrickTransportStrategy.js","./brickTransportStrategies/HTTPBrickTransportStrategy":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js","./brickTransportStrategies/brickTransportStrategiesRegistry":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\brickTransportStrategiesRegistry.js","./lib/EDFS":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\lib\\EDFS.js","./moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\moduleConstants.js","./seedCage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\index.js","bar":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\index.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\lib\\EDFS.js":[function(require,module,exports){
+},{"./brickTransportStrategies/FetchBrickTransportStrategy":"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\FetchBrickTransportStrategy.js","./brickTransportStrategies/HTTPBrickTransportStrategy":"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js","./brickTransportStrategies/brickTransportStrategiesRegistry":"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\brickTransportStrategiesRegistry.js","./lib/EDFS":"D:\\work\\git\\privatesky\\modules\\edfs\\lib\\EDFS.js","./moduleConstants":"D:\\work\\git\\privatesky\\modules\\edfs\\moduleConstants.js","./seedCage":"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\index.js","bar":"D:\\work\\git\\privatesky\\modules\\bar\\index.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\lib\\EDFS.js":[function(require,module,exports){
 function EDFS(endpoint) {
     const RawDossier = require("./RawDossier");
     const barModule = require("bar");
@@ -7583,6 +7697,10 @@ function EDFS(endpoint) {
     this.bootCSB = (seed, callback) => {
         const rawDossier = new RawDossier(endpoint, seed);
         rawDossier.start(err => callback(err, rawDossier));
+    };
+
+    this.loadRawDossier = (seed)=>{
+        return new RawDossier(endpoint, seed);
     };
 
     this.loadBar = (seed) => {
@@ -7628,32 +7746,33 @@ function EDFS(endpoint) {
                 if (err) {
                     return callback(err);
                 }
-                this.bootCSB(seed, (err, wallet) => {
-                    if (err) {
-                        return callback(err);
-                    }
-                    return callback(undefined, wallet);
-                });
+                let rawDossier = this.loadRawDossier(seed);
+
+                if(!rawDossier){
+                    return callback(new Error("RawDossier is not available"));
+                }
+                return  callback(undefined, rawDossier);
 
             });
         } else {
-           
-            this.bootCSB(walletSeed, (err, wallet) => {
-                if (err) {
-                    return callback(err);
-                }
 
-                if (typeof pin !== "undefined" && pin !== null) {
-                    require("../seedCage").putSeed(walletSeed, pin, overwrite, (err) => {
-                        if (err) {
-                            return callback(err);
-                        }
-                        callback(undefined, wallet);
-                    });
-                } else {
-                    return callback(undefined, wallet);
-                }
-            });
+            let rawDossier = this.loadRawDossier(walletSeed);
+
+            if(!rawDossier){
+                return callback(new Error("RawDossier is not available"));
+            }
+
+
+            if (typeof pin !== "undefined" && pin !== null) {
+                require("../seedCage").putSeed(walletSeed, pin, overwrite, (err) => {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(undefined, rawDossier);
+                });
+            } else {
+                return callback(undefined, rawDossier);
+            }
         }
     };
 
@@ -7690,7 +7809,8 @@ function EDFS(endpoint) {
 }
 
 module.exports = EDFS;
-},{"../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\moduleConstants.js","../seedCage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\index.js","./RawDossier":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\lib\\RawDossier.js","bar":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\index.js","bar-fs-adapter":"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\index.js","edfs-brick-storage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-brick-storage\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\lib\\RawDossier.js":[function(require,module,exports){
+
+},{"../moduleConstants":"D:\\work\\git\\privatesky\\modules\\edfs\\moduleConstants.js","../seedCage":"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\index.js","./RawDossier":"D:\\work\\git\\privatesky\\modules\\edfs\\lib\\RawDossier.js","bar":"D:\\work\\git\\privatesky\\modules\\bar\\index.js","bar-fs-adapter":"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\index.js","edfs-brick-storage":"D:\\work\\git\\privatesky\\modules\\edfs-brick-storage\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\lib\\RawDossier.js":[function(require,module,exports){
 /*
 
 Sinica: to be renamed CSBHandler. RootCSB should be deleted
@@ -7708,35 +7828,135 @@ function RawDossier(endpoint, seed) {
         createBlockchain(bar).start(callback);
     };
 
-    this.addFolder = (fsFolderPath, barPath, callback) => {
-        bar.addFolder(fsFolderPath, barPath, (err, barMapDigest) => callback(err, barMapDigest));
+    this.addFolder = (fsFolderPath, barPath, options, callback) => {
+        const defaultOpts = {encrypt: true, ignoreMounts: true};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        Object.assign(defaultOpts, options);
+        options = defaultOpts;
+
+        if (options.ignoreMounts === true) {
+            bar.addFolder(fsFolderPath, barPath, options, (err, barMapDigest) => callback(err, barMapDigest));
+        } else {
+            loadBarForPath(barPath, (err, dossierContext) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                dossierContext.archive.addFolder(fsFolderPath, dossierContext.relativePath, options, callback);
+            });
+        }
     };
 
-    this.addFile = (fsFilePath, barPath, callback) => {
-        bar.addFile(fsFilePath, barPath, (err, barMapDigest) => callback(err, barMapDigest));
+    this.addFile = (fsFilePath, barPath, options, callback) => {
+        const defaultOpts = {encrypt: true, ignoreMounts: true};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        Object.assign(defaultOpts, options);
+        options = defaultOpts;
+
+        if (options.ignoreMounts === true) {
+            bar.addFolder(fsFilePath, barPath, options, (err, barMapDigest) => callback(err, barMapDigest));
+        } else {
+            loadBarForPath(barPath, (err, dossierContext) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                dossierContext.archive.addFile(fsFilePath, dossierContext.relativePath, options, callback);
+            });
+        }
     };
 
     this.readFile = (fileBarPath, callback) => {
-        this.loadBarForPath(fileBarPath, (err, dossierContext) => {
+        loadBarForPath(fileBarPath, (err, dossierContext) => {
             if (err) {
                 return callback(err);
             }
 
-            dossierContext.rawDossier.readFile(dossierContext.relativePath, callback);
+            dossierContext.archive.readFile(dossierContext.relativePath, callback);
         });
     };
 
-    this.extractFolder = bar.extractFolder;
+    this.extractFolder = (fsFolderPath, barPath, callback) => {
+        loadBarForPath(barPath, (err, dossierContext) => {
+            if (err) {
+                return callback(err);
+            }
 
-    this.extractFile = bar.extractFile;
-
-    this.writeFile = (barPath, data, callback) => {
-        bar.writeFile(barPath, data, (err, barMapDigest) => callback(err, barMapDigest));
+            dossierContext.archive.extractFolder(fsFolderPath, dossierContext.relativePath, callback);
+        });
     };
 
-    this.listFiles = bar.listFiles;
+    this.extractFile = (fsFilePath, barPath, callback) => {
+        loadBarForPath(barPath, (err, dossierContext) => {
+            if (err) {
+                return callback(err);
+            }
+
+            dossierContext.archive.extractFile(fsFilePath, dossierContext.relativePath, callback);
+        });
+    };
+
+    this.writeFile = (path, data, options, callback) => {
+        const defaultOpts = {encrypt: true, ignoreMounts: true};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        Object.assign(defaultOpts, options);
+        options = defaultOpts;
+        if (options.ignoreMounts === true) {
+            bar.writeFile(path, data, options, callback);
+        } else {
+            loadBarForPath(path, (err, dossierContext) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                dossierContext.archive.writeFile(dossierContext.relativePath, data, options, callback);
+            });
+        }
+    };
+
+    this.listFiles = (path, callback) => {
+        loadBarForPath(path, (err, dossierContext) => {
+            if (err) {
+                return callback(err);
+            }
+
+            dossierContext.archive.listFiles(dossierContext.relativePath, (err, files) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                if (path !== "/" && path !== "" && typeof path !== "function") {
+                    files = files.map(file => {
+                        if (file[0] === "/") {
+                            file = file.slice(1);
+                        }
+
+                        return file;
+                    })
+                }
+
+                callback(undefined, files);
+            });
+        });
+    };
 
     this.mount = (path, name, archiveIdentifier, callback) => {
+        if (/\w/.test(name) === false) {
+            return callback(Error("Invalid mount name"));
+        }
+
         bar.readFile(constants.MANIFEST_FILE, (err, data) => {
             let manifest;
             if (err) {
@@ -7746,9 +7966,8 @@ function RawDossier(endpoint, seed) {
 
             if (data) {
                 manifest = JSON.parse(data.toString());
-                const pathNames = manifest.mounts.filter(el => el.localPath === path);
-                const index = pathNames.findIndex(el => el === name);
-                if (index >= 0) {
+                const existingMount = manifest.mounts.find(el => el.localPath === path && el.mountName === name);
+                if (existingMount) {
                     return callback(Error(`A mount point at path ${path} with the name ${name} already exists.`));
                 }
             }
@@ -7760,7 +7979,7 @@ function RawDossier(endpoint, seed) {
 
             manifest.mounts.push(mount);
 
-            bar.writeFile(constants.MANIFEST_FILE, JSON.stringify(manifest), callback);
+            bar.writeFile(constants.MANIFEST_FILE, JSON.stringify(manifest), {encrypt: true}, callback);
         });
     };
 
@@ -7783,6 +8002,42 @@ function RawDossier(endpoint, seed) {
             }
 
             bar.writeFile(constants.MANIFEST_FILE, JSON.stringify(manifest), callback);
+        });
+    };
+
+    this.listMountedDossiers = (path, callback) => {
+        loadBarForPath(path, (err, dossierContext) => {
+            if (err) {
+                return callback(err);
+            }
+
+            dossierContext.archive.readFile(constants.MANIFEST_FILE, (err, manifestContent) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                let manifest;
+                try {
+                    manifest = JSON.parse(manifestContent.toString());
+                } catch (e) {
+                    return callback(e);
+                }
+
+                const matchingMounts = [];
+                manifest.mounts.forEach(mount => {
+                    let sep = mount.localPath === "/" ? "" : "/";
+                    let pth = mount.localPath + sep + mount.mountName;
+
+                    if (pth.startsWith(dossierContext.relativePath)) {
+                        if (path !== "/" && path !== "" && typeof path !== "function" && pth[0] === "/") {
+                            pth = pth.slice(1);
+                        }
+
+                        matchingMounts.push({path: pth, dossierReference: mount.archiveIdentifier});
+                    }
+                });
+                callback(undefined, matchingMounts);
+            });
         });
     };
 
@@ -7819,20 +8074,26 @@ function RawDossier(endpoint, seed) {
         return barModule.createArchive(archiveConfigurator);
     }
 
-    this.loadBarForPath = (path, callback) => {
-        return __loadBarForPathRecursively(bar, "", path, callback);
+    function loadBarForPath(path, callback) {
+        if (typeof path === "function") {
+            callback = path;
+            path = "/";
+        }
+        __loadBarForPathRecursively(bar, "", path, callback);
 
         function __loadBarForPathRecursively(archive, prefixPath, relativePath, callback) {
+            if (relativePath === "" || relativePath === "/") {
+                return callback(undefined, {archive, prefixPath, relativePath});
+            }
+
             archive.listFiles((err, files) => {
                 if (err) {
                     return callback(err);
                 }
 
                 if (files.length === 0) {
-                    return callback();
+                    __searchInManifest();
                 }
-
-                let pathRest = [];
 
                 let barPath = files.find(file => {
                     let pth;
@@ -7849,22 +8110,33 @@ function RawDossier(endpoint, seed) {
                             pth = prefixPath + "/" + relativePath;
                         }
                     }
-                    return file === pth;
+                    return file.startsWith(pth);
                 });
+
+
                 if (barPath) {
-                    return callback(undefined, {rawDossier: archive, prefixPath, relativePath});
+                    return callback(undefined, {archive, prefixPath, relativePath});
                 } else {
+                    __searchInManifest();
+                }
+
+                function __searchInManifest() {
+                    let pathRest = [];
                     let splitPath = relativePath.split("/");
                     if (splitPath[0] === "") {
                         splitPath[0] = "/";
                     }
-                    archive.readFile(constants.MANIFEST_FILE, (err, manifestContent) => {
+                    archive.readFile("/" + constants.MANIFEST_FILE, (err, manifestContent) => {
                         if (err) {
                             return callback(err);
                         }
 
                         const manifest = JSON.parse(manifestContent.toString());
                         pathRest.unshift(splitPath.pop());
+                        if (splitPath.length === 0) {
+                            return callback(undefined, {archive, prefixPath, relativePath});
+                        }
+
                         while (splitPath.length > 0) {
                             let localPath;
                             if (splitPath[0] === "/") {
@@ -7878,12 +8150,17 @@ function RawDossier(endpoint, seed) {
                             for (let mount of manifest.mounts) {
                                 const name = pathRest[0];
                                 if (mount.localPath === localPath && mount.mountName === name) {
+                                    pathRest.shift();
+
                                     const internalArchive = createBar(mount.archiveIdentifier);
                                     return __loadBarForPathRecursively(internalArchive, splitPath.join("/"), pathRest.join("/"), callback);
                                 }
                             }
 
                             pathRest.unshift(splitPath.pop());
+                            if (splitPath.length === 0) {
+                                return callback(Error(`Path ${path} could not be found.`));
+                            }
                         }
                     });
                 }
@@ -7893,7 +8170,7 @@ function RawDossier(endpoint, seed) {
 }
 
 module.exports = RawDossier;
-},{"../moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\moduleConstants.js","bar":"D:\\Catalin\\Munca\\privatesky\\modules\\bar\\index.js","bar-fs-adapter":"D:\\Catalin\\Munca\\privatesky\\modules\\bar-fs-adapter\\index.js","blockchain":"D:\\Catalin\\Munca\\privatesky\\modules\\blockchain\\index.js","edfs-brick-storage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-brick-storage\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\moduleConstants.js":[function(require,module,exports){
+},{"../moduleConstants":"D:\\work\\git\\privatesky\\modules\\edfs\\moduleConstants.js","bar":"D:\\work\\git\\privatesky\\modules\\bar\\index.js","bar-fs-adapter":"D:\\work\\git\\privatesky\\modules\\bar-fs-adapter\\index.js","blockchain":"D:\\work\\git\\privatesky\\modules\\blockchain\\index.js","edfs-brick-storage":"D:\\work\\git\\privatesky\\modules\\edfs-brick-storage\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\moduleConstants.js":[function(require,module,exports){
 const HTTPBrickTransportStrategy = require("./brickTransportStrategies/HTTPBrickTransportStrategy");
 HTTPBrickTransportStrategy.prototype.HTTP_BRICK_TRANSPORT_STRATEGY = "HTTP_BRICK_TRANSPORT_STRATEGY";
 
@@ -7911,7 +8188,7 @@ module.exports = {
     }
 };
 
-},{"./brickTransportStrategies/HTTPBrickTransportStrategy":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\BrowserSeedCage.js":[function(require,module,exports){
+},{"./brickTransportStrategies/HTTPBrickTransportStrategy":"D:\\work\\git\\privatesky\\modules\\edfs\\brickTransportStrategies\\HTTPBrickTransportStrategy.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\BrowserSeedCage.js":[function(require,module,exports){
 (function (Buffer){
 const pskcrypto = "pskcrypto";
 const crypto = require(pskcrypto);
@@ -8003,7 +8280,7 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\NodeSeedCage.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\NodeSeedCage.js":[function(require,module,exports){
 (function (process,Buffer){
 const pth = "path";
 const path = require(pth);
@@ -8102,7 +8379,7 @@ module.exports = {
 
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\index.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\index.js":[function(require,module,exports){
 const or = require("overwrite-require");
 switch ($$.environmentType) {
     case or.constants.THREAD_ENVIRONMENT_TYPE:
@@ -8117,7 +8394,7 @@ switch ($$.environmentType) {
     default:
         throw new Error("No implementation of SeedCage for this env type.");
 }
-},{"./BrowserSeedCage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\BrowserSeedCage.js","./NodeSeedCage":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\seedCage\\NodeSeedCage.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js":[function(require,module,exports){
+},{"./BrowserSeedCage":"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\BrowserSeedCage.js","./NodeSeedCage":"D:\\work\\git\\privatesky\\modules\\edfs\\seedCage\\NodeSeedCage.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js":[function(require,module,exports){
 (function (process,global){
 /*
  require and $$.require are overwriting the node.js defaults in loading modules for increasing security, speed and making it work to the privatesky runtime build with browserify.
@@ -8459,7 +8736,7 @@ module.exports = {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\moduleConstants.js","./standardGlobalSymbols.js":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\moduleConstants.js":[function(require,module,exports){
+},{"./moduleConstants":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\moduleConstants.js","./standardGlobalSymbols.js":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\modules\\overwrite-require\\moduleConstants.js":[function(require,module,exports){
 module.exports = {
   BROWSER_ENVIRONMENT_TYPE: 'browser',
   SERVICE_WORKER_ENVIRONMENT_TYPE: 'service-worker',
@@ -8468,7 +8745,7 @@ module.exports = {
   NODEJS_ENVIRONMENT_TYPE: 'nodejs'
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js":[function(require,module,exports){
 (function (process,global){
 let logger = console;
 
@@ -8780,7 +9057,7 @@ $$.registerGlobalSymbol("throttlingEvent", function (...args) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","psklogger":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","psklogger":false}],"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js":[function(require,module,exports){
 //to look nice the requireModule on Node
 require("./lib/psk-abstract-client");
 const or = require('overwrite-require');
@@ -8789,7 +9066,7 @@ if ($$.environmentType === or.constants.BROWSER_ENVIRONMENT_TYPE) {
 } else {
 	require("./lib/psk-node-client");
 }
-},{"./lib/psk-abstract-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js","./lib/psk-browser-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-browser-client.js","./lib/psk-node-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-node-client.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js":[function(require,module,exports){
+},{"./lib/psk-abstract-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js","./lib/psk-browser-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-browser-client.js","./lib/psk-node-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-node-client.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js":[function(require,module,exports){
 /**********************  utility class **********************************/
 function RequestManager(pollingTimeOut) {
     if (!pollingTimeOut) {
@@ -9126,7 +9403,7 @@ function HttpChannelClient(remoteEndPoint, channelName, options) {
             }
         });
 
-        createRequestManager();
+        $$.remote.createRequestManager();
     };
 
     const allCatchAlls = [];
@@ -9205,7 +9482,8 @@ if (typeof $$.remote === "undefined") {
         throw new Error("Overwrite this!");
     };
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-browser-client.js":[function(require,module,exports){
+
+},{}],"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-browser-client.js":[function(require,module,exports){
 (function (Buffer){
 function generateMethodForRequestWithData(httpMethod) {
     return function (url, data, callback) {
@@ -9346,7 +9624,7 @@ $$.remote.base64Decode = function base64Decode(encodedString){
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-node-client.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-node-client.js":[function(require,module,exports){
 (function (process,Buffer){
 require("./psk-abstract-client");
 
@@ -9534,75 +9812,7 @@ $$.remote.base64Decode = function base64Decode(encodedString){
 
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"./psk-abstract-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js","https":"D:\\Catalin\\Munca\\privatesky\\node_modules\\https-browserify\\index.js","url":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskbuffer\\index.js":[function(require,module,exports){
-const PSKBuffer = require('./lib/PSKBuffer');
-
-module.exports = PSKBuffer;
-
-},{"./lib/PSKBuffer":"D:\\Catalin\\Munca\\privatesky\\modules\\pskbuffer\\lib\\PSKBuffer.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskbuffer\\lib\\PSKBuffer.js":[function(require,module,exports){
-function PSKBuffer() {}
-
-function getArrayBufferInterface () {
-    if(typeof SharedArrayBuffer === 'undefined') {
-        return ArrayBuffer;
-    } else {
-        return SharedArrayBuffer;
-    }
-}
-
-PSKBuffer.from = function (source) {
-    const ArrayBufferInterface = getArrayBufferInterface();
-
-    const buffer = new Uint8Array(new ArrayBufferInterface(source.length));
-    buffer.set(source, 0);
-
-    return buffer;
-};
-
-PSKBuffer.concat = function ([ ...params ], totalLength) {
-    const ArrayBufferInterface = getArrayBufferInterface();
-
-    if (!totalLength && totalLength !== 0) {
-        totalLength = 0;
-        for (const buffer of params) {
-            totalLength += buffer.length;
-        }
-    }
-
-    const buffer = new Uint8Array(new ArrayBufferInterface(totalLength));
-    let offset = 0;
-
-    for (const buf of params) {
-        const len = buf.length;
-
-        const nextOffset = offset + len;
-        if (nextOffset > totalLength) {
-            const remainingSpace = totalLength - offset;
-            for (let i = 0; i < remainingSpace; ++i) {
-                buffer[offset + i] = buf[i];
-            }
-        } else {
-            buffer.set(buf, offset);
-        }
-
-        offset = nextOffset;
-    }
-
-    return buffer;
-};
-
-PSKBuffer.isBuffer = function (pskBuffer) {
-    return !!ArrayBuffer.isView(pskBuffer);
-};
-
-PSKBuffer.alloc = function(size) {
-    const ArrayBufferInterface = getArrayBufferInterface();
-
-    return new Uint8Array(new ArrayBufferInterface(size));
-};
-
-module.exports = PSKBuffer;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js":[function(require,module,exports){
+},{"./psk-abstract-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\lib\\psk-abstract-client.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js","https":"D:\\work\\git\\privatesky\\node_modules\\https-browserify\\index.js","url":"D:\\work\\git\\privatesky\\node_modules\\url\\url.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js":[function(require,module,exports){
 (function (Buffer){
 function PskCrypto() {
     const crypto = require('crypto');
@@ -9771,7 +9981,7 @@ module.exports = new PskCrypto();
 
 }).call(this,require("buffer").Buffer)
 
-},{"./PskEncryption":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\PskEncryption.js","./utils/cryptoUtils":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\PskEncryption.js":[function(require,module,exports){
+},{"./PskEncryption":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskEncryption.js","./utils/cryptoUtils":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskEncryption.js":[function(require,module,exports){
 (function (Buffer){
 const crypto = require("crypto");
 const utils = require("./utils/cryptoUtils");
@@ -9856,7 +10066,7 @@ function PskEncryption(algorithm) {
 module.exports = PskEncryption;
 }).call(this,require("buffer").Buffer)
 
-},{"./utils/cryptoUtils":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js":[function(require,module,exports){
+},{"./utils/cryptoUtils":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js":[function(require,module,exports){
 const stream = require('stream');
 const util = require('util');
 
@@ -9881,7 +10091,7 @@ DuplexStream.prototype._read = function (n) {
 };
 
 module.exports = DuplexStream;
-},{"stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js":[function(require,module,exports){
+},{"stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\cryptoUtils.js":[function(require,module,exports){
 (function (Buffer){
 const crypto = require('crypto');
 
@@ -9961,7 +10171,7 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js":[function(require,module,exports){
 const stream = require('stream');
 
 
@@ -9989,7 +10199,7 @@ module.exports            = isStream;
 module.exports.isReadable = isReadable;
 module.exports.isWritable = isWritable;
 module.exports.isDuplex   = isDuplex;
-},{"stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js":[function(require,module,exports){
+},{"stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js":[function(require,module,exports){
 /*
  SignSens helper functions
  */
@@ -10189,1636 +10399,11 @@ exports.createSignature = function (agent,counter, nextPublic, arr, size){
 
     return agent + ":" + counter + ":" + nextPublic + ":" + result;
 }
-},{"crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\index.js":[function(require,module,exports){
-const Isolate = require('./lib/DefaultConfiguredIsolate');
-const IsolateBuilder = require('./lib/IsolateBuilder');
-const IsolateConfig = require('./lib/IsolateConfig');
-const utils = require('./lib/utils/utils');
-
-
-function getDefaultIsolate({shimsBundle, browserifyBundles, config, externalApi}, callback) {
-    const defaultIsolatePromise = Isolate.initDefaultIsolate({config, shimsBundle, browserifyBundles, externalApi});
-
-    return utils.resolveWithCallbackIfAvailable(defaultIsolatePromise, callback);
-}
-
-
-module.exports = {
-    getDefaultIsolate,
-    IsolateBuilder,
-    IsolateConfig,
-    createDeepReference: utils.createDeepReference
-};
-
-},{"./lib/DefaultConfiguredIsolate":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\DefaultConfiguredIsolate.js","./lib/IsolateBuilder":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateBuilder.js","./lib/IsolateConfig":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateConfig.js","./lib/utils/utils":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\DefaultConfiguredIsolate.js":[function(require,module,exports){
-const IsolateConfig = require('./IsolateConfig');
-
-const prepareEnvCode = require('./defaultConfigCode/prepareGlobalEnv');
-const prepareRequireCode = require('./defaultConfigCode/prepareRequireCode');
-const secureGlobalEnvCode = require('./defaultConfigCode/secureGlobalEnvCode');
-const insertBundlesCode = require('./defaultConfigCode/insertBundlesCode');
-const enableAccessToExternalApiCode = require('./defaultConfigCode/enableAccessToExternalApi');
-
-const IsolateBuilder = require('./IsolateBuilder');
-
-// TODO: Add PSKBuffer dynamically inside isolate
-
-/**
- *
- * @param {?Object} config - instance of {IsolateConfig}
- * @param {?string} shimsBundle - A browserify bundle containing the minimum libraries that are needed to instantiate environment
- * @param {?string} browserifyBundles - A browserify bundle with libraries/modules accessible after initialization
- * @returns {Promise<IsolatedExecutionEnvironment>} - Isolate with environment ready for normal execution
- */
-async function initDefaultIsolate({config, shimsBundle, browserifyBundles, externalApi}) {
-
-    if(!config) {
-        config = IsolateConfig.defaultConfig;
-    }
-
-    if (!Array.isArray(browserifyBundles)) {
-        if (browserifyBundles) {
-            browserifyBundles = [browserifyBundles];
-        } else {
-            browserifyBundles = [];
-        }
-
-    }
-
-    const isolateBuilder = new IsolateBuilder(config, externalApi);
-
-    return isolateBuilder
-        .prepareGlobalEnv(prepareEnvCode)
-        .then(o => o.insertExternalApi(enableAccessToExternalApiCode()))
-        .then(o => o.prepareRequire(prepareRequireCode(shimsBundle)))
-        .then(o => o.insertBundles(insertBundlesCode(browserifyBundles)))
-        .then(o => o.secureGlobalEnv(secureGlobalEnvCode));
-}
-
-module.exports = {
-    initDefaultIsolate
-};
-
-},{"./IsolateBuilder":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateBuilder.js","./IsolateConfig":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateConfig.js","./defaultConfigCode/enableAccessToExternalApi":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\enableAccessToExternalApi.js","./defaultConfigCode/insertBundlesCode":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\insertBundlesCode.js","./defaultConfigCode/prepareGlobalEnv":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\prepareGlobalEnv.js","./defaultConfigCode/prepareRequireCode":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\prepareRequireCode.js","./defaultConfigCode/secureGlobalEnvCode":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\secureGlobalEnvCode.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateBuilder.js":[function(require,module,exports){
-const IsolatedExecutionEnv = require('./IsolatedExecutionEnvironment');
-
-function IsolateBuilder(config, externalApi) {
-    const isolate = new IsolatedExecutionEnv(config);
-
-
-
-    const operations = new Operations();
-
-    return __prepareGlobalEnv();
-
-
-    /************* BUILDER STEPS *************/
-
-    function __prepareGlobalEnv() {
-        return {
-            prepareGlobalEnv: async function (code) {
-                await isolate.run(code, {delay: config.debug.delay, fileName: 'prepareGlobalEnv.js'});
-                config.debug.delay = 0; // reset so only the first time the delay appears
-
-                return __prepareRequire();
-            }
-        }
-    }
-
-    function __prepareRequire() {
-        return {
-            insertExternalApi: async function(code) {
-                await isolate.run(code, {delay: config.debug.delay, fileName: 'enableAccessToExternalApi.js'});
-
-                if(typeof externalApi !== "undefined"){
-                    const injectExternalAPIRef = isolate.context.global.getSync('injectExternalAPI');
-                    Object.keys(externalApi).forEach((apiName)=>{
-                        if(typeof externalApi[apiName] === "function"){
-                            injectExternalAPIRef.applyIgnored(undefined, [apiName, new isolate.ivm.Reference(externalApi[apiName])])
-                        }else{
-                            console.log(`Found api ${apiName} that is not a function.`);
-                        }
-                    });
-                }
-
-                return this;
-            },
-            prepareRequire: async function (code) {
-                await isolate.run(code, {delay: config.debug.delay, fileName: 'prepareRequire.js'});
-
-                return __insertBundles();
-            }
-        }
-    }
-
-    function __insertBundles() {
-        return {
-            insertBundles: async function (code) {
-                await isolate.run(code, {delay: config.debug.delay, fileName: 'insertBundles.js'});
-
-                return __secureGlobalEnv();
-            }
-        }
-    }
-
-    function __secureGlobalEnv() {
-        return {
-            secureGlobalEnv: async function (code) {
-                await isolate.run(code, {delay: config.debug.delay, fileName: 'secureGlobalEnv.js'});
-
-                return isolate;
-            }
-        }
-    }
-
-
-    function __build() {
-        return {
-            build: async function () {
-                const steps = operations.steps;
-                
-                for (const step of steps) { // forEach skips await and executes all simultaneously
-                    await step();
-                }
-
-                return isolate;
-            }
-        }
-
-    }
-
-
-    /************* HELPER CLASS *************/
-    function Operations() {
-        const steps = [];
-
-        return {
-            addStep(code, config) {
-                steps.push(async () => await isolate.run(code, config));
-            },
-
-            get steps() {
-                return steps
-            }
-        };
-    }
-}
-
-
-module.exports = IsolateBuilder;
-},{"./IsolatedExecutionEnvironment":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolatedExecutionEnvironment.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateConfig.js":[function(require,module,exports){
-function IsolateConfig() {
-    return {
-        debug: {
-            useInspector: false,
-            debuggerPort: 10000,
-            delay: 0 // used to postpone execution to have time to connect to debugger server
-        },
-        runtime: {
-            delay: 0
-        },
-        logger: {send: console.log}
-    }
-}
-
-
-module.exports = {
-    get defaultConfig() {
-        return new IsolateConfig();
-    }
-};
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolatedExecutionEnvironment.js":[function(require,module,exports){
-const isolated_vm = 'isolated-vm/isolated-vm';
-const ivm = require(isolated_vm);
-
-const utils = require('./utils/utils');
-const defaultConfig = require('./IsolateConfig').defaultConfig;
-let debuggerServer;
-/*try {
-    debuggerServer = require('./utils/debugger');
-} catch (e) {
-    // module 'ws' is not found, inspector capabilities are disabled
-}*/
-
-const ReceiverReferenceProxy = require('./utils/ReceiverReferenceProxy');
-
-
-/**
- * Wrapper over ivm from isolate-vm module. It adds feature such as console, setTimeout and require inside the Isolate
- * @param {!Object} config - Instance of {IsolateConfig}
- * @constructor
- */
-function IsolatedExecutionEnvironment(config) {
-    /************* INITIALIZING OBJECT STATE *************/
-    if (!utils.isIdenticalHierarchy(defaultConfig, config)) {
-        throw new Error('Invalid config argument received');
-    }
-
-    const useInspector = config.debug.useInspector;
-
-    const isolate = new ivm.Isolate({inspector: useInspector});
-    const context = isolate.createContextSync({inspector: useInspector});
-    const isolateGlobal = context.global;
-
-    if (useInspector) {
-        if (!debuggerServer) {
-            console.error("Can't use debugger because module 'ws' is not installed");
-            return;
-        }
-
-        debuggerServer.startDebugger(isolate, config.debug.debuggerPort);
-    }
-
-    /************* PREPARING ENVIRONMENT STATE *************/
-    isolateGlobal.setSync('global', isolateGlobal.derefInto());
-    isolateGlobal.setSync('_ivm', ivm);
-    isolateGlobal.setSync('_console', utils.createDeepReference(console));
-    isolateGlobal.setSync('_setTimeout', new ivm.Reference(function (timeout, callbackRef) {
-        setTimeout(function () {
-            callbackRef.applyIgnored(undefined, []);
-        }, timeout);
-    }));
-
-    isolateGlobal.setSync('_logger', utils.createDeepReference(config.logger));
-
-    /************* PUBLIC METHODS *************/
-
-    /**
-     * Runs code inside current instance of Isolate
-     * @param {!string} code - the code that will be run
-     * @param {{fileName: string, delay: number}|function} runConfig - An instance of IsolateConfig or a function that will be used as callback
-     * @param callback - If not present the function returns a Promise
-     * @returns {Promise|undefined}
-     */
-    async function run(code, runConfig, callback) {
-        if (typeof runConfig === 'function') {
-            callback = runConfig;
-            runConfig = undefined;
-        }
-
-        if (runConfig) {
-            if (!utils.isIdenticalHierarchy(runConfig, {delay: '', fileName: ''})) {
-                throw new Error('Tried to run with invalid config object');
-            }
-        } else {
-            runConfig = {
-                delay: config.runtime.delay,
-                fileName: 'isolatedEnvironment.js'
-            }
-        }
-
-        const resultPromise = __run(runConfig.delay, runConfig.fileName, code);
-
-        return utils.resolveWithCallbackIfAvailable(resultPromise, callback);
-    }
-
-    /**
-     * Sets on the global object of the isolate a reference to the value with the given name
-     * @param name
-     * @param value
-     */
-    function globalSetSync(name, value) {
-        isolateGlobal.setSync(name, utils.createDeepReference(value));
-    }
-
-
-    /************* INTERNAL METHODS *************/
-
-    async function __run(delay, fileName, code) {
-        await _delay(delay);
-
-        const prepareScript = await isolate.compileScript(code, {filename: fileName});
-        try {
-            return await prepareScript.run(context);
-        } catch (e) {
-            console.log('error running', code);
-            console.log('e', e);
-            throw e;
-        }
-    }
-
-
-
-
-
-    /**
-     * Wrapper over setTimeout to be used with async/await
-     * @param ms
-     * @returns {Promise<any>}
-     * @private
-     */
-    const _delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-    /** EXPORTS **/
-
-    this.context = context;
-    this.run = run;
-    this.rawIsolate = isolate;
-    this.globalSetSync = globalSetSync;
-    this.ivm = ivm;
-}
-
-
-module.exports = IsolatedExecutionEnvironment;
-
-},{"./IsolateConfig":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\IsolateConfig.js","./utils/ReceiverReferenceProxy":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\ReceiverReferenceProxy.js","./utils/utils":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\enableAccessToExternalApi.js":[function(require,module,exports){
-function createRequire() {
-    const code = `new function() {
-        global.injectExternalAPI = function(fncName, fnRef) {
-            global[fncName] = function (...args) {
-              return global.ReferenceAccess.getAccessProxyFor(fnRef.applySync(undefined, args));
-            }
-        }
-    }; `;
-
-    return code;
-}
-
-module.exports = createRequire;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\insertBundlesCode.js":[function(require,module,exports){
-function createBundles(bundles) {
-
-    let code = 'debugger;\n';
-
-    bundles.forEach(bundle => {
-        code += bundle + '\n';
-    });
-
-    return code;
-}
-
-module.exports = createBundles;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\prepareGlobalEnv.js":[function(require,module,exports){
-(function (process,global){
-const code = 'new ' + function () {
-    debugger;
-    let ivm = _ivm;
-
-    function PSKBuffer() {}
-
-    PSKBuffer.from = function (source) {
-        const buffer = new Uint8Array(new SharedArrayBuffer(source.length));
-        buffer.set(source, 0);
-
-        return buffer;
-    };
-
-    PSKBuffer.concat = function ([...params], totalLength) {
-        if (!totalLength && totalLength !== 0) {
-            totalLength = 0;
-            for (const buffer of params) {
-                totalLength += buffer.length;
-            }
-        }
-
-        const buffer = new Uint8Array(new SharedArrayBuffer(totalLength));
-        let offset = 0;
-
-        for (const buf of params) {
-            const len = buf.length;
-
-            const nextOffset = offset + len;
-            if (nextOffset > totalLength) {
-                const remainingSpace = totalLength - offset;
-                for (let i = 0; i < remainingSpace; ++i) {
-                    buffer[offset + i] = buf[i];
-                }
-            } else {
-                buffer.set(buf, offset);
-            }
-
-            offset = nextOffset;
-        }
-
-        return buffer;
-    };
-
-    PSKBuffer.isBuffer = function (pskBuffer) {
-        return !!ArrayBuffer.isView(pskBuffer);
-    };
-
-    PSKBuffer.alloc = function(size) {
-        return new Uint8Array(new SharedArrayBuffer(size));
-    };
-
-    global.PSKBuffer = PSKBuffer;
-    global.Buffer = PSKBuffer;
-
-    /**
-     * Creates a proxy that hides the dereferencing action when accessing properties on external references
-     * @returns {{getAccessProxyFor: (function(*=): *)}}
-     * @constructor
-     */
-    function ReferenceAccess() {
-        const referenceAccessHandler = {
-            get: function (target, prop) {
-                let unwrappedValue;
-
-                if (objectIsReference(target)) {
-                    const rawProperty = target.getSync(prop);
-
-                    if (isFunction(rawProperty)) {
-                        unwrappedValue = toNativeFunction(rawProperty);
-                    } else if (isNativeValue(rawProperty)) {
-                        unwrappedValue = toNativeValue(rawProperty);
-                    } else {
-                        unwrappedValue = new Proxy(rawProperty, referenceAccessHandler);
-                    }
-
-                } else {
-                    unwrappedValue = target[prop];
-                }
-
-                return unwrappedValue;
-            },
-            set: function (target, prop, value) {
-                // needs more testing
-
-                if (objectIsReference(target)) {
-                    try {
-                        target.setSync(prop, value);
-                    } catch (e) {
-                        console.error('error setting value on proxy inside sandbox', target, prop, e);
-                    }
-                } else {
-                    target[prop] = value;
-                }
-
-                return true;
-            },
-            ownKeys: function (reference) {
-                // doesn't work yet, target should use 'deepReference' function (which might come with a performance penalty)
-                // to be able to copySync each level individually instead of trying to parse the entire object which
-                // causes and error to be thrown most of the time due to native code that can't be copied
-
-                // better alternative, now that reference is always a Proxy, maybe it can implement ownKeys
-
-                try {
-                    const nativeObject = reference.copySync();
-
-                    return Reflect.ownKeys(nativeObject);
-                } catch (e) {
-                    return []
-                }
-            }
-        };
-
-        function getAccessProxyFor(obj) {
-            return new Proxy(obj, referenceAccessHandler);
-        }
-
-        function objectIsReference(obj) {
-            return !!(typeof obj === 'object' && obj.constructor.name === 'Reference' && obj.typeof && obj.getSync);
-        }
-
-        function isFunction(reference) {
-            return !!(reference.typeof === 'function' || typeof reference === 'function');
-        }
-
-        function toNativeFunction(reference) {
-            if (reference.typeof === 'function') {
-                return function (...args) {
-                    // this probably looses the reference to `this`
-                    return reference.applySync(undefined, args.map(convertToTransferable));
-                }
-            } else if (typeof reference === 'function') {
-                return reference;
-            }
-        }
-
-        function isNativeValue(reference) {
-            return reference.typeof !== 'object';
-        }
-
-        function toNativeValue(reference) {
-            return reference.copySync();
-        }
-
-        function convertToTransferable(arg) {
-            if(PSKBuffer.isBuffer(arg)) {
-                return new ivm.ExternalCopy(arg).copyInto();
-            }
-
-            if(isPrimitive(arg)) {
-                return arg
-            }
-
-            if(typeof arg === 'function') {
-                return new ivm.Reference(arg);
-            }
-
-            return new ivm.ExternalCopy(arg).copyInto();
-        }
-
-        function isPrimitive(value) {
-            return value !== Object(value);
-        }
-
-        return {
-            getAccessProxyFor,
-            for: getAccessProxyFor
-        };
-    }
-
-    global.ReferenceAccess = ReferenceAccess();
-
-    /**
-     * Wrapper over console functions to transform input in string because complex objects can't be passed
-     * outside of the Isolate Environment
-     * @param consoleSource
-     * @returns {{warn: Function, log: Function, error: Function, info: Function}}
-     */
-    function wrapConsoleLogs(consoleSource) {
-        return {
-            log: wrapper(consoleSource.log),
-            warn: wrapper(consoleSource.warn),
-            error: wrapper(consoleSource.error),
-            info: wrapper(consoleSource.info)
-        };
-
-        function wrapper(fn) {
-            return function (...args) {
-                try {
-                    fn.apply(undefined, args.map(arg => new ivm.ExternalCopy(transform(arg)).copyInto()));
-                } catch (e) {
-                    consoleSource.error('>>> [error] could not display non-transferable value', e);
-                }
-            }
-        }
-
-        function transform(arg) {
-            const type = typeof arg;
-
-            if (type === 'object') {
-
-                if(arg instanceof Error) {
-                    arg = JSON.stringify({code: arg.code, message: arg.message, stack: arg.stack})
-                } else if (!ArrayBuffer.isView(arg)) { // is not of ArrayBuffer or SharedArrayBuffer type
-                    arg = JSON.stringify(arg);
-                }
-
-            }
-
-            return arg;
-        }
-    }
-
-    const _rawConsole = _console;
-    const consoleProxy = global.ReferenceAccess.getAccessProxyFor(_rawConsole);
-    const consoleWrapper = wrapConsoleLogs(consoleProxy);
-
-    global.console = new Proxy(consoleProxy, {
-        get: function (target, prop) {
-            if (consoleWrapper.hasOwnProperty(prop)) {
-                return consoleWrapper[prop];
-            }
-
-            return target[prop];
-        },
-        set: function(target, prop, value) {
-            // do not allow overwriting console methods inside sandbox, it can cause a crash
-            console.warn(`Not allowed overwriting any property of console inside isolates, tried overwriting property "${prop}"`);
-            return false;
-        }
-    });
-
-    /**
-     * SetTimeout implementation that uses setTimeout of parent environment due to lack of "timers" inside Isolate
-     */
-    let _rawSetTimeout = _setTimeout;
-    setTimeout = function (callback, timeout) {
-        const callbackReference = new ivm.Reference(() => callback());
-        _rawSetTimeout.apply(undefined, [timeout, callbackReference])
-            .catch(() => {
-                console.log('Error calling timeout');
-            });
-    };
-
-    try {
-      process.env;
-    } catch (e) {
-        // triggered if process is not defined
-        global.process = {};
-        global.process.env = {};
-
-        Object.defineProperty(global.process.env, "context",  {
-            value: 'sandbox',
-            configurable: false,
-            writable: false,
-            enumerable: true
-        })
-    }
-
-    /**
-     * Proxies to injected logger
-     */
-
-    const _rawLogger = _logger;
-    const privateLogger = ReferenceAccess().getAccessProxyFor(_rawLogger);
-
-    global.logger = {
-        send: function([logChannel, logObject]) {
-            if(typeof logChannel !== 'string' && typeof logObject !== 'object' || arguments.length > 1) {
-                console.error('logger API might have been called outside of PSKLogger inside sandbox,' +
-                    ' this problem is very serious therefore log will be skipped');
-                return;
-            }
-            privateLogger.send([logChannel, logObject]);
-        }
-    };
-
-    global.createCopyIntoExternalCopy = (obj) => {
-        return new ivm.ExternalCopy(obj).copyInto();
-    };
-
-    Object.defineProperty(global, 'sandboxEnvironment', {value: true});
-};
-
-
-module.exports = code;
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\prepareRequireCode.js":[function(require,module,exports){
-function createRequire(shimsBundle) {
-    const code = `new function() {
-        debugger;
-        let ivm = _ivm;
-              
-        const bundle = ${shimsBundle}
-        
-        bundle('callflow');
-        const se = bundle("swarm-engine");
-        se.initialise();
-    }; `;
-
-    return code;
-}
-
-module.exports = createRequire;
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\defaultConfigCode\\secureGlobalEnvCode.js":[function(require,module,exports){
-const code = 'new ' + function () {
-    debugger;
-    delete _ivm;
-    delete _logger;
-};
-
-
-module.exports = code;
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\ReceiverReferenceProxy.js":[function(require,module,exports){
-(function (Buffer){
-const PSKBuffer = require('pskbuffer');
-
-function ReceiverReferenceProxy(target) {}
-
-/**
- * Converts values resulting from Node.js APIs (like Buffer) into transferable objects
- * @param target
- * @param ivm
- * @returns {*}
- */
-ReceiverReferenceProxy.for = function (target, ivm) {
-    if (!ivm) {
-        throw new Error('Missing argument ivm');
-    }
-
-    return new Proxy(target, getHandler());
-
-    /************* HELPERS *************/
-    function getHandler() {
-        return {
-            get: function (targetObject, property) {
-                let propReference = targetObject[property];
-
-                if (typeof propReference === 'function') {
-                    const originalReference = propReference;
-
-                    propReference = function (...args) {
-
-                        if(args.length > 0 && typeof args[args.length - 1] !== 'undefined') {
-                            
-                            if (args[args.length - 1].typeof === 'function') { // probably a callback but this check may fail!
-                                const callback = args[args.length - 1];
-
-                                args[args.length - 1] = (...results) => {
-                                    callback.applySync(undefined, results.map(convertToTransferable));
-                                }
-                            }
-                        }
-
-                        const result = originalReference.apply(targetObject, args);
-
-                        return convertToTransferable(result);
-                    }
-                }
-
-                return propReference
-            },
-            ownKeys: function (target) {
-                return Object.keys(target);
-            }
-        }
-    }
-
-    function convertToTransferable(arg) {
-        if (Buffer.isBuffer(arg)) {
-            const newBuffer = PSKBuffer.from(arg);
-
-            return new ivm.ExternalCopy(newBuffer).copyInto();
-        }
-
-        if (isPrimitive(arg)) {
-            return new ivm.ExternalCopy(arg).copyInto();
-        }
-
-        if (typeof arg === 'function') {
-            return new ivm.Reference(arg);
-        }
-
-        if (typeof arg === 'object') {
-            const newArg = JSON.parse(JSON.stringify(arg));
-            return new ivm.ExternalCopy(newArg).copyInto();
-        }
-
-        return new ivm.ExternalCopy(arg).copyInto();
-    }
-
-    function isPrimitive(value) {
-        return value !== Object(value);
-    }
-
-};
-
-module.exports = ReceiverReferenceProxy;
-
-}).call(this,{"isBuffer":require("../../../../node_modules/is-buffer/index.js")})
-
-},{"../../../../node_modules/is-buffer/index.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\is-buffer\\index.js","pskbuffer":"D:\\Catalin\\Munca\\privatesky\\modules\\pskbuffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\utils.js":[function(require,module,exports){
-(function (Buffer){
-/**
- * Compares an object against a minimum or exact hierarchy of keys recursively ignoring values
- * Important note: The order of the parameters (compareTarget, obj) matters!
- * @param compareTarget{Object} - The `obj` parameter will be compared against this one
- * @param obj {Object}
- * @param allowExtraKeys {boolean} - If true, `obj` can have more keys than `compareTarget`
- * @returns {boolean}
- */
-function isIdenticalHierarchy(compareTarget, obj, allowExtraKeys = true) {
-    if (typeof compareTarget !== 'object' || typeof compareTarget !== 'object') {
-        return false;
-    }
-
-    const obj1Keys = Object.keys(compareTarget);
-    const obj2Keys = Object.keys(obj);
-
-    if (!allowExtraKeys && obj1Keys.length !== obj2Keys.length) {
-        return false;
-    }
-
-    for (let i = 0; i < obj1Keys.length; ++i) {
-        const key = obj1Keys[i];
-        if (!obj.hasOwnProperty(key)) {
-            return false;
-        }
-
-        if (typeof obj[key] === 'object') {
-            if (!isIdenticalHierarchy(compareTarget[key], obj[key])) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-/**
- * Converts a promise to a callback
- * @param {!Promise} promise
- * @param {!function} callback
- */
-function wrapPromiseInCallback(promise, callback) {
-    promise
-        .then((...result) => callback(undefined, ...result))
-        .catch(callback);
-}
-
-/**
- * If callback is present then resolves promise and passes result to callback, otherwise just returns the promise
- * It is useful when a function can "return" with a callback if present otherwise just returning a promise, this
- * tries to standardize the process
- * @param {!Promise} promise
- * @param {?function} callback
- * @returns {Promise|undefined}
- */
-function resolveWithCallbackIfAvailable(promise, callback) {
-    if (callback && typeof callback === 'function') {
-        wrapPromiseInCallback(promise, callback);
-    } else {
-        return promise;
-    }
-}
-
-/**
- * The obj will be be traversed recursively and each property will be transformed intro a {ivm.Reference}
- * @param obj
- * @param {ivm} ivm - Object returned by isolated-vm module
- * @param depth - If bigger than 0, the function will be called recursively until the depth is reach on all branches
- * @private
- */
-function createDeepReference(obj, depth = 0) {
-    const isolatedVMName = 'isolated-vm';
-    const ivm = require(isolatedVMName);
-    const ReceiverReferenceProxy = require('./ReceiverReferenceProxy');
-    let newObj = {};
-
-    if (!ivm) {
-        throw new Error('Missing argument ivm');
-    }
-
-    if (depth > 0) {
-        Object.keys(obj).forEach(key => {
-            // might not be good enough
-            if (typeof obj[key] === 'object' && !Buffer.isBuffer(key)) {
-                newObj[key] = createDeepReference(obj[key], ivm, depth - 1);
-            }
-        });
-    } else {
-        newObj = new ivm.Reference(ReceiverReferenceProxy.for(obj, ivm));
-    }
-
-    return newObj;
-}
-
-module.exports = {
-    isIdenticalHierarchy: isIdenticalHierarchy,
-    resolveWithCallbackIfAvailable,
-    wrapPromiseInCallback,
-    createDeepReference
-};
-}).call(this,{"isBuffer":require("../../../../node_modules/is-buffer/index.js")})
-
-},{"../../../../node_modules/is-buffer/index.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\is-buffer\\index.js","./ReceiverReferenceProxy":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\lib\\utils\\ReceiverReferenceProxy.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\index.js":[function(require,module,exports){
-const PSKLogger = require('./src/PSKLoggerClient/index');
-const EnvironmentDataProvider = require('./src/utils').EnvironmentDataProvider;
-const envTypes = require("overwrite-require").constants;
-
-/**
- * @return {string|*}
- */
-function getContextForMeta(meta) {
-    const contexts = {
-        node: (meta) => `node:${meta.context}`,
-        domain: (meta) =>`domain:${meta.domain}`,
-        agent: (meta) => `domain:${meta.domain}:agent:${meta.agent}`,
-        sandbox: () => `sandbox`
-    };
-
-    if (contexts.hasOwnProperty(meta.origin)) {
-        return contexts[meta.origin](meta);
-    } else {
-        return '';
-    }
-}
-
-switch ($$.environmentType) {
-    case envTypes.NODEJS_ENVIRONMENT_TYPE:
-    case envTypes.THREAD_ENVIRONMENT_TYPE:
-        module.exports.MessagePublisherModule = require('./src/MessagePublisher');
-        module.exports.MessageSubscriberModule = require('./src/MessageSubscriber');
-        module.exports.PubSubProxyModule = require('./src/PubSubProxy');
-        break;
-    default:
-        //nothing to do here for now;
-}
-module.exports.PSKLogger = PSKLogger;
-},{"./src/MessagePublisher":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\index.js","./src/MessageSubscriber":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessageSubscriber\\index.js","./src/PSKLoggerClient/index":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PSKLoggerClient\\index.js","./src/PubSubProxy":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PubSubProxy\\index.js","./src/utils":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\index.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\GenericLoggerClient.js":[function(require,module,exports){
-const LogFactory = require('./LogFactory');
-
-/**
- *
- * @param {TransportInterface} messagePublisher
- * @constructor
- */
-function GenericLoggerClient(messagePublisher) {
-    /**
-     * This is to be used to send normal logs. They will be published in a subchannel of the "logs" channel.
-     * It is easier to trace only user and platform logs if they are separated in this channel
-     *
-     * @param {{code: Number, name: string}} logLevel
-     * @param {Object} meta
-     * @param {Array<any>} messages
-     *
-     * @return {{level, meta, time, msTime, messages}}
-     */
-    function log(logLevel, meta, messages) {
-        const log = LogFactory.createLog(logLevel, meta, messages);
-
-        const logChannel = `logs.${logLevel.name}`;
-        messagePublisher.send(logChannel, log);
-
-        return log;
-    }
-
-
-    /**
-     * This is to be used for sending custom events when messages don't happen in the normal flow of the platform
-     * or they shouldn't interfere with the tracing of logs
-     * For example, sending statistics about a node or a sandbox is happening periodically and not as a result of
-     * users' running code, therefore this should not be merged with logs
-     *
-     * @param {string} channel
-     * @param {Object} meta
-     * @param {Array<any>} messages
-     * @return {{meta, messages, time}}
-     */
-    function event(channel, meta, messages) {
-        const event = LogFactory.createEvent(meta, messages);
-
-        const logChannel = `events.${channel}`;
-        messagePublisher.send(logChannel, event);
-
-        return event;
-    }
-
-    function publish(channel, message) {
-        messagePublisher.send(channel, message);
-
-        return message;
-    }
-
-    this.event  = event;
-    this.log    = log;
-    this.publish = publish;
-}
-
-module.exports = GenericLoggerClient;
-
-},{"./LogFactory":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LogFactory.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LogFactory.js":[function(require,module,exports){
-function getTime() {
-    const envTypes = require("overwrite-require").constants;
-    switch($$.environmentType) {
-        case envTypes.NODEJS_ENVIRONMENT_TYPE:
-            const perf_hooksModule = 'perf_hooks';
-            const {performance} = require(perf_hooksModule);
-            return performance.now() + performance.timeOrigin;
-        default:
-            return Date.now();
-    }
-}
-
-function createLog(logLevel, meta, messages) {
-    return {
-        level: logLevel,
-        messages: messages,
-        meta: meta,
-        time: getTime()
-    }
-}
-
-function createEvent(meta, messages) {
-    return {
-        messages,
-        meta,
-        time: getTime()
-    };
-}
-
-module.exports = {
-    createLog,
-    createEvent
-};
-
-},{"overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LoggerClient.js":[function(require,module,exports){
-const GenericLoggerClient = require('./GenericLoggerClient');
-const LogLevel = require('../utils/LogLevel');
-const LoggerInterface = require('./LoggerInterface');
-
-/**
- *
- * @param {TransportInterface} messagePublisher
- * @implements LoggerInterface
- * @constructor
- */
-function LoggerClient(messagePublisher) {
-    LoggerInterface.call(this);
-
-    const genericLoggerClient = new GenericLoggerClient(messagePublisher);
-
-
-    /************* PUBLIC METHODS *************/
-
-    public_methods = ["debug", "error", "info", "log", "warn"];
-
-    function exposePublicMethod(target, methodName){
-        let handler = function (meta = {}, ...params) {
-            const logLevel = _getLogLevel(LogLevel.debug);
-            return genericLoggerClient.log(logLevel, meta, params);
-        };
-        Object.defineProperty(handler, "name", {value: methodName});
-        target[methodName] = handler;
-    }
-
-    let self = this;
-    public_methods.forEach(function(methodName){
-        exposePublicMethod(self, methodName);
-    });
-
-    function event(channel, meta = {}, ...params) {
-        return genericLoggerClient.event(channel, meta, ...params);
-    }
-    
-    function redirect(channel, logObject) {
-        return genericLoggerClient.publish(channel, logObject)
-    }
-
-
-    /************* PRIVATE METHODS *************/
-
-    function _getLogLevel(levelCode) {
-        return {
-            code: levelCode,
-            name: LogLevel[levelCode]
-        };
-    }
-
-
-    /************* EXPORTS *************/
-    this.event    = event;
-    this.redirect = redirect;
-}
-
-module.exports = LoggerClient;
-
-},{"../utils/LogLevel":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\LogLevel.js","./GenericLoggerClient":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\GenericLoggerClient.js","./LoggerInterface":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LoggerInterface.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LoggerInterface.js":[function(require,module,exports){
-/**
- * @interface
- */
-function LoggerInterface() {
-    function genericMethod(channel, logObject) {
-        throw new Error('Not implemented');
-    }
-
-    this.debug    = genericMethod;
-    this.error    = genericMethod;
-    this.event    = genericMethod;
-    this.info     = genericMethod;
-    this.log      = genericMethod;
-    this.redirect = genericMethod;
-    this.warn     = genericMethod;
-}
-
-module.exports = LoggerInterface;
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\index.js":[function(require,module,exports){
-const GenericLoggerClient = require('./GenericLoggerClient');
-const LogFactory          = require('./LogFactory');
-const LoggerClient        = require('./LoggerClient');
-const LoggerInterface     = require('./LoggerInterface');
-
-
-module.exports = {
-    GenericLoggerClient,
-    LogFactory,
-    LoggerClient,
-    LoggerInterface
-};
-
-},{"./GenericLoggerClient":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\GenericLoggerClient.js","./LogFactory":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LogFactory.js","./LoggerClient":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LoggerClient.js","./LoggerInterface":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\LoggerInterface.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\MessagePublisher.js":[function(require,module,exports){
-(function (process){
-const TransportInterface = require('./TransportInterface');
-const utils = require('../utils');
-const zeroMQModuleName = "zeromq";
-const zeroMQ = require(zeroMQModuleName);
-
-
-/**
- * Creates a ZeroMQ Publisher Socket and connects to the specified address for a ZeroMQ Subscriber
- * @param {string!} address - Base address including protocol and port (ex: tcp://127.0.0.1:8080)
- * @implements TransportInterface
- * @constructor
- */
-function MessagePublisher(address) {
-    TransportInterface.call(this);
-
-    const zmqSocket = zeroMQ.createSocket('pub');
-
-    // uncomment next line if messages are lost
-    // zmqSocket.setsockopt(zeroMQ.ZMQ_SNDHWM, 0);
-    const socket = new utils.BufferedSocket(zmqSocket, utils.SocketType.connectable);
-
-
-    /************* PUBLIC METHODS *************/
-
-    /**
-     *
-     * @param {string} channel
-     * @param {Object} logObject
-     */
-    this.send = function (channel, logObject) {
-        try {
-            const serializedLog = JSON.stringify(logObject);
-
-            socket.send([channel, serializedLog]);
-        } catch (e) {
-            process.stderr.write('Error while sending or serializing message');
-        }
-    };
-
-
-    /************* MONITOR SOCKET *************/
-
-    zmqSocket.connect(address);
-}
-
-module.exports = MessagePublisher;
-
-}).call(this,require('_process'))
-
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\index.js","./TransportInterface":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\TransportInterface.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\MessagePublisherForSandbox.js":[function(require,module,exports){
-(function (global){
-const TransportInterface = require('./TransportInterface');
-
-/**
- * This assumes it is executed inside a sandbox and that exists an object "logger" on "global" with a method "send".
- * Sandboxes can't connect directly to ZeroMQ therefore this just relays the message outside the sandbox.
- *
- * @implements TransportInterface
- * @constructor
- */
-function MessagePublisherForSandbox() {
-
-    TransportInterface.call(this);
-
-    /************* PUBLIC METHODS *************/
-
-    /**
-     *
-     * @param {string} channel
-     * @param {Object} logObject
-     */
-    this.send = function (channel, logObject) {
-        try {
-            global.logger.send([channel, logObject]);
-        } catch (e) {
-            console.error('Error while sending or serializing message from sandbox', e);
-        }
-    };
-
-}
-
-module.exports = MessagePublisherForSandbox;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"./TransportInterface":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\TransportInterface.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\TransportInterface.js":[function(require,module,exports){
-/**
- *
- * @interface
- */
-function TransportInterface() {
-    this.send = function (channel, logObject) {
-        throw new Error('Not implemented');
-    }
-}
-
-module.exports = TransportInterface;
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\index.js":[function(require,module,exports){
-const TransportInterface = require('./TransportInterface');
-const MessagePublisher = require('./MessagePublisher');
-const MessagePublisherForSandbox = require('./MessagePublisherForSandbox');
-
-module.exports = {
-    TransportInterface,
-    MessagePublisher,
-    MessagePublisherForSandbox
-};
-
-},{"./MessagePublisher":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\MessagePublisher.js","./MessagePublisherForSandbox":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\MessagePublisherForSandbox.js","./TransportInterface":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\TransportInterface.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessageSubscriber\\MessageSubscriber.js":[function(require,module,exports){
-(function (process){
-const zeroMQModuleName = "zeromq";
-const zeroMQ = require(zeroMQModuleName);
-
-/**
- * Creates a ZeroMQ Subscriber that listens for provided topics on the specified address for a publisher
- * @param {string!} address - Base address including protocol and port (ex: tcp://127.0.0.1:8080)
- * @param {Array<string>|function?} subscriptions - a list of subscription topics, if missing it will subscribe to everything
- * @param {function!} onMessageCallback
- * @constructor
- */
-function MessageSubscriber(address, subscriptions, onMessageCallback) {
-    const zmqSocket = zeroMQ.createSocket('sub');
-
-    // uncomment next line if messages are lost
-    // zmqSocket.setsockopt(zeroMQ.ZMQ_RCVHWM, 0);
-
-    if(arguments.length === 2 && typeof subscriptions === 'function') {
-        onMessageCallback = subscriptions;
-        subscriptions = [''];
-    }
-
-    subscriptions.forEach(subscription => zmqSocket.subscribe(subscription));
-
-    zmqSocket.connect(address);
-
-    zmqSocket.on('message', onMessageCallback);
-
-    const events = ["SIGINT", "SIGUSR1", "SIGUSR2", "uncaughtException", "SIGTERM", "SIGHUP"];
-
-    events.forEach(event => {
-        process.on(event, () => {
-            zmqSocket.close();
-        });
-    });
-}
-
-module.exports = MessageSubscriber;
-
-}).call(this,require('_process'))
-
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessageSubscriber\\index.js":[function(require,module,exports){
-const MessageSubscriber = require('./MessageSubscriber');
-
-module.exports = {MessageSubscriber};
-
-},{"./MessageSubscriber":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessageSubscriber\\MessageSubscriber.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PSKLoggerClient\\GenericPSKLogger.js":[function(require,module,exports){
-(function (global){
-const LoggerClientModule = require('../LoggerClient');
-
-const LoggerClient = LoggerClientModule.LoggerClient;
-const LoggerInterface = LoggerClientModule.LoggerInterface;
-
-
-/**
- *
- * @param messagePublisher
- * @implements LoggerInterface
- * @constructor
- */
-function GenericPSKLogger(messagePublisher) {
-    LoggerInterface.call(this);
-
-    const logger = new LoggerClient(messagePublisher);
-
-    function debug(...params) {
-        const meta = prepareMeta();
-        return logger.debug(meta, ...params);
-    }
-
-    function error(...params) {
-        const meta = prepareMeta();
-        return logger.error(meta, ...params);
-    }
-
-    function info(...params) {
-        const meta = prepareMeta();
-        return logger.info(meta, ...params);
-    }
-
-    function log(...params) {
-        const meta = prepareMeta();
-        return logger.log(meta, ...params);
-    }
-
-    function warn(...params) {
-        const meta = prepareMeta();
-        return logger.warn(meta, ...params);
-    }
-
-    function event(event, ...params) {
-        const meta = prepareMeta();
-        return logger.event(event, meta, params);
-    }
-    
-    function redirect(logType, logObject) {
-        const logMeta = logObject.meta;
-        const meta = prepareMeta();
-        
-        Object.assign(meta, logMeta);
-
-        logObject.meta = meta;
-
-        return logger.redirect(logType, logObject);
-    }
-
-    function prepareMeta() {
-        if (global.$$.getEnvironmentData) {
-            return global.$$.getEnvironmentData();
-        }
-        
-        return {};
-    }
-
-
-    this.debug    = debug;
-    this.error    = error;
-    this.event    = event;
-    this.info     = info;
-    this.log      = log;
-    this.redirect = redirect;
-    this.warn     = warn;
-
-}
-
-module.exports = GenericPSKLogger;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"../LoggerClient":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\LoggerClient\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PSKLoggerClient\\index.js":[function(require,module,exports){
-(function (process){
-const Configurator     = require('../utils/Configurator');
-const GenericPSKLogger = require('./GenericPSKLogger');
-
-function getLogger() {
-    let messagePublisher;
-
-    if (process.env.context === 'sandbox') {
-        const MessagePublisher = require('../MessagePublisher').MessagePublisherForSandbox;
-        messagePublisher = new MessagePublisher();
-    } else {
-        const config = Configurator.getConfig();
-        const MessagePublisher = require('../MessagePublisher').MessagePublisher;
-        messagePublisher = new MessagePublisher(config.addressForPublishers);
-    }
-
-    return new GenericPSKLogger(messagePublisher);
-}
-
-module.exports = {
-    getLogger
-};
-
-}).call(this,require('_process'))
-
-},{"../MessagePublisher":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\MessagePublisher\\index.js","../utils/Configurator":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\Configurator.js","./GenericPSKLogger":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PSKLoggerClient\\GenericPSKLogger.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PubSubProxy\\PubSubProxy.js":[function(require,module,exports){
-(function (process){
-const zeroMQModuleName = "zeromq";
-const zeroMQ = require(zeroMQModuleName);
-const utils = require('../utils');
-
-/**
- * Proxy between publishers and subscribers to avoid star topology communication
- * Subscribers should connect first otherwise no subscription request will be sent to publishers and therefore they
- * won't even send the messages to the proxy. This is because the filtering is done on the publisher for tcp or ipc,
- * view http://zguide.zeromq.org/page:all#Getting-the-Message-Out for more info
- * @param {string!} addressForPublishers - Base address including protocol and port (ex: tcp://127.0.0.1:8080)
- * @param {string!} addressForSubscribers - Base address including protocol and port (ex: tcp://127.0.0.1:8080)
- * @constructor
- */
-function PubSubProxy({addressForPublishers, addressForSubscribers}) {
-    const frontend = zeroMQ.createSocket('xsub');
-    const backend = zeroMQ.createSocket('xpub');
-    const bufferedBackend = new utils.BufferedSocket(backend, utils.SocketType.bindable);
-
-    // By default xpub only signals new subscriptions
-    // Settings it to verbose = 1 , will signal on every new subscribe
-    // uncomment next lines if messages are lost
-    // backend.setsockopt(zeroMQ.ZMQ_XPUB_VERBOSE, 1);
-    // backend.setsockopt(zeroMQ.ZMQ_SNDHWM, 0);
-    // backend.setsockopt(zeroMQ.ZMQ_RCVHWM, 0);
-    // frontend.setsockopt(zeroMQ.ZMQ_RCVHWM, 0);
-    // frontend.setsockopt(zeroMQ.ZMQ_SNDHWM, 0);
-
-    // When we receive data on frontend, it means someone is publishing
-    frontend.on('message', (...args) => {
-        // We just relay it to the backend, so subscribers can receive it
-        bufferedBackend.send(args);
-    });
-
-    // When backend receives a message, it's subscribe requests
-    backend.on('message', (data) => {
-        // We send it to frontend, so it knows to what channels to listen to
-        frontend.send(data);
-    });
-
-    /************* MONITOR SOCKET *************/
-
-    frontend.bindSync(addressForPublishers);
-    backend.bindSync(addressForSubscribers);
-
-    const events = ["SIGINT", "SIGUSR1", "SIGUSR2", "uncaughtException", "SIGTERM", "SIGHUP"];
-
-    events.forEach(event => {
-        process.on(event, () => {
-            frontend.close();
-            backend.close();
-        });
-    });
-}
-
-module.exports = PubSubProxy;
-
-}).call(this,require('_process'))
-
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\index.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PubSubProxy\\index.js":[function(require,module,exports){
-const PubSubProxy = require('./PubSubProxy');
-
-module.exports = {PubSubProxy};
-
-},{"./PubSubProxy":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\PubSubProxy\\PubSubProxy.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\BufferedSocket.js":[function(require,module,exports){
-const SocketType = require('./SocketType');
-
-/**
- * Wrapper for ZeroMQ socket that tries to prevent 'slow joiner', meaning it buffers the first messages until the
- * connection is established, otherwise the first messages would be lost
- * @param {Socket} socket - instance of ZeroMQ Socket
- * @param {SocketType<number>} type - used to determine if should listen for 'connect' or 'accept' event
- * @param {Number?} maxSize = 1000 - Max size for the internal buffer, if 0 the buffer is infinite but can cause memory leak
- * @constructor
- */
-function BufferedSocket(socket, type, maxSize = 10000) {
-    if(maxSize < 0) {
-        maxSize = 1000;
-    }
-
-    let messageQueue = [];
-    let isConnected = false;
-    let currentBufferSize = 0;
-
-    socket.monitor();
-    const event = _getEventForType(type);
-
-    socket.on(event, () => {
-        isConnected = true;
-        _flushQueue();
-    });
-
-    /************* PUBLIC METHODS *************/
-
-    function send(message) {
-        if (!isConnected) {
-            if (maxSize !== 0 && currentBufferSize < maxSize) {
-                currentBufferSize += 1;
-                messageQueue.push(message);
-            }
-        } else {
-            socket.send(message);
-        }
-    }
-
-    /************* PRIVATE METHODS *************/
-
-    function _flushQueue() {
-        for (const message of messageQueue) {
-            socket.send(message);
-        }
-
-        messageQueue = [];
-        currentBufferSize = 0;
-    }
-
-    function _getEventForType(type) {
-        if (type === SocketType.connectable) {
-            return 'connect';
-        } else if (type === SocketType.bindable) {
-            return 'accept';
-        }
-    }
-
-    /************* EXPORTS *************/
-
-    this.send = send;
-}
-
-
-module.exports = BufferedSocket;
-
-},{"./SocketType":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\SocketType.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\Configurator.js":[function(require,module,exports){
-(function (process){
-const config = {
-    addressForPublishers: process.env.PSK_PUBLISH_LOGS_ADDR || 'tcp://127.0.0.1:7000',
-    addressForSubscribers: process.env.PSK_SUBSCRIBE_FOR_LOGS_ADDR || 'tcp://127.0.0.1:7001',
-    addressToCollector: process.env.PSK_COLLECTOR_ADDR || 'tcp://127.0.0.1:5558'
-};
-
-module.exports = {
-    getConfig () {
-        return Object.freeze(config);
-    }
-};
-
-}).call(this,require('_process'))
-
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\EnvironmentDataProvider.js":[function(require,module,exports){
-(function (process,global){
-function getEnvironmentData () {
-    const or = require("overwrite-require");
-    let data = {origin: $$.environmentType};
-
-    switch ($$.environmentType){
-        case or.NODEJS_ENVIRONMENT_TYPE:
-            const pathModule = "path";
-            const path = require(pathModule);
-            const osModule = "os";
-            const os = require(osModule);
-            const platform = os.platform();
-
-            const processPath = process.argv[1];
-            const processStartFile = path.basename(processPath);
-
-            data.processStartFile = processStartFile;
-            data.platform = platform;
-            break;
-        case or.BROWSER_ENVIRONMENT_TYPE:
-            //todo: maybe we need some details here?
-            break;
-        default:
-            break;
-    }
-    return data;
-}
-
-function getEnvironmentDataForDomain() {
-    const osModule = "os";
-    const os = require(osModule);
-    const platform = os.platform();
-
-    return {
-        origin: 'domain',
-        domain: process.env.PRIVATESKY_DOMAIN_NAME,
-        platform: platform
-    };
-}
-
-function getEnvironmentDataForAgent() {
-    const osModule = "os";
-    const os = require(osModule);
-    const platform = os.platform();
-    const envTypes = require("overwrite-require").constants;
-
-    let data = {origin: "agent"};
-    switch($$.environmentType){
-        case envTypes.THREAD_ENVIRONMENT_TYPE:
-            data.domain = process.env.PRIVATESKY_DOMAIN_NAME;
-            data.agent = process.env.PRIVATESKY_AGENT_NAME;
-            data.platform = platform;
-            break;
-        default:
-            break;
-    }
-    return data;
-}
-
-let handler;
-
-if(process.env.hasOwnProperty('PRIVATESKY_AGENT_NAME')) {
-    handler = getEnvironmentDataForAgent;
-} else if(process.env.hasOwnProperty('PRIVATESKY_DOMAIN_NAME')) {
-    handler = getEnvironmentDataForDomain;
-} else {
-    handler = getEnvironmentData;
-}
-
-if(typeof global.$$.getEnvironmentData === "undefined"){
-    global.$$.getEnvironmentData = handler;
-}else{
-    console.log("EnvironmentData handler already set.");
-}
-
-//no need to export anything directly
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\LogLevel.js":[function(require,module,exports){
-const LogLevel = {};
-
-LogLevel[LogLevel["error"] = 0] = "error";
-LogLevel[LogLevel["warn"]  = 1] = "warn";
-LogLevel[LogLevel["info"]  = 2] = "info";
-LogLevel[LogLevel["debug"] = 3] = "debug";
-LogLevel[LogLevel["log"]   = 4] = "log";
-
-module.exports = Object.freeze(LogLevel);
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\SocketType.js":[function(require,module,exports){
-const SocketType = {};
-SocketType[SocketType["connectable"] = 0] = "connectable"; // if .connect is called on socket
-SocketType[SocketType["bindable"] = 1] = "bindable"; // if .bind is called on socket
-
-module.exports = Object.freeze(SocketType);
-
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\index.js":[function(require,module,exports){
-const Configurator            = require('./Configurator');
-const EnvironmentDataProvider = require('./EnvironmentDataProvider');
-const LogLevel                = require('./LogLevel');
-const BufferedSocket          = require('./BufferedSocket');
-const SocketType              = require('./SocketType');
-
-module.exports = {
-    Configurator,
-    EnvironmentDataProvider,
-    LogLevel,
-    BufferedSocket,
-    SocketType
-};
-
-},{"./BufferedSocket":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\BufferedSocket.js","./Configurator":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\Configurator.js","./EnvironmentDataProvider":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\EnvironmentDataProvider.js","./LogLevel":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\LogLevel.js","./SocketType":"D:\\Catalin\\Munca\\privatesky\\modules\\psklogger\\src\\utils\\SocketType.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\index.js":[function(require,module,exports){
+},{"crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\soundpubsub\\index.js":[function(require,module,exports){
 module.exports = {
 					soundPubSub: require("./lib/soundPubSub").soundPubSub
 };
-},{"./lib/soundPubSub":"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js":[function(require,module,exports){
+},{"./lib/soundPubSub":"D:\\work\\git\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js"}],"D:\\work\\git\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js":[function(require,module,exports){
 /*
 Initial License: (c) Axiologic Research & Alboaie Sînică.
 Contributors: Axiologic Research , PrivateSky project
@@ -12193,7 +10778,642 @@ function SoundPubSub(){
 }
 
 exports.soundPubSub = new SoundPubSub();
-},{"swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\SwarmEngine.js":[function(require,module,exports){
+},{"swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\index.js":[function(require,module,exports){
+const Middleware = require("./lib/Middleware");
+let middlewareInstance = new Middleware();
+
+exports.getMiddleware = function(){
+    return middlewareInstance;
+};
+
+},{"./lib/Middleware":"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\Middleware.js"}],"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\EventRequest.js":[function(require,module,exports){
+const unsupportedMethods = ["acceptsCharsets", "acceptsEncodings", "acceptsLanguages", "param", "is", "range"];
+const unsupportedProperties = ["app", "fresh", "ip", "ips", "signedCookies", "stale", "subdomains", "xhr"];
+
+
+/**
+ * Extract query params from url
+ * @param url
+ */
+function extractQueryParams(url) {
+
+    let searchParams = url.searchParams;
+    let queryParams = {};
+
+    for (let pair of searchParams.entries()) {
+        queryParams[pair[0]] = pair[1];
+    }
+    return queryParams;
+}
+
+function EventRequest(event) {
+
+    this.body = {};
+
+    if (event.request.body instanceof FormData) {
+        for (let pair  of event.request.body.entries()) {
+            this.body[pair[0]] = pair[1]
+        }
+    }
+    else {
+        this.body = event.request.body;
+    }
+
+
+    this.method = event.request.method;
+    this.originalUrl = event.request.url;
+    let url = new URL(this.originalUrl);
+    this.path = url.pathname;
+    this.hostname = url.hostname;
+    this.protocol = url.protocol;
+    this.params = {};
+    this.query = extractQueryParams(url);
+    this.secure = this.protocol === "https";
+
+    let requestHeaders = {};
+
+    for (let [header, value] of event.request.headers.entries()) {
+        /**
+         * Content-Length header is set to request when it is intercepted by service worker
+         */
+        if(header.toUpperCase() === "X-CONTENT-LENGTH"){
+            header = "Content-Length";
+        }
+        requestHeaders[header] = value;
+    }
+
+    this.headers = requestHeaders;
+
+    /**
+     * Checks if the specified content types are acceptable, based on the request’s Accept HTTP header field.
+     * The method returns the best match, or if none of the specified content types is acceptable, returns false
+     * (in which case, the application should respond with 406 "Not Acceptable").
+     * The type value may be a single MIME type string (such as “application/json”), an extension name such as “json”,
+     * a comma-delimited list, or an array. For a list or array, the method returns the best match (if any).
+     * @param types
+     */
+    this.accepts = function (types) {
+        throw new Error("Unimplemented method!");
+    };
+
+    /**
+     * Returns the specified HTTP request header field (case-insensitive match). The Referrer and Referer fields are interchangeable.
+     * @param field
+     */
+    this.get = function (field) {
+        let headerName = Object.keys(requestHeaders).find(headerName => {
+            return headerName.toLowerCase() === field.toLowerCase();
+        });
+
+        return requestHeaders[headerName];
+    };
+
+    /**
+     * Add handlers for unimplemented methods
+     * TODO extract these and see also @EventResponse
+     */
+    unsupportedProperties.forEach(unsupportedProperty => {
+        Object.defineProperty(this, unsupportedProperty, {
+            get: function () {
+                throw new Error("Property " + unsupportedProperty + " is not supported!")
+            }
+        })
+    });
+
+    unsupportedMethods.forEach(unsupportedMethod => {
+        Object.defineProperty(this, unsupportedMethod, {
+            get: function () {
+                throw new Error("Method " + unsupportedMethod + " is not supported!")
+            }
+        })
+    });
+}
+
+exports.EventRequest = EventRequest;
+
+},{}],"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\EventResponse.js":[function(require,module,exports){
+const unsupportedMethods = ["append", "redirect", "location", "links", "jsonp", "render", "sendFile"];
+const unsupportedProperties = ["app", "headersSent", "locals"];
+const httpStatuses = require("./HttpStatuses").httpStatuses;
+
+/*
+* sendResponse instance method used to send reponse on event
+***/
+let sendResponse = function (responseBody, status) {
+    let eventStatus = httpStatuses[status] ? {status: status, statusText: httpStatuses[status]} : {
+        "status": 200,
+        "statusText": "OK"
+    };
+    let eventResponse = responseBody || "";
+
+    if (!this.resolver) {
+        throw new Error("Event resolver is not defined!. It sholuld be a promise resolver!")
+    }
+    let response = new Response(eventResponse, eventStatus);
+    this.resolver(response);
+}
+
+function EventResponse(event) {
+    let statusCode = undefined;
+    let responseHeaders = {};
+
+    this.attachment = function (path) {
+        //TOOD read from path using browserfs or EDFS
+
+        let string = "This is a text!";
+
+        let fileBlob = new Blob([string], {
+            type: "application/octet-stream"
+        });
+
+        let init = {
+            status: 200, statusText: "OK", headers: {
+                "Content-Disposition": ' attachment; filename="rafa.txt"',
+                "Content-Type": "text/plain"
+            }
+        };
+        event.sendResponse(fileBlob, init);
+    };
+    /**
+     * Sets the response’s HTTP header field to value. To set multiple fields at once, pass an object as the parameter.
+     * @param params
+     */
+    this.set = function (...params) {
+        if (params.length === 2 && typeof params[0] === "string" && typeof params[1] === "string") {
+            responseHeaders[params[0]] = params[1];
+        }
+        else if (params.length === 1 && typeof params[0] === "object") {
+            responseHeaders = params[0];
+        }
+        else {
+            throw new Error("This function accepts as arguments an object or two strings ")
+        }
+    };
+    /**
+     * Returns the HTTP response header specified by field. The match is case-insensitive.
+     * @param field
+     */
+    this.get = function (field) {
+
+       let headerName = Object.keys(responseHeaders).find(headerName=>{
+           return headerName.toLowerCase() === field.toLowerCase();
+       });
+
+       return responseHeaders[headerName];
+
+    };
+    /**
+     * Sends a JSON response. This method sends a response (with the correct content-type) that is the parameter
+     * converted to a JSON string using JSON.stringify().
+     * The parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you can
+     * also use it to convert other values to JSON.
+     * @param body
+     */
+    this.json = json => {
+        let jsonResponse = new Blob([JSON.stringify(json)], {type: "application/json"});
+        setTimeout(() => event.sendResponse(jsonResponse, this.statusCode), 2000);
+    };
+
+    this.status = status => {
+        statusCode = status;
+        return this;
+    };
+    this.send = body => {
+        //TODO check if message should be stringified
+
+        /*if (typeof body === "object") {
+            responseBody = JSON.stringify(body);
+        }*/
+
+        let arrayBuffer = new Blob([body], {
+            type: "application/octet-stream"
+        });
+
+        event.sendResponse(arrayBuffer, statusCode);
+    };
+    /**
+     * TODO
+     * wip
+     **/
+    this.write = stream => {
+       console.error("Not implemented");
+    };
+    this.end = () => {
+        event.sendResponse("", statusCode);
+    };
+
+
+    /**
+     * Add handlers for unimplemented methods
+     * TODO extract these and see also @EventRequest
+     */
+    unsupportedProperties.forEach(unsupportedProperty => {
+        Object.defineProperty(this, unsupportedProperty, {
+            get: function () {
+                throw new Error("Property " + unsupportedProperty + " is not supported!")
+            }
+        })
+    });
+
+    unsupportedMethods.forEach(unsupportedMethod => {
+        Object.defineProperty(this, unsupportedMethod, {
+            get: function () {
+                throw new Error("Method " + unsupportedMethod + " is not supported!")
+            }
+        })
+    });
+}
+
+//FetchEvent is available only in service workers
+
+if(typeof FetchEvent!== "undefined")
+{
+    FetchEvent.prototype.sendResponse = sendResponse;
+}
+
+exports.EventResponse = EventResponse;
+
+},{"./HttpStatuses":"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\HttpStatuses.js"}],"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\HttpStatuses.js":[function(require,module,exports){
+exports.httpStatuses = {
+    "100": "Continue",
+    "101": "Switching Protocols",
+    "102": "Processing",
+    "103": "Early Hints",
+    "200": "OK",
+    "201": "Created",
+    "202": "Accepted",
+    "203": "Non-Authoritative Information",
+    "204": "No Content",
+    "205": "Reset Content",
+    "206": "Partial Content",
+    "207": "Multi-Status",
+    "208": "Already Reported",
+    "226": "IM Used",
+    "300": "Multiple Choices",
+    "301": "Moved Permanently",
+    "302": "Found",
+    "303": "See Other",
+    "304": "Not Modified",
+    "305": "Use Proxy",
+    "307": "Temporary Redirect",
+    "308": "Permanent Redirect",
+    "400": "Bad Request",
+    "401": "Unauthorized",
+    "402": "Payment Required",
+    "403": "Forbidden",
+    "404": "Not Found",
+    "405": "Method Not Allowed",
+    "406": "Not Acceptable",
+    "407": "Proxy Authentication Required",
+    "408": "Request Timeout",
+    "409": "Conflict",
+    "410": "Gone",
+    "411": "Length Required",
+    "412": "Precondition Failed",
+    "413": "Payload Too Large",
+    "414": "URI Too Long",
+    "415": "Unsupported Media Type",
+    "416": "Range Not Satisfiable",
+    "417": "Expectation Failed",
+    "418": "I'm a teapot",
+    "421": "Misdirected Request",
+    "422": "Unprocessable Entity",
+    "423": "Locked",
+    "424": "Failed Dependency",
+    "425": "Unordered Collection",
+    "426": "Upgrade Required",
+    "428": "Precondition Required",
+    "429": "Too Many Requests",
+    "431": "Request Header Fields Too Large",
+    "451": "Unavailable For Legal Reasons",
+    "500": "Internal Server Error",
+    "501": "Not Implemented",
+    "502": "Bad Gateway",
+    "503": "Service Unavailable",
+    "504": "Gateway Timeout",
+    "505": "HTTP Version Not Supported",
+    "506": "Variant Also Negotiates",
+    "507": "Insufficient Storage",
+    "508": "Loop Detected",
+    "509": "Bandwidth Limit Exceeded",
+    "510": "Not Extended",
+    "511": "Network Authentication Required"
+};
+
+},{}],"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\Middleware.js":[function(require,module,exports){
+const EventResponse = require("./EventResponse").EventResponse;
+const EventRequest = require("./EventRequest").EventRequest;
+
+function Middleware() {
+    let acceptedMethods = ["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE"];
+    /*
+    It's important to have the order of handlers from registry to ensure that a event is checked and pass
+    to each handler in the correct order
+     */
+    let registeredHandlers = []; // an object of handlers
+
+
+    /**
+     * This function role is to properly extract the triplet ([path], [method], handler) from a given array.
+     * When the array has only 2 elements (*string, *function), then, the triplet is considered as being ([path], "*", handler)
+     * When a single array element is provided and its type is a function, then the triplet is considered as being ["*","*", handler], where
+     * "*" means that path or method can be anything that is valid.
+     * @param {Array} params
+     * @returns {*[]}
+     */
+
+    this.requestedHosts = new Set();
+    function unifyArguments(params) {
+        let args = ["*", "*", undefined];
+        switch (params.length) {
+            case 0:
+                throw new Error('Use method needs at least a handler argument.');
+            case 1:
+                if (typeof params[0] !== 'function') {
+                    throw new Error('If only one argument is provided it must be a function');
+                }
+                args[2] = params[0];
+                break;
+            case 2:
+                if (typeof params[0] !== "string" || typeof params[1] !== "function") {
+                    throw new Error('If two arguments are provided the first one must be a string (url) and the second a function');
+                }
+                if (params[0][0] !== "/") {
+                    throw new Error("First argument doesn't look like a path");
+                }
+                args[0] = params[0];
+                args[2] = params[1];
+                break;
+
+            default:
+                if (typeof params[0] !== 'string' || typeof params[1] !== 'string' || typeof params[2] !== 'function') {
+                    throw new Error('If three or more arguments are provided the first one must be a path (url), the second one should be a HTTP verb and the third a function');
+                }
+                if (params[0][0] !== "/") {
+                    throw new Error("First argument doesn't look like a path");
+                }
+
+                if (acceptedMethods.indexOf(params[1].toUpperCase()) === -1) {
+                    throw new Error('Your second argument should be one HTTP verb. Supported HTTP verbs are ' + acceptedMethods);
+                }
+                args = params.slice(0, 3);
+                break;
+
+        }
+        return args;
+    }
+
+    /**
+     * This function responsibility is to find all registered handlers that can match the request (both, path and method)
+     * @param requestPath
+     * @param requestMethod
+     * @returns {Array}
+     */
+    function findPathCandidates(requestPath, requestMethod) {
+
+        let candidates = [];
+
+        function checkMethod(method) {
+            if (method === "*") {
+                return true;
+            }
+            return method === requestMethod
+        }
+
+        /**
+         * This function is receiving two arrays of path parts (e.g. a request path to "/api/node/dev" is
+         * ["api","node","dev"] and a requestParts could be ["api",":type","*"]) and is returning an object
+         * that is keeping the extracted params and a boolean that is indicating that those two arrays match.
+         * Each handler's part is compared with the request part from the same position only if it is not declared
+         * as a parameter or it is not "*".
+         * @param handlerParts
+         * @param requestParts
+         * @returns {{params: {}, match: boolean}}
+         */
+        function checkMatch(handlerParts, requestParts) {
+
+            let result = {
+                params: {},
+                match: true
+            };
+            if (handlerParts.length === 1 && handlerParts[0] === "*") {
+                return result;
+            }
+
+            for (let i = 0; i < handlerParts.length; i++) {
+
+                if(requestParts[i].length === 0){
+                    result.match = false;
+                    break;
+                }
+
+                if (handlerParts[i].startsWith(":")) {
+                    result.params[handlerParts[i].substring(1)] = requestParts[i];
+                    continue;
+                }
+                if (handlerParts[i] === "*") {
+                    continue;
+                }
+
+                if (handlerParts[i] !== requestParts[i]) {
+                    result.match = false;
+                    break;
+                }
+
+            }
+            return result;
+        }
+
+        function extractPathParts(path) {
+            let pathParts = path.split("/");
+
+            if (pathParts.length > 1) {
+                if (pathParts[0] === "") {
+                    pathParts.shift();
+                }
+            }
+            return pathParts;
+        }
+
+        let requestPathParts = extractPathParts(requestPath);
+
+        for (let i = 0; i < registeredHandlers.length; i++) {
+            let registeredHandler = registeredHandlers[i];
+            let handlerPathParts = extractPathParts(registeredHandler.path);
+
+            if (!checkMethod(registeredHandler.method)) {
+                continue;
+            }
+
+            let matchResult = checkMatch(handlerPathParts, requestPathParts);
+            if (matchResult.match) {
+                candidates.push({params: matchResult.params, handler: registeredHandler.handler});
+            }
+        }
+
+        return candidates;
+    }
+
+    /**
+     * execute the request
+     * @param request
+     * @param response
+     */
+    this.executeRequest = function (request, response) {
+        let method = request.method;
+        let path = request.path;
+
+
+        let requestHandlers = findPathCandidates(path, method);
+        let index = 0;
+
+
+        function executeNextHandler(request, response, index) {
+
+            if (requestHandlers[index]) {
+
+                if (requestHandlers[index].params) {
+                    request.params = requestHandlers[index].params;
+                }
+
+                let nextHandler = requestHandlers[index].handler;
+                if (typeof  nextHandler === "function")
+                    nextHandler(request, response, () => executeNextHandler(request, response, ++index));
+            }
+        }
+
+        if (requestHandlers.length > 0) {
+            executeNextHandler(request, response, index);
+        }
+    };
+
+    /**
+     * Registering handlers
+     *
+     *  use(handler);
+     *  use(path, handler);
+     *  use(path, method, handler);
+     *
+     * @param params
+     */
+    this.use = function (...params) {
+        let args = unifyArguments(params);
+
+        registeredHandlers.push({
+            path: args[0],
+            method: args[1],
+            handler: args[2]
+        });
+
+    };
+
+    /**
+     * TODO delete this - was used for dev purposes
+     * * @returns {Array}
+     */
+    this.listAllHandlers = function () {
+        return registeredHandlers;
+    };
+
+
+    this.get = function (path, handler) {
+        this.use(path, "GET", handler)
+    };
+
+    this.post = function (path, handler) {
+        this.use(path, "POST", handler)
+    };
+
+    this.put = function (path, handler) {
+        this.use(path, "PUT", handler)
+    };
+
+    this.delete = function (path, handler) {
+        this.use(path, "DELETE", handler)
+    };
+
+    //wrapper over use method in order to ensure that use defined api will have the path match /:csbid/API/....
+    this.registerAPI = function (path, method, handler) {
+
+    };
+
+    /**
+     * Returns a promise that will resolve the request body depending on the received headers.
+     * @param event
+     * @returns {Promise<any>}
+     */
+    async function extractBody(event) {
+        let body;
+        let request = event.request;
+        let headers = request.headers;
+        let contentType = "text/plain";
+        if (headers.has('Content-Type')) {
+            contentType = headers.get('Content-Type');
+        }
+
+        let typeAndSubtype = contentType.split(";")[0];
+
+        switch (typeAndSubtype) {
+            case "application/json":
+                body = await request.json();
+                break;
+            case "application/x-www-form-urlencoded":
+                body = await request.formData();
+                break;
+            case "multipart/form-data":
+                body = await request.formData();
+                break;
+            case "application/octet-stream":
+                body = await request.arrayBuffer();
+                break;
+            default:
+                body = await request.text();
+        }
+
+        return body;
+
+    }
+
+    this.init = (serviceWorker) => {
+        serviceWorker.addEventListener('fetch', (event) => {
+            let requestedUrl = new URL(event.request.url);
+            this.requestedHosts.add(requestedUrl.host);
+            /**
+             * A promise should be returned synchronously
+             */
+            event.respondWith(new Promise((resolve, reject) => {
+                event.resolver = resolve;
+
+                /*event.sendResponse = function (responseData, status) {
+                    let eventStatus = httpStatuses[status] ? {
+                        status: status,
+                        statusText: httpStatuses[status]
+                    } : {"status": 200, "statusText": "OK"};
+                    let eventResponse = responseData || "";
+
+                    let response = new Response(eventResponse, eventStatus);
+                    resolve(response);
+                };*/
+
+                console.log("Handling event", event);
+                extractBody(event).then(body => {
+
+                    event.request.body = body;
+                    let request = new EventRequest(event);
+                    let response = new EventResponse(event);
+                    this.executeRequest(request, response);
+
+                });
+            }));
+
+        });
+        console.log("Initialized! Prepared to capture requests!")
+    };
+}
+module.exports = Middleware;
+
+
+},{"./EventRequest":"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\EventRequest.js","./EventResponse":"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\lib\\EventResponse.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\SwarmEngine.js":[function(require,module,exports){
 function SwarmEngine(identity) {
     let myOwnIdentity = identity || SwarmEngine.prototype.ANONYMOUS_IDENTITY;
 
@@ -12464,100 +11684,112 @@ function makePluggable(powerCord) {
 }
 
 module.exports = SwarmEngine;
-},{"./interactions":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\index.js","./swarms":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\swarms\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js":[function(require,module,exports){
+},{"./interactions":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\index.js","./swarms":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\swarms\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js":[function(require,module,exports){
 function BootEngine(getSeed, getEDFS, initializeSwarmEngine, runtimeBundles, constitutionBundles) {
 
-    if(typeof getSeed !== "function"){
-        throw new Error("getSeed missing or not a function");
-    }
-    getSeed = promisify(getSeed);
+	if (typeof getSeed !== "function") {
+		throw new Error("getSeed missing or not a function");
+	}
+	getSeed = promisify(getSeed);
 
-    if(typeof getEDFS !== "function"){
-        throw new Error("getEDFS missing or not a function");
-    }
-    getEDFS = promisify(getEDFS);
+	if (typeof getEDFS !== "function") {
+		throw new Error("getEDFS missing or not a function");
+	}
+	getEDFS = promisify(getEDFS);
 
-    if(typeof initializeSwarmEngine !== "function"){
-        throw new Error("initializeSwarmEngine missing or not a function");
-    }
-    initializeSwarmEngine = promisify(initializeSwarmEngine);
+	if (typeof initializeSwarmEngine !== "function") {
+		throw new Error("initializeSwarmEngine missing or not a function");
+	}
+	initializeSwarmEngine = promisify(initializeSwarmEngine);
 
-    if(typeof runtimeBundles !== "undefined" && !Array.isArray(runtimeBundles)){
-        throw new Error("runtimeBundles is not array");
-    }
+	if (typeof runtimeBundles !== "undefined" && !Array.isArray(runtimeBundles)) {
+		throw new Error("runtimeBundles is not array");
+	}
 
-    if(typeof constitutionBundles !== "undefined" && !Array.isArray(constitutionBundles)){
-        throw new Error("constitutionBundles is not array");
-    }
+	if (typeof constitutionBundles !== "undefined" && !Array.isArray(constitutionBundles)) {
+		throw new Error("constitutionBundles is not array");
+	}
 
-    const EDFS = require('edfs');
-    let edfs;
+	const EDFS = require('edfs');
+	let edfs;
 
-    const evalBundles = async (bundles, ignore) => {
-        const listFiles = promisify(this.bar.listFiles);
-        const readFile = promisify(this.bar.readFile);
+	const evalBundles = async (bundles, ignore) => {
+		const listFiles = promisify(this.rawDossier.listFiles);
+		const readFile = promisify(this.rawDossier.readFile);
 
-        let fileList = await listFiles(EDFS.constants.CSB.CONSTITUTION_FOLDER);
-        fileList = bundles.filter(bundle => fileList.includes(`${EDFS.constants.CSB.CONSTITUTION_FOLDER}/${bundle}`))
-            .map(bundle => `${EDFS.constants.CSB.CONSTITUTION_FOLDER}/${bundle}`);
+		let fileList = await listFiles("/" + EDFS.constants.CSB.CONSTITUTION_FOLDER);
+		fileList = bundles.filter(bundle => fileList.includes(`${bundle}`))
+			.map(bundle => `/${EDFS.constants.CSB.CONSTITUTION_FOLDER}/${bundle}`);
 
-        if (fileList.length !== bundles.length) {
-            const message = `Some bundles missing. Expected to have ${JSON.stringify(bundles)} but got only ${JSON.stringify(fileList)}`;
-            if(!ignore){
-                throw new Error(message);
-            }else{
-                console.log(message);
+
+		if (fileList.length !== bundles.length) {
+			const message = `Some bundles missing. Expected to have ${JSON.stringify(bundles)} but got only ${JSON.stringify(fileList)}`;
+			if (!ignore) {
+				throw new Error(message);
+			} else {
+				console.log(message);
+			}
+		}
+
+		for (let i = 0; i < fileList.length; i++) {
+			var fileContent = await readFile(fileList[i]);
+			eval(fileContent.toString());
+		}
+	};
+
+	this.boot = function (callback) {
+		const __boot = async () => {
+			const seed = await getSeed();
+			edfs = await getEDFS();
+			this.rawDossier = edfs.loadRawDossier(seed);
+			try{
+                await evalBundles(runtimeBundles);
+            }catch(err)
+            {
+                console.log(err);
             }
-        }
+			await initializeSwarmEngine();
+			if (typeof constitutionBundles !== "undefined") {
+				try{
+					await evalBundles(constitutionBundles, true);
+				}catch(err)
+				{
+					console.log(err);
+				}
+			}
+		};
 
-        for (let i = 0; i < fileList.length; i++) {
-            var fileContent = await readFile(fileList[i]);
-            eval(fileContent.toString());
-        }
-    };
-
-    this.boot = function (callback) {
-       const __boot = async () => {
-           const seed = await getSeed();
-           edfs = await getEDFS();
-           this.bar = edfs.loadBar(seed);
-           await evalBundles(runtimeBundles);
-           await initializeSwarmEngine();
-           if (typeof constitutionBundles !== "undefined") {
-               await evalBundles(constitutionBundles, true);
-           }
-        };
-
-        __boot()
-            .then(() => callback(undefined, this.bar))
-            .catch(callback);
-    };
+		__boot()
+			.then(() => callback(undefined, this.rawDossier))
+			.catch(callback);
+	};
 }
 
 function promisify(fn) {
-    return function (...args) {
-        return new Promise((resolve, reject) => {
-            fn(...args, (err, ...res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(...res);
-                }
-            });
-        });
-    }
+	return function (...args) {
+		return new Promise((resolve, reject) => {
+			fn(...args, (err, ...res) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(...res);
+				}
+			});
+		});
+	}
 }
 
 module.exports = BootEngine;
 
-},{"edfs":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\IsolateBootScript.js":[function(require,module,exports){
+},{"edfs":"D:\\work\\git\\privatesky\\modules\\edfs\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\IsolateBootScript.js":[function(require,module,exports){
 
 async function getIsolatesWorker({workerData: {constitutions}, externalApi}) {
     const swarmUtils = require('swarmutils');
     const beesHealer = swarmUtils.beesHealer;
     const OwM = swarmUtils.OwM;
     const SwarmPacker = swarmUtils.SwarmPacker;
-    const IsolatedVM = require('pskisolates');
+    const pskIsolatesModuleName = "pskisolates";
+    const IsolatedVM = require(pskIsolatesModuleName);
     const {EventEmitter} = require('events');
 
     const config = IsolatedVM.IsolateConfig.defaultConfig;
@@ -12644,7 +11876,7 @@ async function getIsolatesWorker({workerData: {constitutions}, externalApi}) {
 
 module.exports = getIsolatesWorker;
 
-},{"events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","pskisolates":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\ThreadWorkerBootScript.js":[function(require,module,exports){
+},{"events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\ThreadWorkerBootScript.js":[function(require,module,exports){
 (function (process){
 function boot() {
     const worker_threads ='worker_threads';
@@ -12674,8 +11906,14 @@ function boot() {
     let edfs;
     function getEDFS(callback){
         const EDFS = require("edfs");
-        edfs = EDFS.attachWithSeed(getSeed());
-        callback(null, edfs);
+        EDFS.attachWithSeed(getSeed(), (err, edfsInst) => {
+            if (err) {
+                return callback(err);
+            }
+
+            edfs = edfsInst;
+            callback(null, edfs);
+        });
     }
 
     function initializeSwarmEngine(callback){
@@ -12716,85 +11954,21 @@ boot();
 
 }).call(this,require('_process'))
 
-},{"./BootEngine.js":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js","edfs":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\index.js","swarm-engine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\ssapp\\SSappBootScript.js":[function(require,module,exports){
-function SSAppBootScript(identity){
+},{"./BootEngine.js":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js","edfs":"D:\\work\\git\\privatesky\\modules\\edfs\\index.js","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\host\\HostBootScript.js":[function(require,module,exports){
+function HostBootScript(identity){
     const se = require("swarm-engine");
-    const HostPowerCord = se.HostPowerCord;
     se.initialise(identity);
-
-    let parentPC = new HostPowerCord(window.parent);
-    $$.swarmEngine.plug("*", parentPC);
-
-
     const SRPC = se.SmartRemoteChannelPowerCord;
-    let swUrl = "http://localhost:8000/";
+    let swUrl = "http://localhost:8080/";
     const powerCord = new SRPC([swUrl]);
-
-    $$.swarms.describe("echo", {
-        say: function (message) {
-            document.getElementById("parentMessage").innerText = message;
-
-            setTimeout(() => {
-                this.return(null, message);
-            }, 2000);
-        }
-    });
-
-
-    this.swInit = function(){
-        if(!powerCord.identity)
-        {
-            $$.swarmEngine.plug("test/agent/agent007", powerCord);
-        }
-
-        let startMessage = "Echo";
-
-
-        let sayEcho = (message)=>{
-            $$.interactions.startSwarmAs("test/agent/agent007", "echo", "say", message)
-                .onReturn(function(err, result){
-                    if(!err){
-                        console.log("Iframe received: ", result);
-                        sayEcho(result+"o");
-                    }
-                });
-        };
-        sayEcho(startMessage);
-    };
-
-    /**TODO: remove it from production
-     * for testing purpose
-     * @param seed
-     */
-    this.deployCSB = function(seed){
-        if(!powerCord.identity)
-        {
-            $$.swarmEngine.plug("test/agent/agent007", powerCord);
-        }
-
-
-        $$.interactions.startSwarmAs("test/agent/agent007", "csbDeploy", "start", seed)
-            .onReturn(function(err, result){
-                if(!err){
-                    setTimeout(()=>{
-                        $$.interactions.startSwarmAs("test/agent/agent007", "swarmFromConstitution", "say", "RMS")
-                            .onReturn(function(err, result){
-                                if(!err){
-                                    console.log(result);
-                                }
-                            });
-                    },1000);
-
-                }
-            });
-    }
+    $$.swarmEngine.plug("test/agent/007", powerCord);
 }
 
-module.exports = SSAppBootScript;
+module.exports = HostBootScript;
 
 
 
-},{"swarm-engine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js":[function(require,module,exports){
+},{"swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js":[function(require,module,exports){
 (function (process){
 const path = require('path');
 //enabling life line to parent process
@@ -12804,9 +11978,9 @@ const seed = process.env.PSK_DOMAIN_SEED;
 //preventing children to access the env parameter
 process.env.PSK_DOMAIN_SEED = undefined;
 
-if(process.argv.length > 3){
+if (process.argv.length > 3) {
     process.env.PRIVATESKY_DOMAIN_NAME = process.argv[2];
-}else{
+} else {
     process.env.PRIVATESKY_DOMAIN_NAME = "AnonymousDomain" + process.pid;
 }
 
@@ -12823,39 +11997,46 @@ if (typeof config.workspace !== "undefined" && config.workspace !== "undefined")
     process.env.DOMAIN_WORKSPACE = config.workspace;
 }
 
-function boot(){
+function boot() {
     const BootEngine = require("./BootEngine");
 
     const bootter = new BootEngine(getSeed, getEDFS, initializeSwarmEngine, ["pskruntime.js", "virtualMQ.js", "edfsBar.js"], ["blockchain.js"]);
-    bootter.boot(function(err, archive){
-        if(err){
+    bootter.boot(function (err, archive) {
+        if (err) {
             console.log(err);
             return;
         }
-        try{
+        try {
             plugPowerCords();
-        }catch(err){
+        } catch (err) {
             console.log("Caught an error will finishing booting process", err);
         }
     })
 }
 
-function getSeed(callback){
+function getSeed(callback) {
     callback(undefined, self.seed);
 }
 
 let self = {seed};
-function getEDFS(callback){
+
+function getEDFS(callback) {
     let EDFS = require("edfs");
-    self.edfs = EDFS.attachWithSeed(seed);
-    callback(undefined, self.edfs);
+    EDFS.attachWithSeed(seed, (err, edfsInst) => {
+        if (err) {
+            return callback(err);
+        }
+
+        self.edfs = edfsInst;
+        callback(undefined, self.edfs);
+    });
 }
 
-function initializeSwarmEngine(callback){
+function initializeSwarmEngine(callback) {
     const EDFS = require("edfs");
     const bar = self.edfs.loadBar(self.seed);
-    bar.readFile(EDFS.constants.CSB.DOMAIN_IDENTITY_FILE, (err, content)=>{
-        if(err){
+    bar.readFile(EDFS.constants.CSB.DOMAIN_IDENTITY_FILE, (err, content) => {
+        if (err) {
             return callback(err);
         }
         self.domainName = content.toString();
@@ -12869,20 +12050,20 @@ function initializeSwarmEngine(callback){
     });
 }
 
-function plugPowerCords(){
+function plugPowerCords() {
     const dossier = require("dossier");
-    dossier.load(self.seed, "DomainIdentity", function(err, dossierHandler){
-        if(err){
+    dossier.load(self.seed, "DomainIdentity", function (err, dossierHandler) {
+        if (err) {
             throw err;
         }
 
-        dossierHandler.startTransaction("DomainConfigTransaction", "getDomains").onReturn(function(err, domainConfigs){
-            if(err){
+        dossierHandler.startTransaction("DomainConfigTransaction", "getDomains").onReturn(function (err, domainConfigs) {
+            if (err) {
                 throw  err;
             }
 
             const se = require("swarm-engine");
-            if(domainConfigs.length === 0){
+            if (domainConfigs.length === 0) {
                 console.log("No domain configuration found in CSB. Boot process will stop here...");
                 return;
             }
@@ -12896,8 +12077,8 @@ function plugPowerCords(){
                 }
             }
 
-            dossierHandler.startTransaction("Agents", "getAgents").onReturn(function(err, agents){
-                if(err){
+            dossierHandler.startTransaction("Agents", "getAgents").onReturn(function (err, agents) {
+                if (err) {
                     throw err;
                 }
 
@@ -12906,9 +12087,9 @@ function plugPowerCords(){
                 }
 
                 const EDFS = require("edfs");
-                const bar = self.edfs.loadBar(self.seed);
-                bar.readFile(EDFS.constants.CSB.CONSTITUTION_FOLDER + '/threadBoot.js', (err, fileContents) => {
-                    if(err) {
+                const rawDossier = self.edfs.loadRawDossier(self.seed);
+                rawDossier.readFile("/" + EDFS.constants.CSB.CONSTITUTION_FOLDER + '/threadBoot.js', (err, fileContents) => {
+                    if (err) {
                         throw err;
                     }
 
@@ -12928,7 +12109,7 @@ function plugPowerCords(){
 boot();
 }).call(this,require('_process'))
 
-},{"./BootEngine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","dossier":"D:\\Catalin\\Munca\\privatesky\\modules\\dossier\\index.js","edfs":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs\\index.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js","soundpubsub":"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\index.js","swarm-engine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js":[function(require,module,exports){
+},{"./BootEngine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","dossier":"D:\\work\\git\\privatesky\\modules\\dossier\\index.js","edfs":"D:\\work\\git\\privatesky\\modules\\edfs\\index.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js","soundpubsub":"D:\\work\\git\\privatesky\\modules\\soundpubsub\\index.js","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js":[function(require,module,exports){
 module.exports = {
     getIsolatesBootScript: function() {
         return require('./IsolateBootScript');
@@ -12940,7 +12121,7 @@ module.exports = {
         return require('./domainBootScript');
     }
 };
-},{"./IsolateBootScript":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\IsolateBootScript.js","./ThreadWorkerBootScript":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\ThreadWorkerBootScript.js","./domainBootScript":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\index.js":[function(require,module,exports){
+},{"./IsolateBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\IsolateBootScript.js","./ThreadWorkerBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\ThreadWorkerBootScript.js","./domainBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js":[function(require,module,exports){
 module.exports = {
     initialise:function(...args){
         if(typeof $$.swarmEngine === "undefined"){
@@ -12965,8 +12146,10 @@ const browserContexts = [or.constants.BROWSER_ENVIRONMENT_TYPE, or.constants.SER
 if (browserContexts.indexOf($$.environmentType) !== -1) {
     module.exports.IframePowerCord = require("./powerCords/browser/IframePowerCord");
     module.exports.HostPowerCord = require("./powerCords/browser/HostPowerCord");
+    module.exports.ServiceWorkerPC = require("./powerCords/browser/ServiceWorkerPC");
 }
-},{"./SwarmEngine":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\SwarmEngine.js","./bootScripts":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js","./powerCords/InnerIsolatePowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\InnerIsolatePowerCord.js","./powerCords/InnerThreadPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\InnerThreadPowerCord.js","./powerCords/OuterIsolatePowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\OuterIsolatePowerCord.js","./powerCords/OuterThreadPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\OuterThreadPowerCord.js","./powerCords/RemoteChannelPairPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPairPowerCord.js","./powerCords/RemoteChannelPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPowerCord.js","./powerCords/SmartRemoteChannelPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\SmartRemoteChannelPowerCord.js","./powerCords/browser/HostPowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\HostPowerCord.js","./powerCords/browser/IframePowerCord":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\IframePowerCord.js","overwrite-require":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\InteractionSpace.js":[function(require,module,exports){
+
+},{"./SwarmEngine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\SwarmEngine.js","./bootScripts":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js","./powerCords/InnerIsolatePowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\InnerIsolatePowerCord.js","./powerCords/InnerThreadPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\InnerThreadPowerCord.js","./powerCords/OuterIsolatePowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\OuterIsolatePowerCord.js","./powerCords/OuterThreadPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\OuterThreadPowerCord.js","./powerCords/RemoteChannelPairPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPairPowerCord.js","./powerCords/RemoteChannelPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPowerCord.js","./powerCords/SmartRemoteChannelPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\SmartRemoteChannelPowerCord.js","./powerCords/browser/HostPowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\HostPowerCord.js","./powerCords/browser/IframePowerCord":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\IframePowerCord.js","./powerCords/browser/ServiceWorkerPC":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\ServiceWorkerPC.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\InteractionSpace.js":[function(require,module,exports){
 function InteractionSpace(swarmEngineApi) {
     const listeners = {};
     const interactionTemplate = require('./interaction_template').getTemplateHandler(swarmEngineApi);
@@ -13038,7 +12221,7 @@ function InteractionSpace(swarmEngineApi) {
 
 module.exports = InteractionSpace;
 
-},{"./interaction_template":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\interaction_template.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\index.js":[function(require,module,exports){
+},{"./interaction_template":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\interaction_template.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\index.js":[function(require,module,exports){
 module.exports = function (swarmEngineApi) {
     let cm = require("callflow");
     const InteractionSpace = require("./InteractionSpace");
@@ -13082,7 +12265,7 @@ module.exports = function (swarmEngineApi) {
     return is;
 };
 
-},{"./InteractionSpace":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\InteractionSpace.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\interactions\\interaction_template.js":[function(require,module,exports){
+},{"./InteractionSpace":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\InteractionSpace.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\interactions\\interaction_template.js":[function(require,module,exports){
 exports.getTemplateHandler = function (swarmEngineApi) {
 
     return {
@@ -13126,7 +12309,7 @@ exports.getTemplateHandler = function (swarmEngineApi) {
     }
 };
 
-},{"callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\InnerIsolatePowerCord.js":[function(require,module,exports){
+},{"callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\InnerIsolatePowerCord.js":[function(require,module,exports){
 (function (global){
 function InnerIsolatePowerCord() {
 
@@ -13176,7 +12359,7 @@ module.exports = InnerIsolatePowerCord;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\InnerThreadPowerCord.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\InnerThreadPowerCord.js":[function(require,module,exports){
 function InnerThreadPowerCord() {
     const worker_threads = 'worker_threads';
     const {parentPort} = require(worker_threads);
@@ -13189,11 +12372,12 @@ function InnerThreadPowerCord() {
 
 module.exports = InnerThreadPowerCord;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\OuterIsolatePowerCord.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\OuterIsolatePowerCord.js":[function(require,module,exports){
 function OuterIsolatePowerCord(energySource, numberOfWires = 1, apis) { // seed or array of constitution bundle paths
     const syndicate = require('syndicate');
     const bootScripts = require('../bootScripts');
-    const pskisolates = require('pskisolates');
+    const pskIsolatesModuleName = "pskisolates";
+    const pskisolates = require(pskIsolatesModuleName);
     let pool = null;
 
 
@@ -13250,8 +12434,8 @@ function OuterIsolatePowerCord(energySource, numberOfWires = 1, apis) { // seed 
 
 module.exports = OuterIsolatePowerCord;
 
-},{"../bootScripts":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js","pskisolates":"D:\\Catalin\\Munca\\privatesky\\modules\\pskisolates\\index.js","syndicate":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\OuterThreadPowerCord.js":[function(require,module,exports){
-function OuterThreadPowerCord(threadBootScript, eval= false, energySourceSeed, numberOfWires = 1) { // seed or array of constitution bundle paths
+},{"../bootScripts":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\index.js","syndicate":"D:\\work\\git\\privatesky\\modules\\syndicate\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\OuterThreadPowerCord.js":[function(require,module,exports){
+function OuterThreadPowerCord(threadBootScript, evaluate= false, energySourceSeed, numberOfWires = 1) { // seed or array of constitution bundle paths
     const syndicate = require('syndicate');
     let pool = null;
     let self = this;
@@ -13263,7 +12447,7 @@ function OuterThreadPowerCord(threadBootScript, eval= false, energySourceSeed, n
             bootScript: threadBootScript,
             workerOptions: {
                 // cwd: process.env.DOMAIN_WORKSPACE,
-                eval: eval,
+                eval: evaluate,
                 env: {
                     IDENTITY: self.identity
                 },
@@ -13299,7 +12483,7 @@ function OuterThreadPowerCord(threadBootScript, eval= false, energySourceSeed, n
 
 module.exports = OuterThreadPowerCord;
 
-},{"syndicate":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPairPowerCord.js":[function(require,module,exports){
+},{"syndicate":"D:\\work\\git\\privatesky\\modules\\syndicate\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPairPowerCord.js":[function(require,module,exports){
 const outbound = "outbound";
 const inbound = "inbound";
 
@@ -13378,7 +12562,7 @@ function RemoteChannelPairPowerCord(host, channelName, receivingHost, receivingC
 }
 
 module.exports = RemoteChannelPairPowerCord;
-},{"../../psk-http-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPowerCord.js":[function(require,module,exports){
+},{"../../psk-http-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\RemoteChannelPowerCord.js":[function(require,module,exports){
 const inbound = "inbound";
 
 function RemoteChannelPowerCord(receivingHost, receivingChannelName){
@@ -13442,7 +12626,7 @@ function RemoteChannelPowerCord(receivingHost, receivingChannelName){
 }
 
 module.exports = RemoteChannelPowerCord;
-},{"../../psk-http-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\SmartRemoteChannelPowerCord.js":[function(require,module,exports){
+},{"../../psk-http-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\SmartRemoteChannelPowerCord.js":[function(require,module,exports){
 (function (Buffer){
 const inbound = "inbound";
 
@@ -13621,14 +12805,16 @@ function SmartRemoteChannelPowerCord(communicationAddrs, receivingChannelName, z
             if (p === 'identity') {
                 setup();
             }
+            return true;
         }
     });
 }
 
 module.exports = SmartRemoteChannelPowerCord;
+
 }).call(this,require("buffer").Buffer)
 
-},{"../../psk-http-client":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-http-client\\index.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js","virtualmq":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\HostPowerCord.js":[function(require,module,exports){
+},{"../../psk-http-client":"D:\\work\\git\\privatesky\\modules\\psk-http-client\\index.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js","virtualmq":"D:\\work\\git\\privatesky\\modules\\virtualmq\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\HostPowerCord.js":[function(require,module,exports){
 function HostPowerCord(parent){
 
     this.sendSwarm = function (swarmSerialization){
@@ -13661,7 +12847,7 @@ function HostPowerCord(parent){
 
 
 module.exports = HostPowerCord;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\IframePowerCord.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\IframePowerCord.js":[function(require,module,exports){
 function IframePowerCord(iframe){
 
     let iframeSrc = iframe.src;
@@ -13721,7 +12907,109 @@ function IframePowerCord(iframe){
 }
 
 module.exports = IframePowerCord;
-},{"swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\swarms\\index.js":[function(require,module,exports){
+},{"swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\ServiceWorkerPC.js":[function(require,module,exports){
+const UtilFunctions = require("../../utils/utilFunctions");
+function ServiceWorkerPC() {
+    const channelsManager = require("../../utils/SWChannelsManager").getChannelsManager();
+    const SwarmPacker = require("swarmutils").SwarmPacker;
+    const server = require("ssapp-middleware").getMiddleware();
+
+    this.sendSwarm = function (swarmSerialization) {
+        let header;
+
+        try {
+            header = SwarmPacker.getHeader(swarmSerialization);
+        } catch (e) {
+            console.error("Could not deserialize swarm");
+        }
+
+        //TODO
+        //verifica header.target pt urmatoarele cazuri:
+        // -- daca targetul este un regex de forma domain/agent/agentName atunci trebuie trimis mesajul cu ajutorul lui channelsManager pe canalul Base64(numeDomeniu)
+        // -- daca targetul este un regex de forma http/https atunci trebuie verificat daca domeniul fake-uit de service worker coincide cu domeniul din url.
+        //          Daca coincid atunci se trimite folosind channelsManagerul local daca nu coincide atunci se face un request http(s) (fetch)
+        // -- default ???? - posibil sa fie nevoie sa intoarcem tot in swarm engine... NU SUNT SIGUR!!!
+
+        if(UtilFunctions.isUrl(header.swarmTarget)){
+            if (!UtilFunctions.isInMyHosts(header.swarmTarget, server.requestedHosts)) {
+                fetch(header.swarmTarget,
+                    {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/octet-stream'
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *client
+                        body: swarmSerialization
+                    }).then(response => {
+
+                    //TODO
+                    //check status codes
+                    if (!response.ok) {
+                        console.error(`An error occurred:  ${response.status} - ${response.statusText}`);
+                    }
+
+                }).catch((err)=>{
+                    //TODO
+                    //handle error
+                    console.log(err);
+                });
+                return;
+            }
+        }
+
+        let channelName = UtilFunctions.getChannelName(header.swarmTarget);
+        channelsManager.sendMessage(channelName, swarmSerialization, function () {
+            //TODO
+            //what now?
+            console.log("done");
+        });
+    };
+
+    let receiveSwarmSerialization = (err, message) => {
+        if (err) {
+            console.log(err);
+            if (err.code >= 400 && err.code < 500) {
+                return;
+            }
+        } else {
+            //we facilitate the transfer of swarmSerialization to $$.swarmEngine
+            this.transfer(message);
+        }
+        //we need tp subscribe again in order to be called when a new message arrive
+        //because no matter why error or message channelManager will remove as from the subs list
+        setTimeout(subscribe, 0);
+    };
+
+    let subscribe = () => {
+        //TODO
+        //verifica this.identity pt urmatoarele cazuri:
+        // -- daca targetul este un regex de forma domain/agent/agentName atunci trebuie trimis mesajul cu ajutorul lui channelsManager pe canalul Base64(numeDomeniu)
+        // -- default ???? - posibil sa fie nevoie sa intoarcem tot in swarm engine... NU SUNT SIGUR!!!
+
+
+        //let channelName = ""; //based on this.identity when need to extract the domainName from regex domainName/agent/agentname
+        let channelName = this.identity.split("/")[0];//temporary test
+        channelsManager.receiveMessage(btoa(channelName), receiveSwarmSerialization);
+    }
+
+    return new Proxy(this, {
+        set(target, p, value, receiver) {
+            target[p] = value;
+            if (p === 'identity') {
+                //when we get our identity
+                //setup means first call of subscribe
+                subscribe.call(target);
+            }
+        }
+    });
+}
+
+module.exports = ServiceWorkerPC;
+
+},{"../../utils/SWChannelsManager":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\utils\\SWChannelsManager.js","../../utils/utilFunctions":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\utils\\utilFunctions.js","ssapp-middleware":"D:\\work\\git\\privatesky\\modules\\ssapp-middleware\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\swarms\\index.js":[function(require,module,exports){
 module.exports = function(swarmEngineApi){
     const cm = require("callflow");
     const swarmUtils = require("./swarm_template-se");
@@ -13733,7 +13021,7 @@ module.exports = function(swarmEngineApi){
         swarmEngineApi.startSwarmAs(identity, swarmName, ctor, ...params);
     };
 };
-},{"./swarm_template-se":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\swarms\\swarm_template-se.js","callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\swarms\\swarm_template-se.js":[function(require,module,exports){
+},{"./swarm_template-se":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\swarms\\swarm_template-se.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\swarms\\swarm_template-se.js":[function(require,module,exports){
 exports.getTemplateHandler = function (swarmEngine) {
     let cm = require("callflow");
 
@@ -13819,7 +13107,212 @@ exports.getTemplateHandler = function (swarmEngine) {
         }
     }
 };
-},{"callflow":"D:\\Catalin\\Munca\\privatesky\\modules\\callflow\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js":[function(require,module,exports){
+},{"callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\utils\\SWChannelsManager.js":[function(require,module,exports){
+let Queue = require("swarmutils").Queue;
+const maxQueueSize = 100;
+const TOKEN_PLACEHOLDER = "WEB_TOKEN_PLACEHOLDER";
+const queues = {};
+const subscribers = {};
+
+
+function _getSubscribersList(channelName) {
+    if (typeof subscribers[channelName] === "undefined") {
+        subscribers[channelName] = [];
+    }
+
+    return subscribers[channelName];
+}
+
+function _getQueue(name) {
+    if (typeof queues[name] === "undefined") {
+        queues[name] = new Queue();
+    }
+
+    return queues[name];
+}
+
+function _deliverMessage(subscribers, message) {
+    let dispatched = false;
+    try {
+        while (subscribers.length > 0) {
+            let subscriberCallback = subscribers.pop();
+            if (!dispatched) {
+                subscriberCallback(undefined, message);
+                dispatched = true;
+            } else {
+                let e = new Error("Already dispatched");
+                e.code = 403;
+                subscriberCallback(e);
+            }
+        }
+    } catch (err) {
+        //... some subscribers could have a timeout connection
+        if (subscribers.length > 0) {
+            _deliverMessage(subscribers, message);
+        }
+    }
+
+    return dispatched;
+}
+
+function createChannel(channelName, callback) {
+    if (typeof queues[channelName] !== "undefined") {
+        let e = new Error("Channel exists!");
+        e.code = 409;
+        return callback(e);
+    }
+
+    queues[channelName] = new Queue();
+    callback(undefined, TOKEN_PLACEHOLDER);
+}
+
+const plugs = {};
+function sendMessage(channelName, message, callback) {
+
+    let header;
+    try{
+        const SwarmPacker = require("swarmutils").SwarmPacker;
+        header = SwarmPacker.getHeader(message);
+    }catch(error){
+        let e = new Error("SwarmPacker could not deserialize message");
+        e.code = 400;
+        callback(e);
+    }
+
+    if(typeof plugs[header.swarmTarget] === "undefined"){
+        //we need to do this in order to ensure that we have a handler for every fake/real channel that we create
+        let PC = require("../powerCords/browser/ServiceWorkerPC");
+        plugs[header.swarmTarget] =  new PC();
+        $$.swarmEngine.plug(header.swarmTarget, plugs[header.swarmTarget]);
+    }
+
+    let queue = _getQueue(channelName);
+    let subscribers = _getSubscribersList(channelName);
+    let dispatched = false;
+    if (queue.isEmpty()) {
+        dispatched = _deliverMessage(subscribers, message);
+    }
+
+    if (!dispatched) {
+        if (queue.length < maxQueueSize) {
+            queue.push(message);
+            return callback(undefined);
+
+        } else {
+            //queue is full
+            let e = new Error("Queue is full");
+            e.code = 429;
+            return callback(e);
+        }
+
+    }
+    callback(undefined);
+
+}
+
+function receiveMessage(channelName, callback) {
+    console.log(`Trying to receive message from channel "${channelName}"`);
+    let queue = _getQueue(channelName);
+    let message = queue.pop();
+
+    if (!message) {
+        _getSubscribersList(channelName).push(callback);
+    } else {
+        callback(undefined, message);
+    }
+
+}
+
+function SWChannelsManager() {
+
+        this.createChannel = createChannel;
+        this.sendMessage = sendMessage;
+        this.receiveMessage = receiveMessage;
+        this.forwardMessage = function (channel, enable, callback) {
+            let e = new Error("Unsupported feature");
+            e.code = 403;
+            callback(e);
+        };
+        console.log("ChannelsManager initialised!");
+}
+
+let channelManagerInstance = new SWChannelsManager();
+
+module.exports.getChannelsManager = function(){
+    return channelManagerInstance;
+}
+
+},{"../powerCords/browser/ServiceWorkerPC":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\powerCords\\browser\\ServiceWorkerPC.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\utils\\utilFunctions.js":[function(require,module,exports){
+const urlReg = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9]+([\-.]{1}[a-z0-9]+)*\.[a-z]{2,5}|localhost)(:[0-9]{1,5})?(\/.*)?$/gi;
+const domainReg = /^([0-9a-zA-Z]*)\/agent\/([0-9a-zA-Z]*)$/gi;
+const httpUrlRegex = new RegExp(urlReg);
+const domainRegex =  new RegExp(domainReg);
+
+
+function prepareMessage(req, callback){
+    const contentType = req.headers['content-type'];
+    if (contentType === 'application/octet-stream') {
+        const contentLength = Number.parseInt(req.headers['Content-Length'], 10);
+
+        if(Number.isNaN(contentLength)){
+            let e = new Error("Length Required");
+            e.code = 411;
+            return callback(e);
+        }
+        else{
+            callback(undefined,req.body);
+        }
+
+    } else {
+        let e = new Error("Wrong message format received!");
+        e.code = 500;
+        callback(e);
+    }
+}
+
+function isUrl(url){
+    return url.match(httpUrlRegex);
+}
+
+function isInMyHosts(swarmTarget, hosts) {
+    let url = new URL(swarmTarget);
+    let arrayHosts = Array.from(hosts);
+    for(let i = 0; i<arrayHosts.length; i++){
+        if (url.host === arrayHosts[i]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function getChannelName(swarmTarget){
+
+    let channelName;
+    //check against domain/agent/agentName;
+
+    if(swarmTarget.match(domainRegex)){
+        let regGroups = domainRegex.exec(swarmTarget);
+        channelName = btoa(regGroups[2]);
+        return channelName;
+    }
+
+    //check against urls;
+    if (swarmTarget.match(httpUrlRegex)) {
+
+        if (swarmTarget[swarmTarget.length - 1] === "/") {
+            swarmTarget = swarmTarget.slice(0, -1);
+        }
+
+        let urlFragments = swarmTarget.split("/");
+        channelName = urlFragments[urlFragments.length - 1];
+    }
+
+    return channelName;
+}
+module.exports = {prepareMessage, getChannelName, isUrl, isInMyHosts};
+
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js":[function(require,module,exports){
 (function (global){
 module.exports.OwM = require("./lib/OwM");
 module.exports.beesHealer = require("./lib/beesHealer");
@@ -13853,7 +13346,7 @@ if(typeof global.$$.uidGenerator == "undefined"){
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./lib/Combos":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Combos.js","./lib/OwM":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js","./lib/Queue":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js","./lib/SwarmPacker":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js","./lib/TaskCounter":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js","./lib/beesHealer":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js","./lib/pingpongFork":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js","./lib/pskconsole":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js","./lib/safe-uuid":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js","./lib/uidGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Combos.js":[function(require,module,exports){
+},{"./lib/Combos":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\Combos.js","./lib/OwM":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\OwM.js","./lib/Queue":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\Queue.js","./lib/SwarmPacker":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js","./lib/TaskCounter":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js","./lib/beesHealer":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js","./lib/pingpongFork":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js","./lib/pskconsole":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js","./lib/safe-uuid":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js","./lib/uidGenerator":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js"}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\Combos.js":[function(require,module,exports){
 function product(args) {
     if(!args.length){
         return [ [] ];
@@ -13879,7 +13372,7 @@ function objectProduct(obj) {
 }
 
 module.exports = objectProduct;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\OwM.js":[function(require,module,exports){
 var meta = "meta";
 
 function OwM(serialized){
@@ -13970,7 +13463,7 @@ OwM.prototype.setMetaFor = function(obj, name, value){
 };
 
 module.exports = OwM;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\Queue.js":[function(require,module,exports){
 function QueueElement(content) {
 	this.content = content;
 	this.next = null;
@@ -14038,7 +13531,7 @@ Queue.prototype.toString = function () {
 Queue.prototype.inspect = Queue.prototype.toString;
 
 module.exports = Queue;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js":[function(require,module,exports){
 const HEADER_SIZE_RESEARVED = 4;
 
 function SwarmPacker(){
@@ -14187,7 +13680,7 @@ SwarmPacker.getHeader = function(pack){
     return header;
 };
 module.exports = SwarmPacker;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js":[function(require,module,exports){
 
 function TaskCounter(finalCallback) {
 	let results = [];
@@ -14237,7 +13730,7 @@ function TaskCounter(finalCallback) {
 }
 
 module.exports = TaskCounter;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js":[function(require,module,exports){
 const OwM = require("./OwM");
 
 /*
@@ -14293,7 +13786,7 @@ exports.jsonToNative = function(serialisedValues, result){
     };
 
 };
-},{"./OwM":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js":[function(require,module,exports){
+},{"./OwM":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\OwM.js"}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js":[function(require,module,exports){
 (function (process){
 const PING = "PING";
 const PONG = "PONG";
@@ -14388,7 +13881,7 @@ module.exports.enableLifeLine = function(timeout){
 };
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","child_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","child_process":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js"}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js":[function(require,module,exports){
 (function (process){
 var commands = {};
 var commands_help = {};
@@ -14462,7 +13955,7 @@ module.exports = {
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js":[function(require,module,exports){
 
 function encode(buffer) {
     return buffer.toString('base64')
@@ -14530,7 +14023,7 @@ exports.short_uuid = function(callback) {
         callback(null, encode(buf));
     });
 };
-},{"crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js":[function(require,module,exports){
+},{"crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js":[function(require,module,exports){
 (function (Buffer){
 const crypto = require('crypto');
 const Queue = require("./Queue");
@@ -14636,7 +14129,7 @@ module.exports.createUidGenerator = function (minBuffers, bufferSize) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"./Queue":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\index.js":[function(require,module,exports){
+},{"./Queue":"D:\\work\\git\\privatesky\\modules\\swarmutils\\lib\\Queue.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\index.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
 const PoolConfig = require('./lib/PoolConfig');
@@ -14679,7 +14172,7 @@ module.exports = {
     WorkerStrategies
 };
 
-},{"./lib/Pool-Isolates":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\Pool-Isolates.js","./lib/Pool-Threads":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\Pool-Threads.js","./lib/PoolConfig":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\PoolConfig.js","./lib/WorkerPool":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\WorkerPool.js","./lib/WorkerStrategies":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js":[function(require,module,exports){
+},{"./lib/Pool-Isolates":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\Pool-Isolates.js","./lib/Pool-Threads":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\Pool-Threads.js","./lib/PoolConfig":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\PoolConfig.js","./lib/WorkerPool":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\WorkerPool.js","./lib/WorkerStrategies":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js":[function(require,module,exports){
 (function (setImmediate){
 const {assert} = require('./utils');
 const util = require('util');
@@ -14791,7 +14284,7 @@ module.exports = AbstractPool;
 
 }).call(this,require("timers").setImmediate)
 
-},{"./utils":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\utils.js","events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js","timers":"D:\\Catalin\\Munca\\privatesky\\node_modules\\timers-browserify\\main.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\Pool-Isolates.js":[function(require,module,exports){
+},{"./utils":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\utils.js","events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js","timers":"D:\\work\\git\\privatesky\\node_modules\\timers-browserify\\main.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\Pool-Isolates.js":[function(require,module,exports){
 const AbstractPool = require('./AbstractPool');
 const util = require('util');
 /**
@@ -14827,7 +14320,7 @@ util.inherits(PoolIsolates, AbstractPool);
 
 module.exports = PoolIsolates;
 
-},{"./AbstractPool":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\Pool-Threads.js":[function(require,module,exports){
+},{"./AbstractPool":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\Pool-Threads.js":[function(require,module,exports){
 const AbstractPool = require('./AbstractPool');
 const util = require('util');
 
@@ -14880,7 +14373,7 @@ util.inherits(PoolThreads, AbstractPool);
 
 module.exports = PoolThreads;
 
-},{"./AbstractPool":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\PoolConfig.js":[function(require,module,exports){
+},{"./AbstractPool":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\AbstractPool.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\PoolConfig.js":[function(require,module,exports){
 const os = require('os');
 const util = require('util');
 const WorkerStrategies = require('./WorkerStrategies');
@@ -14982,7 +14475,7 @@ PoolConfig.createByOverwritingDefaults = function (config = {}, options = {allow
 };
 
 module.exports = PoolConfig;
-},{"./WorkerStrategies":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js","os":"D:\\Catalin\\Munca\\privatesky\\node_modules\\os-browserify\\browser.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\QueueShim.js":[function(require,module,exports){
+},{"./WorkerStrategies":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js","os":"D:\\work\\git\\privatesky\\node_modules\\os-browserify\\browser.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\QueueShim.js":[function(require,module,exports){
 function Queue() {
     const backingStorage = [];
 
@@ -15044,7 +14537,7 @@ function Queue() {
 
 module.exports = Queue;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\WorkerPool.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\WorkerPool.js":[function(require,module,exports){
 
 /** @param pool {AbstractPool} */
 function WorkerPool(pool) {
@@ -15161,7 +14654,7 @@ function WorkerPool(pool) {
 
 module.exports = WorkerPool;
 
-},{"./QueueShim.js":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\QueueShim.js","./utils":"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\utils.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js":[function(require,module,exports){
+},{"./QueueShim.js":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\QueueShim.js","./utils":"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\utils.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\WorkerStrategies.js":[function(require,module,exports){
 const WorkerStrategies = {
     THREADS: 'threads',
     ISOLATES: 'isolates'
@@ -15169,7 +14662,7 @@ const WorkerStrategies = {
 
 module.exports = Object.freeze(WorkerStrategies);
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\syndicate\\lib\\utils.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\syndicate\\lib\\utils.js":[function(require,module,exports){
 function assert(condition, {ifFails}) {
     if (condition === false) {
         console.error(ifFails);
@@ -15180,7 +14673,7 @@ module.exports = {
     assert
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\ChannelsManager.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\ChannelsManager.js":[function(require,module,exports){
 (function (process,Buffer,__dirname){
 const storageFolder = process.env.vmq_channel_storage || "../tmp";
 const maxQueueSize = process.env.vmq_max_queue_size || 100;
@@ -15615,7 +15108,7 @@ function ChannelsManager(server){
 module.exports = ChannelsManager;
 }).call(this,require('_process'),require("buffer").Buffer,"/modules/virtualmq")
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js","zmq_adapter":"D:\\Catalin\\Munca\\privatesky\\modules\\zmq_adapter\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\VMQRequestFactory.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","crypto":"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js","zmq_adapter":"D:\\work\\git\\privatesky\\modules\\zmq_adapter\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\VMQRequestFactory.js":[function(require,module,exports){
 (function (process,Buffer){
 const http = require('http');
 const {URL} = require('url');
@@ -15751,7 +15244,7 @@ function RequestFactory(virtualMQAddress, zeroMQAddress) {
 module.exports = RequestFactory;
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"./utils":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\utils.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js","url":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js","zmq_adapter":"D:\\Catalin\\Munca\\privatesky\\modules\\zmq_adapter\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\fileManager.js":[function(require,module,exports){
+},{"./utils":"D:\\work\\git\\privatesky\\modules\\virtualmq\\utils.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js","url":"D:\\work\\git\\privatesky\\node_modules\\url\\url.js","zmq_adapter":"D:\\work\\git\\privatesky\\modules\\zmq_adapter\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\fileManager.js":[function(require,module,exports){
 (function (process,Buffer){
 const fs = require('fs');
 const path = require('path');
@@ -15836,7 +15329,7 @@ module.exports.download = function (req, res, callback) {
 
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\index.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\index.js":[function(require,module,exports){
 (function (process){
 const path = require("path");
 const httpWrapper = require('./libs/http-wrapper');
@@ -15997,7 +15490,7 @@ module.exports.getHttpWrapper = function() {
 
 }).call(this,require('_process'))
 
-},{"./ChannelsManager.js":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\ChannelsManager.js","./VMQRequestFactory":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\VMQRequestFactory.js","./fileManager":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\fileManager.js","./libs/TokenBucket":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\TokenBucket.js","./libs/http-wrapper":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\index.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","edfs-middleware":"D:\\Catalin\\Munca\\privatesky\\modules\\edfs-middleware\\index.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\TokenBucket.js":[function(require,module,exports){
+},{"./ChannelsManager.js":"D:\\work\\git\\privatesky\\modules\\virtualmq\\ChannelsManager.js","./VMQRequestFactory":"D:\\work\\git\\privatesky\\modules\\virtualmq\\VMQRequestFactory.js","./fileManager":"D:\\work\\git\\privatesky\\modules\\virtualmq\\fileManager.js","./libs/TokenBucket":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\TokenBucket.js","./libs/http-wrapper":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\index.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","edfs-middleware":"D:\\work\\git\\privatesky\\modules\\edfs-middleware\\index.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\TokenBucket.js":[function(require,module,exports){
 /**
  * An implementation of the Token bucket algorithm
  * @param startTokens - maximum number of tokens possible to obtain and the default starting value
@@ -16118,7 +15611,7 @@ function TokenBucket(startTokens = 6000, tokenValuePerTime = 10, unitOfTime = 10
 
 module.exports = TokenBucket;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Client.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Client.js":[function(require,module,exports){
 (function (Buffer){
 const http = require('http');
 const url = require('url');
@@ -16332,7 +15825,7 @@ module.exports = function () {
 };
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js","url":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Middleware.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","http":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js","url":"D:\\work\\git\\privatesky\\node_modules\\url\\url.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Middleware.js":[function(require,module,exports){
 const querystring = require('querystring');
 
 function matchUrl(pattern, url) {
@@ -16507,7 +16000,7 @@ function Middleware() {
 
 module.exports = Middleware;
 
-},{"querystring":"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Router.js":[function(require,module,exports){
+},{"querystring":"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Router.js":[function(require,module,exports){
 function Router(server) {
     this.use = function use(url, callback) {
         callback(serverWrapper(url, server));
@@ -16543,7 +16036,7 @@ function serverWrapper(baseUrl, server) {
 
 module.exports = Router;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Server.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Server.js":[function(require,module,exports){
 const Middleware = require('./Middleware');
 const http = require('http');
 const https = require('https');
@@ -16614,7 +16107,7 @@ function Server(sslOptions) {
 }
 
 module.exports = Server;
-},{"./Middleware":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Middleware.js","http":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js","https":"D:\\Catalin\\Munca\\privatesky\\node_modules\\https-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\httpUtils.js":[function(require,module,exports){
+},{"./Middleware":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Middleware.js","http":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js","https":"D:\\work\\git\\privatesky\\node_modules\\https-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\httpUtils.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
 
@@ -16694,7 +16187,7 @@ function serveStaticFile(baseFolder, ignorePath) {
 
 module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser, serveStaticFile};
 
-},{"fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\index.js":[function(require,module,exports){
+},{"fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\index.js":[function(require,module,exports){
 const Client = require('./classes/Client');
 const Server = require('./classes/Server');
 const httpUtils = require('./httpUtils');
@@ -16703,7 +16196,7 @@ const Router = require('./classes/Router');
 module.exports = {Server, Client, httpUtils, Router};
 
 
-},{"./classes/Client":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Client.js","./classes/Router":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Router.js","./classes/Server":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Server.js","./httpUtils":"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\httpUtils.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\virtualmq\\utils.js":[function(require,module,exports){
+},{"./classes/Client":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Client.js","./classes/Router":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Router.js","./classes/Server":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\classes\\Server.js","./httpUtils":"D:\\work\\git\\privatesky\\modules\\virtualmq\\libs\\http-wrapper\\src\\httpUtils.js"}],"D:\\work\\git\\privatesky\\modules\\virtualmq\\utils.js":[function(require,module,exports){
 (function (Buffer){
 function readMessageBufferFromHTTPStream(reqORres, callback){
     const contentType = reqORres.headers['content-type'];
@@ -16760,7 +16253,7 @@ function readMessageBufferFromHTTPStream(reqORres, callback){
 module.exports.readMessageBufferFromStream = readMessageBufferFromHTTPStream;
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\zmq_adapter\\index.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\modules\\zmq_adapter\\index.js":[function(require,module,exports){
 (function (process,Buffer){
 const defaultForwardAddress = process.env.vmq_zeromq_forward_address || "tcp://127.0.0.1:5001";
 const defaultSubAddress = process.env.vmq_zeromq_sub_address || "tcp://127.0.0.1:5000";
@@ -16996,7 +16489,7 @@ module.exports.createZeromqConsumer = function(bindAddress, monitorFunction){
 module.exports.registerKiller = registerKiller;
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","swarmutils":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","swarmutils":"D:\\work\\git\\privatesky\\modules\\swarmutils\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js":[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -17007,7 +16500,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\api.js","./asn1/base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","./asn1/constants":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js","./asn1/decoders":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\index.js","./asn1/encoders":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\index.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\api.js":[function(require,module,exports){
+},{"./asn1/api":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\api.js","./asn1/base":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","./asn1/constants":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js","./asn1/decoders":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\index.js","./asn1/encoders":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\index.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\api.js":[function(require,module,exports){
 var asn1 = require('../asn1');
 var inherits = require('inherits');
 
@@ -17070,7 +16563,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","vm":"D:\\Catalin\\Munca\\privatesky\\node_modules\\vm-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\buffer.js":[function(require,module,exports){
+},{"../asn1":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","vm":"D:\\work\\git\\privatesky\\node_modules\\vm-browserify\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\buffer.js":[function(require,module,exports){
 var inherits = require('inherits');
 var Reporter = require('../base').Reporter;
 var Buffer = require('buffer').Buffer;
@@ -17188,7 +16681,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js":[function(require,module,exports){
+},{"../base":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js":[function(require,module,exports){
 var base = exports;
 
 base.Reporter = require('./reporter').Reporter;
@@ -17196,7 +16689,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\buffer.js","./node":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\node.js","./reporter":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\reporter.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\node.js":[function(require,module,exports){
+},{"./buffer":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\buffer.js","./node":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\node.js","./reporter":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\reporter.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\node.js":[function(require,module,exports){
 var Reporter = require('../base').Reporter;
 var EncoderBuffer = require('../base').EncoderBuffer;
 var DecoderBuffer = require('../base').DecoderBuffer;
@@ -17832,7 +17325,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   return /^[A-Za-z0-9 '\(\)\+,\-\.\/:=\?]*$/.test(str);
 };
 
-},{"../base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\reporter.js":[function(require,module,exports){
+},{"../base":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\index.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\base\\reporter.js":[function(require,module,exports){
 var inherits = require('inherits');
 
 function Reporter(options) {
@@ -17955,7 +17448,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\der.js":[function(require,module,exports){
+},{"inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\der.js":[function(require,module,exports){
 var constants = require('../constants');
 
 exports.tagClass = {
@@ -17999,7 +17492,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js":[function(require,module,exports){
+},{"../constants":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\index.js":[function(require,module,exports){
 var constants = exports;
 
 // Helper
@@ -18020,7 +17513,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\der.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js":[function(require,module,exports){
+},{"./der":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\constants\\der.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js":[function(require,module,exports){
 var inherits = require('inherits');
 
 var asn1 = require('../../asn1');
@@ -18346,13 +17839,13 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\index.js":[function(require,module,exports){
+},{"../../asn1":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\index.js":[function(require,module,exports){
 var decoders = exports;
 
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js","./pem":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\pem.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\pem.js":[function(require,module,exports){
+},{"./der":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js","./pem":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\pem.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\pem.js":[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -18403,7 +17896,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js":[function(require,module,exports){
+},{"./der":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\decoders\\der.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js":[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -18700,13 +18193,13 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\index.js":[function(require,module,exports){
+},{"../../asn1":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\index.js":[function(require,module,exports){
 var encoders = exports;
 
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js","./pem":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\pem.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\pem.js":[function(require,module,exports){
+},{"./der":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js","./pem":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\pem.js"}],"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\pem.js":[function(require,module,exports){
 var inherits = require('inherits');
 
 var DEREncoder = require('./der');
@@ -18729,7 +18222,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\assert.js":[function(require,module,exports){
+},{"./der":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1\\encoders\\der.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\assert\\assert.js":[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -19240,7 +18733,7 @@ var objectKeys = Object.keys || function (obj) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"object-assign":"D:\\Catalin\\Munca\\privatesky\\node_modules\\object-assign\\index.js","util/":"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
+},{"object-assign":"D:\\work\\git\\privatesky\\node_modules\\object-assign\\index.js","util/":"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -19265,14 +18758,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js":[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\util\\util.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\util\\util.js":[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -19863,7 +19356,7 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./support/isBuffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\base64-js\\index.js":[function(require,module,exports){
+},{"./support/isBuffer":"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\base64-js\\index.js":[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -20017,7 +19510,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js":[function(require,module,exports){
 (function (module, exports) {
   'use strict';
 
@@ -23446,7 +22939,7 @@ function fromByteArray (uint8) {
   };
 })(typeof module === 'undefined' || module, this);
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\brorand\\index.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\brorand\\index.js":[function(require,module,exports){
 var r;
 
 module.exports = function rand(len) {
@@ -23513,9 +23006,9 @@ if (typeof self === 'object') {
   }
 }
 
-},{"crypto":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js":[function(require,module,exports){
+},{"crypto":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js":[function(require,module,exports){
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\aes.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\aes.js":[function(require,module,exports){
 // based on the aes implimentation in triple sec
 // https://github.com/keybase/triplesec
 // which is in turn based on the one from crypto-js
@@ -23745,7 +23238,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES
 
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\authCipher.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\authCipher.js":[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -23864,7 +23357,7 @@ StreamCipher.prototype.setAAD = function setAAD (buf) {
 
 module.exports = StreamCipher
 
-},{"./aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\aes.js","./ghash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\ghash.js","./incr32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\incr32.js","buffer-xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js","cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\browser.js":[function(require,module,exports){
+},{"./aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\aes.js","./ghash":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\ghash.js","./incr32":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\incr32.js","buffer-xor":"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js","cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\browser.js":[function(require,module,exports){
 var ciphers = require('./encrypter')
 var deciphers = require('./decrypter')
 var modes = require('./modes/list.json')
@@ -23879,7 +23372,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"./decrypter":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\decrypter.js","./encrypter":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\encrypter.js","./modes/list.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\list.json"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\decrypter.js":[function(require,module,exports){
+},{"./decrypter":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\decrypter.js","./encrypter":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\encrypter.js","./modes/list.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\list.json"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\decrypter.js":[function(require,module,exports){
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
 var MODES = require('./modes')
@@ -24005,7 +23498,7 @@ function createDecipher (suite, password) {
 exports.createDecipher = createDecipher
 exports.createDecipheriv = createDecipheriv
 
-},{"./aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\aes.js","./authCipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\authCipher.js","./modes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","./streamCipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\streamCipher.js","cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","evp_bytestokey":"D:\\Catalin\\Munca\\privatesky\\node_modules\\evp_bytestokey\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\encrypter.js":[function(require,module,exports){
+},{"./aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\aes.js","./authCipher":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\authCipher.js","./modes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","./streamCipher":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\streamCipher.js","cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","evp_bytestokey":"D:\\work\\git\\privatesky\\node_modules\\evp_bytestokey\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\encrypter.js":[function(require,module,exports){
 var MODES = require('./modes')
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
@@ -24121,7 +23614,7 @@ function createCipher (suite, password) {
 exports.createCipheriv = createCipheriv
 exports.createCipher = createCipher
 
-},{"./aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\aes.js","./authCipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\authCipher.js","./modes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","./streamCipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\streamCipher.js","cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","evp_bytestokey":"D:\\Catalin\\Munca\\privatesky\\node_modules\\evp_bytestokey\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\ghash.js":[function(require,module,exports){
+},{"./aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\aes.js","./authCipher":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\authCipher.js","./modes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","./streamCipher":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\streamCipher.js","cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","evp_bytestokey":"D:\\work\\git\\privatesky\\node_modules\\evp_bytestokey\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\ghash.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var ZEROES = Buffer.alloc(16, 0)
 
@@ -24212,7 +23705,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH
 
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\incr32.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\incr32.js":[function(require,module,exports){
 function incr32 (iv) {
   var len = iv.length
   var item
@@ -24229,7 +23722,7 @@ function incr32 (iv) {
 }
 module.exports = incr32
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cbc.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cbc.js":[function(require,module,exports){
 var xor = require('buffer-xor')
 
 exports.encrypt = function (self, block) {
@@ -24248,7 +23741,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad)
 }
 
-},{"buffer-xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb.js":[function(require,module,exports){
+},{"buffer-xor":"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var xor = require('buffer-xor')
 
@@ -24283,7 +23776,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out
 }
 
-},{"buffer-xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb1.js":[function(require,module,exports){
+},{"buffer-xor":"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb1.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -24327,7 +23820,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb8.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb8.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -24354,7 +23847,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ctr.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ctr.js":[function(require,module,exports){
 var xor = require('buffer-xor')
 var Buffer = require('safe-buffer').Buffer
 var incr32 = require('../incr32')
@@ -24386,7 +23879,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad)
 }
 
-},{"../incr32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\incr32.js","buffer-xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ecb.js":[function(require,module,exports){
+},{"../incr32":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\incr32.js","buffer-xor":"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ecb.js":[function(require,module,exports){
 exports.encrypt = function (self, block) {
   return self._cipher.encryptBlock(block)
 }
@@ -24395,7 +23888,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block)
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\index.js":[function(require,module,exports){
 var modeModules = {
   ECB: require('./ecb'),
   CBC: require('./cbc'),
@@ -24415,7 +23908,7 @@ for (var key in modes) {
 
 module.exports = modes
 
-},{"./cbc":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cbc.js","./cfb":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb.js","./cfb1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb1.js","./cfb8":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\cfb8.js","./ctr":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ctr.js","./ecb":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ecb.js","./list.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\list.json","./ofb":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ofb.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\list.json":[function(require,module,exports){
+},{"./cbc":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cbc.js","./cfb":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb.js","./cfb1":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb1.js","./cfb8":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\cfb8.js","./ctr":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ctr.js","./ecb":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ecb.js","./list.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\list.json","./ofb":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ofb.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\list.json":[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -24608,7 +24101,7 @@ module.exports={
   }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\ofb.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\ofb.js":[function(require,module,exports){
 (function (Buffer){
 var xor = require('buffer-xor')
 
@@ -24629,7 +24122,7 @@ exports.encrypt = function (self, chunk) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","buffer-xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\streamCipher.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","buffer-xor":"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\streamCipher.js":[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -24658,7 +24151,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher
 
-},{"./aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\aes.js","cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-cipher\\browser.js":[function(require,module,exports){
+},{"./aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\aes.js","cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-cipher\\browser.js":[function(require,module,exports){
 var DES = require('browserify-des')
 var aes = require('browserify-aes/browser')
 var aesModes = require('browserify-aes/modes')
@@ -24727,7 +24220,7 @@ exports.createDecipher = exports.Decipher = createDecipher
 exports.createDecipheriv = exports.Decipheriv = createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"browserify-aes/browser":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\browser.js","browserify-aes/modes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","browserify-des":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-des\\index.js","browserify-des/modes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-des\\modes.js","evp_bytestokey":"D:\\Catalin\\Munca\\privatesky\\node_modules\\evp_bytestokey\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-des\\index.js":[function(require,module,exports){
+},{"browserify-aes/browser":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\browser.js","browserify-aes/modes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\modes\\index.js","browserify-des":"D:\\work\\git\\privatesky\\node_modules\\browserify-des\\index.js","browserify-des/modes":"D:\\work\\git\\privatesky\\node_modules\\browserify-des\\modes.js","evp_bytestokey":"D:\\work\\git\\privatesky\\node_modules\\evp_bytestokey\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-des\\index.js":[function(require,module,exports){
 var CipherBase = require('cipher-base')
 var des = require('des.js')
 var inherits = require('inherits')
@@ -24779,7 +24272,7 @@ DES.prototype._final = function () {
   return Buffer.from(this._des.final())
 }
 
-},{"cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","des.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-des\\modes.js":[function(require,module,exports){
+},{"cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","des.js":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-des\\modes.js":[function(require,module,exports){
 exports['des-ecb'] = {
   key: 8,
   iv: 0
@@ -24805,7 +24298,7 @@ exports['des-ede'] = {
   iv: 0
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-rsa\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-rsa\\index.js":[function(require,module,exports){
 (function (Buffer){
 var bn = require('bn.js');
 var randomBytes = require('randombytes');
@@ -24850,10 +24343,10 @@ function getr(priv) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\algos.js":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\algos.js":[function(require,module,exports){
 module.exports = require('./browser/algorithms.json')
 
-},{"./browser/algorithms.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json":[function(require,module,exports){
+},{"./browser/algorithms.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json":[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -25007,7 +24500,7 @@ module.exports={
   }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json":[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -25017,7 +24510,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\index.js":[function(require,module,exports){
 (function (Buffer){
 var createHash = require('create-hash')
 var stream = require('stream')
@@ -25113,7 +24606,7 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 
-},{"./algorithms.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json","./sign":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\sign.js","./verify":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\verify.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","create-hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\sign.js":[function(require,module,exports){
+},{"./algorithms.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\algorithms.json","./sign":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\sign.js","./verify":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\verify.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","create-hash":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\sign.js":[function(require,module,exports){
 (function (Buffer){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var createHmac = require('create-hmac')
@@ -25263,7 +24756,7 @@ module.exports.makeKey = makeKey
 
 }).call(this,require("buffer").Buffer)
 
-},{"./curves.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-rsa\\index.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","create-hmac":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hmac\\browser.js","elliptic":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js","parse-asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\verify.js":[function(require,module,exports){
+},{"./curves.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\work\\git\\privatesky\\node_modules\\browserify-rsa\\index.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","create-hmac":"D:\\work\\git\\privatesky\\node_modules\\create-hmac\\browser.js","elliptic":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js","parse-asn1":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\verify.js":[function(require,module,exports){
 (function (Buffer){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var BN = require('bn.js')
@@ -25351,7 +24844,7 @@ module.exports = verify
 
 }).call(this,require("buffer").Buffer)
 
-},{"./curves.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","elliptic":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js","parse-asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-zlib\\lib\\binding.js":[function(require,module,exports){
+},{"./curves.json":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\curves.json","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","elliptic":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js","parse-asn1":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-zlib\\lib\\binding.js":[function(require,module,exports){
 (function (process,Buffer){
 'use strict';
 /* eslint camelcase: "off" */
@@ -25764,7 +25257,7 @@ Zlib.prototype._reset = function () {
 exports.Zlib = Zlib;
 }).call(this,require('_process'),require("buffer").Buffer)
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\assert.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","pako/lib/zlib/constants":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\constants.js","pako/lib/zlib/deflate.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\deflate.js","pako/lib/zlib/inflate.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inflate.js","pako/lib/zlib/zstream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\zstream.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-zlib\\lib\\index.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","assert":"D:\\work\\git\\privatesky\\node_modules\\assert\\assert.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","pako/lib/zlib/constants":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\constants.js","pako/lib/zlib/deflate.js":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\deflate.js","pako/lib/zlib/inflate.js":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inflate.js","pako/lib/zlib/zstream":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\zstream.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify-zlib\\lib\\index.js":[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -26377,9 +25870,9 @@ util.inherits(InflateRaw, Zlib);
 util.inherits(Unzip, Zlib);
 }).call(this,require('_process'))
 
-},{"./binding":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-zlib\\lib\\binding.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\assert.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js":[function(require,module,exports){
-arguments[4]["D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"][0].apply(exports,arguments)
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer-xor\\index.js":[function(require,module,exports){
+},{"./binding":"D:\\work\\git\\privatesky\\node_modules\\browserify-zlib\\lib\\binding.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","assert":"D:\\work\\git\\privatesky\\node_modules\\assert\\assert.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js","util":"D:\\work\\git\\privatesky\\node_modules\\util\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js":[function(require,module,exports){
+arguments[4]["D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"][0].apply(exports,arguments)
+},{}],"D:\\work\\git\\privatesky\\node_modules\\buffer-xor\\index.js":[function(require,module,exports){
 (function (Buffer){
 module.exports = function xor (a, b) {
   var length = Math.min(a.length, b.length)
@@ -26394,7 +25887,7 @@ module.exports = function xor (a, b) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js":[function(require,module,exports){
 (function (Buffer){
 /*!
  * The buffer module from node.js, for the browser.
@@ -26537,6 +26030,12 @@ function from (value, encodingOrOffset, length) {
 
   if (isInstance(value, ArrayBuffer) ||
       (value && isInstance(value.buffer, ArrayBuffer))) {
+    return fromArrayBuffer(value, encodingOrOffset, length)
+  }
+
+  if (typeof SharedArrayBuffer !== 'undefined' &&
+      (isInstance(value, SharedArrayBuffer) ||
+      (value && isInstance(value.buffer, SharedArrayBuffer)))) {
     return fromArrayBuffer(value, encodingOrOffset, length)
   }
 
@@ -27466,7 +26965,7 @@ function hexSlice (buf, start, end) {
 
   var out = ''
   for (var i = start; i < end; ++i) {
-    out += toHex(buf[i])
+    out += hexSliceLookupTable[buf[i]]
   }
   return out
 }
@@ -28052,11 +27551,6 @@ function base64clean (str) {
   return str
 }
 
-function toHex (n) {
-  if (n < 16) return '0' + n.toString(16)
-  return n.toString(16)
-}
-
 function utf8ToBytes (string, units) {
   units = units || Infinity
   var codePoint
@@ -28187,9 +27681,23 @@ function numberIsNaN (obj) {
   return obj !== obj // eslint-disable-line no-self-compare
 }
 
+// Create lookup table for `toString('hex')`
+// See: https://github.com/feross/buffer/issues/219
+var hexSliceLookupTable = (function () {
+  var alphabet = '0123456789abcdef'
+  var table = new Array(256)
+  for (var i = 0; i < 16; ++i) {
+    var i16 = i * 16
+    for (var j = 0; j < 16; ++j) {
+      table[i16 + j] = alphabet[i] + alphabet[j]
+    }
+  }
+  return table
+})()
+
 }).call(this,require("buffer").Buffer)
 
-},{"base64-js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\base64-js\\index.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","ieee754":"D:\\Catalin\\Munca\\privatesky\\node_modules\\ieee754\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\builtin-status-codes\\browser.js":[function(require,module,exports){
+},{"base64-js":"D:\\work\\git\\privatesky\\node_modules\\base64-js\\index.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","ieee754":"D:\\work\\git\\privatesky\\node_modules\\ieee754\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\builtin-status-codes\\browser.js":[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -28255,7 +27763,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
 var StringDecoder = require('string_decoder').StringDecoder
@@ -28356,7 +27864,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase
 
-},{"inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js","string_decoder":"D:\\Catalin\\Munca\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js":[function(require,module,exports){
+},{"inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js","string_decoder":"D:\\work\\git\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js"}],"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js":[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -28468,7 +27976,7 @@ function objectToString(o) {
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
 
-},{"../../is-buffer/index.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\is-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-ecdh\\browser.js":[function(require,module,exports){
+},{"../../is-buffer/index.js":"D:\\work\\git\\privatesky\\node_modules\\is-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\create-ecdh\\browser.js":[function(require,module,exports){
 (function (Buffer){
 var elliptic = require('elliptic')
 var BN = require('bn.js')
@@ -28597,7 +28105,7 @@ function formatReturnValue (bn, enc, len) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","elliptic":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","elliptic":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js"}],"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js":[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var MD5 = require('md5.js')
@@ -28629,14 +28137,14 @@ module.exports = function createHash (alg) {
   return new Hash(sha(alg))
 }
 
-},{"cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","md5.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\md5.js\\index.js","ripemd160":"D:\\Catalin\\Munca\\privatesky\\node_modules\\ripemd160\\index.js","sha.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\md5.js":[function(require,module,exports){
+},{"cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","md5.js":"D:\\work\\git\\privatesky\\node_modules\\md5.js\\index.js","ripemd160":"D:\\work\\git\\privatesky\\node_modules\\ripemd160\\index.js","sha.js":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\create-hash\\md5.js":[function(require,module,exports){
 var MD5 = require('md5.js')
 
 module.exports = function (buffer) {
   return new MD5().update(buffer).digest()
 }
 
-},{"md5.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\md5.js\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hmac\\browser.js":[function(require,module,exports){
+},{"md5.js":"D:\\work\\git\\privatesky\\node_modules\\md5.js\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\create-hmac\\browser.js":[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Legacy = require('./legacy')
@@ -28700,7 +28208,7 @@ module.exports = function createHmac (alg, key) {
   return new Hmac(alg, key)
 }
 
-},{"./legacy":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hmac\\legacy.js","cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","create-hash/md5":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\md5.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","ripemd160":"D:\\Catalin\\Munca\\privatesky\\node_modules\\ripemd160\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","sha.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hmac\\legacy.js":[function(require,module,exports){
+},{"./legacy":"D:\\work\\git\\privatesky\\node_modules\\create-hmac\\legacy.js","cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","create-hash/md5":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\md5.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","ripemd160":"D:\\work\\git\\privatesky\\node_modules\\ripemd160\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js","sha.js":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\create-hmac\\legacy.js":[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Buffer = require('safe-buffer').Buffer
@@ -28748,7 +28256,7 @@ Hmac.prototype._final = function () {
 }
 module.exports = Hmac
 
-},{"cipher-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\crypto-browserify\\index.js":[function(require,module,exports){
+},{"cipher-base":"D:\\work\\git\\privatesky\\node_modules\\cipher-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\crypto-browserify\\index.js":[function(require,module,exports){
 'use strict'
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes')
@@ -28847,7 +28355,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 }
 
-},{"browserify-cipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-cipher\\browser.js","browserify-sign":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\browser\\index.js","browserify-sign/algos":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-sign\\algos.js","create-ecdh":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-ecdh\\browser.js","create-hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js","create-hmac":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hmac\\browser.js","diffie-hellman":"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\browser.js","pbkdf2":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\browser.js","public-encrypt":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\browser.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js","randomfill":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randomfill\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des.js":[function(require,module,exports){
+},{"browserify-cipher":"D:\\work\\git\\privatesky\\node_modules\\browserify-cipher\\browser.js","browserify-sign":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\browser\\index.js","browserify-sign/algos":"D:\\work\\git\\privatesky\\node_modules\\browserify-sign\\algos.js","create-ecdh":"D:\\work\\git\\privatesky\\node_modules\\create-ecdh\\browser.js","create-hash":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js","create-hmac":"D:\\work\\git\\privatesky\\node_modules\\create-hmac\\browser.js","diffie-hellman":"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\browser.js","pbkdf2":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\browser.js","public-encrypt":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\browser.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js","randomfill":"D:\\work\\git\\privatesky\\node_modules\\randomfill\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des.js":[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -28856,7 +28364,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\cbc.js","./des/cipher":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js","./des/des":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\des.js","./des/ede":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\ede.js","./des/utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\cbc.js":[function(require,module,exports){
+},{"./des/cbc":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cbc.js","./des/cipher":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js","./des/des":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\des.js","./des/ede":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\ede.js","./des/utils":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cbc.js":[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -28923,7 +28431,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js":[function(require,module,exports){
+},{"inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js":[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -29066,15 +28574,14 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\des.js":[function(require,module,exports){
+},{"minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\des.js":[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
 var inherits = require('inherits');
 
-var des = require('../des');
-var utils = des.utils;
-var Cipher = des.Cipher;
+var utils = require('./utils');
+var Cipher = require('./cipher');
 
 function DESState() {
   this.tmp = new Array(2);
@@ -29211,15 +28718,14 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"../des":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\ede.js":[function(require,module,exports){
+},{"./cipher":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js","./utils":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\utils.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\ede.js":[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
 var inherits = require('inherits');
 
-var des = require('../des');
-var Cipher = des.Cipher;
-var DES = des.DES;
+var Cipher = require('./cipher');
+var DES = require('./des');
 
 function EDEState(type, key) {
   assert.equal(key.length, 24, 'Invalid key length');
@@ -29268,7 +28774,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"../des":"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\des.js\\lib\\des\\utils.js":[function(require,module,exports){
+},{"./cipher":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\cipher.js","./des":"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\des.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\des.js\\lib\\des\\utils.js":[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -29526,7 +29032,7 @@ exports.padSplit = function padSplit(num, size, group) {
   return out.join(' ');
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\browser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\browser.js":[function(require,module,exports){
 (function (Buffer){
 var generatePrime = require('./lib/generatePrime')
 var primes = require('./lib/primes.json')
@@ -29573,7 +29079,7 @@ exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 
 }).call(this,require("buffer").Buffer)
 
-},{"./lib/dh":"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\dh.js","./lib/generatePrime":"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js","./lib/primes.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\primes.json","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\dh.js":[function(require,module,exports){
+},{"./lib/dh":"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\dh.js","./lib/generatePrime":"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js","./lib/primes.json":"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\primes.json","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\dh.js":[function(require,module,exports){
 (function (Buffer){
 var BN = require('bn.js');
 var MillerRabin = require('miller-rabin');
@@ -29742,7 +29248,7 @@ function formatReturnValue(bn, enc) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"./generatePrime":"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","miller-rabin":"D:\\Catalin\\Munca\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js":[function(require,module,exports){
+},{"./generatePrime":"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","miller-rabin":"D:\\work\\git\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\generatePrime.js":[function(require,module,exports){
 var randomBytes = require('randombytes');
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
@@ -29849,7 +29355,7 @@ function findPrime(bits, gen) {
 
 }
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","miller-rabin":"D:\\Catalin\\Munca\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\diffie-hellman\\lib\\primes.json":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","miller-rabin":"D:\\work\\git\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\diffie-hellman\\lib\\primes.json":[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -29884,7 +29390,7 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic.js":[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -29899,7 +29405,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\package.json","./elliptic/curve":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js","./elliptic/curves":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","./elliptic/ec":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\index.js","./elliptic/eddsa":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\index.js","./elliptic/utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","brorand":"D:\\Catalin\\Munca\\privatesky\\node_modules\\brorand\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js":[function(require,module,exports){
+},{"../package.json":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\package.json","./elliptic/curve":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js","./elliptic/curves":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","./elliptic/ec":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\index.js","./elliptic/eddsa":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\index.js","./elliptic/utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","brorand":"D:\\work\\git\\privatesky\\node_modules\\brorand\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -29930,6 +29436,8 @@ function BaseCurve(type, conf) {
   this._wnafT3 = new Array(4);
   this._wnafT4 = new Array(4);
 
+  this._bitLength = this.n ? this.n.bitLength() : 0;
+
   // Generalized Greg Maxwell's trick
   var adjustCount = this.n && this.p.div(this.n);
   if (!adjustCount || adjustCount.cmpn(100) > 0) {
@@ -29953,7 +29461,7 @@ BaseCurve.prototype._fixedNafMul = function _fixedNafMul(p, k) {
   assert(p.precomputed);
   var doubles = p._getDoubles();
 
-  var naf = getNAF(k, 1);
+  var naf = getNAF(k, 1, this._bitLength);
   var I = (1 << (doubles.step + 1)) - (doubles.step % 2 === 0 ? 2 : 1);
   I /= 3;
 
@@ -29990,7 +29498,7 @@ BaseCurve.prototype._wnafMul = function _wnafMul(p, k) {
   var wnd = nafPoints.points;
 
   // Get NAF form
-  var naf = getNAF(k, w);
+  var naf = getNAF(k, w, this._bitLength);
 
   // Add `this`*(N+1) for every w-NAF index
   var acc = this.jpoint(null, null, null);
@@ -30046,8 +29554,8 @@ BaseCurve.prototype._wnafMulAdd = function _wnafMulAdd(defW,
     var a = i - 1;
     var b = i;
     if (wndWidth[a] !== 1 || wndWidth[b] !== 1) {
-      naf[a] = getNAF(coeffs[a], wndWidth[a]);
-      naf[b] = getNAF(coeffs[b], wndWidth[b]);
+      naf[a] = getNAF(coeffs[a], wndWidth[a], this._bitLength);
+      naf[b] = getNAF(coeffs[b], wndWidth[b], this._bitLength);
       max = Math.max(naf[a].length, max);
       max = Math.max(naf[b].length, max);
       continue;
@@ -30275,7 +29783,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   return r;
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\edwards.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\edwards.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -30709,7 +30217,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js":[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -30719,7 +30227,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","./edwards":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\edwards.js","./mont":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\mont.js","./short":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\short.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\mont.js":[function(require,module,exports){
+},{"./base":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","./edwards":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\edwards.js","./mont":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\mont.js","./short":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\short.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\mont.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -30899,7 +30407,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\short.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\short.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -31323,8 +30831,9 @@ Point.prototype.getY = function getY() {
 
 Point.prototype.mul = function mul(k) {
   k = new BN(k, 16);
-
-  if (this._hasDoubles(k))
+  if (this.isInfinity())
+    return this;
+  else if (this._hasDoubles(k))
     return this.curve._fixedNafMul(this, k);
   else if (this.curve.endo)
     return this.curve._endoWnafMulAdd([ this ], [ k ]);
@@ -31837,7 +31346,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./base":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\base.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js":[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -32045,7 +31554,7 @@ defineCurve('secp256k1', {
   ]
 });
 
-},{"./curve":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js","./precomputed/secp256k1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\precomputed\\secp256k1.js","./utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","hash.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\index.js":[function(require,module,exports){
+},{"./curve":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curve\\index.js","./precomputed/secp256k1":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\precomputed\\secp256k1.js","./utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","hash.js":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\index.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -32288,7 +31797,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../curves":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./key":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\key.js","./signature":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\signature.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","brorand":"D:\\Catalin\\Munca\\privatesky\\node_modules\\brorand\\index.js","hmac-drbg":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hmac-drbg\\lib\\hmac-drbg.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\key.js":[function(require,module,exports){
+},{"../curves":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./key":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\key.js","./signature":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\signature.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","brorand":"D:\\work\\git\\privatesky\\node_modules\\brorand\\index.js","hmac-drbg":"D:\\work\\git\\privatesky\\node_modules\\hmac-drbg\\lib\\hmac-drbg.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\key.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -32408,7 +31917,7 @@ KeyPair.prototype.inspect = function inspect() {
          ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\signature.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\ec\\signature.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -32544,7 +32053,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\index.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\index.js":[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -32664,7 +32173,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../curves":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./key":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\key.js","./signature":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\signature.js","hash.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\key.js":[function(require,module,exports){
+},{"../curves":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\curves.js","../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","./key":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\key.js","./signature":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\signature.js","hash.js":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\key.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -32761,7 +32270,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\signature.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\eddsa\\signature.js":[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -32828,7 +32337,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\precomputed\\secp256k1.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\precomputed\\secp256k1.js":[function(require,module,exports){
 module.exports = {
   doubles: {
     step: 4,
@@ -33610,7 +33119,7 @@ module.exports = {
   }
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\lib\\elliptic\\utils.js":[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -33625,14 +33134,17 @@ utils.toHex = minUtils.toHex;
 utils.encode = minUtils.encode;
 
 // Represent num in a w-NAF form
-function getNAF(num, w) {
-  var naf = [];
+function getNAF(num, w, bits) {
+  var naf = new Array(Math.max(num.bitLength(), bits) + 1);
+  naf.fill(0);
+
   var ws = 1 << (w + 1);
   var k = num.clone();
-  while (k.cmpn(1) >= 0) {
+
+  for (var i = 0; i < naf.length; i++) {
     var z;
+    var mod = k.andln(ws - 1);
     if (k.isOdd()) {
-      var mod = k.andln(ws - 1);
       if (mod > (ws >> 1) - 1)
         z = (ws >> 1) - mod;
       else
@@ -33641,13 +33153,9 @@ function getNAF(num, w) {
     } else {
       z = 0;
     }
-    naf.push(z);
 
-    // Optimization, shift by word if possible
-    var shift = (k.cmpn(0) !== 0 && k.andln(ws - 1) === 0) ? (w + 1) : 1;
-    for (var i = 1; i < shift; i++)
-      naf.push(0);
-    k.iushrn(shift);
+    naf[i] = z;
+    k.iushrn(1);
   }
 
   return naf;
@@ -33732,37 +33240,32 @@ function intFromLE(bytes) {
 utils.intFromLE = intFromLE;
 
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js","minimalistic-crypto-utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\elliptic\\package.json":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js","minimalistic-crypto-utils":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\elliptic\\package.json":[function(require,module,exports){
 module.exports={
-  "_args": [
-    [
-      "elliptic@6.5.0",
-      "D:\\Catalin\\Munca\\privatesky"
-    ]
-  ],
-  "_from": "elliptic@6.5.0",
-  "_id": "elliptic@6.5.0",
+  "_from": "elliptic@^6.0.0",
+  "_id": "elliptic@6.5.2",
   "_inBundle": false,
-  "_integrity": "sha512-eFOJTMyCYb7xtE/caJ6JJu+bhi67WCYNbkGSknu20pmM8Ke/bqOfdnZWxyoGN26JgfxTbXrsCkEw4KheCT/KGg==",
+  "_integrity": "sha512-f4x70okzZbIQl/NSRLkI/+tteV/9WqL98zx+SQ69KbXxmVrmjwsNUPn/gYJJ0sHvEak24cZgHIPegRePAtA/xw==",
   "_location": "/elliptic",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "range",
     "registry": true,
-    "raw": "elliptic@6.5.0",
+    "raw": "elliptic@^6.0.0",
     "name": "elliptic",
     "escapedName": "elliptic",
-    "rawSpec": "6.5.0",
+    "rawSpec": "^6.0.0",
     "saveSpec": null,
-    "fetchSpec": "6.5.0"
+    "fetchSpec": "^6.0.0"
   },
   "_requiredBy": [
     "/browserify-sign",
     "/create-ecdh"
   ],
-  "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.0.tgz",
-  "_spec": "6.5.0",
-  "_where": "D:\\Catalin\\Munca\\privatesky",
+  "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.2.tgz",
+  "_shasum": "05c5678d7173c049d8ca433552224a495d0e3762",
+  "_spec": "elliptic@^6.0.0",
+  "_where": "D:\\work\\git\\privatesky\\node_modules\\browserify-sign",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -33770,6 +33273,7 @@ module.exports={
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "bn.js": "^4.4.0",
     "brorand": "^1.0.1",
@@ -33779,22 +33283,23 @@ module.exports={
     "minimalistic-assert": "^1.0.0",
     "minimalistic-crypto-utils": "^1.0.0"
   },
+  "deprecated": false,
   "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
-    "coveralls": "^2.11.3",
-    "grunt": "^0.4.5",
+    "coveralls": "^3.0.8",
+    "grunt": "^1.0.4",
     "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-connect": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-mocha-istanbul": "^3.0.1",
-    "grunt-saucelabs": "^8.6.2",
+    "grunt-saucelabs": "^9.0.1",
     "istanbul": "^0.4.2",
-    "jscs": "^2.9.0",
-    "jshint": "^2.6.0",
-    "mocha": "^2.1.0"
+    "jscs": "^3.0.7",
+    "jshint": "^2.10.3",
+    "mocha": "^6.2.2"
   },
   "files": [
     "lib"
@@ -33821,10 +33326,10 @@ module.exports={
     "unit": "istanbul test _mocha --reporter=spec test/index.js",
     "version": "grunt dist && git add dist/"
   },
-  "version": "6.5.0"
+  "version": "6.5.2"
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\events\\events.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -34349,7 +33854,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\evp_bytestokey\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\evp_bytestokey\\index.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var MD5 = require('md5.js')
 
@@ -34396,7 +33901,7 @@ function EVP_BytesToKey (password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey
 
-},{"md5.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\md5.js\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash-base\\index.js":[function(require,module,exports){
+},{"md5.js":"D:\\work\\git\\privatesky\\node_modules\\md5.js\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash-base\\index.js":[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
@@ -34493,7 +33998,7 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase
 
-},{"inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash.js":[function(require,module,exports){
+},{"inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js","stream":"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash.js":[function(require,module,exports){
 var hash = exports;
 
 hash.utils = require('./hash/utils');
@@ -34510,7 +34015,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","./hash/hmac":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\hmac.js","./hash/ripemd":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\ripemd.js","./hash/sha":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha.js","./hash/utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js":[function(require,module,exports){
+},{"./hash/common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","./hash/hmac":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\hmac.js","./hash/ripemd":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\ripemd.js","./hash/sha":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha.js","./hash/utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -34604,7 +34109,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\hmac.js":[function(require,module,exports){
+},{"./utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\hmac.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -34653,7 +34158,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\ripemd.js":[function(require,module,exports){
+},{"./utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\ripemd.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -34801,7 +34306,7 @@ var sh = [
   8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
 ];
 
-},{"./common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","./utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha.js":[function(require,module,exports){
+},{"./common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","./utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha.js":[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -34810,7 +34315,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\1.js","./sha/224":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\224.js","./sha/256":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js","./sha/384":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\384.js","./sha/512":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\1.js":[function(require,module,exports){
+},{"./sha/1":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\1.js","./sha/224":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\224.js","./sha/256":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js","./sha/384":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\384.js","./sha/512":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\1.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -34886,7 +34391,7 @@ SHA1.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\224.js":[function(require,module,exports){
+},{"../common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\224.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -34918,7 +34423,7 @@ SHA224.prototype._digest = function digest(enc) {
 };
 
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./256":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./256":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\256.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -35025,7 +34530,7 @@ SHA256.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\384.js":[function(require,module,exports){
+},{"../common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\384.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -35062,7 +34567,7 @@ SHA384.prototype._digest = function digest(enc) {
     return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./512":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","./512":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\512.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -35394,7 +34899,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js":[function(require,module,exports){
+},{"../common":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\common.js","../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\sha\\common.js":[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -35445,7 +34950,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js":[function(require,module,exports){
+},{"../utils":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash\\utils.js":[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -35725,7 +35230,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\hmac-drbg\\lib\\hmac-drbg.js":[function(require,module,exports){
+},{"inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\hmac-drbg\\lib\\hmac-drbg.js":[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -35840,7 +35345,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash.js\\lib\\hash.js","minimalistic-assert":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js","minimalistic-crypto-utils":"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\https-browserify\\index.js":[function(require,module,exports){
+},{"hash.js":"D:\\work\\git\\privatesky\\node_modules\\hash.js\\lib\\hash.js","minimalistic-assert":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js","minimalistic-crypto-utils":"D:\\work\\git\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js"}],"D:\\work\\git\\privatesky\\node_modules\\https-browserify\\index.js":[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -35873,7 +35378,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js","url":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\ieee754\\index.js":[function(require,module,exports){
+},{"http":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js","url":"D:\\work\\git\\privatesky\\node_modules\\url\\url.js"}],"D:\\work\\git\\privatesky\\node_modules\\ieee754\\index.js":[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -35959,7 +35464,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -35988,7 +35493,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\is-buffer\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\is-buffer\\index.js":[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -36011,14 +35516,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\isarray\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\isarray\\index.js":[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\md5.js\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\md5.js\\index.js":[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var HashBase = require('hash-base')
@@ -36166,7 +35671,7 @@ function fnI (a, b, c, d, m, k, s) {
 
 module.exports = MD5
 
-},{"hash-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js":[function(require,module,exports){
+},{"hash-base":"D:\\work\\git\\privatesky\\node_modules\\hash-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\miller-rabin\\lib\\mr.js":[function(require,module,exports){
 var bn = require('bn.js');
 var brorand = require('brorand');
 
@@ -36283,7 +35788,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","brorand":"D:\\Catalin\\Munca\\privatesky\\node_modules\\brorand\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-assert\\index.js":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","brorand":"D:\\work\\git\\privatesky\\node_modules\\brorand\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\minimalistic-assert\\index.js":[function(require,module,exports){
 module.exports = assert;
 
 function assert(val, msg) {
@@ -36296,7 +35801,7 @@ assert.equal = function assertEqual(l, r, msg) {
     throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\minimalistic-crypto-utils\\lib\\utils.js":[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -36356,7 +35861,7 @@ utils.encode = function encode(arr, enc) {
     return arr;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\object-assign\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\object-assign\\index.js":[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -36448,7 +35953,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\os-browserify\\browser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\os-browserify\\browser.js":[function(require,module,exports){
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -36499,7 +36004,7 @@ exports.homedir = function () {
 	return '/'
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\utils\\common.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\utils\\common.js":[function(require,module,exports){
 'use strict';
 
 
@@ -36606,7 +36111,7 @@ exports.setTyped = function (on) {
 
 exports.setTyped(TYPED_OK);
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js":[function(require,module,exports){
 'use strict';
 
 // Note: adler32 takes 12% for level 0 and 2% for level 6.
@@ -36659,7 +36164,7 @@ function adler32(adler, buf, len, pos) {
 
 module.exports = adler32;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\constants.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\constants.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -36729,7 +36234,7 @@ module.exports = {
   //Z_NULL:                 null // Use -1 or null inline, depending on var type
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js":[function(require,module,exports){
 'use strict';
 
 // Note: we can't get significant speed boost here.
@@ -36790,7 +36295,7 @@ function crc32(crc, buf, len, pos) {
 
 module.exports = crc32;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\deflate.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\deflate.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -38666,7 +38171,7 @@ exports.deflatePrime = deflatePrime;
 exports.deflateTune = deflateTune;
 */
 
-},{"../utils/common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\utils\\common.js","./adler32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js","./crc32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js","./messages":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\messages.js","./trees":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\trees.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inffast.js":[function(require,module,exports){
+},{"../utils/common":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\utils\\common.js","./adler32":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js","./crc32":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js","./messages":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\messages.js","./trees":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\trees.js"}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inffast.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -39013,7 +38518,7 @@ module.exports = function inflate_fast(strm, start) {
   return;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inflate.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inflate.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -40571,7 +40076,7 @@ exports.inflateSyncPoint = inflateSyncPoint;
 exports.inflateUndermine = inflateUndermine;
 */
 
-},{"../utils/common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\utils\\common.js","./adler32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js","./crc32":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js","./inffast":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inffast.js","./inftrees":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inftrees.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\inftrees.js":[function(require,module,exports){
+},{"../utils/common":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\utils\\common.js","./adler32":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\adler32.js","./crc32":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\crc32.js","./inffast":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inffast.js","./inftrees":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inftrees.js"}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\inftrees.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -40916,7 +40421,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   return 0;
 };
 
-},{"../utils/common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\utils\\common.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\messages.js":[function(require,module,exports){
+},{"../utils/common":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\utils\\common.js"}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\messages.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -40950,7 +40455,7 @@ module.exports = {
   '-6':   'incompatible version' /* Z_VERSION_ERROR (-6) */
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\trees.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\trees.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -42174,7 +41679,7 @@ exports._tr_flush_block  = _tr_flush_block;
 exports._tr_tally = _tr_tally;
 exports._tr_align = _tr_align;
 
-},{"../utils/common":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\utils\\common.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pako\\lib\\zlib\\zstream.js":[function(require,module,exports){
+},{"../utils/common":"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\utils\\common.js"}],"D:\\work\\git\\privatesky\\node_modules\\pako\\lib\\zlib\\zstream.js":[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -42223,7 +41728,7 @@ function ZStream() {
 
 module.exports = ZStream;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\aesid.json":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\aesid.json":[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -42237,7 +41742,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\asn1.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\asn1.js":[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict'
@@ -42361,7 +41866,7 @@ exports.signature = asn1.define('signature', function () {
   )
 })
 
-},{"./certificate":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\certificate.js","asn1.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\certificate.js":[function(require,module,exports){
+},{"./certificate":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\certificate.js","asn1.js":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js"}],"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\certificate.js":[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -42452,7 +41957,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate
 
-},{"asn1.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\fixProc.js":[function(require,module,exports){
+},{"asn1.js":"D:\\work\\git\\privatesky\\node_modules\\asn1.js\\lib\\asn1.js"}],"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\fixProc.js":[function(require,module,exports){
 // adapted from https://github.com/apatil/pemstrip
 var findProc = /Proc-Type: 4,ENCRYPTED[\n\r]+DEK-Info: AES-((?:128)|(?:192)|(?:256))-CBC,([0-9A-H]+)[\n\r]+([0-9A-z\n\r\+\/\=]+)[\n\r]+/m
 var startRegex = /^-----BEGIN ((?:.*? KEY)|CERTIFICATE)-----/m
@@ -42485,7 +41990,7 @@ module.exports = function (okey, password) {
   }
 }
 
-},{"browserify-aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\browser.js","evp_bytestokey":"D:\\Catalin\\Munca\\privatesky\\node_modules\\evp_bytestokey\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\index.js":[function(require,module,exports){
+},{"browserify-aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\browser.js","evp_bytestokey":"D:\\work\\git\\privatesky\\node_modules\\evp_bytestokey\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\index.js":[function(require,module,exports){
 var asn1 = require('./asn1')
 var aesid = require('./aesid.json')
 var fixProc = require('./fixProc')
@@ -42594,7 +42099,7 @@ function decrypt (data, password) {
   return Buffer.concat(out)
 }
 
-},{"./aesid.json":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\aesid.json","./asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\asn1.js","./fixProc":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\fixProc.js","browserify-aes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-aes\\browser.js","pbkdf2":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js":[function(require,module,exports){
+},{"./aesid.json":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\aesid.json","./asn1":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\asn1.js","./fixProc":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\fixProc.js","browserify-aes":"D:\\work\\git\\privatesky\\node_modules\\browserify-aes\\browser.js","pbkdf2":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js":[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -42901,11 +42406,11 @@ var substr = 'ab'.substr(-1) === 'b'
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\browser.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\browser.js":[function(require,module,exports){
 exports.pbkdf2 = require('./lib/async')
 exports.pbkdf2Sync = require('./lib/sync')
 
-},{"./lib/async":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\async.js","./lib/sync":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\async.js":[function(require,module,exports){
+},{"./lib/async":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\async.js","./lib/sync":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\async.js":[function(require,module,exports){
 (function (process,global){
 var checkParameters = require('./precondition')
 var defaultEncoding = require('./default-encoding')
@@ -43010,7 +42515,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./default-encoding":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js","./precondition":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js","./sync":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js":[function(require,module,exports){
+},{"./default-encoding":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js","./precondition":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js","./sync":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js":[function(require,module,exports){
 (function (process){
 var defaultEncoding
 /* istanbul ignore next */
@@ -43025,7 +42530,7 @@ module.exports = defaultEncoding
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js":[function(require,module,exports){
 (function (Buffer){
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
 
@@ -43058,7 +42563,7 @@ module.exports = function (password, salt, iterations, keylen) {
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
 
-},{"../../is-buffer/index.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\is-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js":[function(require,module,exports){
+},{"../../is-buffer/index.js":"D:\\work\\git\\privatesky\\node_modules\\is-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\sync-browser.js":[function(require,module,exports){
 var md5 = require('create-hash/md5')
 var RIPEMD160 = require('ripemd160')
 var sha = require('sha.js')
@@ -43164,7 +42669,7 @@ function pbkdf2 (password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2
 
-},{"./default-encoding":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js","./precondition":"D:\\Catalin\\Munca\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js","create-hash/md5":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\md5.js","ripemd160":"D:\\Catalin\\Munca\\privatesky\\node_modules\\ripemd160\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","sha.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\process-nextick-args\\index.js":[function(require,module,exports){
+},{"./default-encoding":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\default-encoding.js","./precondition":"D:\\work\\git\\privatesky\\node_modules\\pbkdf2\\lib\\precondition.js","create-hash/md5":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\md5.js","ripemd160":"D:\\work\\git\\privatesky\\node_modules\\ripemd160\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js","sha.js":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\process-nextick-args\\index.js":[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -43214,7 +42719,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js":[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -43400,7 +42905,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\browser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\browser.js":[function(require,module,exports){
 exports.publicEncrypt = require('./publicEncrypt')
 exports.privateDecrypt = require('./privateDecrypt')
 
@@ -43412,7 +42917,7 @@ exports.publicDecrypt = function publicDecrypt (key, buf) {
   return exports.privateDecrypt(key, buf, true)
 }
 
-},{"./privateDecrypt":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\privateDecrypt.js","./publicEncrypt":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\publicEncrypt.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\mgf.js":[function(require,module,exports){
+},{"./privateDecrypt":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\privateDecrypt.js","./publicEncrypt":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\publicEncrypt.js"}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\mgf.js":[function(require,module,exports){
 var createHash = require('create-hash')
 var Buffer = require('safe-buffer').Buffer
 
@@ -43433,7 +42938,7 @@ function i2ops (c) {
   return out
 }
 
-},{"create-hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\privateDecrypt.js":[function(require,module,exports){
+},{"create-hash":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\privateDecrypt.js":[function(require,module,exports){
 var parseKeys = require('parse-asn1')
 var mgf = require('./mgf')
 var xor = require('./xor')
@@ -43540,7 +43045,7 @@ function compare (a, b) {
   return dif
 }
 
-},{"./mgf":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\mgf.js","./withPublic":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\withPublic.js","./xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\xor.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-rsa\\index.js","create-hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js","parse-asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\publicEncrypt.js":[function(require,module,exports){
+},{"./mgf":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\mgf.js","./withPublic":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\withPublic.js","./xor":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\xor.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\work\\git\\privatesky\\node_modules\\browserify-rsa\\index.js","create-hash":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js","parse-asn1":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\publicEncrypt.js":[function(require,module,exports){
 var parseKeys = require('parse-asn1')
 var randomBytes = require('randombytes')
 var createHash = require('create-hash')
@@ -43630,7 +43135,7 @@ function nonZero (len) {
   return out
 }
 
-},{"./mgf":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\mgf.js","./withPublic":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\withPublic.js","./xor":"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\xor.js","bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify-rsa\\index.js","create-hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\create-hash\\browser.js","parse-asn1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\parse-asn1\\index.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\withPublic.js":[function(require,module,exports){
+},{"./mgf":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\mgf.js","./withPublic":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\withPublic.js","./xor":"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\xor.js","bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","browserify-rsa":"D:\\work\\git\\privatesky\\node_modules\\browserify-rsa\\index.js","create-hash":"D:\\work\\git\\privatesky\\node_modules\\create-hash\\browser.js","parse-asn1":"D:\\work\\git\\privatesky\\node_modules\\parse-asn1\\index.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\withPublic.js":[function(require,module,exports){
 var BN = require('bn.js')
 var Buffer = require('safe-buffer').Buffer
 
@@ -43644,7 +43149,7 @@ function withPublic (paddedMsg, key) {
 
 module.exports = withPublic
 
-},{"bn.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\bn.js\\lib\\bn.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\public-encrypt\\xor.js":[function(require,module,exports){
+},{"bn.js":"D:\\work\\git\\privatesky\\node_modules\\bn.js\\lib\\bn.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\public-encrypt\\xor.js":[function(require,module,exports){
 module.exports = function xor (a, b) {
   var len = a.length
   var i = -1
@@ -43654,7 +43159,7 @@ module.exports = function xor (a, b) {
   return a
 }
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\punycode\\punycode.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\punycode\\punycode.js":[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -44192,7 +43697,7 @@ module.exports = function xor (a, b) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\decode.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\decode.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -44278,7 +43783,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\encode.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\encode.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -44365,13 +43870,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\index.js":[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\decode.js","./encode":"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\encode.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js":[function(require,module,exports){
+},{"./decode":"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\decode.js","./encode":"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\encode.js"}],"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js":[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -44426,7 +43931,7 @@ function randomBytes (size, cb) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\randomfill\\browser.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\randomfill\\browser.js":[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -44539,10 +44044,10 @@ function randomFillSync (buf, offset, size) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","randombytes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\randombytes\\browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\duplex-browser.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","randombytes":"D:\\work\\git\\privatesky\\node_modules\\randombytes\\browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\duplex-browser.js":[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js":[function(require,module,exports){
+},{"./lib/_stream_duplex.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -44588,7 +44093,7 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -44674,7 +44179,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-},{"./_stream_readable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js","./_stream_writable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js","core-util-is":"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","process-nextick-args":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process-nextick-args\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_passthrough.js":[function(require,module,exports){
+},{"./_stream_readable":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js","./_stream_writable":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js","core-util-is":"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","process-nextick-args":"D:\\work\\git\\privatesky\\node_modules\\process-nextick-args\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_passthrough.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -44707,7 +44212,7 @@ module.exports = PassThrough;
 var Transform = require('./_stream_transform');
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -44722,7 +44227,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js","core-util-is":"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js":[function(require,module,exports){
+},{"./_stream_transform":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js","core-util-is":"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js":[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -44790,7 +44295,7 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -45745,7 +45250,7 @@ function indexOf(xs, x) {
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/BufferList":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\BufferList.js","./internal/streams/destroy":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","core-util-is":"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js","events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","isarray":"D:\\Catalin\\Munca\\privatesky\\node_modules\\isarray\\index.js","process-nextick-args":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process-nextick-args\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","string_decoder/":"D:\\Catalin\\Munca\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js":[function(require,module,exports){
+},{"./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/BufferList":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\BufferList.js","./internal/streams/destroy":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/stream":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","core-util-is":"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js","events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","isarray":"D:\\work\\git\\privatesky\\node_modules\\isarray\\index.js","process-nextick-args":"D:\\work\\git\\privatesky\\node_modules\\process-nextick-args\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\safe-buffer\\index.js","string_decoder/":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\string_decoder\\lib\\string_decoder.js","util":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -45816,7 +45321,7 @@ module.exports = Transform;
 var Duplex = require('./_stream_duplex');
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -45960,7 +45465,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","core-util-is":"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js":[function(require,module,exports){
+},{"./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","core-util-is":"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js":[function(require,module,exports){
 (function (process,global,setImmediate){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -46028,7 +45533,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -46651,7 +46156,7 @@ Writable.prototype._destroy = function (err, cb) {
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
 
-},{"./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/destroy":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","core-util-is":"D:\\Catalin\\Munca\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","process-nextick-args":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process-nextick-args\\index.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","timers":"D:\\Catalin\\Munca\\privatesky\\node_modules\\timers-browserify\\main.js","util-deprecate":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util-deprecate\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\BufferList.js":[function(require,module,exports){
+},{"./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/destroy":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/stream":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","core-util-is":"D:\\work\\git\\privatesky\\node_modules\\core-util-is\\lib\\util.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","process-nextick-args":"D:\\work\\git\\privatesky\\node_modules\\process-nextick-args\\index.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\safe-buffer\\index.js","timers":"D:\\work\\git\\privatesky\\node_modules\\timers-browserify\\main.js","util-deprecate":"D:\\work\\git\\privatesky\\node_modules\\util-deprecate\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\BufferList.js":[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46731,7 +46236,7 @@ if (util && util.inspect && util.inspect.custom) {
     return this.constructor.name + ' ' + obj;
   };
 }
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\safe-buffer\\index.js","util":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js":[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -46806,13 +46311,374 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process-nextick-args\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js":[function(require,module,exports){
+},{"process-nextick-args":"D:\\work\\git\\privatesky\\node_modules\\process-nextick-args\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js":[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\passthrough.js":[function(require,module,exports){
+},{"events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\safe-buffer\\index.js":[function(require,module,exports){
+/* eslint-disable node/no-deprecated-api */
+var buffer = require('buffer')
+var Buffer = buffer.Buffer
+
+// alternative to using Object.keys for old browsers
+function copyProps (src, dst) {
+  for (var key in src) {
+    dst[key] = src[key]
+  }
+}
+if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+  module.exports = buffer
+} else {
+  // Copy properties from require('buffer')
+  copyProps(buffer, exports)
+  exports.Buffer = SafeBuffer
+}
+
+function SafeBuffer (arg, encodingOrOffset, length) {
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+// Copy static methods from Buffer
+copyProps(Buffer, SafeBuffer)
+
+SafeBuffer.from = function (arg, encodingOrOffset, length) {
+  if (typeof arg === 'number') {
+    throw new TypeError('Argument must not be a number')
+  }
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+SafeBuffer.alloc = function (size, fill, encoding) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  var buf = Buffer(size)
+  if (fill !== undefined) {
+    if (typeof encoding === 'string') {
+      buf.fill(fill, encoding)
+    } else {
+      buf.fill(fill)
+    }
+  } else {
+    buf.fill(0)
+  }
+  return buf
+}
+
+SafeBuffer.allocUnsafe = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return Buffer(size)
+}
+
+SafeBuffer.allocUnsafeSlow = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return buffer.SlowBuffer(size)
+}
+
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\string_decoder\\lib\\string_decoder.js":[function(require,module,exports){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+'use strict';
+
+/*<replacement>*/
+
+var Buffer = require('safe-buffer').Buffer;
+/*</replacement>*/
+
+var isEncoding = Buffer.isEncoding || function (encoding) {
+  encoding = '' + encoding;
+  switch (encoding && encoding.toLowerCase()) {
+    case 'hex':case 'utf8':case 'utf-8':case 'ascii':case 'binary':case 'base64':case 'ucs2':case 'ucs-2':case 'utf16le':case 'utf-16le':case 'raw':
+      return true;
+    default:
+      return false;
+  }
+};
+
+function _normalizeEncoding(enc) {
+  if (!enc) return 'utf8';
+  var retried;
+  while (true) {
+    switch (enc) {
+      case 'utf8':
+      case 'utf-8':
+        return 'utf8';
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return 'utf16le';
+      case 'latin1':
+      case 'binary':
+        return 'latin1';
+      case 'base64':
+      case 'ascii':
+      case 'hex':
+        return enc;
+      default:
+        if (retried) return; // undefined
+        enc = ('' + enc).toLowerCase();
+        retried = true;
+    }
+  }
+};
+
+// Do not cache `Buffer.isEncoding` when checking encoding names as some
+// modules monkey-patch it to support additional encodings
+function normalizeEncoding(enc) {
+  var nenc = _normalizeEncoding(enc);
+  if (typeof nenc !== 'string' && (Buffer.isEncoding === isEncoding || !isEncoding(enc))) throw new Error('Unknown encoding: ' + enc);
+  return nenc || enc;
+}
+
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters.
+exports.StringDecoder = StringDecoder;
+function StringDecoder(encoding) {
+  this.encoding = normalizeEncoding(encoding);
+  var nb;
+  switch (this.encoding) {
+    case 'utf16le':
+      this.text = utf16Text;
+      this.end = utf16End;
+      nb = 4;
+      break;
+    case 'utf8':
+      this.fillLast = utf8FillLast;
+      nb = 4;
+      break;
+    case 'base64':
+      this.text = base64Text;
+      this.end = base64End;
+      nb = 3;
+      break;
+    default:
+      this.write = simpleWrite;
+      this.end = simpleEnd;
+      return;
+  }
+  this.lastNeed = 0;
+  this.lastTotal = 0;
+  this.lastChar = Buffer.allocUnsafe(nb);
+}
+
+StringDecoder.prototype.write = function (buf) {
+  if (buf.length === 0) return '';
+  var r;
+  var i;
+  if (this.lastNeed) {
+    r = this.fillLast(buf);
+    if (r === undefined) return '';
+    i = this.lastNeed;
+    this.lastNeed = 0;
+  } else {
+    i = 0;
+  }
+  if (i < buf.length) return r ? r + this.text(buf, i) : this.text(buf, i);
+  return r || '';
+};
+
+StringDecoder.prototype.end = utf8End;
+
+// Returns only complete characters in a Buffer
+StringDecoder.prototype.text = utf8Text;
+
+// Attempts to complete a partial non-UTF-8 character using bytes from a Buffer
+StringDecoder.prototype.fillLast = function (buf) {
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, buf.length);
+  this.lastNeed -= buf.length;
+};
+
+// Checks the type of a UTF-8 byte, whether it's ASCII, a leading byte, or a
+// continuation byte. If an invalid byte is detected, -2 is returned.
+function utf8CheckByte(byte) {
+  if (byte <= 0x7F) return 0;else if (byte >> 5 === 0x06) return 2;else if (byte >> 4 === 0x0E) return 3;else if (byte >> 3 === 0x1E) return 4;
+  return byte >> 6 === 0x02 ? -1 : -2;
+}
+
+// Checks at most 3 bytes at the end of a Buffer in order to detect an
+// incomplete multi-byte UTF-8 character. The total number of bytes (2, 3, or 4)
+// needed to complete the UTF-8 character (if applicable) are returned.
+function utf8CheckIncomplete(self, buf, i) {
+  var j = buf.length - 1;
+  if (j < i) return 0;
+  var nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 1;
+    return nb;
+  }
+  if (--j < i || nb === -2) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 2;
+    return nb;
+  }
+  if (--j < i || nb === -2) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) {
+      if (nb === 2) nb = 0;else self.lastNeed = nb - 3;
+    }
+    return nb;
+  }
+  return 0;
+}
+
+// Validates as many continuation bytes for a multi-byte UTF-8 character as
+// needed or are available. If we see a non-continuation byte where we expect
+// one, we "replace" the validated continuation bytes we've seen so far with
+// a single UTF-8 replacement character ('\ufffd'), to match v8's UTF-8 decoding
+// behavior. The continuation byte check is included three times in the case
+// where all of the continuation bytes for a character exist in the same buffer.
+// It is also done this way as a slight performance increase instead of using a
+// loop.
+function utf8CheckExtraBytes(self, buf, p) {
+  if ((buf[0] & 0xC0) !== 0x80) {
+    self.lastNeed = 0;
+    return '\ufffd';
+  }
+  if (self.lastNeed > 1 && buf.length > 1) {
+    if ((buf[1] & 0xC0) !== 0x80) {
+      self.lastNeed = 1;
+      return '\ufffd';
+    }
+    if (self.lastNeed > 2 && buf.length > 2) {
+      if ((buf[2] & 0xC0) !== 0x80) {
+        self.lastNeed = 2;
+        return '\ufffd';
+      }
+    }
+  }
+}
+
+// Attempts to complete a multi-byte UTF-8 character using bytes from a Buffer.
+function utf8FillLast(buf) {
+  var p = this.lastTotal - this.lastNeed;
+  var r = utf8CheckExtraBytes(this, buf, p);
+  if (r !== undefined) return r;
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, p, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, p, 0, buf.length);
+  this.lastNeed -= buf.length;
+}
+
+// Returns all complete UTF-8 characters in a Buffer. If the Buffer ended on a
+// partial character, the character's bytes are buffered until the required
+// number of bytes are available.
+function utf8Text(buf, i) {
+  var total = utf8CheckIncomplete(this, buf, i);
+  if (!this.lastNeed) return buf.toString('utf8', i);
+  this.lastTotal = total;
+  var end = buf.length - (total - this.lastNeed);
+  buf.copy(this.lastChar, 0, end);
+  return buf.toString('utf8', i, end);
+}
+
+// For UTF-8, a replacement character is added when ending on a partial
+// character.
+function utf8End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + '\ufffd';
+  return r;
+}
+
+// UTF-16LE typically needs two bytes per character, but even if we have an even
+// number of bytes available, we need to check if we end on a leading/high
+// surrogate. In that case, we need to wait for the next two bytes in order to
+// decode the last character properly.
+function utf16Text(buf, i) {
+  if ((buf.length - i) % 2 === 0) {
+    var r = buf.toString('utf16le', i);
+    if (r) {
+      var c = r.charCodeAt(r.length - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) {
+        this.lastNeed = 2;
+        this.lastTotal = 4;
+        this.lastChar[0] = buf[buf.length - 2];
+        this.lastChar[1] = buf[buf.length - 1];
+        return r.slice(0, -1);
+      }
+    }
+    return r;
+  }
+  this.lastNeed = 1;
+  this.lastTotal = 2;
+  this.lastChar[0] = buf[buf.length - 1];
+  return buf.toString('utf16le', i, buf.length - 1);
+}
+
+// For UTF-16LE we do not explicitly append special replacement characters if we
+// end on a partial character, we simply let v8 handle that.
+function utf16End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) {
+    var end = this.lastTotal - this.lastNeed;
+    return r + this.lastChar.toString('utf16le', 0, end);
+  }
+  return r;
+}
+
+function base64Text(buf, i) {
+  var n = (buf.length - i) % 3;
+  if (n === 0) return buf.toString('base64', i);
+  this.lastNeed = 3 - n;
+  this.lastTotal = 3;
+  if (n === 1) {
+    this.lastChar[0] = buf[buf.length - 1];
+  } else {
+    this.lastChar[0] = buf[buf.length - 2];
+    this.lastChar[1] = buf[buf.length - 1];
+  }
+  return buf.toString('base64', i, buf.length - n);
+}
+
+function base64End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + this.lastChar.toString('base64', 0, 3 - this.lastNeed);
+  return r;
+}
+
+// Pass bytes on through for single-byte encodings (e.g. ascii, latin1, hex)
+function simpleWrite(buf) {
+  return buf.toString(this.encoding);
+}
+
+function simpleEnd(buf) {
+  return buf && buf.length ? this.write(buf) : '';
+}
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\passthrough.js":[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\readable-browser.js":[function(require,module,exports){
+},{"./readable":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\readable-browser.js":[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -46821,13 +46687,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./lib/_stream_passthrough.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_passthrough.js","./lib/_stream_readable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js","./lib/_stream_transform.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js","./lib/_stream_writable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\transform.js":[function(require,module,exports){
+},{"./lib/_stream_duplex.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./lib/_stream_passthrough.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_passthrough.js","./lib/_stream_readable.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_readable.js","./lib/_stream_transform.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_transform.js","./lib/_stream_writable.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\transform.js":[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\writable-browser.js":[function(require,module,exports){
+},{"./readable":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\writable-browser.js":[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\ripemd160\\index.js":[function(require,module,exports){
+},{"./lib/_stream_writable.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\_stream_writable.js"}],"D:\\work\\git\\privatesky\\node_modules\\ripemd160\\index.js":[function(require,module,exports){
 'use strict'
 var Buffer = require('buffer').Buffer
 var inherits = require('inherits')
@@ -46992,7 +46858,7 @@ function fn5 (a, b, c, d, e, m, k, s) {
 
 module.exports = RIPEMD160
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","hash-base":"D:\\Catalin\\Munca\\privatesky\\node_modules\\hash-base\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","hash-base":"D:\\work\\git\\privatesky\\node_modules\\hash-base\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js":[function(require,module,exports){
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
 var Buffer = buffer.Buffer
@@ -47014,6 +46880,8 @@ if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow)
 function SafeBuffer (arg, encodingOrOffset, length) {
   return Buffer(arg, encodingOrOffset, length)
 }
+
+SafeBuffer.prototype = Object.create(Buffer.prototype)
 
 // Copy static methods from Buffer
 copyProps(Buffer, SafeBuffer)
@@ -47056,7 +46924,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js":[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 // prototype class for hash functions
@@ -47139,7 +47007,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash
 
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\index.js":[function(require,module,exports){
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\index.js":[function(require,module,exports){
 var exports = module.exports = function SHA (algorithm) {
   algorithm = algorithm.toLowerCase()
 
@@ -47156,7 +47024,7 @@ exports.sha256 = require('./sha256')
 exports.sha384 = require('./sha384')
 exports.sha512 = require('./sha512')
 
-},{"./sha":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha.js","./sha1":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha1.js","./sha224":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha224.js","./sha256":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha256.js","./sha384":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha384.js","./sha512":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha512.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha.js":[function(require,module,exports){
+},{"./sha":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha.js","./sha1":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha1.js","./sha224":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha224.js","./sha256":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha256.js","./sha384":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha384.js","./sha512":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha512.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha.js":[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-0, as defined
  * in FIPS PUB 180-1
@@ -47252,7 +47120,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha1.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha1.js":[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
  * in FIPS PUB 180-1
@@ -47353,7 +47221,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha224.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha224.js":[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -47408,7 +47276,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","./sha256":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha256.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha256.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","./sha256":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha256.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha256.js":[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -47545,7 +47413,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha384.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha384.js":[function(require,module,exports){
 var inherits = require('inherits')
 var SHA512 = require('./sha512')
 var Hash = require('./hash')
@@ -47604,7 +47472,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","./sha512":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha512.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\sha512.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","./sha512":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha512.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\sha.js\\sha512.js":[function(require,module,exports){
 var inherits = require('inherits')
 var Hash = require('./hash')
 var Buffer = require('safe-buffer').Buffer
@@ -47866,7 +47734,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512
 
-},{"./hash":"D:\\Catalin\\Munca\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js":[function(require,module,exports){
+},{"./hash":"D:\\work\\git\\privatesky\\node_modules\\sha.js\\hash.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\array-set.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -47989,7 +47857,7 @@ ArraySet.prototype.toArray = function ArraySet_toArray() {
 
 exports.ArraySet = ArraySet;
 
-},{"./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js":[function(require,module,exports){
+},{"./util":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -48131,7 +47999,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
   aOutParam.rest = aIndex;
 };
 
-},{"./base64":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64.js":[function(require,module,exports){
+},{"./base64":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\base64.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\base64.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -48200,7 +48068,7 @@ exports.decode = function (charCode) {
   return -1;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\binary-search.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\binary-search.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -48313,7 +48181,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
   return index;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -48394,7 +48262,7 @@ MappingList.prototype.toArray = function MappingList_toArray() {
 
 exports.MappingList = MappingList;
 
-},{"./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js":[function(require,module,exports){
+},{"./util":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -48510,7 +48378,7 @@ exports.quickSort = function (ary, comparator) {
   doQuickSort(ary, comparator, 0, ary.length - 1);
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -49594,7 +49462,7 @@ IndexedSourceMapConsumer.prototype._parseMappings =
 
 exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
 
-},{"./array-set":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./binary-search":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\binary-search.js","./quick-sort":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js":[function(require,module,exports){
+},{"./array-set":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./binary-search":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\binary-search.js","./quick-sort":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js","./util":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -50012,7 +49880,7 @@ SourceMapGenerator.prototype.toString =
 
 exports.SourceMapGenerator = SourceMapGenerator;
 
-},{"./array-set":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./mapping-list":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-node.js":[function(require,module,exports){
+},{"./array-set":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./mapping-list":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js","./util":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-node.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -50427,7 +50295,7 @@ SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSou
 
 exports.SourceNode = SourceNode;
 
-},{"./source-map-generator":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js":[function(require,module,exports){
+},{"./source-map-generator":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./util":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\util.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -50846,7 +50714,7 @@ function compareByGeneratedPositionsInflated(mappingA, mappingB) {
 }
 exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-browserify\\index.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\stream-browserify\\index.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -50975,7 +50843,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream/duplex.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\duplex-browser.js","readable-stream/passthrough.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\passthrough.js","readable-stream/readable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\readable-browser.js","readable-stream/transform.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\transform.js","readable-stream/writable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\writable-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\index.js":[function(require,module,exports){
+},{"events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream/duplex.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\duplex-browser.js","readable-stream/passthrough.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\passthrough.js","readable-stream/readable.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\readable-browser.js","readable-stream/transform.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\transform.js","readable-stream/writable.js":"D:\\work\\git\\privatesky\\node_modules\\readable-stream\\writable-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\index.js":[function(require,module,exports){
 (function (global){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -51064,7 +50932,7 @@ http.METHODS = [
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./lib/request":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\request.js","./lib/response":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\response.js","builtin-status-codes":"D:\\Catalin\\Munca\\privatesky\\node_modules\\builtin-status-codes\\browser.js","url":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js","xtend":"D:\\Catalin\\Munca\\privatesky\\node_modules\\xtend\\immutable.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\capability.js":[function(require,module,exports){
+},{"./lib/request":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\request.js","./lib/response":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\response.js","builtin-status-codes":"D:\\work\\git\\privatesky\\node_modules\\builtin-status-codes\\browser.js","url":"D:\\work\\git\\privatesky\\node_modules\\url\\url.js","xtend":"D:\\work\\git\\privatesky\\node_modules\\xtend\\immutable.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\capability.js":[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -51128,7 +50996,7 @@ xhr = null // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\request.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\request.js":[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -51448,7 +51316,7 @@ var unsafeHeaders = [
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
 
-},{"./capability":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\capability.js","./response":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\response.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\response.js":[function(require,module,exports){
+},{"./capability":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\capability.js","./response":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\response.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\response.js":[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -51660,7 +51528,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
 
-},{"./capability":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\lib\\capability.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js":[function(require,module,exports){
+},{"./capability":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\lib\\capability.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","readable-stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js":[function(require,module,exports){
 'use strict';
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
@@ -51789,29 +51657,7 @@ createErrorType('ERR_UNKNOWN_ENCODING', function (arg) {
 createErrorType('ERR_STREAM_UNSHIFT_AFTER_END_EVENT', 'stream.unshift() after end event');
 module.exports.codes = codes;
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\experimentalWarning.js":[function(require,module,exports){
-(function (process){
-'use strict'
-
-var experimentalWarnings = new Set();
-
-function emitExperimentalWarning(feature) {
-  if (experimentalWarnings.has(feature)) return;
-  var msg = feature + ' is an experimental feature. This feature could ' +
-       'change at any time';
-  experimentalWarnings.add(feature);
-  process.emitWarning(msg, 'ExperimentalWarning');
-}
-
-function noop() {}
-
-module.exports.emitExperimentalWarning = process.emitWarning
-  ? emitExperimentalWarning
-  : noop;
-
-}).call(this,require('_process'))
-
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js":[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -51954,7 +51800,7 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
 });
 }).call(this,require('_process'))
 
-},{"./_stream_readable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js","./_stream_writable":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_passthrough.js":[function(require,module,exports){
+},{"./_stream_readable":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js","./_stream_writable":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_passthrough.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -51994,7 +51840,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js":[function(require,module,exports){
+},{"./_stream_transform":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js":[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -52078,17 +51924,16 @@ var _require$codes = require('../errors').codes,
     ERR_INVALID_ARG_TYPE = _require$codes.ERR_INVALID_ARG_TYPE,
     ERR_STREAM_PUSH_AFTER_EOF = _require$codes.ERR_STREAM_PUSH_AFTER_EOF,
     ERR_METHOD_NOT_IMPLEMENTED = _require$codes.ERR_METHOD_NOT_IMPLEMENTED,
-    ERR_STREAM_UNSHIFT_AFTER_END_EVENT = _require$codes.ERR_STREAM_UNSHIFT_AFTER_END_EVENT;
-
-var _require2 = require('../experimentalWarning'),
-    emitExperimentalWarning = _require2.emitExperimentalWarning; // Lazy loaded to improve the startup performance.
+    ERR_STREAM_UNSHIFT_AFTER_END_EVENT = _require$codes.ERR_STREAM_UNSHIFT_AFTER_END_EVENT; // Lazy loaded to improve the startup performance.
 
 
 var StringDecoder;
 var createReadableStreamAsyncIterator;
+var from;
 
 require('inherits')(Readable, Stream);
 
+var errorOrDestroy = destroyImpl.errorOrDestroy;
 var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
 
 function prependListener(emitter, event, fn) {
@@ -52142,7 +51987,9 @@ function ReadableState(options, stream, isDuplex) {
   this.resumeScheduled = false;
   this.paused = true; // Should close be emitted on destroy. Defaults to true.
 
-  this.emitClose = options.emitClose !== false; // has it been destroyed
+  this.emitClose = options.emitClose !== false; // Should .destroy() be called after 'end' (and potentially 'finish')
+
+  this.autoDestroy = !!options.autoDestroy; // has it been destroyed
 
   this.destroyed = false; // Crypto is kind of old and crusty.  Historically, its default string
   // encoding is 'binary' so we have to make this configurable.
@@ -52255,16 +52102,16 @@ function readableAddChunk(stream, chunk, encoding, addToFront, skipChunkCheck) {
     if (!skipChunkCheck) er = chunkInvalid(state, chunk);
 
     if (er) {
-      stream.emit('error', er);
+      errorOrDestroy(stream, er);
     } else if (state.objectMode || chunk && chunk.length > 0) {
       if (typeof chunk !== 'string' && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer.prototype) {
         chunk = _uint8ArrayToBuffer(chunk);
       }
 
       if (addToFront) {
-        if (state.endEmitted) stream.emit('error', new ERR_STREAM_UNSHIFT_AFTER_END_EVENT());else addChunk(stream, state, chunk, true);
+        if (state.endEmitted) errorOrDestroy(stream, new ERR_STREAM_UNSHIFT_AFTER_END_EVENT());else addChunk(stream, state, chunk, true);
       } else if (state.ended) {
-        stream.emit('error', new ERR_STREAM_PUSH_AFTER_EOF());
+        errorOrDestroy(stream, new ERR_STREAM_PUSH_AFTER_EOF());
       } else if (state.destroyed) {
         return false;
       } else {
@@ -52320,17 +52167,32 @@ Readable.prototype.isPaused = function () {
 
 Readable.prototype.setEncoding = function (enc) {
   if (!StringDecoder) StringDecoder = require('string_decoder/').StringDecoder;
-  this._readableState.decoder = new StringDecoder(enc); // if setEncoding(null), decoder.encoding equals utf8
+  var decoder = new StringDecoder(enc);
+  this._readableState.decoder = decoder; // If setEncoding(null), decoder.encoding equals utf8
 
-  this._readableState.encoding = this._readableState.decoder.encoding;
+  this._readableState.encoding = this._readableState.decoder.encoding; // Iterate over current buffer to convert already stored Buffers:
+
+  var p = this._readableState.buffer.head;
+  var content = '';
+
+  while (p !== null) {
+    content += decoder.write(p.data);
+    p = p.next;
+  }
+
+  this._readableState.buffer.clear();
+
+  if (content !== '') this._readableState.buffer.push(content);
+  this._readableState.length = content.length;
   return this;
-}; // Don't raise the hwm > 8MB
+}; // Don't raise the hwm > 1GB
 
 
-var MAX_HWM = 0x800000;
+var MAX_HWM = 0x40000000;
 
 function computeNewHighWaterMark(n) {
   if (n >= MAX_HWM) {
+    // TODO(ronag): Throw ERR_VALUE_OUT_OF_RANGE.
     n = MAX_HWM;
   } else {
     // Get the next highest power of 2 to prevent increasing hwm excessively in
@@ -52447,7 +52309,7 @@ Readable.prototype.read = function (n) {
   if (n > 0) ret = fromList(n, state);else ret = null;
 
   if (ret === null) {
-    state.needReadable = true;
+    state.needReadable = state.length <= state.highWaterMark;
     n = 0;
   } else {
     state.length -= n;
@@ -52467,6 +52329,7 @@ Readable.prototype.read = function (n) {
 };
 
 function onEofChunk(stream, state) {
+  debug('onEofChunk');
   if (state.ended) return;
 
   if (state.decoder) {
@@ -52501,6 +52364,7 @@ function onEofChunk(stream, state) {
 
 function emitReadable(stream) {
   var state = stream._readableState;
+  debug('emitReadable', state.needReadable, state.emittedReadable);
   state.needReadable = false;
 
   if (!state.emittedReadable) {
@@ -52516,6 +52380,7 @@ function emitReadable_(stream) {
 
   if (!state.destroyed && (state.length || state.ended)) {
     stream.emit('readable');
+    state.emittedReadable = false;
   } // The stream needs another readable event if
   // 1. It is not flowing, as the flow mechanism will take
   //    care of it.
@@ -52581,7 +52446,7 @@ function maybeReadMore_(stream, state) {
 
 
 Readable.prototype._read = function (n) {
-  this.emit('error', new ERR_METHOD_NOT_IMPLEMENTED('_read()'));
+  errorOrDestroy(this, new ERR_METHOD_NOT_IMPLEMENTED('_read()'));
 };
 
 Readable.prototype.pipe = function (dest, pipeOpts) {
@@ -52680,7 +52545,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
     debug('onerror', er);
     unpipe();
     dest.removeListener('error', onerror);
-    if (EElistenerCount(dest, 'error') === 0) dest.emit('error', er);
+    if (EElistenerCount(dest, 'error') === 0) errorOrDestroy(dest, er);
   } // Make sure our error handler is attached before userland ones.
 
 
@@ -52984,8 +52849,6 @@ Readable.prototype.wrap = function (stream) {
 
 if (typeof Symbol === 'function') {
   Readable.prototype[Symbol.asyncIterator] = function () {
-    emitExperimentalWarning('Readable[Symbol.asyncIterator]');
-
     if (createReadableStreamAsyncIterator === undefined) {
       createReadableStreamAsyncIterator = require('./internal/streams/async_iterator');
     }
@@ -53073,7 +52936,27 @@ function endReadableNT(state, stream) {
     state.endEmitted = true;
     stream.readable = false;
     stream.emit('end');
+
+    if (state.autoDestroy) {
+      // In case of duplex streams we need a way to detect
+      // if the writable side is ready for autoDestroy as well
+      var wState = stream._writableState;
+
+      if (!wState || wState.autoDestroy && wState.finished) {
+        stream.destroy();
+      }
+    }
   }
+}
+
+if (typeof Symbol === 'function') {
+  Readable.from = function (iterable, opts) {
+    if (from === undefined) {
+      from = require('./internal/streams/from');
+    }
+
+    return from(Readable, iterable, opts);
+  };
 }
 
 function indexOf(xs, x) {
@@ -53085,7 +52968,7 @@ function indexOf(xs, x) {
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","../experimentalWarning":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\experimentalWarning.js","./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/async_iterator":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\async_iterator.js","./internal/streams/buffer_list":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\buffer_list.js","./internal/streams/destroy":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/state":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js","./internal/streams/stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","string_decoder/":"D:\\Catalin\\Munca\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js":[function(require,module,exports){
+},{"../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/async_iterator":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\async_iterator.js","./internal/streams/buffer_list":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\buffer_list.js","./internal/streams/destroy":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/from":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\from-browser.js","./internal/streams/state":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js","./internal/streams/stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","string_decoder/":"D:\\work\\git\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js","util":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -53287,7 +53170,7 @@ function done(stream, er, data) {
   if (stream._transformState.transforming) throw new ERR_TRANSFORM_ALREADY_TRANSFORMING();
   return stream.push(null);
 }
-},{"../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js":[function(require,module,exports){
+},{"../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js":[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -53385,6 +53268,8 @@ var _require$codes = require('../errors').codes,
     ERR_STREAM_WRITE_AFTER_END = _require$codes.ERR_STREAM_WRITE_AFTER_END,
     ERR_UNKNOWN_ENCODING = _require$codes.ERR_UNKNOWN_ENCODING;
 
+var errorOrDestroy = destroyImpl.errorOrDestroy;
+
 require('inherits')(Writable, Stream);
 
 function nop() {}
@@ -53464,7 +53349,9 @@ function WritableState(options, stream, isDuplex) {
 
   this.errorEmitted = false; // Should close be emitted on destroy. Defaults to true.
 
-  this.emitClose = options.emitClose !== false; // count buffered requests
+  this.emitClose = options.emitClose !== false; // Should .destroy() be called after 'finish' (and potentially 'end')
+
+  this.autoDestroy = !!options.autoDestroy; // count buffered requests
 
   this.bufferedRequestCount = 0; // allocate the first CorkedRequest, there is always
   // one allocated and free to use, and we maintain at most two
@@ -53541,13 +53428,13 @@ function Writable(options) {
 
 
 Writable.prototype.pipe = function () {
-  this.emit('error', new ERR_STREAM_CANNOT_PIPE());
+  errorOrDestroy(this, new ERR_STREAM_CANNOT_PIPE());
 };
 
 function writeAfterEnd(stream, cb) {
   var er = new ERR_STREAM_WRITE_AFTER_END(); // TODO: defer error events consistently everywhere, not just the cb
 
-  stream.emit('error', er);
+  errorOrDestroy(stream, er);
   process.nextTick(cb, er);
 } // Checks that a user-supplied chunk is valid, especially for the particular
 // mode the stream is in. Currently this means that `null` is never accepted
@@ -53564,7 +53451,7 @@ function validChunk(stream, state, chunk, cb) {
   }
 
   if (er) {
-    stream.emit('error', er);
+    errorOrDestroy(stream, er);
     process.nextTick(cb, er);
     return false;
   }
@@ -53708,13 +53595,13 @@ function onwriteError(stream, state, sync, er, cb) {
 
     process.nextTick(finishMaybe, stream, state);
     stream._writableState.errorEmitted = true;
-    stream.emit('error', er);
+    errorOrDestroy(stream, er);
   } else {
     // the caller expect this to happen before if
     // it is async
     cb(er);
     stream._writableState.errorEmitted = true;
-    stream.emit('error', er); // this can emit finish, but finish must
+    errorOrDestroy(stream, er); // this can emit finish, but finish must
     // always follow error
 
     finishMaybe(stream, state);
@@ -53878,7 +53765,7 @@ function callFinal(stream, state) {
     state.pendingcb--;
 
     if (err) {
-      stream.emit('error', err);
+      errorOrDestroy(stream, err);
     }
 
     state.prefinished = true;
@@ -53909,6 +53796,16 @@ function finishMaybe(stream, state) {
     if (state.pendingcb === 0) {
       state.finished = true;
       stream.emit('finish');
+
+      if (state.autoDestroy) {
+        // In case of duplex streams we need a way to detect
+        // if the readable side is ready for autoDestroy as well
+        var rState = stream._readableState;
+
+        if (!rState || rState.autoDestroy && rState.endEmitted) {
+          stream.destroy();
+        }
+      }
     }
   }
 
@@ -53974,7 +53871,7 @@ Writable.prototype._destroy = function (err, cb) {
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./_stream_duplex":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/destroy":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/state":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js","./internal/streams/stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\inherits\\inherits_browser.js","util-deprecate":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util-deprecate\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\async_iterator.js":[function(require,module,exports){
+},{"../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./_stream_duplex":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./internal/streams/destroy":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js","./internal/streams/state":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js","./internal/streams/stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\inherits\\inherits_browser.js","util-deprecate":"D:\\work\\git\\privatesky\\node_modules\\util-deprecate\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\async_iterator.js":[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -54185,12 +54082,20 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
 module.exports = createReadableStreamAsyncIterator;
 }).call(this,require('_process'))
 
-},{"./end-of-stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\buffer_list.js":[function(require,module,exports){
+},{"./end-of-stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\buffer_list.js":[function(require,module,exports){
 'use strict';
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var _require = require('buffer'),
     Buffer = _require.Buffer;
@@ -54208,174 +54113,187 @@ module.exports =
 /*#__PURE__*/
 function () {
   function BufferList() {
+    _classCallCheck(this, BufferList);
+
     this.head = null;
     this.tail = null;
     this.length = 0;
   }
 
-  var _proto = BufferList.prototype;
-
-  _proto.push = function push(v) {
-    var entry = {
-      data: v,
-      next: null
-    };
-    if (this.length > 0) this.tail.next = entry;else this.head = entry;
-    this.tail = entry;
-    ++this.length;
-  };
-
-  _proto.unshift = function unshift(v) {
-    var entry = {
-      data: v,
-      next: this.head
-    };
-    if (this.length === 0) this.tail = entry;
-    this.head = entry;
-    ++this.length;
-  };
-
-  _proto.shift = function shift() {
-    if (this.length === 0) return;
-    var ret = this.head.data;
-    if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
-    --this.length;
-    return ret;
-  };
-
-  _proto.clear = function clear() {
-    this.head = this.tail = null;
-    this.length = 0;
-  };
-
-  _proto.join = function join(s) {
-    if (this.length === 0) return '';
-    var p = this.head;
-    var ret = '' + p.data;
-
-    while (p = p.next) {
-      ret += s + p.data;
+  _createClass(BufferList, [{
+    key: "push",
+    value: function push(v) {
+      var entry = {
+        data: v,
+        next: null
+      };
+      if (this.length > 0) this.tail.next = entry;else this.head = entry;
+      this.tail = entry;
+      ++this.length;
     }
-
-    return ret;
-  };
-
-  _proto.concat = function concat(n) {
-    if (this.length === 0) return Buffer.alloc(0);
-    var ret = Buffer.allocUnsafe(n >>> 0);
-    var p = this.head;
-    var i = 0;
-
-    while (p) {
-      copyBuffer(p.data, ret, i);
-      i += p.data.length;
-      p = p.next;
+  }, {
+    key: "unshift",
+    value: function unshift(v) {
+      var entry = {
+        data: v,
+        next: this.head
+      };
+      if (this.length === 0) this.tail = entry;
+      this.head = entry;
+      ++this.length;
     }
-
-    return ret;
-  } // Consumes a specified amount of bytes or characters from the buffered data.
-  ;
-
-  _proto.consume = function consume(n, hasStrings) {
-    var ret;
-
-    if (n < this.head.data.length) {
-      // `slice` is the same for buffers and strings.
-      ret = this.head.data.slice(0, n);
-      this.head.data = this.head.data.slice(n);
-    } else if (n === this.head.data.length) {
-      // First chunk is a perfect match.
-      ret = this.shift();
-    } else {
-      // Result spans more than one buffer.
-      ret = hasStrings ? this._getString(n) : this._getBuffer(n);
+  }, {
+    key: "shift",
+    value: function shift() {
+      if (this.length === 0) return;
+      var ret = this.head.data;
+      if (this.length === 1) this.head = this.tail = null;else this.head = this.head.next;
+      --this.length;
+      return ret;
     }
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.head = this.tail = null;
+      this.length = 0;
+    }
+  }, {
+    key: "join",
+    value: function join(s) {
+      if (this.length === 0) return '';
+      var p = this.head;
+      var ret = '' + p.data;
 
-    return ret;
-  };
-
-  _proto.first = function first() {
-    return this.head.data;
-  } // Consumes a specified amount of characters from the buffered data.
-  ;
-
-  _proto._getString = function _getString(n) {
-    var p = this.head;
-    var c = 1;
-    var ret = p.data;
-    n -= ret.length;
-
-    while (p = p.next) {
-      var str = p.data;
-      var nb = n > str.length ? str.length : n;
-      if (nb === str.length) ret += str;else ret += str.slice(0, n);
-      n -= nb;
-
-      if (n === 0) {
-        if (nb === str.length) {
-          ++c;
-          if (p.next) this.head = p.next;else this.head = this.tail = null;
-        } else {
-          this.head = p;
-          p.data = str.slice(nb);
-        }
-
-        break;
+      while (p = p.next) {
+        ret += s + p.data;
       }
 
-      ++c;
+      return ret;
     }
+  }, {
+    key: "concat",
+    value: function concat(n) {
+      if (this.length === 0) return Buffer.alloc(0);
+      var ret = Buffer.allocUnsafe(n >>> 0);
+      var p = this.head;
+      var i = 0;
 
-    this.length -= c;
-    return ret;
-  } // Consumes a specified amount of bytes from the buffered data.
-  ;
-
-  _proto._getBuffer = function _getBuffer(n) {
-    var ret = Buffer.allocUnsafe(n);
-    var p = this.head;
-    var c = 1;
-    p.data.copy(ret);
-    n -= p.data.length;
-
-    while (p = p.next) {
-      var buf = p.data;
-      var nb = n > buf.length ? buf.length : n;
-      buf.copy(ret, ret.length - n, 0, nb);
-      n -= nb;
-
-      if (n === 0) {
-        if (nb === buf.length) {
-          ++c;
-          if (p.next) this.head = p.next;else this.head = this.tail = null;
-        } else {
-          this.head = p;
-          p.data = buf.slice(nb);
-        }
-
-        break;
+      while (p) {
+        copyBuffer(p.data, ret, i);
+        i += p.data.length;
+        p = p.next;
       }
 
-      ++c;
+      return ret;
+    } // Consumes a specified amount of bytes or characters from the buffered data.
+
+  }, {
+    key: "consume",
+    value: function consume(n, hasStrings) {
+      var ret;
+
+      if (n < this.head.data.length) {
+        // `slice` is the same for buffers and strings.
+        ret = this.head.data.slice(0, n);
+        this.head.data = this.head.data.slice(n);
+      } else if (n === this.head.data.length) {
+        // First chunk is a perfect match.
+        ret = this.shift();
+      } else {
+        // Result spans more than one buffer.
+        ret = hasStrings ? this._getString(n) : this._getBuffer(n);
+      }
+
+      return ret;
     }
+  }, {
+    key: "first",
+    value: function first() {
+      return this.head.data;
+    } // Consumes a specified amount of characters from the buffered data.
 
-    this.length -= c;
-    return ret;
-  } // Make sure the linked list only shows the minimal necessary information.
-  ;
+  }, {
+    key: "_getString",
+    value: function _getString(n) {
+      var p = this.head;
+      var c = 1;
+      var ret = p.data;
+      n -= ret.length;
 
-  _proto[custom] = function (_, options) {
-    return inspect(this, _objectSpread({}, options, {
-      // Only inspect one level.
-      depth: 0,
-      // It should not recurse.
-      customInspect: false
-    }));
-  };
+      while (p = p.next) {
+        var str = p.data;
+        var nb = n > str.length ? str.length : n;
+        if (nb === str.length) ret += str;else ret += str.slice(0, n);
+        n -= nb;
+
+        if (n === 0) {
+          if (nb === str.length) {
+            ++c;
+            if (p.next) this.head = p.next;else this.head = this.tail = null;
+          } else {
+            this.head = p;
+            p.data = str.slice(nb);
+          }
+
+          break;
+        }
+
+        ++c;
+      }
+
+      this.length -= c;
+      return ret;
+    } // Consumes a specified amount of bytes from the buffered data.
+
+  }, {
+    key: "_getBuffer",
+    value: function _getBuffer(n) {
+      var ret = Buffer.allocUnsafe(n);
+      var p = this.head;
+      var c = 1;
+      p.data.copy(ret);
+      n -= p.data.length;
+
+      while (p = p.next) {
+        var buf = p.data;
+        var nb = n > buf.length ? buf.length : n;
+        buf.copy(ret, ret.length - n, 0, nb);
+        n -= nb;
+
+        if (n === 0) {
+          if (nb === buf.length) {
+            ++c;
+            if (p.next) this.head = p.next;else this.head = this.tail = null;
+          } else {
+            this.head = p;
+            p.data = buf.slice(nb);
+          }
+
+          break;
+        }
+
+        ++c;
+      }
+
+      this.length -= c;
+      return ret;
+    } // Make sure the linked list only shows the minimal necessary information.
+
+  }, {
+    key: custom,
+    value: function value(_, options) {
+      return inspect(this, _objectSpread({}, options, {
+        // Only inspect one level.
+        depth: 0,
+        // It should not recurse.
+        customInspect: false
+      }));
+    }
+  }]);
 
   return BufferList;
 }();
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js","util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js","util":"D:\\work\\git\\privatesky\\node_modules\\browser-resolve\\empty.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js":[function(require,module,exports){
 (function (process){
 'use strict'; // undocumented cb() API, needed for core, not for public API
 
@@ -54388,8 +54306,13 @@ function destroy(err, cb) {
   if (readableDestroyed || writableDestroyed) {
     if (cb) {
       cb(err);
-    } else if (err && (!this._writableState || !this._writableState.errorEmitted)) {
-      process.nextTick(emitErrorNT, this, err);
+    } else if (err) {
+      if (!this._writableState) {
+        process.nextTick(emitErrorNT, this, err);
+      } else if (!this._writableState.errorEmitted) {
+        this._writableState.errorEmitted = true;
+        process.nextTick(emitErrorNT, this, err);
+      }
     }
 
     return this;
@@ -54408,10 +54331,13 @@ function destroy(err, cb) {
 
   this._destroy(err || null, function (err) {
     if (!cb && err) {
-      process.nextTick(emitErrorAndCloseNT, _this, err);
-
-      if (_this._writableState) {
+      if (!_this._writableState) {
+        process.nextTick(emitErrorAndCloseNT, _this, err);
+      } else if (!_this._writableState.errorEmitted) {
         _this._writableState.errorEmitted = true;
+        process.nextTick(emitErrorAndCloseNT, _this, err);
+      } else {
+        process.nextTick(emitCloseNT, _this);
       }
     } else if (cb) {
       process.nextTick(emitCloseNT, _this);
@@ -54458,13 +54384,25 @@ function emitErrorNT(self, err) {
   self.emit('error', err);
 }
 
+function errorOrDestroy(stream, err) {
+  // We have tests that rely on errors being emitted
+  // in the same tick, so changing this is semver major.
+  // For now when you opt-in to autoDestroy we allow
+  // the error to be emitted nextTick. In a future
+  // semver major update we should change the default to this.
+  var rState = stream._readableState;
+  var wState = stream._writableState;
+  if (rState && rState.autoDestroy || wState && wState.autoDestroy) stream.destroy(err);else stream.emit('error', err);
+}
+
 module.exports = {
   destroy: destroy,
-  undestroy: undestroy
+  undestroy: undestroy,
+  errorOrDestroy: errorOrDestroy
 };
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js":[function(require,module,exports){
 // Ported from https://github.com/mafintosh/end-of-stream with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -54569,7 +54507,12 @@ function eos(stream, opts, callback) {
 }
 
 module.exports = eos;
-},{"../../../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\pipeline.js":[function(require,module,exports){
+},{"../../../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\from-browser.js":[function(require,module,exports){
+module.exports = function () {
+  throw new Error('Readable.from is not available in the browser')
+};
+
+},{}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\pipeline.js":[function(require,module,exports){
 // Ported from https://github.com/mafintosh/pump with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -54667,7 +54610,7 @@ function pipeline() {
 }
 
 module.exports = pipeline;
-},{"../../../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./end-of-stream":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js":[function(require,module,exports){
+},{"../../../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js","./end-of-stream":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js":[function(require,module,exports){
 'use strict';
 
 var ERR_INVALID_OPT_VALUE = require('../../../errors').codes.ERR_INVALID_OPT_VALUE;
@@ -54695,9 +54638,9 @@ function getHighWaterMark(state, options, duplexKey, isDuplex) {
 module.exports = {
   getHighWaterMark: getHighWaterMark
 };
-},{"../../../errors":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js":[function(require,module,exports){
-arguments[4]["D:\\Catalin\\Munca\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js"][0].apply(exports,arguments)
-},{"events":"D:\\Catalin\\Munca\\privatesky\\node_modules\\events\\events.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js":[function(require,module,exports){
+},{"../../../errors":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\errors-browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js":[function(require,module,exports){
+arguments[4]["D:\\work\\git\\privatesky\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js"][0].apply(exports,arguments)
+},{"events":"D:\\work\\git\\privatesky\\node_modules\\events\\events.js"}],"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\readable-browser.js":[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -54708,304 +54651,9 @@ exports.PassThrough = require('./lib/_stream_passthrough.js');
 exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
-},{"./lib/_stream_duplex.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./lib/_stream_passthrough.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_passthrough.js","./lib/_stream_readable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js","./lib/_stream_transform.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js","./lib/_stream_writable.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js","./lib/internal/streams/end-of-stream.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js","./lib/internal/streams/pipeline.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\pipeline.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js":[function(require,module,exports){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-'use strict';
-
-/*<replacement>*/
-
-var Buffer = require('safe-buffer').Buffer;
-/*</replacement>*/
-
-var isEncoding = Buffer.isEncoding || function (encoding) {
-  encoding = '' + encoding;
-  switch (encoding && encoding.toLowerCase()) {
-    case 'hex':case 'utf8':case 'utf-8':case 'ascii':case 'binary':case 'base64':case 'ucs2':case 'ucs-2':case 'utf16le':case 'utf-16le':case 'raw':
-      return true;
-    default:
-      return false;
-  }
-};
-
-function _normalizeEncoding(enc) {
-  if (!enc) return 'utf8';
-  var retried;
-  while (true) {
-    switch (enc) {
-      case 'utf8':
-      case 'utf-8':
-        return 'utf8';
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return 'utf16le';
-      case 'latin1':
-      case 'binary':
-        return 'latin1';
-      case 'base64':
-      case 'ascii':
-      case 'hex':
-        return enc;
-      default:
-        if (retried) return; // undefined
-        enc = ('' + enc).toLowerCase();
-        retried = true;
-    }
-  }
-};
-
-// Do not cache `Buffer.isEncoding` when checking encoding names as some
-// modules monkey-patch it to support additional encodings
-function normalizeEncoding(enc) {
-  var nenc = _normalizeEncoding(enc);
-  if (typeof nenc !== 'string' && (Buffer.isEncoding === isEncoding || !isEncoding(enc))) throw new Error('Unknown encoding: ' + enc);
-  return nenc || enc;
-}
-
-// StringDecoder provides an interface for efficiently splitting a series of
-// buffers into a series of JS strings without breaking apart multi-byte
-// characters.
-exports.StringDecoder = StringDecoder;
-function StringDecoder(encoding) {
-  this.encoding = normalizeEncoding(encoding);
-  var nb;
-  switch (this.encoding) {
-    case 'utf16le':
-      this.text = utf16Text;
-      this.end = utf16End;
-      nb = 4;
-      break;
-    case 'utf8':
-      this.fillLast = utf8FillLast;
-      nb = 4;
-      break;
-    case 'base64':
-      this.text = base64Text;
-      this.end = base64End;
-      nb = 3;
-      break;
-    default:
-      this.write = simpleWrite;
-      this.end = simpleEnd;
-      return;
-  }
-  this.lastNeed = 0;
-  this.lastTotal = 0;
-  this.lastChar = Buffer.allocUnsafe(nb);
-}
-
-StringDecoder.prototype.write = function (buf) {
-  if (buf.length === 0) return '';
-  var r;
-  var i;
-  if (this.lastNeed) {
-    r = this.fillLast(buf);
-    if (r === undefined) return '';
-    i = this.lastNeed;
-    this.lastNeed = 0;
-  } else {
-    i = 0;
-  }
-  if (i < buf.length) return r ? r + this.text(buf, i) : this.text(buf, i);
-  return r || '';
-};
-
-StringDecoder.prototype.end = utf8End;
-
-// Returns only complete characters in a Buffer
-StringDecoder.prototype.text = utf8Text;
-
-// Attempts to complete a partial non-UTF-8 character using bytes from a Buffer
-StringDecoder.prototype.fillLast = function (buf) {
-  if (this.lastNeed <= buf.length) {
-    buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, this.lastNeed);
-    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
-  }
-  buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, buf.length);
-  this.lastNeed -= buf.length;
-};
-
-// Checks the type of a UTF-8 byte, whether it's ASCII, a leading byte, or a
-// continuation byte. If an invalid byte is detected, -2 is returned.
-function utf8CheckByte(byte) {
-  if (byte <= 0x7F) return 0;else if (byte >> 5 === 0x06) return 2;else if (byte >> 4 === 0x0E) return 3;else if (byte >> 3 === 0x1E) return 4;
-  return byte >> 6 === 0x02 ? -1 : -2;
-}
-
-// Checks at most 3 bytes at the end of a Buffer in order to detect an
-// incomplete multi-byte UTF-8 character. The total number of bytes (2, 3, or 4)
-// needed to complete the UTF-8 character (if applicable) are returned.
-function utf8CheckIncomplete(self, buf, i) {
-  var j = buf.length - 1;
-  if (j < i) return 0;
-  var nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) self.lastNeed = nb - 1;
-    return nb;
-  }
-  if (--j < i || nb === -2) return 0;
-  nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) self.lastNeed = nb - 2;
-    return nb;
-  }
-  if (--j < i || nb === -2) return 0;
-  nb = utf8CheckByte(buf[j]);
-  if (nb >= 0) {
-    if (nb > 0) {
-      if (nb === 2) nb = 0;else self.lastNeed = nb - 3;
-    }
-    return nb;
-  }
-  return 0;
-}
-
-// Validates as many continuation bytes for a multi-byte UTF-8 character as
-// needed or are available. If we see a non-continuation byte where we expect
-// one, we "replace" the validated continuation bytes we've seen so far with
-// a single UTF-8 replacement character ('\ufffd'), to match v8's UTF-8 decoding
-// behavior. The continuation byte check is included three times in the case
-// where all of the continuation bytes for a character exist in the same buffer.
-// It is also done this way as a slight performance increase instead of using a
-// loop.
-function utf8CheckExtraBytes(self, buf, p) {
-  if ((buf[0] & 0xC0) !== 0x80) {
-    self.lastNeed = 0;
-    return '\ufffd';
-  }
-  if (self.lastNeed > 1 && buf.length > 1) {
-    if ((buf[1] & 0xC0) !== 0x80) {
-      self.lastNeed = 1;
-      return '\ufffd';
-    }
-    if (self.lastNeed > 2 && buf.length > 2) {
-      if ((buf[2] & 0xC0) !== 0x80) {
-        self.lastNeed = 2;
-        return '\ufffd';
-      }
-    }
-  }
-}
-
-// Attempts to complete a multi-byte UTF-8 character using bytes from a Buffer.
-function utf8FillLast(buf) {
-  var p = this.lastTotal - this.lastNeed;
-  var r = utf8CheckExtraBytes(this, buf, p);
-  if (r !== undefined) return r;
-  if (this.lastNeed <= buf.length) {
-    buf.copy(this.lastChar, p, 0, this.lastNeed);
-    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
-  }
-  buf.copy(this.lastChar, p, 0, buf.length);
-  this.lastNeed -= buf.length;
-}
-
-// Returns all complete UTF-8 characters in a Buffer. If the Buffer ended on a
-// partial character, the character's bytes are buffered until the required
-// number of bytes are available.
-function utf8Text(buf, i) {
-  var total = utf8CheckIncomplete(this, buf, i);
-  if (!this.lastNeed) return buf.toString('utf8', i);
-  this.lastTotal = total;
-  var end = buf.length - (total - this.lastNeed);
-  buf.copy(this.lastChar, 0, end);
-  return buf.toString('utf8', i, end);
-}
-
-// For UTF-8, a replacement character is added when ending on a partial
-// character.
-function utf8End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) return r + '\ufffd';
-  return r;
-}
-
-// UTF-16LE typically needs two bytes per character, but even if we have an even
-// number of bytes available, we need to check if we end on a leading/high
-// surrogate. In that case, we need to wait for the next two bytes in order to
-// decode the last character properly.
-function utf16Text(buf, i) {
-  if ((buf.length - i) % 2 === 0) {
-    var r = buf.toString('utf16le', i);
-    if (r) {
-      var c = r.charCodeAt(r.length - 1);
-      if (c >= 0xD800 && c <= 0xDBFF) {
-        this.lastNeed = 2;
-        this.lastTotal = 4;
-        this.lastChar[0] = buf[buf.length - 2];
-        this.lastChar[1] = buf[buf.length - 1];
-        return r.slice(0, -1);
-      }
-    }
-    return r;
-  }
-  this.lastNeed = 1;
-  this.lastTotal = 2;
-  this.lastChar[0] = buf[buf.length - 1];
-  return buf.toString('utf16le', i, buf.length - 1);
-}
-
-// For UTF-16LE we do not explicitly append special replacement characters if we
-// end on a partial character, we simply let v8 handle that.
-function utf16End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) {
-    var end = this.lastTotal - this.lastNeed;
-    return r + this.lastChar.toString('utf16le', 0, end);
-  }
-  return r;
-}
-
-function base64Text(buf, i) {
-  var n = (buf.length - i) % 3;
-  if (n === 0) return buf.toString('base64', i);
-  this.lastNeed = 3 - n;
-  this.lastTotal = 3;
-  if (n === 1) {
-    this.lastChar[0] = buf[buf.length - 1];
-  } else {
-    this.lastChar[0] = buf[buf.length - 2];
-    this.lastChar[1] = buf[buf.length - 1];
-  }
-  return buf.toString('base64', i, buf.length - n);
-}
-
-function base64End(buf) {
-  var r = buf && buf.length ? this.write(buf) : '';
-  if (this.lastNeed) return r + this.lastChar.toString('base64', 0, 3 - this.lastNeed);
-  return r;
-}
-
-// Pass bytes on through for single-byte encodings (e.g. ascii, latin1, hex)
-function simpleWrite(buf) {
-  return buf.toString(this.encoding);
-}
-
-function simpleEnd(buf) {
-  return buf && buf.length ? this.write(buf) : '';
-}
-},{"safe-buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\timers-browserify\\main.js":[function(require,module,exports){
+},{"./lib/_stream_duplex.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_duplex.js","./lib/_stream_passthrough.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_passthrough.js","./lib/_stream_readable.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_readable.js","./lib/_stream_transform.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_transform.js","./lib/_stream_writable.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\_stream_writable.js","./lib/internal/streams/end-of-stream.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js","./lib/internal/streams/pipeline.js":"D:\\work\\git\\privatesky\\node_modules\\stream-http\\node_modules\\readable-stream\\lib\\internal\\streams\\pipeline.js"}],"D:\\work\\git\\privatesky\\node_modules\\string_decoder\\lib\\string_decoder.js":[function(require,module,exports){
+arguments[4]["D:\\work\\git\\privatesky\\node_modules\\readable-stream\\node_modules\\string_decoder\\lib\\string_decoder.js"][0].apply(exports,arguments)
+},{"safe-buffer":"D:\\work\\git\\privatesky\\node_modules\\safe-buffer\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\timers-browserify\\main.js":[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -55085,7 +54733,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
 
-},{"process/browser.js":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","timers":"D:\\Catalin\\Munca\\privatesky\\node_modules\\timers-browserify\\main.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\url.js":[function(require,module,exports){
+},{"process/browser.js":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","timers":"D:\\work\\git\\privatesky\\node_modules\\timers-browserify\\main.js"}],"D:\\work\\git\\privatesky\\node_modules\\url\\url.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -55819,7 +55467,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\util.js","punycode":"D:\\Catalin\\Munca\\privatesky\\node_modules\\punycode\\punycode.js","querystring":"D:\\Catalin\\Munca\\privatesky\\node_modules\\querystring-es3\\index.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\url\\util.js":[function(require,module,exports){
+},{"./util":"D:\\work\\git\\privatesky\\node_modules\\url\\util.js","punycode":"D:\\work\\git\\privatesky\\node_modules\\punycode\\punycode.js","querystring":"D:\\work\\git\\privatesky\\node_modules\\querystring-es3\\index.js"}],"D:\\work\\git\\privatesky\\node_modules\\url\\util.js":[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -55837,7 +55485,7 @@ module.exports = {
   }
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\util-deprecate\\browser.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\util-deprecate\\browser.js":[function(require,module,exports){
 (function (global){
 
 /**
@@ -55909,11 +55557,11 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
-arguments[4]["D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js"][0].apply(exports,arguments)
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\support\\isBufferBrowser.js":[function(require,module,exports){
-arguments[4]["D:\\Catalin\\Munca\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js"][0].apply(exports,arguments)
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\util.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\util\\node_modules\\inherits\\inherits_browser.js":[function(require,module,exports){
+arguments[4]["D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\inherits\\inherits_browser.js"][0].apply(exports,arguments)
+},{}],"D:\\work\\git\\privatesky\\node_modules\\util\\support\\isBufferBrowser.js":[function(require,module,exports){
+arguments[4]["D:\\work\\git\\privatesky\\node_modules\\assert\\node_modules\\util\\support\\isBufferBrowser.js"][0].apply(exports,arguments)
+},{}],"D:\\work\\git\\privatesky\\node_modules\\util\\util.js":[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -56504,7 +56152,7 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./support/isBuffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\support\\isBufferBrowser.js","_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\Catalin\\Munca\\privatesky\\node_modules\\util\\node_modules\\inherits\\inherits_browser.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\vm-browserify\\index.js":[function(require,module,exports){
+},{"./support/isBuffer":"D:\\work\\git\\privatesky\\node_modules\\util\\support\\isBufferBrowser.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","inherits":"D:\\work\\git\\privatesky\\node_modules\\util\\node_modules\\inherits\\inherits_browser.js"}],"D:\\work\\git\\privatesky\\node_modules\\vm-browserify\\index.js":[function(require,module,exports){
 var indexOf = function (xs, item) {
     if (xs.indexOf) return xs.indexOf(item);
     else for (var i = 0; i < xs.length; i++) {
@@ -56655,7 +56303,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\xtend\\immutable.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\privatesky\\node_modules\\xtend\\immutable.js":[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -56750,7 +56398,7 @@ module.exports = bufferFrom
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\buffer\\index.js"}],"pskcrypto":[function(require,module,exports){
+},{"buffer":"D:\\work\\git\\privatesky\\node_modules\\buffer\\index.js"}],"pskcrypto":[function(require,module,exports){
 const PskCrypto = require("./lib/PskCrypto");
 const ssutil = require("./signsensusDS/ssutil");
 
@@ -56761,7 +56409,7 @@ module.exports.hashValues = ssutil.hashValues;
 module.exports.DuplexStream = require("./lib/utils/DuplexStream");
 
 module.exports.isStream = require("./lib/utils/isStream");
-},{"./lib/PskCrypto":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js","./lib/utils/DuplexStream":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js","./lib/utils/isStream":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js","./signsensusDS/ssutil":"D:\\Catalin\\Munca\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js"}],"source-map-support":[function(require,module,exports){
+},{"./lib/PskCrypto":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js","./lib/utils/DuplexStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js","./lib/utils/isStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js","./signsensusDS/ssutil":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js"}],"source-map-support":[function(require,module,exports){
 (function (process){
 var SourceMapConsumer = require('source-map').SourceMapConsumer;
 var path = require('path');
@@ -57100,8 +56748,13 @@ function cloneCallSite(frame) {
   return object;
 }
 
-function wrapCallSite(frame) {
+function wrapCallSite(frame, state) {
+  // provides interface backward compatibility
+  if (state === undefined) {
+    state = { nextPosition: null, curPosition: null }
+  }
   if(frame.isNative()) {
+    state.curPosition = null;
     return frame;
   }
 
@@ -57115,7 +56768,11 @@ function wrapCallSite(frame) {
 
     // Fix position in Node where some (internal) code is prepended.
     // See https://github.com/evanw/node-source-map-support/issues/36
-    var headerLength = 62;
+    // Header removed in node at ^10.16 || >=11.11.0
+    // v11 is not an LTS candidate, we can just test the one version with it.
+    // Test node versions for: 10.16-19, 10.20+, 12-19, 20-99, 100+, or 11.11
+    var noHeader = /^v(10\.1[6-9]|10\.[2-9][0-9]|10\.[0-9]{3,}|1[2-9]\d*|[2-9]\d|\d{3,}|11\.11)/;
+    var headerLength = noHeader.test(process.version) ? 0 : 62;
     if (line === 1 && column > headerLength && !isInBrowser() && !frame.isEval()) {
       column -= headerLength;
     }
@@ -57125,9 +56782,15 @@ function wrapCallSite(frame) {
       line: line,
       column: column
     });
+    state.curPosition = position;
     frame = cloneCallSite(frame);
     var originalFunctionName = frame.getFunctionName;
-    frame.getFunctionName = function() { return position.name || originalFunctionName(); };
+    frame.getFunctionName = function() {
+      if (state.nextPosition == null) {
+        return originalFunctionName();
+      }
+      return state.nextPosition.name || originalFunctionName();
+    };
     frame.getFileName = function() { return position.source; };
     frame.getLineNumber = function() { return position.line; };
     frame.getColumnNumber = function() { return position.column + 1; };
@@ -57160,9 +56823,14 @@ function prepareStackTrace(error, stack) {
   var message = error.message || '';
   var errorString = name + ": " + message;
 
-  return errorString + stack.map(function(frame) {
-    return '\n    at ' + wrapCallSite(frame);
-  }).join('');
+  var state = { nextPosition: null, curPosition: null };
+  var processedStack = [];
+  for (var i = stack.length - 1; i >= 0; i--) {
+    processedStack.push('\n    at ' + wrapCallSite(stack[i], state));
+    state.nextPosition = state.curPosition;
+  }
+  state.curPosition = state.nextPosition = null;
+  return errorString + processedStack.reverse().join('');
 }
 
 // Generate position and snippet of original source with pointer
@@ -57326,14 +56994,14 @@ exports.resetRetrieveHandlers = function() {
 
   retrieveFileHandlers = originalRetrieveFileHandlers.slice(0);
   retrieveMapHandlers = originalRetrieveMapHandlers.slice(0);
-  
+
   retrieveSourceMap = handlerExec(retrieveMapHandlers);
   retrieveFile = handlerExec(retrieveFileHandlers);
 }
 
 }).call(this,require('_process'))
 
-},{"_process":"D:\\Catalin\\Munca\\privatesky\\node_modules\\process\\browser.js","buffer-from":"buffer-from","fs":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","module":"D:\\Catalin\\Munca\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\Catalin\\Munca\\privatesky\\node_modules\\path-browserify\\index.js","source-map":"source-map"}],"source-map":[function(require,module,exports){
+},{"_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","buffer-from":"buffer-from","fs":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","module":"D:\\work\\git\\privatesky\\node_modules\\browserify\\lib\\_empty.js","path":"D:\\work\\git\\privatesky\\node_modules\\path-browserify\\index.js","source-map":"source-map"}],"source-map":[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -57343,9 +57011,10 @@ exports.SourceMapGenerator = require('./lib/source-map-generator').SourceMapGene
 exports.SourceMapConsumer = require('./lib/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./lib/source-node').SourceNode;
 
-},{"./lib/source-map-consumer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js","./lib/source-map-generator":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./lib/source-node":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-node.js"}],"swarm-engine/bootScripts/browser/ssapp":[function(require,module,exports){
+},{"./lib/source-map-consumer":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js","./lib/source-map-generator":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./lib/source-node":"D:\\work\\git\\privatesky\\node_modules\\source-map\\lib\\source-node.js"}],"swarm-engine/bootScripts/browser/host":[function(require,module,exports){
 module.exports = {
-    SSappBootScript:require("./SSappBootScript")
+    HostBootScript:require("./HostBootScript")
 }
-},{"./SSappBootScript":"D:\\Catalin\\Munca\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\ssapp\\SSappBootScript.js"}]},{},["D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\ssappBoot.js"])
-//# sourceMappingURL=ssappBoot.js.map
+
+},{"./HostBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\host\\HostBootScript.js"}]},{},["D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot.js"])
+//# sourceMappingURL=hostBoot.js.map
