@@ -20,7 +20,6 @@ export function dossierNameInputChangeHandler(rootModel) {
 
   let inputDossierName = model.getChainValue(`${rootModel}.setNameInput.value`);
 
-  console.log(model, inputDossierName);
   if (!inputDossierName || !inputDossierName.length) {
     model.setChainValue(`${rootModel}.hasError`, true);
     model.setChainValue(

@@ -13,6 +13,17 @@ export function modelEquals(chain, checkValue) {
   return equals(modelValue, checkValue);
 }
 
+export function isChainEmpty(chain) {
+  let model = this;
+  if (!model) {
+    return false;
+  }
+
+  let modelValue = model.getChainValue(chain);
+
+  return !modelValue || !modelValue.length;
+}
+
 export function validateSeed(seed) {
   console.log(seed);
 

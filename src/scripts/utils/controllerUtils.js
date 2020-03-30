@@ -1,140 +1,129 @@
 import {
-  isGridLayout,
-  isListLayout,
-  isFileSelected,
-  hasExitModalError,
-  isSignOutModalOpened,
-  isDossierEmpty,
-  isCreateDossierModal,
-  isNewDossierCreateState,
-  hasNewDossierModalError,
-  hasImportDossierModalError,
-  isImportDossierCreateState,
-  isImportDossierModal,
-  isReceiveDossierModal,
-  isReceiveDossierCreateState,
-  hasReceiveDossierModalError
-} from "../../assets/models/condition-expressions.js";
-import {
   signOutCheckboxToggle,
   dossierNameInputChangeHandler
 } from "../../assets/models/chain-change-handlers.js";
+import { modelEquals, isChainEmpty } from "./utils.js";
 
-// TODO: Refactor: Create a dictionary with the conditions and make a generic function (something similar with assert.true) that will get the condition result.
-
-// let dict = [
-//   {
-//     expression: "isGridLayout",
-//     callback: isGridLayout,
-//     chains: ["switchLayout.active"]
-//   }
-// ];
+let conditionDictionary = [
+  {
+    expression: "isGridLayout",
+    callback: function() {
+      return modelEquals.call(this, "switchLayout.active", "grid");
+    },
+    chains: ["switchLayout.active"]
+  },
+  {
+    expression: "isListLayout",
+    callback: function() {
+      return modelEquals.call(this, "switchLayout.active", "list");
+    },
+    chains: ["switchLayout.active"]
+  },
+  {
+    expression: "isDossierEmpty",
+    callback: function() {
+      return isChainEmpty.call(this, "dossierDetails.items");
+    },
+    chains: ["dossierDetails.items"]
+  },
+  {
+    expression: "isFileSelected",
+    callback: function() {
+      return !isChainEmpty.call(this, "dossierDetails.items");
+    },
+    chains: ["rightMenu.selectedItems"]
+  },
+  {
+    expression: "isSignOutModalOpened",
+    callback: function() {
+      return modelEquals.call(this, "signOut.modal.opened", true);
+    },
+    chains: ["signOut.modal.opened"]
+  },
+  {
+    expression: "hasExitModalError",
+    callback: function() {
+      return modelEquals.call(this, "signOut.modal.error.hasError", true);
+    },
+    chains: ["signOut.modal.error.hasError", "signOut.modal.error.errorMessage"]
+  },
+  {
+    expression: "isCreateDossierModal",
+    callback: function() {
+      return modelEquals.call(this, "addItems.selectedModal", "create-dossier");
+    },
+    chains: ["addItems.selectedModal"]
+  },
+  {
+    expression: "isImportDossierModal",
+    callback: function() {
+      return modelEquals.call(this, "addItems.selectedModal", "import-dossier");
+    },
+    chains: ["addItems.selectedModal"]
+  },
+  {
+    expression: "isReceiveDossierModal",
+    callback: function() {
+      return modelEquals.call(
+        this,
+        "addItems.selectedModal",
+        "receive-dossier"
+      );
+    },
+    chains: ["addItems.selectedModal"]
+  },
+  {
+    expression: "isNewDossierCreateState",
+    callback: function() {
+      return modelEquals.call(this, "createDossierModal.createState", true);
+    },
+    chains: ["createDossierModal.createState"]
+  },
+  {
+    expression: "hasNewDossierModalError",
+    callback: function() {
+      return modelEquals.call(this, "screateDossierModal.hasError", true);
+    },
+    chains: ["createDossierModal.hasError", "createDossierModal.errorMessage"]
+  },
+  {
+    expression: "isImportDossierCreateState",
+    callback: function() {
+      return modelEquals.call(this, "importDossierModal.createState", true);
+    },
+    chains: ["importDossierModal.createState"]
+  },
+  {
+    expression: "hasImportDossierModalError",
+    callback: function() {
+      return modelEquals.call(this, "importDossierModal.hasError", true);
+    },
+    chains: ["importDossierModal.hasError", "importDossierModal.errorMessage"]
+  },
+  {
+    expression: "isReceiveDossierCreateState",
+    callback: function() {
+      return modelEquals.call(this, "receiveDossierModal.createState", true);
+    },
+    chains: ["receiveDossierModal.createState"]
+  },
+  {
+    expression: "hasReceiveDossierModalError",
+    callback: function() {
+      return modelEquals.call(this, "receiveDossierModal.hasError", true);
+    },
+    chains: ["receiveDossierModal.hasError", "receiveDossierModal.errorMessage"]
+  }
+];
 
 export function explorerInitConditionalExpressions() {
   const self = this;
 
-  if (!self.model.hasExpression("isGridLayout")) {
-    self.model.addExpression("isGridLayout", isGridLayout, [
-      "switchLayout.active"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isListLayout")) {
-    self.model.addExpression("isListLayout", isListLayout, [
-      "switchLayout.active"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isDossierEmpty")) {
-    self.model.addExpression("isDossierEmpty", isDossierEmpty, [
-      "dossierDetails.items"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isFileSelected")) {
-    self.model.addExpression("isFileSelected", isFileSelected, [
-      "rightMenu.selectedItems"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isSignOutModalOpened")) {
-    self.model.addExpression("isSignOutModalOpened", isSignOutModalOpened, [
-      "signOut.modal.opened"
-    ]);
-  }
-
-  if (!self.model.hasExpression("hasExitModalError")) {
-    self.model.addExpression("hasExitModalError", hasExitModalError, [
-      "signOut.modal.error.hasError",
-      "signOut.modal.error.errorMessage"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isCreateDossierModal")) {
-    self.model.addExpression("isCreateDossierModal", isCreateDossierModal, [
-      "addItems.selectedModal"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isNewDossierCreateState")) {
-    self.model.addExpression(
-      "isNewDossierCreateState",
-      isNewDossierCreateState,
-      ["createDossierModal.createState"]
-    );
-  }
-
-  if (!self.model.hasExpression("hasNewDossierModalError")) {
-    self.model.addExpression(
-      "hasNewDossierModalError",
-      hasNewDossierModalError,
-      ["createDossierModal.hasError", "createDossierModal.errorMessage"]
-    );
-  }
-
-  if (!self.model.hasExpression("isImportDossierModal")) {
-    self.model.addExpression("isImportDossierModal", isImportDossierModal, [
-      "addItems.selectedModal"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isImportDossierCreateState")) {
-    self.model.addExpression(
-      "isImportDossierCreateState",
-      isImportDossierCreateState,
-      ["importDossierModal.createState"]
-    );
-  }
-
-  if (!self.model.hasExpression("hasImportDossierModalError")) {
-    self.model.addExpression(
-      "hasImportDossierModalError",
-      hasImportDossierModalError,
-      ["importDossierModal.hasError", "importDossierModal.errorMessage"]
-    );
-  }
-
-  if (!self.model.hasExpression("isReceiveDossierModal")) {
-    self.model.addExpression("isReceiveDossierModal", isReceiveDossierModal, [
-      "addItems.selectedModal"
-    ]);
-  }
-
-  if (!self.model.hasExpression("isReceiveDossierCreateState")) {
-    self.model.addExpression(
-      "isReceiveDossierCreateState",
-      isReceiveDossierCreateState,
-      ["receiveDossierModal.createState"]
-    );
-  }
-
-  if (!self.model.hasExpression("hasReceiveDossierModalError")) {
-    self.model.addExpression(
-      "hasReceiveDossierModalError",
-      hasReceiveDossierModalError,
-      ["receiveDossierModal.hasError", "receiveDossierModal.errorMessage"]
-    );
-  }
+  conditionDictionary.forEach(function({ expression, callback, chains }) {
+    if (!self.model.hasExpression(expression)) {
+      self.model.addExpression(expression, callback, chains);
+    }
+  });
 
   /*****************  Chain change handlers - No Exprssions *********************/
 
