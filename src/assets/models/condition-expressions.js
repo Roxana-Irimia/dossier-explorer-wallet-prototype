@@ -53,3 +53,39 @@ export function hasNewDossierModalError() {
 
   return model.getChainValue("createDossierModal.hasError") === true;
 }
+
+export function isImportDossierModal() {
+  let model = this;
+
+  return model.getChainValue("addItems.selectedModal") === "import-dossier";
+}
+
+export function isImportDossierCreateState() {
+  let model = this;
+
+  return model.getChainValue("importDossierModal.createState") === true;
+}
+
+export function hasImportDossierModalError() {
+  let model = this;
+
+  return model.getChainValue("importDossierModal.hasError") === true;
+}
+
+export function isReceiveDossierModal() {
+  let model = this;
+
+  return model.getChainValue("addItems.selectedModal") === "receive-dossier";
+}
+
+export function isReceiveDossierCreateState() {
+  let model = this;
+
+  return model.getChainValue("receiveDossierModal.createState") === true;
+}
+
+export function hasReceiveDossierModalError() {
+  let model = this;
+
+  return model.getChainValue("receiveDossierModal.hasError") === true;
+}

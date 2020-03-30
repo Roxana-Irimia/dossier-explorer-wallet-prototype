@@ -7,11 +7,17 @@ import {
   isDossierEmpty,
   isCreateDossierModal,
   isNewDossierCreateState,
-  hasNewDossierModalError
+  hasNewDossierModalError,
+  hasImportDossierModalError,
+  isImportDossierCreateState,
+  isImportDossierModal,
+  isReceiveDossierModal,
+  isReceiveDossierCreateState,
+  hasReceiveDossierModalError
 } from "../../assets/models/condition-expressions.js";
 import {
   signOutCheckboxToggle,
-  newDossierInputChangeHandler
+  dossierNameInputChangeHandler
 } from "../../assets/models/chain-change-handlers.js";
 
 // TODO: Refactor: Create a dictionary with the conditions and make a generic function (something similar with assert.true) that will get the condition result.
@@ -52,11 +58,9 @@ export function explorerInitConditionalExpressions() {
   }
 
   if (!self.model.hasExpression("isSignOutModalOpened")) {
-    self.model.addExpression(
-      "isSignOutModalOpened",
-      isSignOutModalOpened,
+    self.model.addExpression("isSignOutModalOpened", isSignOutModalOpened, [
       "signOut.modal.opened"
-    );
+    ]);
   }
 
   if (!self.model.hasExpression("hasExitModalError")) {
@@ -88,6 +92,50 @@ export function explorerInitConditionalExpressions() {
     );
   }
 
+  if (!self.model.hasExpression("isImportDossierModal")) {
+    self.model.addExpression("isImportDossierModal", isImportDossierModal, [
+      "addItems.selectedModal"
+    ]);
+  }
+
+  if (!self.model.hasExpression("isImportDossierCreateState")) {
+    self.model.addExpression(
+      "isImportDossierCreateState",
+      isImportDossierCreateState,
+      ["importDossierModal.createState"]
+    );
+  }
+
+  if (!self.model.hasExpression("hasImportDossierModalError")) {
+    self.model.addExpression(
+      "hasImportDossierModalError",
+      hasImportDossierModalError,
+      ["importDossierModal.hasError", "importDossierModal.errorMessage"]
+    );
+  }
+
+  if (!self.model.hasExpression("isReceiveDossierModal")) {
+    self.model.addExpression("isReceiveDossierModal", isReceiveDossierModal, [
+      "addItems.selectedModal"
+    ]);
+  }
+
+  if (!self.model.hasExpression("isReceiveDossierCreateState")) {
+    self.model.addExpression(
+      "isReceiveDossierCreateState",
+      isReceiveDossierCreateState,
+      ["receiveDossierModal.createState"]
+    );
+  }
+
+  if (!self.model.hasExpression("hasReceiveDossierModalError")) {
+    self.model.addExpression(
+      "hasReceiveDossierModalError",
+      hasReceiveDossierModalError,
+      ["receiveDossierModal.hasError", "receiveDossierModal.errorMessage"]
+    );
+  }
+
   /*****************  Chain change handlers - No Exprssions *********************/
 
   self.model.onChange(
@@ -96,7 +144,17 @@ export function explorerInitConditionalExpressions() {
   );
 
   self.model.onChange(
-    "createDossierModal.dossierInput.value",
-    newDossierInputChangeHandler.bind(self.model)
+    "createDossierModal.setNameInput.value",
+    dossierNameInputChangeHandler.bind(self.model, "createDossierModal")
+  );
+
+  self.model.onChange(
+    "importDossierModal.setNameInput.value",
+    dossierNameInputChangeHandler.bind(self.model, "importDossierModal")
+  );
+
+  self.model.onChange(
+    "receiveDossierModal.setNameInput.value",
+    dossierNameInputChangeHandler.bind(self.model, "receiveDossierModal")
   );
 }

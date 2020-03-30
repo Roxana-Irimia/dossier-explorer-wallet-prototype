@@ -10,7 +10,9 @@ const pageLoader = {
   signOut: `${basePagesPath}Wallet/sign-out.html`,
   signOutModal: `${basePagesPath}Wallet/modals/sign-out-modal.html`,
   fileDossierModals: `${basePagesPath}Wallet/modals/file-dossier-modals.html`,
-  createDossierModal: `${basePagesPath}Wallet/modals/new-dossier-modal.html`
+  createDossierModal: `${basePagesPath}Wallet/modals/new-dossier-modal.html`,
+  importDossierModal: `${basePagesPath}Wallet/modals/import-dossier-modal.html`,
+  receiveDossierModal: `${basePagesPath}Wallet/modals/receive-dossier-modal.html`
 };
 
 const createDossierModal = {
@@ -18,33 +20,83 @@ const createDossierModal = {
   createState: true,
   hasError: false,
   errorMessage: "",
-  pencilIcon: {
-    icon: "pencil",
-    color: "#8197bc",
-    classes: "create-dossier-modal"
-  },
-  checkIcon: {
-    icon: "check",
-    color: "#8197bc",
-    classes: "create-dossier-modal"
-  },
-  dossierInput: {
-    label: "Name your new dossier"
+  setNameInput: {
+    label: "Name your new dossier",
+    value: ""
   },
   seedInput: {
     label: "Dossier with the SEED below has been successfully created!",
     value: "ep8n5buype895ubye8netpmtu9rutepu9teertue58yuet7iy7tijht",
-    readonly: true
+    readOnly: true
   },
-  createDossierButton: {
+  setNameButton: {
     disabled: true,
     label: "Create Dossier",
-    eventName: "send-new-dossier",
+    eventName: "name-new-dossier",
     buttonClass: "btn-confirm-primary"
   },
   finishButton: {
     label: "Finish",
     eventName: "new-dossier-seed-received",
+    buttonClass: "btn-confirm-primary"
+  }
+};
+
+const importDossierModal = {
+  title: "Import Dossier",
+  createState: true,
+  hasError: false,
+  errorMessage: "",
+  setNameInput: {
+    label: "Name the imported dossier",
+    value: ""
+  },
+  setSeedInput: {
+    label: "Enter your SEED",
+    value: ""
+  },
+  setNameButton: {
+    disabled: true,
+    label: "Continue",
+    eventName: "name-import-dossier",
+    buttonClass: "btn-confirm-primary"
+  },
+  finishButton: {
+    label: "Finish",
+    eventName: "seed-import-dossier",
+    buttonClass: "btn-confirm-primary"
+  }
+};
+
+const receiveDossierModal = {
+  title: "Receive Dossier",
+  disclaimer:
+    "Once the colaborator sends you the Dossier SEED you can scan the QRcode or enter the URL. After that you will be prompted to choose a place and a name for the new Dossier",
+  orLabel: "or",
+  createState: true,
+  hasError: false,
+  errorMessage: "",
+  receiveCode: {
+    readOnly: true,
+    value: "%rt78qtp%$"
+  },
+  setNameInput: {
+    label: "Dossier name",
+    value: ""
+  },
+  selectDestination: {
+    label: "Dossier destination",
+    value: "",
+    selectOptions: "Wallet root, / | Data, /data | New Dossier, /new-dossier"
+  },
+  nextButton: {
+    label: "Next",
+    eventName: "next-receive-dossier",
+    buttonClass: "btn-confirm-primary"
+  },
+  finishButton: {
+    label: "Finish",
+    eventName: "finish-receive-dossier",
     buttonClass: "btn-confirm-primary"
   }
 };
@@ -266,5 +318,7 @@ export const explorerModel = {
   dossierDetails: { ...dossierDetails },
   switchLayout: { ...switchLayout },
   pagination: { ...pagination },
-  createDossierModal: { ...createDossierModal }
+  createDossierModal: { ...createDossierModal },
+  importDossierModal: { ...importDossierModal },
+  receiveDossierModal: { ...receiveDossierModal }
 };

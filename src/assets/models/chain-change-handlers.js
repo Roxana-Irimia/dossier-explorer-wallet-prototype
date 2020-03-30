@@ -12,25 +12,22 @@ export function signOutCheckboxToggle() {
   );
 }
 
-export function newDossierInputChangeHandler() {
+export function dossierNameInputChangeHandler(rootModel) {
   let model = this;
 
-  model.setChainValue("createDossierModal.hasError", false);
-  model.setChainValue("createDossierModal.createDossierButton.disabled", false);
+  model.setChainValue(`${rootModel}.hasError`, false);
+  model.setChainValue(`${rootModel}.setNameButton.disabled`, false);
 
-  let inputDossierName = model.getChainValue(
-    "createDossierModal.dossierInput.value"
-  );
+  let inputDossierName = model.getChainValue(`${rootModel}.setNameInput.value`);
+
+  console.log(model, inputDossierName);
   if (!inputDossierName || !inputDossierName.length) {
-    model.setChainValue("createDossierModal.hasError", true);
+    model.setChainValue(`${rootModel}.hasError`, true);
     model.setChainValue(
-      "createDossierModal.errorMessage",
+      `${rootModel}.errorMessage`,
       "The name of the dossier can not be empty!"
     );
-    model.setChainValue(
-      "createDossierModal.createDossierButton.disabled",
-      true
-    );
+    model.setChainValue(`${rootModel}.setNameButton.disabled`, true);
     return;
   }
 
@@ -44,16 +41,11 @@ export function newDossierInputChangeHandler() {
   });
 
   if (nameExists) {
-    model.setChainValue("createDossierModal.hasError", false);
+    model.setChainValue(`${rootModel}.hasError`, true);
     model.setChainValue(
-      "createDossierModal.errorMessage",
+      `${rootModel}.errorMessage`,
       "There is already a dossier with this name"
     );
-    model.setChainValue(
-      "createDossierModal.createDossierButton.disabled",
-      true
-    );
+    model.setChainValue(`${rootModel}.setNameButton.disabled`, true);
   }
-
-  console.log(inputDossierName, nameExists);
 }

@@ -1,7 +1,7 @@
 <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
-  <psk-label slot="title" label="@createDossierModal.title"></psk-label>
+  <psk-label slot="title" label="@importDossierModal.title"></psk-label>
 
-  <psk-condition condition="@isNewDossierCreateState">
+  <psk-condition condition="@isImportDossierCreateState">
     <psk-icon
       slot="condition-true"
       icon="pencil"
@@ -10,37 +10,37 @@
     ></psk-icon>
     <psk-text-input
       slot="condition-true"
-      view-model="createDossierModal.setNameInput"
+      view-model="importDossierModal.setNameInput"
     ></psk-text-input>
 
     <psk-icon
       slot="condition-false"
-      icon="check"
+      icon="upload"
       color="#8197bc"
       class="dossier-modal"
     ></psk-icon>
     <psk-text-input
       slot="condition-false"
-      view-model="createDossierModal.seedInput"
+      view-model="importDossierModal.setSeedInput"
     ></psk-text-input>
   </psk-condition>
 
-  <psk-condition condition="@hasNewDossierModalError">
+  <psk-condition condition="@hasImportDossierModalError">
     <psk-label
-      label="@createDossierModal.errorMessage"
+      label="@importDossierModal.errorMessage"
       class="h6 error"
     ></psk-label>
   </psk-condition>
 
-  <psk-condition condition="@isNewDossierCreateState">
+  <psk-condition condition="@isImportDossierCreateState">
     <psk-button
       slot="condition-true"
-      view-model="createDossierModal.setNameButton"
+      view-model="importDossierModal.setNameButton"
     ></psk-button>
 
     <psk-button
       slot="condition-false"
-      view-model="createDossierModal.finishButton"
+      view-model="importDossierModal.finishButton"
     ></psk-button>
   </psk-condition>
 </psk-modal>
