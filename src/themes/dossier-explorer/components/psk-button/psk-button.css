@@ -4,10 +4,12 @@
   width: auto;
   height: auto;
   max-width: 100%;
+  text-decoration: none;
 }
 
 ::slotted(*) {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn-run {

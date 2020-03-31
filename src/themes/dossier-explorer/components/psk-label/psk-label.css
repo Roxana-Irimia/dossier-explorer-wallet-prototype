@@ -9,6 +9,12 @@ label {
   max-width: 100%;
 }
 
+psk-button psk-label,
+psk-button label {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .col-form-label {
   padding: 0 !important;
 }

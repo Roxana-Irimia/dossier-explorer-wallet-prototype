@@ -1,6 +1,6 @@
 import BindableController from "./base-controllers/BindableController.js";
 import { explorerModel } from "../../assets/models/explorer-model.js";
-import {getDossierServiceInstance} from "../service/DossierExplorerService.js";
+import { getDossierServiceInstance } from "../service/DossierExplorerService.js";
 import {
   explorerExitHandler,
   explorerSwitchLayoutHandler,
@@ -18,7 +18,7 @@ export default class ExplorerController extends BindableController {
     this.model = this.setModel(explorerModel);
     let DossierService = getDossierServiceInstance();
 
-    DossierService.listDossierFiles(function(err, files){
+    DossierService.listDossierFiles(function(err, files) {
       console.log(err, files);
     });
 

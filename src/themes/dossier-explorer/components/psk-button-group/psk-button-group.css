@@ -44,8 +44,10 @@ psk-button-group[opened] .list-group {
   padding: 0;
 }
 
+.button-group-wrapper,
 .trigger {
   cursor: pointer;
+  text-decoration: none;
 }
 
 psk-button-group[opened] .add-menu .list-group {
