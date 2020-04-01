@@ -9,13 +9,17 @@
     class="wallet-grid-container"
     data-view-model="dossierDetails.items"
   >
-    <psk-card class="wallet-grid">
-      <psk-grid
-        columns="2"
-        layout="xs=[1,10] s=[1,10] m=[1,10] l=[1,10] xl=[1,10]"
+    <psk-card class="@selected">
+      <psk-button
+        class="wallet-path"
+        event-name="select-wallet-item"
+        event-data="@name"
       >
-        <psk-icon icon="@gridIcon" color="@iconColor"></psk-icon>
-        <psk-label label="@name">
+        <psk-grid>
+          <psk-label>
+            <psk-icon icon="@gridIcon" color="@iconColor"></psk-icon>
+            <psk-label label="@name"> </psk-label
+          ></psk-label>
           <psk-button
             display-if-exists="action"
             button-class="@action.buttonClass"
@@ -28,8 +32,8 @@
             ></psk-icon>
             <psk-label label="@action.label"></psk-label>
           </psk-button>
-        </psk-label>
-      </psk-grid>
+        </psk-grid>
+      </psk-button>
     </psk-card>
   </psk-for-each>
 </psk-condition>

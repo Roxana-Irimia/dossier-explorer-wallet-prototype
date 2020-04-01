@@ -195,8 +195,7 @@ const rightMenu = {
     eventData: '{"path": "/"}',
     eventName: "right-menu-delete",
     buttonClass: "no-btn"
-  },
-  selectedItems: []
+  }
 };
 
 const switchLayout = {

@@ -33,3 +33,21 @@ export function validateSeed(seed) {
 
   return true;
 }
+
+export function closestParentElement(el, selector, stopSelector) {
+  let retval = null;
+  while (el) {
+    if (el.matches(selector)) {
+      retval = el;
+      break;
+    } else if (stopSelector && el.matches(stopSelector)) {
+      break;
+    }
+    el = el.parentElement;
+  }
+  return retval;
+}
+
+export function hasClass(el, className) {
+  return el.className.split(" ").indexOf(className) > -1;
+}

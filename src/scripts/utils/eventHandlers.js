@@ -1,4 +1,4 @@
-import { validateSeed } from "./utils.js";
+import { validateSeed, hasClass, closestParentElement } from "./utils.js";
 
 export function explorerExitHandler() {
   let model = this.model;
@@ -111,5 +111,49 @@ export function validateSeedInput(rootModel) {
       `${rootModel}.errorMessage`,
       "Provided SEED is not valid!"
     );
+  }
+}
+
+export function selectWalletItemHandler(event) {
+  if (!event || !event.data) {
+    return;
+  }
+
+  let model = this.model;
+  if (!model) {
+    return;
+  }
+
+  let itemsList = model.getChainValue("dossierDetails.items");
+  let selectedItems = model.getChainValue("dossierDetails.selectedItems");
+  if (!itemsList || !itemsList.length) {
+    return;
+  }
+
+  let selectedDossierName = event.data;
+  let index = itemsList.findIndex(el => el.name == selectedDossierName);
+  if (index === -1) {
+    return;
+  }
+
+  let isSelected =
+    model.getChainValue(`dossierDetails.items.${index}.selected`) ===
+    "selected";
+
+  model.setChainValue(
+    `dossierDetails.items.${index}.selected`,
+    isSelected ? "" : "selected"
+  );
+
+  if (!isSelected && (!selectedItems || !selectedItems.length)) {
+    model.setChainValue("dossierDetails.selectedItems", [selectedDossierName]);
+    return;
+  }
+
+  if (!isSelected) {
+    selectedItems.push(selectedDossierName);
+  } else {
+    let index = selectedItems.findIndex(el => el === selectedDossierName);
+    selectedItems.splice(index, 1);
   }
 }

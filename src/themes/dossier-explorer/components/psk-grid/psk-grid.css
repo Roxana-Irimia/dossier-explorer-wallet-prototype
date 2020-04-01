@@ -1,20 +1,25 @@
 @import url(../../../commons/bootstrap/css/bootstrap.min.css);
 @import url(../../../commons/styles/styles.css);
 
+.header .row {
+  margin-top: 2rem;
+}
+
 .row {
   color: #572a57;
   font-weight: bold;
 }
 
-.items .row {
-  color: rgb(130, 130, 130);
-  font-weight: 400;
-  background-color: #fff;
-  border-radius: 0.25rem;
-  box-shadow: 0px 0px 2.5px rgba(150, 150, 150, 0.75);
-  margin: 0 1rem;
+.items .row > * {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.items .row .selected {
-  background-color: rgb(250, 190, 255);
+psk-grid .col-form-label {
+  display: inline;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 0 0 auto;
 }

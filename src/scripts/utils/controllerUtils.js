@@ -27,13 +27,6 @@ let conditionDictionary = [
     chains: ["dossierDetails.items"]
   },
   {
-    expression: "isFileSelected",
-    callback: function() {
-      return !isChainEmpty.call(this, "dossierDetails.items");
-    },
-    chains: ["rightMenu.selectedItems"]
-  },
-  {
     expression: "isSignOutModalOpened",
     callback: function() {
       return modelEquals.call(this, "signOut.modal.opened", true);
@@ -113,6 +106,13 @@ let conditionDictionary = [
       return modelEquals.call(this, "receiveDossierModal.hasError", true);
     },
     chains: ["receiveDossierModal.hasError", "receiveDossierModal.errorMessage"]
+  },
+  {
+    expression: "hasSelectedItems",
+    callback: function() {
+      return !isChainEmpty.call(this, "dossierDetails.selectedItems");
+    },
+    chains: ["dossierDetails.selectedItems"]
   }
 ];
 

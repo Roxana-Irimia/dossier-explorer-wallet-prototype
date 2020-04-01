@@ -8,13 +8,21 @@ import {
   toggleAddModalHandler,
   registerNewDossier,
   finishNewDossierProcess,
-  validateSeedInput
+  validateSeedInput,
+  selectWalletItemHandler
 } from "../utils/eventHandlers.js";
 import { explorerInitConditionalExpressions } from "../utils/controllerUtils.js";
 
 export default class ExplorerController extends BindableController {
   constructor(element) {
     super(element);
+
+    /**
+     * TODO: 
+     * At the moment when the item list will be brought from the blockchain,
+     * initialize each item with the selected attribute,
+     * in order to avoid the undefined value for the class attribute
+     */
     this.model = this.setModel(explorerModel);
     let DossierService = getDossierServiceInstance();
 
@@ -27,9 +35,23 @@ export default class ExplorerController extends BindableController {
   }
 
   _initListeners = () => {
+    /**
+     * Sign out modal
+     */
     this.on("exit", this._toggleExitModalOpened, true);
     this.on("cancel-exit", this._toggleExitModalOpened, true);
     this.on("confirm-exit", this._confirmExitHandler, true);
+    /**
+     * End sign out modal
+     */
+
+    /**
+     * Wallet selection handlers
+     */
+    this.on("select-wallet-item", this._selectWalletItemHandler, true);
+    /**
+     * End wallet selection handlers
+     */
 
     this.on("switch-layout", this._handleSwitchLayout, true);
 
@@ -114,4 +136,17 @@ export default class ExplorerController extends BindableController {
 
     registerNewDossier.call(this, "receiveDossierModal");
   };
+
+  /**
+   * Wallet selection handlers
+   */
+  _selectWalletItemHandler = event => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    selectWalletItemHandler.call(this, event);
+  };
+  /**
+   * End wallet selection handlers
+   */
 }

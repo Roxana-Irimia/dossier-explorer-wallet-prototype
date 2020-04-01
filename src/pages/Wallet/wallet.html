@@ -4,13 +4,14 @@
 
     <psk-card title="@sectionTitle">
       <psk-grid
-        columns="2"
-        layout="xs[12,12] s=[12,12] m=[8,4] l=[8,4] lg=[8,4]"
+        columns="3"
+        layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]"
       >
         <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]">
           <psk-page-loader page-url="@pageLoader.leftMenu"></psk-page-loader>
         </psk-grid>
         <psk-page-loader page-url="@pageLoader.rightMenu"> </psk-page-loader>
+        <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
       </psk-grid>
 
       <psk-page-loader page-url="@pageLoader.walletContent"> </psk-page-loader>
