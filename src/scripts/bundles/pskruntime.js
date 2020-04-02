@@ -75,7 +75,6 @@ $$.CONSTANTS = {
     AFTER_INTERCEPTOR: 'after'//TODO: document
 };
 
-console.log("CONSTANTELE SUNT AICI",$$.CONSTANTS);
 
 $$.CONSTANTS.mixIn = function(otherConstants){
     for(let v in otherConstants){
@@ -87,12 +86,13 @@ $$.CONSTANTS.mixIn = function(otherConstants){
 }
 
 },{}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js":[function(require,module,exports){
+(function (global){
 // related to: SwarmSpace.SwarmDescription.createPhase()
 
 function InterceptorRegistry() {
     const rules = new Map();
 
-     _CLASS_NAME = 'InterceptorRegistry';
+     global._CLASS_NAME = 'InterceptorRegistry';
 
     /************* PRIVATE METHODS *************/
 
@@ -277,6 +277,8 @@ function InterceptorRegistry() {
 exports.createInterceptorRegistry = function () {
     return new InterceptorRegistry();
 };
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
 },{}],"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\loadLibrary.js":[function(require,module,exports){
 /*
@@ -754,18 +756,6 @@ function SwarmSpace(swarmType, utils) {
         var myFunctions = createMembers(description);
 
         function createPhase(thisInstance, func, phaseName){
-            console.log("Tot aici",$$);
-            console.log("SUNT AICI",$$,$$.CONSTANTS);
-            $$.CONSTANTS = {
-                SWARM_FOR_EXECUTION:"swarm_for_execution",//TODO: remove
-                INBOUND:"inbound",//TODO: remove
-                OUTBOUND:"outbound",//TODO: remove
-                PDS:"PrivateDataSystem", //TODO: remove
-                CRL:"CommunicationReplicationLayer", //TODO: remove
-                SWARM_RETURN: 'swarm_return', //TODO: remove
-                BEFORE_INTERCEPTOR: 'before',//TODO: document
-                AFTER_INTERCEPTOR: 'after'//TODO: document
-            };
             var keyBefore = `${swarmTypeName}/${phaseName}/${$$.CONSTANTS.BEFORE_INTERCEPTOR}`;
             var keyAfter = `${swarmTypeName}/${phaseName}/${$$.CONSTANTS.AFTER_INTERCEPTOR}`;
 
@@ -9601,6 +9591,7 @@ module.exports = bufferFrom
 }).call(this,require("buffer").Buffer)
 
 },{"buffer":"buffer"}],"callflow":[function(require,module,exports){
+(function (global){
 function initialise() {
     if($$.callflow){
         throw new Error("Callflow already initialized!");
@@ -9646,7 +9637,7 @@ function initialise() {
 
     $$.loadLibrary = require("./lib/loadLibrary").loadLibrary;
 
-    requireLibrary = function(name){
+    global.requireLibrary = function(name){
         //var absolutePath = path.resolve(  $$.__global.__loadLibraryRoot + name);
         return $$.loadLibrary(name,name);
     };
@@ -9684,6 +9675,8 @@ module.exports = {
     createStandardAPIsForSwarms: require("./lib/utilityFunctions/base").createForObject,
     initialise: initialise
 };
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
 },{"./constants":"D:\\work\\git\\privatesky\\modules\\callflow\\constants.js","./lib/InterceptorRegistry":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\InterceptorRegistry.js","./lib/loadLibrary":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\loadLibrary.js","./lib/parallelJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\parallelJoinPoint.js","./lib/serialJoinPoint":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\serialJoinPoint.js","./lib/swarmDescription":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\swarmDescription.js","./lib/utilityFunctions/base":"D:\\work\\git\\privatesky\\modules\\callflow\\lib\\utilityFunctions\\base.js","crypto":"crypto","path":"path","soundpubsub":"soundpubsub"}],"psk-security-context":[function(require,module,exports){
 const RawCSBSecurityContext = require("./lib/RawCSBSecurityContext");
