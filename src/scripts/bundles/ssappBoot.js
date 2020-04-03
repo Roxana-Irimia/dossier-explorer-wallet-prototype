@@ -1,15 +1,15 @@
-hostBootRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot.js":[function(require,module,exports){
+ssappBootRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\work\\git\\privatesky\\builds\\tmp\\ssappBoot.js":[function(require,module,exports){
 const or = require('overwrite-require');
 or.enableForEnvironment(or.constants.BROWSER_ENVIRONMENT_TYPE);
 
-require("./hostBoot_intermediar");
+require("./ssappBoot_intermediar");
 
-},{"./hostBoot_intermediar":"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot_intermediar.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot_intermediar.js":[function(require,module,exports){
+},{"./ssappBoot_intermediar":"D:\\work\\git\\privatesky\\builds\\tmp\\ssappBoot_intermediar.js","overwrite-require":"D:\\work\\git\\privatesky\\modules\\overwrite-require\\index.js"}],"D:\\work\\git\\privatesky\\builds\\tmp\\ssappBoot_intermediar.js":[function(require,module,exports){
 (function (global){
-global.hostBootLoadModules = function(){ 
+global.ssappBootLoadModules = function(){ 
 
-	if(typeof $$.__runtimeModules["boot-host"] === "undefined"){
-		$$.__runtimeModules["boot-host"] = require("swarm-engine/bootScripts/browser/host");
+	if(typeof $$.__runtimeModules["boot-ssapp"] === "undefined"){
+		$$.__runtimeModules["boot-ssapp"] = require("swarm-engine/bootScripts/browser/ssapp");
 	}
 
 	if(typeof $$.__runtimeModules["pskcrypto"] === "undefined"){
@@ -17,16 +17,16 @@ global.hostBootLoadModules = function(){
 	}
 };
 if (true) {
-	hostBootLoadModules();
+	ssappBootLoadModules();
 }
-global.hostBootRequire = require;
+global.ssappBootRequire = require;
 if (typeof $$ !== "undefined") {
-	$$.requireBundle("hostBoot");
+	$$.requireBundle("ssappBoot");
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"pskcrypto":"pskcrypto","swarm-engine/bootScripts/browser/host":"swarm-engine/bootScripts/browser/host"}],"D:\\work\\git\\privatesky\\modules\\adler32\\index.js":[function(require,module,exports){
+},{"pskcrypto":"pskcrypto","swarm-engine/bootScripts/browser/ssapp":"swarm-engine/bootScripts/browser/ssapp"}],"D:\\work\\git\\privatesky\\modules\\adler32\\index.js":[function(require,module,exports){
 
 "use strict";
 
@@ -11854,22 +11854,85 @@ boot();
 
 }).call(this,require('_process'))
 
-},{"./BootEngine.js":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js","edfs":"D:\\work\\git\\privatesky\\modules\\edfs\\index.js","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\host\\HostBootScript.js":[function(require,module,exports){
-function HostBootScript(identity){
-    require('callflow').initialise();
+},{"./BootEngine.js":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\BootEngine.js","_process":"D:\\work\\git\\privatesky\\node_modules\\process\\browser.js","callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js","edfs":"D:\\work\\git\\privatesky\\modules\\edfs\\index.js","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\ssapp\\SSappBootScript.js":[function(require,module,exports){
+function SSAppBootScript(identity){
     const se = require("swarm-engine");
+    const HostPowerCord = se.HostPowerCord;
     se.initialise(identity);
+
+    let parentPC = new HostPowerCord(window.parent);
+    $$.swarmEngine.plug("*", parentPC);
+
+
     const SRPC = se.SmartRemoteChannelPowerCord;
-    let swUrl = "http://localhost:8080/";
+    let swUrl = "http://localhost:8000/";
     const powerCord = new SRPC([swUrl]);
-    $$.swarmEngine.plug("test/agent/007", powerCord);
+
+    $$.swarms.describe("echo", {
+        say: function (message) {
+            document.getElementById("parentMessage").innerText = message;
+
+            setTimeout(() => {
+                this.return(null, message);
+            }, 2000);
+        }
+    });
+
+
+    this.swInit = function(){
+        if(!powerCord.identity)
+        {
+            $$.swarmEngine.plug("test/agent/agent007", powerCord);
+        }
+
+        let startMessage = "Echo";
+
+
+        let sayEcho = (message)=>{
+            $$.interactions.startSwarmAs("test/agent/agent007", "echo", "say", message)
+                .onReturn(function(err, result){
+                    if(!err){
+                        console.log("Iframe received: ", result);
+                        sayEcho(result+"o");
+                    }
+                });
+        };
+        sayEcho(startMessage);
+    };
+
+    /**TODO: remove it from production
+     * for testing purpose
+     * @param seed
+     */
+    this.deployCSB = function(seed){
+        if(!powerCord.identity)
+        {
+            $$.swarmEngine.plug("test/agent/agent007", powerCord);
+        }
+
+
+        $$.interactions.startSwarmAs("test/agent/agent007", "csbDeploy", "start", seed)
+            .onReturn(function(err, result){
+                if(!err){
+                    setTimeout(()=>{
+                        $$.interactions.startSwarmAs("test/agent/agent007", "swarmFromConstitution", "say", "RMS")
+                            .onReturn(function(err, result){
+                                if(!err){
+                                    console.log(result);
+                                }
+                            });
+                    },1000);
+
+                }
+            });
+    }
 }
 
-module.exports = HostBootScript;
+module.exports = SSAppBootScript;
 
 
 
-},{"callflow":"D:\\work\\git\\privatesky\\modules\\callflow\\index.js","swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js":[function(require,module,exports){
+},{"swarm-engine":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\index.js"}],"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\domainBootScript.js":[function(require,module,exports){
 (function (process){
 const path = require('path');
 //enabling life line to parent process
@@ -53273,9 +53336,8 @@ module.exports.hashValues = ssutil.hashValues;
 module.exports.DuplexStream = require("./lib/utils/DuplexStream");
 
 module.exports.isStream = require("./lib/utils/isStream");
-},{"./lib/PskCrypto":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js","./lib/utils/DuplexStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js","./lib/utils/isStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js","./signsensusDS/ssutil":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js"}],"swarm-engine/bootScripts/browser/host":[function(require,module,exports){
+},{"./lib/PskCrypto":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\PskCrypto.js","./lib/utils/DuplexStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\DuplexStream.js","./lib/utils/isStream":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\lib\\utils\\isStream.js","./signsensusDS/ssutil":"D:\\work\\git\\privatesky\\modules\\pskcrypto\\signsensusDS\\ssutil.js"}],"swarm-engine/bootScripts/browser/ssapp":[function(require,module,exports){
 module.exports = {
-    HostBootScript:require("./HostBootScript")
+    SSappBootScript:require("./SSappBootScript")
 }
-
-},{"./HostBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\host\\HostBootScript.js"}]},{},["D:\\work\\git\\privatesky\\builds\\tmp\\hostBoot.js"])
+},{"./SSappBootScript":"D:\\work\\git\\privatesky\\modules\\swarm-engine\\bootScripts\\browser\\ssapp\\SSappBootScript.js"}]},{},["D:\\work\\git\\privatesky\\builds\\tmp\\ssappBoot.js"])

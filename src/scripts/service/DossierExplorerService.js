@@ -1,10 +1,9 @@
 class DossierExplorerService {
 
-
     constructor(){
-
+        const HostBootScript = require("boot-host").HostBootScript;
+        const HostPC = new HostBootScript("dossier-explorer");
     }
-
 
     listDossierFiles(path, callback) {
         if (typeof path === "function") {
@@ -12,16 +11,8 @@ class DossierExplorerService {
             path = "/";
         }
 
-        setTimeout(
-            ()=>{
-                const HostBootScript = require("boot-host").HostBootScript;
-                const HostPC = new HostBootScript("dossier-explorer");
-                console.log("Starting listDosierFiles interactions");
-                $$.interactions.startSwarmAs("test/agent/007", "listDossierFiles", "start", path)
-                    .onReturn(callback);
-            },10000
-        );
-
+        $$.interactions.startSwarmAs("test/agent/007", "listDossierFiles", "start", path)
+            .onReturn(callback);
     }
 
 }
