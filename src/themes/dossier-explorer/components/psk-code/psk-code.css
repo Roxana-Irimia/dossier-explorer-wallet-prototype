@@ -8,7 +8,7 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
  * @author Lea Verou
  */
 
- @import url(../../../commons/styles/styles.css);
+ 
 code[class*="language-"],
 pre[class*="language-"] {
     color: black;

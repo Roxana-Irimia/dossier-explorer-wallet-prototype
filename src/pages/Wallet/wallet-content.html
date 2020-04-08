@@ -1,3 +1,7 @@
+<psk-condition condition="@addItems.hasError">
+  <psk-label class="h6 fade-error" label="@addItems.errorMessage"></psk-label>
+</psk-condition>
+
 <psk-condition condition="@isGridLayout">
   <psk-page-loader
     slot="condition-true"

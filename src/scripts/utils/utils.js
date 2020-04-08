@@ -34,20 +34,35 @@ export function validateSeed(seed) {
   return true;
 }
 
-export function closestParentElement(el, selector, stopSelector) {
-  let retval = null;
-  while (el) {
-    if (el.matches(selector)) {
-      retval = el;
-      break;
-    } else if (stopSelector && el.matches(stopSelector)) {
-      break;
-    }
-    el = el.parentElement;
+export function normalizeCamelCaseToDashed(source) {
+  if (!source || typeof source !== "string" || source.length === 0) {
+    return "";
   }
-  return retval;
+
+  return source
+    .split("")
+    .map((letter) => {
+      if (letter === letter.toLowerCase()) {
+        return letter;
+      }
+
+      return `-${letter.toLowerCase()}`;
+    })
+    .join("");
 }
 
-export function hasClass(el, className) {
-  return el.className.split(" ").indexOf(className) > -1;
+export function normalizeDashedToCamelCase(source) {
+  if (!source || typeof source !== "string" || source.length === 0) {
+    return "";
+  }
+
+  return source
+    .split("-")
+    .map((word, index) => {
+      if (index === 0) {
+        return word;
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join("");
 }

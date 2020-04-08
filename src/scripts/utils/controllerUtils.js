@@ -1,131 +1,158 @@
 import {
   signOutCheckboxToggle,
-  dossierNameInputChangeHandler
+  dossierNameInputChangeHandler,
 } from "../../assets/models/chain-change-handlers.js";
 import { modelEquals, isChainEmpty } from "./utils.js";
 
 let conditionDictionary = [
   {
     expression: "isGridLayout",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "switchLayout.active", "grid");
     },
-    chains: ["switchLayout.active"]
+    chains: ["switchLayout.active"],
   },
   {
     expression: "isListLayout",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "switchLayout.active", "list");
     },
-    chains: ["switchLayout.active"]
+    chains: ["switchLayout.active"],
   },
   {
     expression: "isDossierEmpty",
-    callback: function() {
+    callback: function () {
       return isChainEmpty.call(this, "dossierDetails.items");
     },
-    chains: ["dossierDetails.items"]
+    chains: ["dossierDetails.items"],
   },
   {
     expression: "isSignOutModalOpened",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "signOut.modal.opened", true);
     },
-    chains: ["signOut.modal.opened"]
+    chains: ["signOut.modal.opened"],
   },
   {
     expression: "hasExitModalError",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "signOut.modal.error.hasError", true);
     },
-    chains: ["signOut.modal.error.hasError", "signOut.modal.error.errorMessage"]
+    chains: [
+      "signOut.modal.error.hasError",
+      "signOut.modal.error.errorMessage",
+    ],
   },
   {
     expression: "isCreateDossierModal",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "addItems.selectedModal", "create-dossier");
     },
-    chains: ["addItems.selectedModal"]
+    chains: ["addItems.selectedModal"],
   },
   {
     expression: "isImportDossierModal",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "addItems.selectedModal", "import-dossier");
     },
-    chains: ["addItems.selectedModal"]
+    chains: ["addItems.selectedModal"],
   },
   {
     expression: "isReceiveDossierModal",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(
         this,
         "addItems.selectedModal",
         "receive-dossier"
       );
     },
-    chains: ["addItems.selectedModal"]
+    chains: ["addItems.selectedModal"],
+  },
+  {
+    expression: "isDeleteSelectedItemsModal",
+    callback: function () {
+      return modelEquals.call(this, "addItems.selectedModal", "delete-dossier");
+    },
+    chains: ["addItems.selectedModal"],
+  },
+  {
+    expression: "isShareDossierModal",
+    callback: function () {
+      return modelEquals.call(this, "addItems.selectedModal", "share-dossier");
+    },
+    chains: ["addItems.selectedModal"],
+  },
+  {
+    expression: "isRenameDossierModal",
+    callback: function () {
+      return modelEquals.call(this, "addItems.selectedModal", "rename-dossier");
+    },
+    chains: ["addItems.selectedModal"],
   },
   {
     expression: "isNewDossierCreateState",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "createDossierModal.createState", true);
     },
-    chains: ["createDossierModal.createState"]
+    chains: ["createDossierModal.createState"],
   },
   {
     expression: "hasNewDossierModalError",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "screateDossierModal.hasError", true);
     },
-    chains: ["createDossierModal.hasError", "createDossierModal.errorMessage"]
+    chains: ["createDossierModal.hasError", "createDossierModal.errorMessage"],
   },
   {
     expression: "isImportDossierCreateState",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "importDossierModal.createState", true);
     },
-    chains: ["importDossierModal.createState"]
+    chains: ["importDossierModal.createState"],
   },
   {
     expression: "hasImportDossierModalError",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "importDossierModal.hasError", true);
     },
-    chains: ["importDossierModal.hasError", "importDossierModal.errorMessage"]
+    chains: ["importDossierModal.hasError", "importDossierModal.errorMessage"],
   },
   {
     expression: "isReceiveDossierCreateState",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "receiveDossierModal.createState", true);
     },
-    chains: ["receiveDossierModal.createState"]
+    chains: ["receiveDossierModal.createState"],
   },
   {
     expression: "hasReceiveDossierModalError",
-    callback: function() {
+    callback: function () {
       return modelEquals.call(this, "receiveDossierModal.hasError", true);
     },
-    chains: ["receiveDossierModal.hasError", "receiveDossierModal.errorMessage"]
+    chains: [
+      "receiveDossierModal.hasError",
+      "receiveDossierModal.errorMessage",
+    ],
   },
   {
     expression: "hasSelectedItems",
-    callback: function() {
+    callback: function () {
       return !isChainEmpty.call(this, "dossierDetails.selectedItems");
     },
-    chains: ["dossierDetails.selectedItems"]
-  }
+    chains: ["dossierDetails.selectedItems"],
+  },
 ];
 
 export function explorerInitConditionalExpressions() {
   const self = this;
 
-  conditionDictionary.forEach(function({ expression, callback, chains }) {
+  conditionDictionary.forEach(function ({ expression, callback, chains }) {
     if (!self.model.hasExpression(expression)) {
       self.model.addExpression(expression, callback, chains);
     }
   });
 
-  /*****************  Chain change handlers - No Exprssions *********************/
+  /*****************  Chain change handlers - No Expressions *********************/
 
   self.model.onChange(
     "signOut.modal.checkbox.value",
@@ -145,5 +172,10 @@ export function explorerInitConditionalExpressions() {
   self.model.onChange(
     "receiveDossierModal.setNameInput.value",
     dossierNameInputChangeHandler.bind(self.model, "receiveDossierModal")
+  );
+
+  self.model.onChange(
+    "renameDossierModal.setNameInput.value",
+    dossierNameInputChangeHandler.bind(self.model, "renameDossierModal")
   );
 }

@@ -1,5 +1,4 @@
 @import url("./fonts/fontawesome/font-awesome.min.css");
-/*@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");*/
 @import url("./fonts/nunito/nunito.css");
 @import url("./bootstrap/css/bootstrap.min.css");
 
@@ -186,4 +185,9 @@ header {
   40% {
     opacity: 1;
   }
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
 }

@@ -9,7 +9,9 @@ import {
   registerNewDossier,
   finishNewDossierProcess,
   validateSeedInput,
-  selectWalletItemHandler
+  selectWalletItemHandler,
+  handleDeleteSelectedFiles,
+  handleRename,
 } from "../utils/eventHandlers.js";
 import { explorerInitConditionalExpressions } from "../utils/controllerUtils.js";
 
@@ -18,7 +20,7 @@ export default class ExplorerController extends BindableController {
     super(element);
 
     /**
-     * TODO: 
+     * TODO:
      * At the moment when the item list will be brought from the blockchain,
      * initialize each item with the selected attribute,
      * in order to avoid the undefined value for the class attribute
@@ -26,7 +28,7 @@ export default class ExplorerController extends BindableController {
     this.model = this.setModel(explorerModel);
     let DossierService = getDossierServiceInstance();
 
-    DossierService.listDossierFiles(function(err, files) {
+    DossierService.listDossierFiles(function (err, files) {
       console.log(err, files);
     });
 
@@ -46,16 +48,15 @@ export default class ExplorerController extends BindableController {
      */
 
     /**
-     * Wallet selection handlers
+     * Wallet switch & selection handlers
      */
     this.on("select-wallet-item", this._selectWalletItemHandler, true);
+    this.on("switch-layout", this._handleSwitchLayout, true);
     /**
-     * End wallet selection handlers
+     * End wallet switch & selection handlers
      */
 
-    this.on("switch-layout", this._handleSwitchLayout, true);
-
-    this.on("add-modal", this._toggleAddModalHandler, true);
+    this.on("fd-toggle-modal", this._toggleAddModalHandler, true);
     this.on("name-new-dossier", this._registerNewDossier, true);
     this.on("new-dossier-seed-received", this._finishNewDossierProcess, true);
 
@@ -64,44 +65,60 @@ export default class ExplorerController extends BindableController {
 
     this.on("next-receive-dossier", this._nextReceiveDossier, true);
     this.on("finish-receive-dossier", this._finishReceiveDossier, true);
+
+    /**
+     * Rename
+     */
+    this.on("confirm-rename", this._handleRename, true);
+    /**
+     * end rename
+     */
+
+    /**
+     * Delete selected itms handlers
+     */
+    this.on("delete", this._handleDeleteSelectedFiles, true);
+    /**
+     * End Delete selected items handlers
+     */
   };
 
-  _handleSwitchLayout = event => {
+  _handleSwitchLayout = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     explorerSwitchLayoutHandler.call(this);
   };
 
-  _toggleExitModalOpened = event => {
+  _toggleExitModalOpened = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     explorerExitHandler.call(this);
   };
 
-  _confirmExitHandler = event => {
+  _confirmExitHandler = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     explorerConfirmExitHandler.call(this);
   };
 
-  _toggleAddModalHandler = event => {
+  _toggleAddModalHandler = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     toggleAddModalHandler.call(this, event);
   };
 
-  _registerNewDossier = event => {
+  _registerNewDossier = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     registerNewDossier.call(this, "createDossierModal");
   };
 
-  _finishNewDossierProcess = event => {
+  _finishNewDossierProcess = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -109,28 +126,28 @@ export default class ExplorerController extends BindableController {
     finishNewDossierProcess.call(this, "createDossierModal");
   };
 
-  _importNewDossier = event => {
+  _importNewDossier = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     registerNewDossier.call(this, "importDossierModal");
   };
 
-  _validateImportSeedDossier = event => {
+  _validateImportSeedDossier = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     validateSeedInput.call(this, "importDossierModal");
   };
 
-  _nextReceiveDossier = event => {
+  _nextReceiveDossier = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     this.model.setChainValue("receiveDossierModal.createState", false);
   };
 
-  _finishReceiveDossier = event => {
+  _finishReceiveDossier = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -140,7 +157,7 @@ export default class ExplorerController extends BindableController {
   /**
    * Wallet selection handlers
    */
-  _selectWalletItemHandler = event => {
+  _selectWalletItemHandler = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -148,5 +165,31 @@ export default class ExplorerController extends BindableController {
   };
   /**
    * End wallet selection handlers
+   */
+
+  /**
+   * Rename
+   */
+  _handleRename = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    handleRename.call(this);
+  };
+  /**
+   * End rename
+   */
+
+  /**
+   * Delete selected itms handlers
+   */
+  _handleDeleteSelectedFiles = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    handleDeleteSelectedFiles.call(this, event);
+  };
+  /**
+   * End Delete selected items handlers
    */
 }

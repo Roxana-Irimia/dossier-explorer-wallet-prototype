@@ -1,0 +1,18 @@
+<psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
+  <psk-label slot="title" label="@importDossierModal.title"></psk-label>
+
+  <psk-icon icon="trash" color="#8197bc" class="dossier-modal"></psk-icon>
+
+  <psk-label label="@deleteSelectedItemsModal.notificationMessage"></psk-label>
+
+  <psk-label
+    label="@deleteSelectedItemsModal.errorMessage"
+    class="h6 input-error"
+  ></psk-label>
+
+  <psk-grid columns="2">
+    <psk-button view-model="deleteSelectedItemsModal.cancelBtn"></psk-button>
+
+    <psk-button view-model="deleteSelectedItemsModal.deleteBtn"></psk-button>
+  </psk-grid>
+</psk-modal>

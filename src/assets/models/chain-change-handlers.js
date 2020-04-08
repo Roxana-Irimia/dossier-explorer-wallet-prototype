@@ -24,7 +24,7 @@ export function dossierNameInputChangeHandler(rootModel) {
     model.setChainValue(`${rootModel}.hasError`, true);
     model.setChainValue(
       `${rootModel}.errorMessage`,
-      "The name of the dossier can not be empty!"
+      "The name can not be empty!"
     );
     model.setChainValue(`${rootModel}.setNameButton.disabled`, true);
     return;
@@ -43,7 +43,7 @@ export function dossierNameInputChangeHandler(rootModel) {
     model.setChainValue(`${rootModel}.hasError`, true);
     model.setChainValue(
       `${rootModel}.errorMessage`,
-      "There is already a dossier with this name"
+      "There is already an entry with this name"
     );
     model.setChainValue(`${rootModel}.setNameButton.disabled`, true);
   }
