@@ -1,7 +1,7 @@
 import { validateSeed, getItemsChainForPath } from "./utils.js";
 import { DEFAULT_ICON_COLOR } from "./constants.js";
 import { checkForModalOptions } from "./modalUtils.js";
-import { handleDossierPathChange } from "../../assets/models/chain-change-handlers.js";
+import { updateDisplayedItems } from "../../assets/models/chain-change-handlers.js";
 
 export function explorerExitHandler() {
   let model = this.model;
@@ -87,14 +87,15 @@ export function registerNewDossier(rootModel) {
 
   let currentItems = model.getChainValue("dossierDetails.items");
   if (!currentItems || !currentItems.length) {
-    currentItems = [dossier];
+    model.setChainValue("dossierDetails.items", []);
+    model.setChainValue("dossierDetails.items.0", dossier);
   } else {
-    currentItems.push(dossier);
+    model.setChainValue(`dossierDetails.items.${currentItems.length}`, dossier);
   }
 
   model.setChainValue(`${rootModel}.createState`, false);
   toggleAddModalHandler.call(this);
-  // handleDossierPathChange.call(model);
+  updateDisplayedItems.call(model);
 }
 
 export function finishNewDossierProcess(rootModel) {
@@ -124,6 +125,35 @@ export function validateSeedInput(rootModel) {
       "Provided SEED is not valid!"
     );
   }
+}
+
+export function doubleClickHandler(event) {
+  let model = this.model;
+  if (!event || !event.data) {
+    return;
+  }
+
+  let currentPath = model.dossierDetails.currentPath;
+  let chain = getItemsChainForPath.call(model, currentPath);
+  let itemsList = model.getChainValue(chain);
+  if (!itemsList || !itemsList.length) {
+    return;
+  }
+
+  let selectedDossierName = event.data;
+  let selectedItemIdx = itemsList.findIndex(
+    (el) => el.name === selectedDossierName
+  );
+  if (selectedItemIdx === -1) {
+    console.error("not found" + selectedDossierName);
+    return;
+  }
+
+  let newPath =
+    currentPath === "/"
+      ? selectedDossierName
+      : `${currentPath}/${selectedDossierName}`;
+  model.setChainValue("dossierDetails.currentPath", newPath);
 }
 
 export function selectWalletItemHandler(event) {
@@ -168,6 +198,8 @@ export function selectWalletItemHandler(event) {
     let index = selectedItems.findIndex((el) => el === selectedDossierName);
     selectedItems.splice(index, 1);
   }
+
+  updateDisplayedItems.call(model);
 }
 
 export function handleDeleteSelectedFiles(event) {
@@ -191,20 +223,23 @@ export function handleDeleteSelectedFiles(event) {
   }
 
   let disabledItems = model.getChainValue("dossierDetails.disabledItems");
-  if (!disabledItems || !disabledItems.length) {
+  if (!disabledItems) {
+    model.setChainValue("dossierDetails.disabledItems", []);
     disabledItems = [];
   }
 
-  itemsList.forEach((item) => {
+  itemsList.forEach((item, index) => {
     if (item.selected === "selected") {
-      disabledItems.push(item);
+      model.setChainValue(
+        `dossierDetails.disabledItems.${disabledItems.length}`,
+        item
+      );
+      itemsList.splice(index, 1);
     }
   });
 
   itemsList = itemsList.filter((el) => el.selected !== "selected");
-
-  model.setChainValue("dossierDetails.items", itemsList);
-  model.setChainValue("dossierDetails.disabledItems", disabledItems);
+  model.setChainValue("dossierDetails.selectedItems", []);
 
   /**
    * Make interaction with blockchain and save the new state after delete
@@ -214,6 +249,7 @@ export function handleDeleteSelectedFiles(event) {
    */
 
   toggleAddModalHandler.call(this);
+  updateDisplayedItems.call(model);
 }
 
 export function handleRename() {
@@ -253,6 +289,8 @@ export function handleRename() {
    */
 
   toggleAddModalHandler.call(this);
+
+  updateDisplayedItems.call(model);
 }
 
 export function handleFileFolderUpload(filesList) {
@@ -295,6 +333,8 @@ export function handleFileFolderUpload(filesList) {
 
     _uploadFileFolderToModel.call(model, file, chainByPath, "file");
   });
+
+  updateDisplayedItems.call(model);
 }
 
 function _uploadFileFolderToModel(
@@ -326,5 +366,4 @@ function _uploadFileFolderToModel(
   }
 
   model.setChainValue(`${chainToItems}.${currentItems.length}`, item);
-  console.log(model.dossierDetails.items);
 }

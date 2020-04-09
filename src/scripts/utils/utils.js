@@ -76,7 +76,7 @@ export function getItemsChainForPath(path) {
   }
 
   if (!path || !path.length) {
-    return [];
+    return null;
   }
 
   if (path.trim() === "/") {

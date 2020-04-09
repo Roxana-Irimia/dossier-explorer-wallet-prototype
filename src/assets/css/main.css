@@ -186,8 +186,3 @@ header {
     opacity: 1;
   }
 }
-
-.hidden {
-  display: none !important;
-  visibility: hidden !important;
-}

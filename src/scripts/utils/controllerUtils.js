@@ -1,7 +1,7 @@
 import {
   signOutCheckboxToggle,
   dossierNameInputChangeHandler,
-  handleDossierPathChange,
+  updateDisplayedItems,
 } from "../../assets/models/chain-change-handlers.js";
 import { modelEquals, isChainEmpty } from "./utils.js";
 
@@ -23,9 +23,9 @@ let conditionDictionary = [
   {
     expression: "isDossierEmpty",
     callback: function () {
-      return isChainEmpty.call(this, "dossierDetails.items");
+      return isChainEmpty.call(this, "dossierDetails.displayedItems");
     },
-    chains: ["dossierDetails.items"],
+    chains: ["dossierDetails.displayedItems"],
   },
   {
     expression: "isSignOutModalOpened",
@@ -182,6 +182,6 @@ export function explorerInitConditionalExpressions() {
 
   self.model.onChange(
     "dossierDetails.currentPath",
-    handleDossierPathChange.bind(self.model)
+    updateDisplayedItems.bind(self.model)
   );
 }

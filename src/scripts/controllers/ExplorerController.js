@@ -3,6 +3,7 @@ import { explorerModel } from "../../assets/models/explorer-model.js";
 // import { getDossierServiceInstance } from "../service/DossierExplorerService.js";
 import {
   explorerExitHandler,
+  doubleClickHandler,
   explorerSwitchLayoutHandler,
   explorerConfirmExitHandler,
   toggleAddModalHandler,
@@ -15,7 +16,7 @@ import {
   handleFileFolderUpload,
 } from "../utils/eventHandlers.js";
 import { explorerInitConditionalExpressions } from "../utils/controllerUtils.js";
-import { handleDossierPathChange } from "../../assets/models/chain-change-handlers.js";
+import { updateDisplayedItems } from "../../assets/models/chain-change-handlers.js";
 
 export default class ExplorerController extends BindableController {
   constructor(element) {
@@ -36,7 +37,7 @@ export default class ExplorerController extends BindableController {
 
     explorerInitConditionalExpressions.call(this);
     this._initListeners();
-    // handleDossierPathChange.call(this.model);
+    updateDisplayedItems.call(this.model);
   }
 
   _initListeners = () => {
@@ -53,6 +54,7 @@ export default class ExplorerController extends BindableController {
     /**
      * Wallet switch & selection handlers
      */
+    this.on("double-click-item", this._doubleClickHandler, true);
     this.on("select-wallet-item", this._selectWalletItemHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
     /**
@@ -168,6 +170,13 @@ export default class ExplorerController extends BindableController {
   /**
    * Wallet selection handlers
    */
+  _doubleClickHandler = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    doubleClickHandler.call(this, event);
+  };
+
   _selectWalletItemHandler = (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();

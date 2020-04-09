@@ -1,4 +1,4 @@
-import { equals } from "../../scripts/utils/utils.js";
+import { equals, getItemsChainForPath } from "../../scripts/utils/utils.js";
 
 export function signOutCheckboxToggle() {
   let model = this;
@@ -49,69 +49,25 @@ export function dossierNameInputChangeHandler(rootModel) {
   }
 }
 
-export function handleDossierPathChange() {
+export function updateDisplayedItems() {
   let model = this;
   if (!model) {
-    console.error("[handleDossierPathChange] Model not found!");
-    return;
+    console.error("no model inside updatedisplayeditems");
   }
+
+  console.log("inside updatedisplyeditems");
 
   let _dossierDetails = model.dossierDetails;
   let _currentPath = _dossierDetails && _dossierDetails.currentPath;
 
-  if (!_currentPath || !_currentPath.length) {
-    console.error("[handleDossierPathChange] current path is not available!");
-    return;
-  }
+  let _chainToItems = getItemsChainForPath.call(model, _currentPath);
+  let _items = model.getChainValue(_chainToItems);
 
-  let _items = _dossierDetails.items;
-  let _itemsToBeDisplayed = _dossierDetails.itemsToBeDisplayed
-    ? _dossierDetails.itemsToBeDisplayed
-    : [];
+  model.setChainValue("dossierDetails.displayedItems", []);
 
-  if (!_items || !_items.length) {
-    _itemsToBeDisplayed = [];
-    return;
-  }
-
-  if (_currentPath === "/") {
-    _itemsToBeDisplayed = [..._items];
-    model.setChainValue(
-      "dossierDetails.itemsToBeDisplayed",
-      _itemsToBeDisplayed
-    );
-    return;
-  }
-
-  let _sectionedPath = _currentPath.split("/").map((el) => el.trim());
-  let _fullChain = `dossierDetails.items`;
-  let _stopParsingNavigation = false;
-  _sectionedPath.forEach(function (__pathSegment, index) {
-    if (_stopParsingNavigation) {
-      return;
-    }
-
-    let __currentSectionItems = model.getChainValue(_fullChain);
-    if (!__currentSectionItems || !__currentSectionItems.length) {
-      _stopParsingNavigation = true;
-      _itemsToBeDisplayed = [];
-      return;
-    }
-
-    let __segmentElementIndex = __currentSectionItems.findIndex(
-      (el) => el.name === __pathSegment
-    );
-    if (__segmentElementIndex === -1) {
-      _stopParsingNavigation = true;
-      _itemsToBeDisplayed = [];
-      return;
-    }
-
-    _fullChain = `${_fullChain}.${__segmentElementIndex}.items`;
-    if (index + 1 === _sectionedPath.length) {
-      _itemsToBeDisplayed = model.getChainValue(_fullChain);
-    }
+  _items.forEach(function (item, index) {
+    model.setChainValue(`dossierDetails.displayedItems.${index}`, item);
   });
 
-  model.setChainValue("dossierDetails.itemsToBeDisplayed", _itemsToBeDisplayed);
+  console.log(model.dossierDetails.displayedItems);
 }

@@ -20,12 +20,13 @@
   <psk-for-each
     slot="condition-false"
     class="wallet-list-container"
-    data-view-model="dossierDetails.items"
+    data-view-model="dossierDetails.displayedItems"
   >
     <psk-card class="@selected">
       <psk-button
         class="wallet-path"
         event-name="select-wallet-item"
+        double-click-event-name="double-click-item"
         event-data="@name"
       >
         <psk-grid

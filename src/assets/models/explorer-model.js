@@ -286,8 +286,8 @@ const dossierDetails = {
   typeLabel: "Type",
   lastModifiedLabel: "Last modification",
   nameLabel: "Name",
-  // Array to be removed after switched to interactions (itemsToBeDisplayed)
-  itemsToBeDisplayed: [],
+  // Array to be removed after switched to interactions (displayedItems)
+  displayedItems: [],
   noItemsLabel:
     "There are no items in the current folder/dossier. You can add some by using the Add button.",
   items: [
@@ -331,7 +331,15 @@ const dossierDetails = {
       icon: "lock",
       iconColor: DEFAULT_ICON_COLOR,
       gridIcon: "lock",
-      items: [{ name: "inside new dossier" }],
+      items: [
+        {
+          name: "inside new dossier",
+          size: "213124",
+          type: "file",
+          iconColor: DEFAULT_ICON_COLOR,
+          gridIcon: "file",
+        },
+      ],
     },
   ],
 };
