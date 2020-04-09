@@ -1,1 +1,3 @@
 export const DELETE_ITEMS_PLACEHOLDER = "[PLACEHOLDER_ITEMS]";
+export const FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME = "fd-toggle-modal";
+export const DEFAULT_ICON_COLOR = "#572a57";

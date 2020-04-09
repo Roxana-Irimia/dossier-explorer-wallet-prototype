@@ -66,3 +66,29 @@ export function normalizeDashedToCamelCase(source) {
     })
     .join("");
 }
+
+export function getItemsChainForPath(path) {
+  let model = this;
+  let fullChain = "dossierDetails.items";
+
+  if (!path || !path.length) {
+    path = model.getChainValue("dossierDetails.currentPath");
+  }
+
+  if (!path || !path.length) {
+    return [];
+  }
+
+  if (path.trim() === "/") {
+    return fullChain;
+  }
+
+  let rootItems = model.dossierDetails.items;
+  let splitPath = path.split("/");
+  splitPath.forEach(function (path) {
+    let idx = rootItems.findIndex((el) => el.name === path);
+    fullChain = `${fullChain}.${idx}.items`;
+  });
+
+  return fullChain;
+}

@@ -1,8 +1,10 @@
-import { DELETE_ITEMS_PLACEHOLDER } from "../../scripts/utils/constants.js";
+import {
+  DELETE_ITEMS_PLACEHOLDER,
+  FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
+  DEFAULT_ICON_COLOR,
+} from "../../scripts/utils/constants.js";
 
 const basePagesPath = "http://localhost:8000/pages/";
-const FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME = "fd-toggle-modal";
-const DEFAULT_ICON_COLOR = "#572a57";
 
 const pageLoader = {
   walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,
@@ -182,46 +184,22 @@ const deleteSelectedItemsModal = {
 };
 
 const addItems = {
-  selectedModal: "",
-  closeModal: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
   addButton: {
     label: "Add",
     icon: "plus",
     iconColor: "#ffffff",
     classes: "add-menu",
   },
-  addButtonsList: [
-    {
-      label: "Add file",
-      eventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-      eventData: '{ "modalName": "add-file" }',
-      buttonClass: "btn-menu",
-    },
-    {
-      label: "Add folder",
-      eventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-      eventData: '{ "modalName": "add-folder" }',
-      buttonClass: "btn-menu bottom-border",
-    },
-    {
-      label: "Create Dossier",
-      eventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-      eventData: '{ "modalName": "create-dossier" }',
-      buttonClass: "btn-menu",
-    },
-    {
-      label: "Import Dossier",
-      eventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-      eventData: '{ "modalName": "import-dossier" }',
-      buttonClass: "btn-menu",
-    },
-    {
-      label: "Receive Dossier",
-      eventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-      eventData: '{ "modalName": "receive-dossier" }',
-      buttonClass: "btn-menu",
-    },
-  ],
+  selectedModal: "",
+  addFileLabel: "Add file",
+  addFolderLabel: "Add folder",
+  createDossierLabel: "Create Dossier",
+  importDossierLabel: "Import Dossier",
+  receiveDossierLabel: "Receive Dossier",
+  createDossierEventData: '{ "modalName": "create-dossier" }',
+  importDossierEventData: '{ "modalName": "import-dossier" }',
+  receiveDossierEventData: '{ "modalName": "receive-dossier" }',
+  dossierEventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
 };
 
 const rightMenu = {
@@ -302,16 +280,20 @@ const pagination = {
 };
 
 const dossierDetails = {
+  homeLabel: "My Wallet",
+  currentPath: "/",
   sizeLabel: "Size",
   typeLabel: "Type",
-  lastModificationLabel: "Last modification",
+  lastModifiedLabel: "Last modification",
   nameLabel: "Name",
+  // Array to be removed after switched to interactions (itemsToBeDisplayed)
+  itemsToBeDisplayed: [],
   noItemsLabel:
     "There are no items in the current folder/dossier. You can add some by using the Add button.",
   items: [
     {
       name: "assets",
-      lastModification: "1584079000",
+      lastModified: "1584079000",
       type: "folder",
       iconColor: DEFAULT_ICON_COLOR,
       gridIcon: "folder",
@@ -319,7 +301,7 @@ const dossierDetails = {
     },
     {
       name: "blockchain",
-      lastModification: "547856365631313213132132132131",
+      lastModified: "547856365631313213132132132131",
       type: "file",
       iconColor: DEFAULT_ICON_COLOR,
       gridIcon: "file",
@@ -327,7 +309,7 @@ const dossierDetails = {
     },
     {
       name: "app",
-      lastModification: "1584079000",
+      lastModified: "1584079000",
       type: "application",
       size: "2478563",
       iconColor: DEFAULT_ICON_COLOR,
@@ -343,12 +325,13 @@ const dossierDetails = {
     },
     {
       name: "New Dossier",
-      lastModification: "1584079000",
+      lastModified: "1584079000",
       size: "347856",
       type: "dossier",
       icon: "lock",
       iconColor: DEFAULT_ICON_COLOR,
       gridIcon: "lock",
+      items: [{ name: "inside new dossier" }],
     },
   ],
 };

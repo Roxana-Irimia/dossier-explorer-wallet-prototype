@@ -1,6 +1,6 @@
 import BindableController from "./base-controllers/BindableController.js";
 import { explorerModel } from "../../assets/models/explorer-model.js";
-import { getDossierServiceInstance } from "../service/DossierExplorerService.js";
+// import { getDossierServiceInstance } from "../service/DossierExplorerService.js";
 import {
   explorerExitHandler,
   explorerSwitchLayoutHandler,
@@ -12,8 +12,10 @@ import {
   selectWalletItemHandler,
   handleDeleteSelectedFiles,
   handleRename,
+  handleFileFolderUpload,
 } from "../utils/eventHandlers.js";
 import { explorerInitConditionalExpressions } from "../utils/controllerUtils.js";
+import { handleDossierPathChange } from "../../assets/models/chain-change-handlers.js";
 
 export default class ExplorerController extends BindableController {
   constructor(element) {
@@ -26,14 +28,15 @@ export default class ExplorerController extends BindableController {
      * in order to avoid the undefined value for the class attribute
      */
     this.model = this.setModel(explorerModel);
-    let DossierService = getDossierServiceInstance();
+    // let DossierService = getDossierServiceInstance();
 
-    DossierService.listDossierFiles(function (err, files) {
-      console.log(err, files);
-    });
+    // DossierService.listDossierFiles(function (err, files) {
+    //   console.log(err, files);
+    // });
 
     explorerInitConditionalExpressions.call(this);
     this._initListeners();
+    handleDossierPathChange.call(this.model);
   }
 
   _initListeners = () => {
@@ -54,6 +57,14 @@ export default class ExplorerController extends BindableController {
     this.on("switch-layout", this._handleSwitchLayout, true);
     /**
      * End wallet switch & selection handlers
+     */
+
+    /**
+     * Add file-folder handlers
+     */
+    this.on("add-file-folder", this._handleFileFolderUpload, true);
+    /**
+     * End add file-folder handlers
      */
 
     this.on("fd-toggle-modal", this._toggleAddModalHandler, true);
@@ -192,4 +203,11 @@ export default class ExplorerController extends BindableController {
   /**
    * End Delete selected items handlers
    */
+
+  _handleFileFolderUpload = (event) => {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    handleFileFolderUpload.call(this, event.data);
+  };
 }

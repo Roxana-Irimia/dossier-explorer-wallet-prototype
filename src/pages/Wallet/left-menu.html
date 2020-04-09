@@ -1,11 +1,32 @@
 <psk-button-group view-model="addItems.addButton">
-  <psk-for-each data-view-model="addItems.addButtonsList">
-    <psk-button
-      label="@label"
-      event-name="@eventName"
-      event-data="@eventData"
-      button-class="@buttonClass"
-    >
-    </psk-button>
-  </psk-for-each>
+  <psk-files-chooser
+    event-name="add-file-folder"
+    label="@addItems.addFileLabel"
+    class="btn-menu"
+  ></psk-files-chooser>
+  <psk-files-chooser
+    event-name="add-file-folder"
+    label="@addItems.addFolderLabel"
+    accept="directory"
+    class="btn-menu bottom-border"
+  ></psk-files-chooser>
+
+  <psk-button
+    label="@addItems.createDossierLabel"
+    event-name="@addItems.dossierEventName"
+    event-data="@addItems.createDossierEventData"
+    button-class="btn-menu"
+  ></psk-button>
+  <psk-button
+    label="@addItems.importDossierLabel"
+    event-name="@addItems.dossierEventName"
+    event-data="@addItems.importDossierEventData"
+    button-class="btn-menu"
+  ></psk-button>
+  <psk-button
+    label="@addItems.receiveDossierLabel"
+    event-name="@addItems.dossierEventName"
+    event-data="@addItems.receiveDossierEventData"
+    button-class="btn-menu"
+  ></psk-button>
 </psk-button-group>

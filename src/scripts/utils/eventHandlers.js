@@ -1,5 +1,7 @@
-import { validateSeed } from "./utils.js";
+import { validateSeed, getItemsChainForPath } from "./utils.js";
+import { DEFAULT_ICON_COLOR } from "./constants.js";
 import { checkForModalOptions } from "./modalUtils.js";
+import { handleDossierPathChange } from "../../assets/models/chain-change-handlers.js";
 
 export function explorerExitHandler() {
   let model = this.model;
@@ -75,12 +77,13 @@ export function registerNewDossier(rootModel) {
 
   let dossier = {
     name: inputDossierName,
-    lastModification: new Date().getTime(),
+    lastModified: new Date().getTime(),
     type: "dossier",
-    size: "0",
+    icon: "lock",
+    iconColor: DEFAULT_ICON_COLOR,
+    gridIcon: "lock",
+    size: "-",
   };
-
-  console.log(model, inputDossierName, dossier);
 
   let currentItems = model.getChainValue("dossierDetails.items");
   if (!currentItems || !currentItems.length) {
@@ -90,6 +93,8 @@ export function registerNewDossier(rootModel) {
   }
 
   model.setChainValue(`${rootModel}.createState`, false);
+  toggleAddModalHandler.call(this);
+  handleDossierPathChange.call(model);
 }
 
 export function finishNewDossierProcess(rootModel) {
@@ -248,4 +253,48 @@ export function handleRename() {
    */
 
   toggleAddModalHandler.call(this);
+}
+
+export function handleFileFolderUpload(filesList) {
+  let model = this.model;
+
+  filesList.forEach(function (file) {
+    let fPath = file.webkitRelativePath;
+    if (fPath.length === 0 || fPath.indexOf("/") === -1) {
+      _uploadFileToModel.call(model, file, "dossierDetails.items");
+      return;
+    }
+
+    let splitPath = fPath.replace(`/${file.name}`, "").split("/");
+    splitPath.forEach(function (path) {
+      let chainByPath = getItemsChainForPath.call(model, path);
+      console.log(chainByPath);
+    });
+  });
+}
+
+function _uploadFileToModel({ name, lastModified, size }, chainToItems) {
+  let model = this;
+
+  let currentItems = model.getChainValue(chainToItems);
+  if (!currentItems || !currentItems.length) {
+    currentItems = [];
+  }
+
+  if (currentItems.find((el) => el.name === name)) {
+    console.error(`${name} already exists!`);
+    return;
+  }
+
+  let file = {
+    name: name,
+    lastModified: lastModified,
+    type: "file",
+    size: size,
+    iconColor: DEFAULT_ICON_COLOR,
+    gridIcon: "file",
+  };
+
+  currentItems.push(file);
+  handleDossierPathChange.call(model);
 }

@@ -13,14 +13,14 @@
   >
     <psk-label label="@dossierDetails.nameLabel"></psk-label>
     <psk-label label="@dossierDetails.typeLabel"></psk-label>
-    <psk-label label="@dossierDetails.lastModificationLabel"></psk-label>
+    <psk-label label="@dossierDetails.lastModifiedLabel"></psk-label>
     <psk-label label="@dossierDetails.sizeLabel"></psk-label>
   </psk-grid>
 
   <psk-for-each
     slot="condition-false"
     class="wallet-list-container"
-    data-view-model="dossierDetails.items"
+    data-view-model="dossierDetails.itemsToBeDisplayed"
   >
     <psk-card class="@selected">
       <psk-button
@@ -55,7 +55,7 @@
             ></psk-icon>
           </psk-grid>
           <psk-label label="@type"></psk-label>
-          <psk-label label="@lastModification"></psk-label>
+          <psk-label label="@lastModified"></psk-label>
           <psk-label label="@size"></psk-label>
         </psk-grid>
       </psk-button>
