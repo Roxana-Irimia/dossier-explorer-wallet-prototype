@@ -36,7 +36,7 @@ export default class ExplorerController extends BindableController {
 
     explorerInitConditionalExpressions.call(this);
     this._initListeners();
-    handleDossierPathChange.call(this.model);
+    // handleDossierPathChange.call(this.model);
   }
 
   _initListeners = () => {

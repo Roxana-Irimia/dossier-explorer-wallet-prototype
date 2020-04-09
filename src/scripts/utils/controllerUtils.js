@@ -23,9 +23,9 @@ let conditionDictionary = [
   {
     expression: "isDossierEmpty",
     callback: function () {
-      return isChainEmpty.call(this, "dossierDetails.itemsToBeDisplayed");
+      return isChainEmpty.call(this, "dossierDetails.items");
     },
-    chains: ["dossierDetails.itemsToBeDisplayed"],
+    chains: ["dossierDetails.items"],
   },
   {
     expression: "isSignOutModalOpened",

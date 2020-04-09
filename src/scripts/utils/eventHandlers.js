@@ -94,7 +94,7 @@ export function registerNewDossier(rootModel) {
 
   model.setChainValue(`${rootModel}.createState`, false);
   toggleAddModalHandler.call(this);
-  handleDossierPathChange.call(model);
+  // handleDossierPathChange.call(model);
 }
 
 export function finishNewDossierProcess(rootModel) {
@@ -261,24 +261,63 @@ export function handleFileFolderUpload(filesList) {
   filesList.forEach(function (file) {
     let fPath = file.webkitRelativePath;
     if (fPath.length === 0 || fPath.indexOf("/") === -1) {
-      _uploadFileToModel.call(model, file, "dossierDetails.items");
+      _uploadFileFolderToModel.call(
+        model,
+        file,
+        "dossierDetails.items",
+        "file"
+      );
       return;
     }
 
     let splitPath = fPath.replace(`/${file.name}`, "").split("/");
-    splitPath.forEach(function (path) {
-      let chainByPath = getItemsChainForPath.call(model, path);
-      console.log(chainByPath);
-    });
+    let fullPath = null;
+    let chainByPath;
+    for (let i = 0; i < splitPath.length; i++) {
+      let path = splitPath[i];
+      fullPath = fullPath ? `${fullPath}/${path}` : path;
+      chainByPath = getItemsChainForPath.call(model, fullPath);
+      if (chainByPath.indexOf("-1") !== -1) {
+        const _chain = chainByPath.split(".-1")[0];
+        _uploadFileFolderToModel.call(
+          model,
+          {
+            name: path,
+            lastModified: new Date().getTime(),
+            size: "",
+          },
+          _chain,
+          "folder"
+        );
+        chainByPath = getItemsChainForPath.call(model, fullPath);
+      }
+    }
+
+    _uploadFileFolderToModel.call(model, file, chainByPath, "file");
   });
 }
 
-function _uploadFileToModel({ name, lastModified, size }, chainToItems) {
+function _uploadFileFolderToModel(
+  { name, lastModified, size },
+  chainToItems,
+  type
+) {
   let model = this;
+
+  let item = {
+    name: name,
+    lastModified: lastModified,
+    type: type,
+    size: size,
+    iconColor: DEFAULT_ICON_COLOR,
+    gridIcon: type,
+  };
 
   let currentItems = model.getChainValue(chainToItems);
   if (!currentItems || !currentItems.length) {
-    currentItems = [];
+    model.setChainValue(chainToItems, []);
+    model.setChainValue(`${chainToItems}.0`, item);
+    return;
   }
 
   if (currentItems.find((el) => el.name === name)) {
@@ -286,15 +325,6 @@ function _uploadFileToModel({ name, lastModified, size }, chainToItems) {
     return;
   }
 
-  let file = {
-    name: name,
-    lastModified: lastModified,
-    type: "file",
-    size: size,
-    iconColor: DEFAULT_ICON_COLOR,
-    gridIcon: "file",
-  };
-
-  currentItems.push(file);
-  handleDossierPathChange.call(model);
+  model.setChainValue(`${chainToItems}.${currentItems.length}`, item);
+  console.log(model.dossierDetails.items);
 }
