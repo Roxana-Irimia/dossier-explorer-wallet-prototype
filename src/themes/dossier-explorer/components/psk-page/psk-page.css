@@ -28,7 +28,7 @@
   color: #572a57;
 }
 
-.container {
+div.container {
   max-width: unset;
   padding: 0;
 }

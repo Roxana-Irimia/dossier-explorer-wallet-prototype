@@ -4,19 +4,19 @@
   margin-top: 2rem;
 }
 
-.row {
+div.row {
   color: #572a57;
   font-weight: bold;
 }
 
-.items .row > * {
+.items div.row > * {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
 }
 
-psk-grid .col-form-label {
+psk-grid label.col-form-label {
   display: inline;
   justify-content: flex-start;
   align-items: center;
