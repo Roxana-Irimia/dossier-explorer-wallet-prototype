@@ -1,65 +1,51 @@
-<psk-condition condition="@isDossierEmpty">
-  <psk-label
-    slot="condition-true"
-    class="h2 info"
-    label="@dossierDetails.noItemsLabel"
-  ></psk-label>
+<psk-grid
+  class="wallet-list-header"
+  columns="4"
+  layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
+>
+  <psk-label label="@walletLabels.dossierContent.nameLabel"></psk-label>
+  <psk-label label="@walletLabels.dossierContent.typeLabel"></psk-label>
+  <psk-label label="@walletLabels.dossierContent.lastModifiedLabel"></psk-label>
+  <psk-label label="@walletLabels.dossierContent.sizeLabel"></psk-label>
+</psk-grid>
 
-  <psk-grid
-    slot="condition-false"
-    class="wallet-list-header"
-    columns="4"
-    layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
-  >
-    <psk-label label="@dossierDetails.nameLabel"></psk-label>
-    <psk-label label="@dossierDetails.typeLabel"></psk-label>
-    <psk-label label="@dossierDetails.lastModifiedLabel"></psk-label>
-    <psk-label label="@dossierDetails.sizeLabel"></psk-label>
-  </psk-grid>
-
-  <psk-for-each
-    slot="condition-false"
-    class="wallet-list-container"
-    data-view-model="dossierDetails.displayedItems"
-  >
-    <psk-card class="@selected">
-      <psk-button
-        class="wallet-path"
-        event-name="select-wallet-item"
-        double-click-event-name="double-click-item"
-        event-data="@name"
+<psk-for-each class="wallet-list-container" data-view-model="content">
+  <psk-card class="@selected">
+    <psk-button
+      class="wallet-path"
+      event-name="select-wallet-item"
+      double-click-event-name="double-click-item"
+      event-data="@name"
+    >
+      <psk-grid
+        class="items"
+        columns="4"
+        layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
       >
-        <psk-grid
-          class="items"
-          columns="4"
-          layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
-        >
-          <psk-grid>
-            <psk-label label="@name"> </psk-label>
-            <psk-button
-              display-if-exists="action"
-              button-class="@action.buttonClass"
-              event-name="@action.eventName"
-            >
-              <psk-icon
-                display-if-exists="action.icon"
-                color="@action.iconColor"
-                icon="@action.icon"
-              ></psk-icon>
-              <psk-label label="@action.label"></psk-label>
-            </psk-button>
+        <psk-grid>
+          <psk-label label="@name"> </psk-label>
 
-            <psk-icon
-              display-if-exists="icon"
-              color="@iconColor"
-              icon="@icon"
-            ></psk-icon>
-          </psk-grid>
-          <psk-label label="@type"></psk-label>
-          <psk-label label="@lastModified"></psk-label>
-          <psk-label label="@size"></psk-label>
+          <psk-condition condition="@runnable">
+            <psk-button button-class="btn-run" event-name="run-app">
+              <psk-icon color="#572a57" icon="play"></psk-icon>
+              <psk-label
+                label="@walletLabels.dossierContent.runAppLabel"
+              ></psk-label>
+            </psk-button>
+          </psk-condition>
+
+          <psk-icon color="#572a57" icon="@icon"></psk-icon>
         </psk-grid>
-      </psk-button>
-    </psk-card>
-  </psk-for-each>
-</psk-condition>
+        <psk-label label="@type"></psk-label>
+        <psk-label label="@lastModified"></psk-label>
+        <psk-label label="@size"></psk-label>
+      </psk-grid>
+    </psk-button>
+  </psk-card>
+
+  <psk-label
+    slot="no-data"
+    class="h2 info"
+    label="@walletLabels.dossierContent.noItemsLabel"
+  ></psk-label>
+</psk-for-each>

@@ -1,19 +1,18 @@
-<psk-modal opened event-name="cancel-exit" class="exit-modal">
-  <psk-label slot="title" label="@signOut.modal.title"></psk-label>
+<psk-container controller-name="SignOutController">
+  <psk-modal opened="@opened" event-name="sign-out-toggle" class="exit-modal">
+    <psk-label slot="title" label="@title"></psk-label>
 
-  <psk-label label="@signOut.modal.confirmQuestion"></psk-label>
+    <psk-label label="@confirmDeleteSeedDisclaimer"></psk-label>
 
-  <psk-checkbox view-model="signOut.modal.checkbox"></psk-checkbox>
+    <psk-checkbox view-model="deleteSeedAgreement"></psk-checkbox>
 
-  <psk-condition condition="@hasExitModalError">
-    <psk-label
-      label="@signOut.modal.error.errorMessage"
-      class="h6 input-error"
-    ></psk-label>
-  </psk-condition>
+    <psk-condition condition="@hasError">
+      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
 
-  <psk-grid columns="2" layout="xs=[12,12] s=[6,6] m=[6,6] l=[6,6] xl=[6,6]">
-    <psk-button view-model="signOut.modal.confirmButton"></psk-button>
-    <psk-button view-model="signOut.modal.justExitButton"></psk-button>
-  </psk-grid>
-</psk-modal>
+    <psk-grid columns="2" layout="xs=[12,12] s=[6,6] m=[6,6] l=[6,6] xl=[6,6]">
+      <psk-button view-model="confirmBtn"></psk-button>
+      <psk-button view-model="exitBtn"></psk-button>
+    </psk-grid>
+  </psk-modal>
+</psk-container>

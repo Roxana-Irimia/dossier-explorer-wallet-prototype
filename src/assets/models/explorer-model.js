@@ -4,26 +4,6 @@ import {
   DEFAULT_ICON_COLOR,
 } from "../../scripts/utils/constants.js";
 
-const basePagesPath = "http://localhost:8000/pages/";
-
-const pageLoader = {
-  walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,
-  walletListContent: `${basePagesPath}Wallet/wallet-content-list.html`,
-  leftMenu: `${basePagesPath}Wallet/left-menu.html`,
-  rightMenu: `${basePagesPath}Wallet/right-menu.html`,
-  walletContent: `${basePagesPath}Wallet/wallet-content.html`,
-  switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
-  signOut: `${basePagesPath}Wallet/sign-out.html`,
-  signOutModal: `${basePagesPath}Wallet/modals/sign-out-modal.html`,
-  fileDossierModals: `${basePagesPath}Wallet/modals/file-dossier-modals.html`,
-  createDossierModal: `${basePagesPath}Wallet/modals/new-dossier-modal.html`,
-  importDossierModal: `${basePagesPath}Wallet/modals/import-dossier-modal.html`,
-  receiveDossierModal: `${basePagesPath}Wallet/modals/receive-dossier-modal.html`,
-  shareDossierModal: `${basePagesPath}Wallet/modals/share-dossier-modal.html`,
-  deleteSelectedItemsModal: `${basePagesPath}Wallet/modals/delete-selected-items-modal.html`,
-  renameDossierModal: `${basePagesPath}Wallet/modals/rename-dossier-modal.html`,
-};
-
 const createDossierModal = {
   title: "Create Dossier",
   createState: true,
@@ -183,25 +163,6 @@ const deleteSelectedItemsModal = {
   },
 };
 
-const addItems = {
-  addButton: {
-    label: "Add",
-    icon: "plus",
-    iconColor: "#ffffff",
-    classes: "add-menu",
-  },
-  selectedModal: "",
-  addFileLabel: "Add file",
-  addFolderLabel: "Add folder",
-  createDossierLabel: "Create Dossier",
-  importDossierLabel: "Import Dossier",
-  receiveDossierLabel: "Receive Dossier",
-  createDossierEventData: '{ "modalName": "create-dossier" }',
-  importDossierEventData: '{ "modalName": "import-dossier" }',
-  receiveDossierEventData: '{ "modalName": "receive-dossier" }',
-  dossierEventName: FILE_DOSSIER_MODAL_TOGGLE_EVENT_NAME,
-};
-
 const rightMenu = {
   dotsMenu: {
     icon: "ellipsis-v",
@@ -256,142 +217,53 @@ const rightMenu = {
   },
 };
 
-const switchLayout = {
-  grid: {
-    icon: "th",
-    iconColor: DEFAULT_ICON_COLOR,
-    iconClass: "right-menu",
-    switchHover: "Click to switch to list",
-    eventName: "switch-layout",
-  },
-  list: {
-    icon: "th-list",
-    iconColor: DEFAULT_ICON_COLOR,
-    iconClass: "right-menu",
-    switchHover: "Click to switch to grid",
-    eventName: "switch-layout",
-  },
-  active: "grid",
-  buttonClass: "btn-switch",
-};
+const basePagesPath = "http://localhost:8000/pages/";
 
-const pagination = {
-  loadMore: "Load more",
-};
-
-const dossierDetails = {
-  homeLabel: "My Wallet",
-  currentPath: "/",
-  sizeLabel: "Size",
-  typeLabel: "Type",
-  lastModifiedLabel: "Last modification",
-  nameLabel: "Name",
-  // Array to be removed after switched to interactions (displayedItems)
-  displayedItems: [],
-  noItemsLabel:
-    "There are no items in the current folder/dossier. You can add some by using the Add button.",
-  items: [
-    {
-      name: "assets",
-      lastModified: "1584079000",
-      type: "folder",
-      iconColor: DEFAULT_ICON_COLOR,
-      gridIcon: "folder",
-      size: "78563",
-    },
-    {
-      name: "blockchain",
-      lastModified: "547856365631313213132132132131",
-      type: "file",
-      iconColor: DEFAULT_ICON_COLOR,
-      gridIcon: "file",
-      size: "547856365631313213132132132131",
-    },
-    {
-      name: "app",
-      lastModified: "1584079000",
-      type: "application",
-      size: "2478563",
-      iconColor: DEFAULT_ICON_COLOR,
-      gridIcon: "cog",
-      action: {
-        buttonClass: "btn-run",
-        label: "Run",
-        eventName: "run-app",
-        iconColor: DEFAULT_ICON_COLOR,
-        icon: "play",
-        iconClass: "icon-run-app",
-      },
-    },
-    {
-      name: "New Dossier",
-      lastModified: "1584079000",
-      size: "347856",
-      type: "dossier",
-      icon: "lock",
-      iconColor: DEFAULT_ICON_COLOR,
-      gridIcon: "lock",
-      items: [
-        {
-          name: "inside new dossier",
-          size: "213124",
-          type: "file",
-          iconColor: DEFAULT_ICON_COLOR,
-          gridIcon: "file",
-        },
-      ],
-    },
-  ],
-};
-
-const signOut = {
-  eventName: "exit",
-  buttonClass: "btn-exit",
-  icon: "sign-out",
-  iconColor: DEFAULT_ICON_COLOR,
-  iconClass: "right-menu",
-  label: "Exit",
-  modal: {
-    opened: false,
-    title: "Exit Wallet",
-    confirmQuestion:
-      "Would you also like to delete Walled SEED from this device?",
-    checkbox: {
-      checked: false,
-      checkboxLabel: "I have a copy of this Wallet SEED",
-      value: "unchecked",
-    },
-    confirmButton: {
-      disabled: true,
-      label: "Yes",
-      eventName: "confirm-exit",
-      buttonClass: "btn-confirm",
-    },
-    justExitButton: {
-      label: "No, just exit",
-      eventName: "confirm-exit",
-      buttonClass: "btn-confirm-primary",
-    },
-    error: {
-      hasError: true,
-      errorMessage: "Service error",
-    },
-  },
+const pageLoader = {
+  walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,
+  walletListContent: `${basePagesPath}Wallet/wallet-content-list.html`,
+  leftMenu: `${basePagesPath}Wallet/left-menu.html`,
+  rightMenu: `${basePagesPath}Wallet/right-menu.html`,
+  switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
+  signOut: `${basePagesPath}Wallet/sign-out.html`,
+  // signOutModal: `${basePagesPath}Wallet/modals/sign-out-modal.html`,
+  fileDossierModals: `${basePagesPath}Wallet/modals/file-dossier-modals.html`,
+  createDossierModal: `${basePagesPath}Wallet/modals/new-dossier-modal.html`,
+  importDossierModal: `${basePagesPath}Wallet/modals/import-dossier-modal.html`,
+  receiveDossierModal: `${basePagesPath}Wallet/modals/receive-dossier-modal.html`,
+  shareDossierModal: `${basePagesPath}Wallet/modals/share-dossier-modal.html`,
+  deleteItemsModal: `${basePagesPath}Wallet/modals/delete-selected-items-modal.html`,
+  renameDossierModal: `${basePagesPath}Wallet/modals/rename-dossier-modal.html`,
 };
 
 export const explorerModel = {
-  sectionTitle: "Dashboard",
   pageLoader: { ...pageLoader },
-  signOut: { ...signOut },
-  addItems: { ...addItems },
-  rightMenu: { ...rightMenu },
-  dossierDetails: { ...dossierDetails },
-  switchLayout: { ...switchLayout },
-  pagination: { ...pagination },
-  createDossierModal: { ...createDossierModal },
-  importDossierModal: { ...importDossierModal },
-  receiveDossierModal: { ...receiveDossierModal },
-  shareDossierModal: { ...shareDossierModal },
-  deleteSelectedItemsModal: { ...deleteSelectedItemsModal },
-  renameDossierModal: { ...renameDossierModal },
+
+  isGridLayout: true,
+  sectionTitle: "Dashboard",
+  signOutLabel: "Exit",
+  modals: {},
+  dossierContent: {
+    homeLabel: "My Wallet",
+    currentPath: "/",
+    sizeLabel: "Size",
+    typeLabel: "Type",
+    lastModifiedLabel: "Last modification",
+    nameLabel: "Name",
+    runAppLabel: "Run",
+    noItemsLabel:
+      "There are no items in the current folder/dossier. You can add some by using the Add button.",
+  },
+  addMenuLabels: {
+    addLabel: "Add",
+    addFileLabel: "Add file",
+    addFolderLabel: "Add folder",
+    createDossierLabel: "Create Dossier",
+    importDossierLabel: "Import Dossier",
+    receiveDossierLabel: "Receive Dossier",
+  },
+  hoverLabels: {
+    switchGridHover: "Click to switch to list",
+    switchListHover: "Click to switch to grid",
+  },
 };

@@ -2,7 +2,7 @@
   <psk-container controller-name="ExplorerController">
     <psk-page-loader page-url="@pageLoader.signOut"></psk-page-loader>
 
-    <psk-card title="@sectionTitle">
+    <psk-card title="@walletLabels.sectionTitle">
       <psk-grid
         columns="3"
         layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]"
@@ -14,7 +14,17 @@
         <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
       </psk-grid>
 
-      <psk-page-loader page-url="@pageLoader.walletContent"> </psk-page-loader>
+      <psk-condition condition="@isGridLayout">
+        <psk-page-loader
+          slot="condition-true"
+          page-url="@pageLoader.walletGridContent"
+        ></psk-page-loader>
+        <psk-page-loader
+          slot="condition-false"
+          page-url="@pageLoader.walletListContent"
+        ></psk-page-loader>
+      </psk-condition>
+      
     </psk-card>
 
     <psk-page-loader page-url="@pageLoader.fileDossierModals">

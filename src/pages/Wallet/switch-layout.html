@@ -4,29 +4,21 @@
 >
   <psk-condition condition="@isGridLayout">
     <psk-button
-      title="@switchLayout.grid.switchHover"
-      event-name="@switchLayout.grid.eventName"
-      button-class="@switchLayout.buttonClass"
+      slot="condition-true"
+      title="@hoverLabels.switchGridHover"
+      event-name="switch-layout"
+      button-class="btn-switch"
     >
-      <psk-icon
-        color="@switchLayout.grid.iconColor"
-        icon="@switchLayout.grid.icon"
-        classes="@switchLayout.grid.iconClass"
-      ></psk-icon>
+      <psk-icon color="#572a57" icon="th" classes="right-menu"></psk-icon>
     </psk-button>
-  </psk-condition>
 
-  <psk-condition condition="@isListLayout">
     <psk-button
-      title="@switchLayout.list.switchHover"
-      event-name="@switchLayout.list.eventName"
-      button-class="@switchLayout.buttonClass"
+      slot="condition-false"
+      title="@hoverLabels.switchListHover"
+      event-name="switch-layout"
+      button-class="btn-switch"
     >
-      <psk-icon
-        color="@switchLayout.list.iconColor"
-        icon="@switchLayout.list.icon"
-        classes="@switchLayout.list.iconClass"
-      ></psk-icon>
+      <psk-icon color="#572a57" icon="th-list" classes="right-menu"></psk-icon>
     </psk-button>
   </psk-condition>
 </psk-grid>

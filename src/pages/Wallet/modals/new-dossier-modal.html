@@ -1,46 +1,39 @@
-<psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
-  <psk-label slot="title" label="@createDossierModal.title"></psk-label>
+<psk-container controller-name="CreateDossierController">
+  <psk-modal opened="@opened" event-name="create-dossier-toggle" class="dossier-modal">
+    <psk-label slot="title" label="@title"></psk-label>
 
-  <psk-condition condition="@isNewDossierCreateState">
-    <psk-icon
-      slot="condition-true"
-      icon="pencil"
-      color="#8197bc"
-      class="dossier-modal"
-    ></psk-icon>
-    <psk-text-input
-      slot="condition-true"
-      view-model="createDossierModal.setNameInput"
-    ></psk-text-input>
+    <psk-condition condition="@createState">
+      <psk-icon
+        slot="condition-true"
+        icon="pencil"
+        color="#8197bc"
+        class="dossier-modal"
+      ></psk-icon>
+      <psk-text-input
+        slot="condition-true"
+        view-model="setNameInput"
+      ></psk-text-input>
 
-    <psk-icon
-      slot="condition-false"
-      icon="check"
-      color="#8197bc"
-      class="dossier-modal"
-    ></psk-icon>
-    <psk-text-input
-      slot="condition-false"
-      view-model="createDossierModal.seedInput"
-    ></psk-text-input>
-  </psk-condition>
+      <psk-icon
+        slot="condition-false"
+        icon="check"
+        color="#8197bc"
+        class="dossier-modal"
+      ></psk-icon>
+      <psk-text-input
+        slot="condition-false"
+        view-model="seedInput"
+      ></psk-text-input>
+    </psk-condition>
 
-  <psk-condition condition="@hasNewDossierModalError">
-    <psk-label
-      label="@createDossierModal.errorMessage"
-      class="h6 input-error"
-    ></psk-label>
-  </psk-condition>
+    <psk-condition condition="@hasError">
+      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
 
-  <psk-condition condition="@isNewDossierCreateState">
-    <psk-button
-      slot="condition-true"
-      view-model="createDossierModal.setNameButton"
-    ></psk-button>
+    <psk-condition condition="@createState">
+      <psk-button slot="condition-true" view-model="setNameButton"></psk-button>
 
-    <psk-button
-      slot="condition-false"
-      view-model="createDossierModal.finishButton"
-    ></psk-button>
-  </psk-condition>
-</psk-modal>
+      <psk-button slot="condition-false" view-model="finishButton"></psk-button>
+    </psk-condition>
+  </psk-modal>
+</psk-container>

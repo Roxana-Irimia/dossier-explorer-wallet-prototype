@@ -1,12 +1,23 @@
-<psk-button button-class="@signOut.buttonClass" event-name="@signOut.eventName">
-  <psk-icon
-    icon="@signOut.icon"
-    color="@signOut.iconColor"
-    classes="@signOut.iconClass"
-  ></psk-icon>
-  <psk-label label="@signOut.label"></psk-label>
+<psk-button button-class="btn-exit" event-name="sign-out-toggle">
+  <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
+  <psk-label label="@walletLabels.signOutLabel"></psk-label>
 </psk-button>
 
-<psk-condition condition="@isSignOutModalOpened">
-  <psk-page-loader page-url="@pageLoader.signOutModal"></psk-page-loader>
-</psk-condition>
+<psk-container controller-name="SignOutController">
+  <psk-modal opened="@opened" event-name="sign-out-toggle" class="exit-modal">
+    <psk-label slot="title" label="@title"></psk-label>
+
+    <psk-label label="@confirmDeleteSeedDisclaimer"></psk-label>
+
+    <psk-checkbox view-model="deleteSeedAgreement"></psk-checkbox>
+
+    <psk-condition condition="@hasError">
+      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
+
+    <psk-grid columns="2" layout="xs=[12,12] s=[6,6] m=[6,6] l=[6,6] xl=[6,6]">
+      <psk-button view-model="confirmBtn"></psk-button>
+      <psk-button view-model="exitBtn"></psk-button>
+    </psk-grid>
+  </psk-modal>
+</psk-container>

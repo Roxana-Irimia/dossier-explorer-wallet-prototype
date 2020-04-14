@@ -36,15 +36,6 @@ export function explorerConfirmExitHandler() {
   model.setChainValue("signOut.modal.error.errorMessage", "");
 }
 
-export function explorerSwitchLayoutHandler() {
-  let model = this.model;
-
-  let layoutState = model.getChainValue("switchLayout.active");
-  layoutState = layoutState === "grid" ? "list" : "grid";
-
-  model.setChainValue("switchLayout.active", layoutState);
-}
-
 // TODO: Refactor method toggleAddModalHandler to toggleFileDossierModalHandler.
 // TODO: Refactor the addItems.selectedModal model so to comply with the new refactred method.
 // The method is used for all the events reponsible with file-dossier modals
