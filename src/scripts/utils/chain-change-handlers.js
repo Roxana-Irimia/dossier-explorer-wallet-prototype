@@ -1,4 +1,4 @@
-import { equals, getItemsChainForPath } from "../../scripts/utils/utils.js";
+import { equals, getItemsChainForPath } from "./utils.js";
 
 export function signOutCheckboxToggle() {
   let model = this;
