@@ -1,7 +1,7 @@
-import BindableController from "./base-controllers/BindableController.js";
+import ContainerController from "../../cardinal/controllers/ContainerController.js";
 import { rootModel } from "../view-models/rootModel.js";
 
-export default class ExplorerController extends BindableController {
+export default class ExplorerController extends ContainerController {
   constructor(element) {
     super(element);
 

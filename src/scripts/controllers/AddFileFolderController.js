@@ -1,7 +1,7 @@
-import BindableController from "./base-controllers/BindableController.js";
+import ContainerController from "../../cardinal/controllers/ContainerController.js";
 import { addFileFolderModel } from "../view-models/addFileFolderModel.js";
 
-export default class AddFileFolderController extends BindableController {
+export default class AddFileFolderController extends ContainerController {
   constructor(element) {
     super(element);
 

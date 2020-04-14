@@ -1,12 +1,12 @@
-import BindableController from "./base-controllers/BindableController.js";
+import ContainerController from "../../cardinal/controllers/ContainerController.js";
 import { signOutModal } from "../view-models/signOutModal.js";
 import SignOutEvent from "../events/SignOutEvent.js";
 
-export default class SignOutController extends BindableController {
+export default class SignOutController extends ContainerController {
   constructor(element) {
     super(element);
 
-    this.model = this.setModel(signOutModal);
+    this.model = this.setModel(JSON.parse(JSON.stringify(signOutModal)));
 
     this._initListeners();
   }
