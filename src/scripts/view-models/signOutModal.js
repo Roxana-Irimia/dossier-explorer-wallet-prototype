@@ -1,4 +1,4 @@
-export const signOutModel = {
+export const signOutModal = {
   opened: false,
   title: "Exit Wallet",
   confirmDeleteSeedDisclaimer:
