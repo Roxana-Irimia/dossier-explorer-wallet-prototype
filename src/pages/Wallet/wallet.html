@@ -1,6 +1,10 @@
-<psk-page title="E-wallet">
-  <psk-container controller-name="ExplorerController">
-    <psk-button button-class="btn-exit" event-name="showModal" event-data="signOut">
+<psk-container controller-name="ExplorerController">
+  <psk-page title="@pageTitle">
+    <psk-button
+      button-class="btn-exit"
+      event-name="showModal"
+      event-data="signOut"
+    >
       <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
       <psk-label label="@signOutLabel"></psk-label>
     </psk-button>
@@ -27,7 +31,5 @@
         ></psk-page-loader>
       </psk-condition>
     </psk-card>
-
-    </psk-page-loader>
-  </psk-container>
-</psk-page>
+  </psk-page>
+</psk-container>
