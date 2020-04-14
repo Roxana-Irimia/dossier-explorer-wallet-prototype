@@ -1,8 +1,12 @@
 <psk-page title="E-wallet">
   <psk-container controller-name="ExplorerController">
-    <psk-page-loader page-url="@pageLoader.signOut"></psk-page-loader>
+    <!-- <psk-page-loader page-url="@pageLoader.signOut"></psk-page-loader> -->
+    <psk-button button-class="btn-exit" event-name="sign-out-toggle">
+      <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
+      <psk-label label="@signOutLabel"></psk-label>
+    </psk-button>
 
-    <psk-card title="@walletLabels.sectionTitle">
+    <psk-card title="@sectionTitle">
       <psk-grid
         columns="3"
         layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]"

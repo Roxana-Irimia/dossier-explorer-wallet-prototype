@@ -1,5 +1,5 @@
 import BindableController from "./base-controllers/BindableController.js";
-import { signOutModel } from "../models/signOutModal.js";
+import { signOutModel } from "../view-models/signOutModal.js";
 import SignOutEvent from "../events/SignOutEvent.js";
 
 export default class SignOutController extends BindableController {

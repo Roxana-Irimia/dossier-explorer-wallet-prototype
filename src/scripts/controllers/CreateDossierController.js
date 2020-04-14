@@ -1,5 +1,5 @@
 import BindableController from "./base-controllers/BindableController.js";
-import { createDossierModel } from "../models/createDossierModal.js";
+import { createDossierModel } from "../view-models/createDossierModal.js";
 
 export default class CreateDossierController extends BindableController {
   constructor(element) {

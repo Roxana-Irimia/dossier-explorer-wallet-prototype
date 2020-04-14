@@ -3,10 +3,10 @@
   columns="4"
   layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
 >
-  <psk-label label="@walletLabels.dossierContent.nameLabel"></psk-label>
-  <psk-label label="@walletLabels.dossierContent.typeLabel"></psk-label>
-  <psk-label label="@walletLabels.dossierContent.lastModifiedLabel"></psk-label>
-  <psk-label label="@walletLabels.dossierContent.sizeLabel"></psk-label>
+  <psk-label label="@dossierContent.nameLabel"></psk-label>
+  <psk-label label="@dossierContent.typeLabel"></psk-label>
+  <psk-label label="@dossierContent.lastModifiedLabel"></psk-label>
+  <psk-label label="@dossierContent.sizeLabel"></psk-label>
 </psk-grid>
 
 <psk-for-each class="wallet-list-container" data-view-model="content">
@@ -29,7 +29,7 @@
             <psk-button button-class="btn-run" event-name="run-app">
               <psk-icon color="#572a57" icon="play"></psk-icon>
               <psk-label
-                label="@walletLabels.dossierContent.runAppLabel"
+                label="@dossierContent.runAppLabel"
               ></psk-label>
             </psk-button>
           </psk-condition>
@@ -46,6 +46,6 @@
   <psk-label
     slot="no-data"
     class="h2 info"
-    label="@walletLabels.dossierContent.noItemsLabel"
+    label="@dossierContent.noItemsLabel"
   ></psk-label>
 </psk-for-each>
