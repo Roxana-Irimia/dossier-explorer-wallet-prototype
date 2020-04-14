@@ -4,6 +4,9 @@
     "username": "Dossier Explorer",
     "avatar": "/assets/images/dossier-explorer.png"
   },
+  "modals":{
+    "signOut":"Wallet/modals/sign-out.html"
+  },
   "menu": {
     "defaultMenuConfig": {
       "icon": "fa-bars",
