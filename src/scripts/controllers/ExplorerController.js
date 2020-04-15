@@ -1,5 +1,6 @@
-import ContainerController from "../../cardinal/controllers/ContainerController.js";
+import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 import { rootModel } from "../view-models/rootModel.js";
+import { signOutModal } from "../view-models/signOutModal.js"
 
 export default class ExplorerController extends ContainerController {
   constructor(element) {
@@ -24,7 +25,10 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    console.log(event.data, `Detele SEED: ${event.data.deleteSeed === true}`);
+    this.showModal("signOut", signOutModal,(err, response)=>{
+      console.log(err, response);
+    });
+
   };
 
   _handleSwitchLayout = (event) => {

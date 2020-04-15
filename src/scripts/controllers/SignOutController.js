@@ -1,19 +1,21 @@
-import ContainerController from "../../cardinal/controllers/ContainerController.js";
-import { signOutModal } from "../view-models/signOutModal.js";
-import SignOutEvent from "../events/SignOutEvent.js";
+import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 
 export default class SignOutController extends ContainerController {
   constructor(element) {
     super(element);
+    this.element = element;
 
-    this.model = this.setModel(JSON.parse(JSON.stringify(signOutModal)));
+      this.getBindData((error, data, callback)=>{
+          this.callback = callback;
+          this.model = this.setModel(JSON.parse(JSON.stringify(data)));
+      });
 
     this._initListeners();
   }
 
   _initListeners = () => {
-    this.on("sign-out-toggle", document, this._toggleSignOutModal, true);
-    this.on("sign-out-confirm", document, this._confirmExitHandler, true);
+    this.on("sign-out-toggle", this.element, this._toggleSignOutModal, true);
+    this.on("sign-out-confirm", this.element, this._confirmExitHandler, true);
 
     this.model.onChange(
       "deleteSeedAgreement.value",
@@ -39,22 +41,7 @@ export default class SignOutController extends ContainerController {
     event.stopImmediatePropagation();
 
     let isCheckboxChecked =
-      this.model.getChainValue("deleteSeedAgreement.value") === "checked";
-    let data = { deleteSeed: isCheckboxChecked };
-
-    this._element.dispatchEvent(new SignOutEvent(data));
-    this._resetModelToDefault();
-  };
-
-  /**
-   * TODO: Check for alternatives of reseting the view-model
-   */
-  _resetModelToDefault = () => {
-    this.model.opened = false;
-    this.model.hasError = false;
-    this.model.errorMessage = "";
-    this.model.confirmBtn.disabled = true;
-    this.model.deleteSeedAgreement.checked = false;
-    this.model.deleteSeedAgreement.value = "unchecked";
+    this.model.getChainValue("deleteSeedAgreement.value") === "checked";
+    this.callback(undefined, {deleteSeed:isCheckboxChecked});
   };
 }
