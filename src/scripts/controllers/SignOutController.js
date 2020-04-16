@@ -1,15 +1,9 @@
-import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 
-export default class SignOutController extends ContainerController {
+export default class SignOutController extends ModalController {
   constructor(element) {
     super(element);
     this.element = element;
-
-      this.getBindData((error, data, callback)=>{
-          this.callback = callback;
-          this.model = this.setModel(JSON.parse(JSON.stringify(data)));
-      });
-
     this._initListeners();
   }
 
@@ -42,6 +36,6 @@ export default class SignOutController extends ContainerController {
 
     let isCheckboxChecked =
     this.model.getChainValue("deleteSeedAgreement.value") === "checked";
-    this.callback(undefined, {deleteSeed:isCheckboxChecked});
+    this.responseCallback(undefined, {deleteSeed:isCheckboxChecked});
   };
 }
