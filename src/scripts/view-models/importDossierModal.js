@@ -1,25 +1,35 @@
-export const importDossierModal = {
+const importDossierModal = {
   title: "Import Dossier",
-  createState: true,
-  hasError: false,
-  errorMessage: "",
-  setNameInput: {
+  isDossierNameStep: true,
+  dossierNameInput: {
     label: "Name the imported dossier",
     value: "",
   },
-  setSeedInput: {
+  dossierSeedInput: {
     label: "Enter your SEED",
-    value: "",
+    value: ""
   },
-  setNameButton: {
-    disabled: true,
-    label: "Continue",
-    eventName: "name-import-dossier",
-    buttonClass: "btn-confirm-primary",
+  buttons: {
+    continueButton: {
+      disabled: true,
+      label: "Continue",
+      eventName: "import-dossier-name",
+      buttonClass: "btn-confirm-primary",
+    },
+    finishButton: {
+      label: "Finish",
+      eventName: "import-dossier-seed",
+      buttonClass: "btn-confirm-primary",
+    }
   },
-  finishButton: {
-    label: "Finish",
-    eventName: "seed-import-dossier",
-    buttonClass: "btn-confirm-primary",
+  error: {
+    hasError: false,
+    errorMessage: "",
+    errorLabels: {
+      fileExistsLabel: "A file with the same name already exists!",
+      nameNotEmptyLabel: "The file name cannot be empty or only with empty spaces!"
+    }
   },
 };
+
+export default importDossierModal;

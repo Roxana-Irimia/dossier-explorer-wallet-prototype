@@ -1,11 +1,9 @@
-export const signOutModal = {
-  opened: false,
+const signOutModal = {
   title: "Exit Wallet",
-  confirmDeleteSeedDisclaimer:
-    "Would you also like to delete Walled SEED from this device?",
+  confirmDeleteSeedDisclaimer: "Would you also like to delete Walled SEED from this device?",
   hasError: 0,
   errorMessage: "Service error",
-  deleteSeedAgreement: {
+  checkboxDeleteSeed: {
     checked: false,
     checkboxLabel: "I have a copy of this Wallet SEED",
     value: "unchecked",
@@ -14,6 +12,7 @@ export const signOutModal = {
     disabled: true,
     label: "Yes",
     eventName: "sign-out-confirm",
+    eventData: "delete-seed",
     buttonClass: "btn-confirm",
   },
   exitBtn: {
@@ -22,3 +21,5 @@ export const signOutModal = {
     buttonClass: "btn-confirm-primary",
   },
 };
+
+export default signOutModal;

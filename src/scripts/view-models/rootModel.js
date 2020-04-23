@@ -3,29 +3,28 @@ const basePagesPath = "http://localhost:8000/pages/";
 const pageLoader = {
   walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,
   walletListContent: `${basePagesPath}Wallet/wallet-content-list.html`,
-  leftMenu: `${basePagesPath}Wallet/left-menu.html`,
-  rightMenu: `${basePagesPath}Wallet/right-menu.html`,
+  addDossierMenu: `${basePagesPath}Wallet/add-dossier-menu.html`,
+  rightIconsMenu: `${basePagesPath}Wallet/right-icons-menu.html`,
   switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
 };
 
-export const rootModel = {
-  pageLoader: { ...pageLoader },
-
+const rootModel = {
+  pageLoader: {
+    ...pageLoader
+  },
+  content: [],
   pageTitle: "E-Wallet",
   sectionTitle: "Dashboard",
   isGridLayout: true,
   signOutLabel: "Exit",
-  modals: {},
-  dossierContent: {
+  dossierContentLabels: {
     homeLabel: "My Wallet",
-    currentPath: "/",
     sizeLabel: "Size",
     typeLabel: "Type",
     lastModifiedLabel: "Last modification",
     nameLabel: "Name",
     runAppLabel: "Run",
-    noItemsLabel:
-      "There are no items in the current folder/dossier. You can add some by using the Add button.",
+    noItemsLabel: "There are no items in the current folder/dossier. You can add some by using the Add button.",
   },
   addMenuLabels: {
     addLabel: "Add",
@@ -40,3 +39,5 @@ export const rootModel = {
     switchListHover: "Click to switch to grid",
   },
 };
+
+export default rootModel;

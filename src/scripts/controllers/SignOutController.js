@@ -3,30 +3,21 @@ import ModalController from "../../cardinal/controllers/base-controllers/ModalCo
 export default class SignOutController extends ModalController {
   constructor(element) {
     super(element);
-    this.element = element;
     this._initListeners();
   }
 
   _initListeners = () => {
-    this.on("sign-out-toggle", this.element, this._toggleSignOutModal, true);
     this.on("sign-out-confirm", this.element, this._confirmExitHandler, true);
 
     this.model.onChange(
-      "deleteSeedAgreement.value",
-      this._deleteSeedAgreementToggle
+      "checkboxDeleteSeed.value",
+      this._checkboxDeleteSeedToggle
     );
   };
 
-  _toggleSignOutModal = (event) => {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    this.model.opened = !this.model.opened;
-  };
-
-  _deleteSeedAgreementToggle = () => {
+  _checkboxDeleteSeedToggle = () => {
     let isCheckboxChecked =
-      this.model.getChainValue("deleteSeedAgreement.value") === "checked";
+      this.model.getChainValue("checkboxDeleteSeed.value") === "checked";
     this.model.setChainValue("confirmBtn.disabled", !isCheckboxChecked);
   };
 
@@ -34,8 +25,9 @@ export default class SignOutController extends ModalController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    let isCheckboxChecked =
-    this.model.getChainValue("deleteSeedAgreement.value") === "checked";
-    this.responseCallback(undefined, {deleteSeed:isCheckboxChecked});
+    let deleteSeed = event.data === 'delete-seed';
+    this.responseCallback(undefined, {
+      deleteSeed: deleteSeed
+    });
   };
 }

@@ -1,12 +1,8 @@
-import BindableController from "./base-controllers/BindableController.js";
-import { shareDossierModal } from "../view-models/shareDossierModal.js";
+import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 
-export default class CreateDossierController extends BindableController {
+export default class CreateDossierController extends ModalController {
   constructor(element) {
     super(element);
-
-    this.model = this.setModel(shareDossierModal);
-
     this._initListeners();
   }
 

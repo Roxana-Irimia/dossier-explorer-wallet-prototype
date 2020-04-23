@@ -1,16 +1,11 @@
-import BindableController from "./base-controllers/BindableController.js";
-import { renameDossierModel } from "../view-models/renameDossierModal.js";
+import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 
-export default class RenameDossierController extends BindableController {
+export default class RenameDossierController extends ModalController {
   constructor(element) {
     super(element);
-
-    this.model = this.setModel(renameDossierModel);
-
     this._initListeners();
   }
 
-  _initListeners = () => {
-  };
+  _initListeners = () => {};
 
 }
