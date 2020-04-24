@@ -1,26 +1,28 @@
-<psk-modal opened class="dossier-modal">
-  <psk-label slot="title" label="@title"></psk-label>
+<psk-container controller-name="ReceiveDossierController">
+  <psk-modal opened class="dossier-modal">
+    <psk-label slot="title" label="@title"></psk-label>
 
-  <psk-condition condition="@isDossierNameStep">
-    <psk-label slot="condition-false" label="@disclaimer"></psk-label>
-    <psk-card slot="condition-false" class="receive-dossier">
-      <psk-img class="receive-qr" src="/assets/images/qr.png"></psk-img>
-      <psk-label label="@orLabel"></psk-label>
-      <psk-text-input class="receive-code" view-model="secretCodeForReceive"></psk-text-input>
-    </psk-card>
+    <psk-condition condition="@isDossierNameStep">
+      <psk-label slot="condition-false" label="@disclaimer"></psk-label>
+      <psk-card slot="condition-false" class="receive-dossier">
+        <psk-img class="receive-qr" src="/assets/images/qr.svg"></psk-img>
+        <psk-label label="@orLabel"></psk-label>
+        <psk-text-input class="receive-code" view-model="secretCodeForReceive"></psk-text-input>
+      </psk-card>
 
-    <psk-icon slot="condition-true" icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
-    <psk-text-input slot="condition-true" view-model="dossierNameInput"></psk-text-input>
-    <psk-select slot="condition-true" view-model="destinationOptionsForDossier"></psk-select>
-  </psk-condition>
+      <psk-icon slot="condition-true" icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
+      <psk-text-input slot="condition-true" view-model="dossierNameInput"></psk-text-input>
+      <psk-select slot="condition-true" view-model="destinationOptionsForDossier"></psk-select>
+    </psk-condition>
 
-  <psk-condition condition="@error.hasError">
-    <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
-  </psk-condition>
+    <psk-condition condition="@error.hasError">
+      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
 
-  <psk-condition condition="@isDossierNameStep">
-    <psk-button slot="condition-false" view-model="buttons.nextButton"></psk-button>
+    <psk-condition condition="@isDossierNameStep">
+      <psk-button slot="condition-false" view-model="buttons.nextButton"></psk-button>
 
-    <psk-button slot="condition-true" view-model="buttons.finishButton"></psk-button>
-  </psk-condition>
-</psk-modal>
+      <psk-button slot="condition-true" view-model="buttons.finishButton"></psk-button>
+    </psk-condition>
+  </psk-modal>
+</psk-container>

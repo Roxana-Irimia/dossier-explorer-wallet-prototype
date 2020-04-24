@@ -1,4 +1,5 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
+import Commons from "./Commons.js";
 
 export default class ImportDossierController extends ModalController {
   constructor(element) {
@@ -11,11 +12,12 @@ export default class ImportDossierController extends ModalController {
     this.on('import-dossier-seed', this._importDossierFromSeed, true);
 
     this.model.onChange("dossierNameInput.value", this._validateInput);
+    this.model.onChange("dossierSeedInput.value", this._validateSeedInput);
   };
 
   _setNameForImportedDossier = (event) => {
     event.stopImmediatePropagation();
-    this._updateError();
+    Commons.updateErrorMessage(this.model);
 
     let dossierName = this.model.dossierNameInput.value;
     this.dossierName = dossierName;
@@ -30,27 +32,40 @@ export default class ImportDossierController extends ModalController {
     event.stopImmediatePropagation();
 
     this.responseCallback(undefined, {
-      newDossierCreated: true,
+      success: true,
       dossierName: this.dossierName, // To be removed after integration
-      dossierSeed: this.model.dossierSeedInput
+      dossierSeed: this.model.dossierSeedInput.value // To be removed after integration
       // Send back to main Explorer controller the respose that can close the modal 
       //and to fetch the new list items
     });
   };
 
   _validateInput = () => {
-    this._updateError();
+    Commons.updateErrorMessage(this.model);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
-    this.model.setChainValue('buttons.createDossier.disabled', isEmptyName);
+    this.model.setChainValue('buttons.continueButton.disabled', isEmptyName);
 
     if (isEmptyName) {
-      this._updateError(this.model.error.errorLabels.nameNotEmptyLabel);
+      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.nameNotEmptyLabel);
     }
   };
 
-  _updateError = (errorMsg = '') => {
-    this.model.setChainValue('error.hasError', errorMsg !== '');
-    this.model.setChainValue('error.errorMessage', errorMsg);
-  }
+  _validateSeedInput = () => {
+    Commons.updateErrorMessage(this.model);
+
+    let SEED = this.model.dossierSeedInput.value;
+    let isEmptySeed = SEED.trim().length === 0;
+    let isValidSeedForm = Commons.validateSeedForm(SEED);
+    let isFinishButtonDisabled = isEmptySeed || !isValidSeedForm;
+
+    this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
+
+    if (isEmptySeed) {
+      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.seedNotEmptyLabel);
+    }
+    if (!isValidSeedForm) {
+      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.seedNotValidLabel);
+    }
+  };
 }

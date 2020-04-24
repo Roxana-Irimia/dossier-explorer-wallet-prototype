@@ -17,6 +17,7 @@ const importDossierModal = {
       buttonClass: "btn-confirm-primary",
     },
     finishButton: {
+      disabled: true,
       label: "Finish",
       eventName: "import-dossier-seed",
       buttonClass: "btn-confirm-primary",
@@ -27,7 +28,9 @@ const importDossierModal = {
     errorMessage: "",
     errorLabels: {
       fileExistsLabel: "A file with the same name already exists!",
-      nameNotEmptyLabel: "The file name cannot be empty or only with empty spaces!"
+      nameNotEmptyLabel: "The file name cannot be empty or only with empty spaces!",
+      seedNotEmptyLabel: "The SEED name cannot be empty or only with empty spaces!",
+      seedNotValidLabel: "The provided SEED is not in a valid form!"
     }
   },
 };

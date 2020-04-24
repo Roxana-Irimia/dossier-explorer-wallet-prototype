@@ -1,21 +1,23 @@
-<psk-modal opened class="dossier-modal">
-  <psk-label slot="title" label="@title"></psk-label>
+<psk-container controller-name="ImportDossierController">
+  <psk-modal opened class="dossier-modal">
+    <psk-label slot="title" label="@title"></psk-label>
 
-  <psk-condition condition="@isDossierNameStep">
-    <psk-icon slot="condition-true" icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
-    <psk-text-input slot="condition-true" view-model="dossierNameInput"></psk-text-input>
+    <psk-condition condition="@isDossierNameStep">
+      <psk-icon slot="condition-true" icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
+      <psk-text-input slot="condition-true" view-model="dossierNameInput"></psk-text-input>
 
-    <psk-icon slot="condition-false" icon="upload" color="#8197bc" class="dossier-modal"></psk-icon>
-    <psk-text-input slot="condition-false" view-model="dossierSeedInput"></psk-text-input>
-  </psk-condition>
+      <psk-icon slot="condition-false" icon="upload" color="#8197bc" class="dossier-modal"></psk-icon>
+      <psk-text-input slot="condition-false" view-model="dossierSeedInput"></psk-text-input>
+    </psk-condition>
 
-  <psk-condition condition="@error.hasError">
-    <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
-  </psk-condition>
+    <psk-condition condition="@error.hasError">
+      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
 
-  <psk-condition condition="@isDossierNameStep">
-    <psk-button slot="condition-true" view-model="buttons.continueButton"></psk-button>
+    <psk-condition condition="@isDossierNameStep">
+      <psk-button slot="condition-true" view-model="buttons.continueButton"></psk-button>
 
-    <psk-button slot="condition-false" view-model="buttons.finishButton"></psk-button>
-  </psk-condition>
-</psk-modal>
+      <psk-button slot="condition-false" view-model="buttons.finishButton"></psk-button>
+    </psk-condition>
+  </psk-modal>
+</psk-container>

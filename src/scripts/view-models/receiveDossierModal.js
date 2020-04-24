@@ -27,6 +27,7 @@
        label: "Finish",
        eventName: "finish-receive-dossier",
        buttonClass: "btn-confirm-primary",
+       disabled: true
      }
    },
    error: {

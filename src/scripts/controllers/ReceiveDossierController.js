@@ -1,4 +1,5 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
+import Commons from "./Commons.js";
 
 export default class ReceiveDossierController extends ModalController {
   constructor(element) {
@@ -10,7 +11,8 @@ export default class ReceiveDossierController extends ModalController {
     this.on('next-receive-dossier', this._continueReceiveProcess, true);
     this.on('finish-receive-dossier', this._finishReceiveDossierProcess, true);
 
-    this.model.onChange("dossierNameInput.value", this._validateInput);
+    this.model.onChange("dossierNameInput.value", this._validateUserForm);
+    this.model.onChange("destinationOptionsForDossier.value", this._validateUserForm);
   };
 
   _continueReceiveProcess = (event) => {
@@ -22,33 +24,35 @@ export default class ReceiveDossierController extends ModalController {
 
   _finishReceiveDossierProcess = (event) => {
     event.stopImmediatePropagation();
-    this._updateError();
+    Commons.updateErrorMessage(this.model);
 
     let dossierName = this.model.dossierNameInput.value;
-    let selectedDossierDestination = this.model.destinationOptionsForReceive;
+    let selectedDossierDestination = this.model.destinationOptionsForDossier.value;
 
     this.responseCallback(undefined, {
-      dossierReceived: true,
+      success: true,
       dossierName: dossierName, // To be removed after integration
-      selectedDossierDestination: selectedDossierDestination
+      selectedDossierDestination: selectedDossierDestination // To be removed after integration
       // Send back to main Explorer controller the respose that can close the modal 
       //and to fetch the new list items
     });
   }
 
-  _validateInput = () => {
-    this._updateError();
+  _validateUserForm = () => {
+    Commons.updateErrorMessage(this.model);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
-    this.model.setChainValue('buttons.createDossier.disabled', isEmptyName);
+    let isDestinationSelected = this.model.destinationOptionsForDossier.value.trim().length !== 0;
+    if (!isDestinationSelected) {
+      this.model.setChainValue('destinationOptionsForDossier.value', '/');
+      isDestinationSelected = true;
+    }
+
+    let isFinishButtonDisabled = isEmptyName || !isDestinationSelected;
+    this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
 
     if (isEmptyName) {
-      this._updateError(this.model.error.errorLabels.nameNotEmptyLabel);
+      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.nameNotEmptyLabel);
     }
   };
-
-  _updateError = (errorMsg = '') => {
-    this.model.setChainValue('error.hasError', errorMsg !== '');
-    this.model.setChainValue('error.errorMessage', errorMsg);
-  }
 }
