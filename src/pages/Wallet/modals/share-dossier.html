@@ -1,35 +1,35 @@
 <psk-container controller-name='ShareDossierController'>
   <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
-    <psk-label slot="title" label="@shareDossierModal.title"></psk-label>
+    <psk-label slot="title" label="@title"></psk-label>
 
-    <psk-condition condition="@shareDossierModal.getIdentityState">
-      <psk-label slot="condition-true" label="@shareDossierModal.disclaimer"></psk-label>
+    <psk-condition condition="@getIdentityState">
+      <psk-label slot="condition-true" label="@disclaimer"></psk-label>
       <psk-card class="share-dossier" slot="condition-true">
         <psk-grid class="scan-qr">
-          <psk-label label="@shareDossierModal.useQrCodeLabel"></psk-label>
-          <psk-button view-model="shareDossierModal.scanBtn"></psk-button>
+          <psk-label label="@useQrCodeLabel"></psk-label>
+          <psk-button view-model="scanBtn"></psk-button>
         </psk-grid>
-        <psk-label label="@shareDossierModal.orLabel"></psk-label>
-        <psk-text-input class="enter-code" view-model="shareDossierModal.enterCode"></psk-text-input>
+        <psk-label label="@orLabel"></psk-label>
+        <psk-text-input class="enter-code" view-model="enterCode"></psk-text-input>
       </psk-card>
 
-      <psk-condition slot="condition-false" condition="@shareDossierModal.sendLoading">
+      <psk-condition slot="condition-false" condition="@sendLoading">
         <psk-ui-loader slot="condition-true" should-be-rendered="true"></psk-ui-loader>
-        <psk-label slot="condition-true" label="@shareDossierModal.loadingDisclaimer"></psk-label>
+        <psk-label slot="condition-true" label="@loadingDisclaimer"></psk-label>
 
         <psk-icon slot="condition-false" icon="check" color="#8197bc" class="dossier-modal"></psk-icon>
-        <psk-label label="@shareDossierModal.confirmedShareDisclaimer"></psk-label>
+        <psk-label label="@confirmedShareDisclaimer"></psk-label>
       </psk-condition>
     </psk-condition>
 
-    <psk-condition condition="@shareDossierModal.hasError">
-      <psk-label label="@shareDossierModal.errorMessage" class="h6 input-error"></psk-label>
+    <psk-condition condition="@hasError">
+      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
     </psk-condition>
 
-    <psk-condition condition="@shareDossierModal.getIdentityState">
-      <psk-button slot="condition-true" view-model="shareDossierModal.sendBtn"></psk-button>
+    <psk-condition condition="@getIdentityState">
+      <psk-button slot="condition-true" view-model="sendBtn"></psk-button>
 
-      <psk-button slot="condition-false" view-model="shareDossierModal.finishBtn"></psk-button>
+      <psk-button slot="condition-false" view-model="finishBtn"></psk-button>
     </psk-condition>
   </psk-modal>
 </psk-container>

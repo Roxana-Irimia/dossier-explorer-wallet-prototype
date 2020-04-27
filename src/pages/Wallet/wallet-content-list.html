@@ -1,8 +1,4 @@
-<psk-grid
-  class="wallet-list-header"
-  columns="4"
-  layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
->
+<psk-grid class="wallet-list-header" columns="4" layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]">
   <psk-label label="@dossierContentLabels.nameLabel"></psk-label>
   <psk-label label="@dossierContentLabels.typeLabel"></psk-label>
   <psk-label label="@dossierContentLabels.lastModifiedLabel"></psk-label>
@@ -11,26 +7,16 @@
 
 <psk-for-each class="wallet-list-container" data-view-model="content">
   <psk-card class="@selected">
-    <psk-button
-      class="wallet-path"
-      event-name="select-wallet-item"
-      double-click-event-name="double-click-item"
-      event-data="@name"
-    >
-      <psk-grid
-        class="items"
-        columns="4"
-        layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]"
-      >
+    <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item"
+      event-data="@name">
+      <psk-grid class="items" columns="4" layout="xs=[6,2,2,2] s=[6,2,2,2] m=[6,2,2,2] l=[6,2,2,2] xl=[6,2,2,2]">
         <psk-grid>
           <psk-label label="@name"> </psk-label>
 
           <psk-condition condition="@runnable">
             <psk-button button-class="btn-run" event-name="run-app">
               <psk-icon color="#572a57" icon="play"></psk-icon>
-              <psk-label
-                label="@dossierContentLabels.runAppLabel"
-              ></psk-label>
+              <psk-label label="@dossierContentLabels.runAppLabel"></psk-label>
             </psk-button>
           </psk-condition>
 
@@ -43,9 +29,5 @@
     </psk-button>
   </psk-card>
 
-  <psk-label
-    slot="no-data"
-    class="h2 info"
-    label="@dossierContentLabels.noItemsLabel"
-  ></psk-label>
+  <psk-label slot="no-data" class="h2 info" label="@dossierContentLabels.noItemsLabel"></psk-label>
 </psk-for-each>

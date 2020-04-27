@@ -4,11 +4,14 @@
     "username": "Dossier Explorer",
     "avatar": "/assets/images/dossier-explorer.png"
   },
-  "modals":{
-    "signOut":"Wallet/modals/sign-out.html",
-    "createDossier":"Wallet/modals/create-dossier.html",
-    "importDossier":"Wallet/modals/import-dossier.html",
-    "receiveDossier":"Wallet/modals/receive-dossier.html"
+  "modals": {
+    "signOut": "Wallet/modals/sign-out.html",
+    "createDossier": "Wallet/modals/create-dossier.html",
+    "importDossier": "Wallet/modals/import-dossier.html",
+    "receiveDossier": "Wallet/modals/receive-dossier.html",
+    "deleteDossier": "Wallet/modals/delete-dossier.html",
+    "shareDossier": "Wallet/modals/share-dossier.html",
+    "renameDossier": "Wallet/modals/rename-dossier.html"
   },
   "menu": {
     "defaultMenuConfig": {
@@ -19,8 +22,7 @@
       "indexed": true,
       "historyType": "browser"
     },
-    "pages": [
-      {
+    "pages": [{
         "name": "E-wallet",
         "path": "/e-wallet",
         "pageSrc": "Wallet/wallet.html"
@@ -35,8 +37,7 @@
         "name": "Nested Menu",
         "path": "/nested-menu",
         "icon": "fa-plug",
-        "children": [
-          {
+        "children": [{
             "name": "Item1"
           },
           {

@@ -1,34 +1,13 @@
-<psk-button-group
-  label="@addMenuLabels.addLabel"
-  icon="plus"
-  icon-color="#ffffff"
-  classes="add-menu"
->
-  <psk-files-chooser
-    event-name="add-file-folder"
-    label="@addMenuLabels.addFileLabel"
-    class="btn-menu"
-  ></psk-files-chooser>
-  <psk-files-chooser
-    event-name="add-file-folder"
-    label="@addMenuLabels.addFolderLabel"
-    accept="directory"
-    class="btn-menu bottom-border"
-  ></psk-files-chooser>
+<psk-button-group label="@addMenuLabels.addLabel" icon="plus" icon-color="#ffffff" classes="add-menu">
+  <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFileLabel" class="btn-menu">
+  </psk-files-chooser>
+  <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory"
+    class="btn-menu bottom-border"></psk-files-chooser>
 
-  <psk-button
-    label="@addMenuLabels.createDossierLabel"
-    event-name="create-dossier"
-    button-class="btn-menu"
-  ></psk-button>
-  <psk-button
-    label="@addMenuLabels.importDossierLabel"
-    event-name="import-dossier"
-    button-class="btn-menu"
-  ></psk-button>
-  <psk-button
-    label="@addMenuLabels.receiveDossierLabel"
-    event-name="receive-dossier"
-    button-class="btn-menu"
-  ></psk-button>
+  <psk-button label="@addMenuLabels.createDossierLabel" event-name="create-dossier" button-class="btn-menu">
+  </psk-button>
+  <psk-button label="@addMenuLabels.importDossierLabel" event-name="import-dossier" button-class="btn-menu">
+  </psk-button>
+  <psk-button label="@addMenuLabels.receiveDossierLabel" event-name="receive-dossier" button-class="btn-menu">
+  </psk-button>
 </psk-button-group>

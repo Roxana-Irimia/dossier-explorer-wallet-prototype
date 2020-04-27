@@ -17,6 +17,7 @@ const rootModel = {
   sectionTitle: "Dashboard",
   isGridLayout: true,
   signOutLabel: "Exit",
+  currentPath: '/',
   dossierContentLabels: {
     homeLabel: "My Wallet",
     sizeLabel: "Size",
@@ -38,6 +39,15 @@ const rootModel = {
     switchGridHover: "Click to switch to list",
     switchListHover: "Click to switch to grid",
   },
+  iconsMenuMoreOptions: [{
+      label: "Move",
+      eventName: 'move-dossier'
+    },
+    {
+      label: "Rename",
+      eventName: 'rename-dossier'
+    }
+  ]
 };
 
 export default rootModel;

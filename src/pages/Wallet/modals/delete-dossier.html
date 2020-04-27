@@ -1,17 +1,18 @@
-<psk-container controller-name='DeleteDosserController'>
-  <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
-    <psk-label slot="title" label="@importDossierModal.title"></psk-label>
+<psk-container controller-name='DeleteDossierController'>
+  <psk-modal opened class="dossier-modal">
+    <psk-label slot="title" label="@title"></psk-label>
 
     <psk-icon icon="trash" color="#8197bc" class="dossier-modal"></psk-icon>
 
-    <psk-label label="@deleteSelectedItemsModal.notificationMessage"></psk-label>
+    <psk-label label="@notificationMessage"></psk-label>
 
-    <psk-label label="@deleteSelectedItemsModal.errorMessage" class="h6 input-error"></psk-label>
+    <psk-condition condition="error.hasError">
+      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
 
     <psk-grid columns="2">
-      <psk-button view-model="deleteSelectedItemsModal.cancelBtn"></psk-button>
-
-      <psk-button view-model="deleteSelectedItemsModal.deleteBtn"></psk-button>
+      <psk-button view-model="buttons.cancelButton"></psk-button>
+      <psk-button view-model="buttons.deleteButton"></psk-button>
     </psk-grid>
   </psk-modal>
 </psk-container>

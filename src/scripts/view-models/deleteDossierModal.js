@@ -1,19 +1,27 @@
-export const deleteDossierModal = {
+import Commons from "../controllers/Commons.js";
+
+const deleteDossierModal = {
   title: "Notification",
-  notificationMessage: `Are you sure you want to delete ${DELETE_ITEMS_PLACEHOLDER}?`,
-  itemsLabel: "items", // will be used in pair with notificationMessage attribute for special design
-  hasError: 0,
-  errorMessage: "",
-  cancelBtn: {
-    label: "Cancel",
-    eventName: "delete",
-    eventData: "cancel-delete",
-    buttonClass: "btn-confirm-secondary",
+  notificationMessage: `Are you sure you want to delete ${Commons.DELETE_ITEMS_PLACEHOLDER} items?`,
+  buttons: {
+    cancelButton: {
+      label: "Cancel",
+      eventName: "delete",
+      eventData: "cancel-delete",
+      buttonClass: "btn-confirm-secondary",
+    },
+    deleteButton: {
+      label: "Delete",
+      eventName: "delete",
+      eventData: "confirm-delete",
+      buttonClass: "btn-confirm-primary",
+    },
   },
-  deleteBtn: {
-    label: "Delete",
-    eventName: "delete",
-    eventData: "confirm-delete",
-    buttonClass: "btn-confirm-primary",
-  },
+  error: {
+    hasError: 0,
+    errorMessage: "",
+    noItemsSelectedLabel: "There are no items selected!"
+  }
 };
+
+export default deleteDossierModal;

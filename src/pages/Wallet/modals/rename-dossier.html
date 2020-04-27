@@ -1,14 +1,14 @@
-<psk-container controller-name='DeleteDosserController'>
+<psk-container controller-name='RenameDossierController'>
   <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
-    <psk-label slot="title" label="@renameDossierModal.title"></psk-label>
+    <psk-label slot="title" label="@title"></psk-label>
 
     <psk-icon icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
-    <psk-text-input view-model="renameDossierModal.setNameInput"></psk-text-input>
+    <psk-text-input view-model="fileName"></psk-text-input>
 
-    <psk-condition condition="@renameDossierModal.hasError">
-      <psk-label label="@renameDossierModal.errorMessage" class="h6 input-error"></psk-label>
+    <psk-condition condition="@hasError">
+      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
     </psk-condition>
 
-    <psk-button view-model="renameDossierModal.setNameButton"></psk-button>
+    <psk-button view-model="buttons.renameButton"></psk-button>
   </psk-modal>
 </psk-container>

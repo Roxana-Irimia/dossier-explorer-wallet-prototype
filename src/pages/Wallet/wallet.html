@@ -1,33 +1,22 @@
 <psk-container controller-name="ExplorerController">
   <psk-page title="@pageTitle">
-    <psk-button
-      button-class="btn-exit"
-      event-name="sign-out"
-    >
+    <psk-button button-class="btn-exit" event-name="sign-out">
       <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
       <psk-label label="@signOutLabel"></psk-label>
     </psk-button>
 
     <psk-card title="@sectionTitle">
-      <psk-grid
-        columns="3"
-        layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]"
-      >
+      <psk-grid columns="3" layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]">
         <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]">
           <psk-page-loader page-url="@pageLoader.addDossierMenu"></psk-page-loader>
         </psk-grid>
+        <psk-page-loader page-url="@pageLoader.rightIconsMenu"></psk-page-loader>
         <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
       </psk-grid>
 
       <psk-condition condition="@isGridLayout">
-        <psk-page-loader
-          slot="condition-true"
-          page-url="@pageLoader.walletGridContent"
-        ></psk-page-loader>
-        <psk-page-loader
-          slot="condition-false"
-          page-url="@pageLoader.walletListContent"
-        ></psk-page-loader>
+        <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
+        <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
       </psk-condition>
     </psk-card>
   </psk-page>

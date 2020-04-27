@@ -1,4 +1,4 @@
-export const shareDossierModal = {
+const shareDossierModal = {
   title: "Share",
   disclaimer:
     "To share, we need to scan a QR code or enter a Collaborator Secure Code to identify to whom you want to send.",
@@ -34,3 +34,5 @@ export const shareDossierModal = {
     buttonClass: "btn-confirm-primary",
   },
 };
+
+export default shareDossierModal;
