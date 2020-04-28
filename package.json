@@ -1,13 +1,9 @@
 {
   "name": "csb-ui-v2",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "CSB UI v2",
   "scripts": {
-    "web-server": "cd src && ws --spa ./index.html",
     "octopus": "node ./node_modules/octopus/scripts/run"
-  },
-  "devDependencies": {
-    "local-web-server": "^3.0.7"
   },
   "dependencies": {
     "octopus": "git+http://github.com/privatesky/octopus.git#1.0"
