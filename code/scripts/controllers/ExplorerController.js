@@ -1,4 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+import {getDossierServiceInstance} from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
@@ -14,11 +15,11 @@ export default class ExplorerController extends ContainerController {
     super(element);
 
     this.model = this.setModel(rootModel);
-    // let DossierService = getDossierServiceInstance();
+     let DossierService = getDossierServiceInstance();
 
-    // DossierService.listDossierFiles(function (err, files) {
-    //   console.log(err, files);
-    // });
+     DossierService.listDossierFiles(function (err, files) {
+       console.log(err, files);
+     });
 
     this._initListeners();
   }
@@ -93,7 +94,7 @@ export default class ExplorerController extends ContainerController {
     event.stopImmediatePropagation();
 
     /**
-     * Before showModal, set the selectedItemsPaths attribute inside deleteDossierModal, 
+     * Before showModal, set the selectedItemsPaths attribute inside deleteDossierModal,
      * so the controller can handle the delete process
      */
     let currentPath = this.model.currentPath === '/' ? '/' : `${this.model.currentPath}/`;
@@ -168,8 +169,8 @@ export default class ExplorerController extends ContainerController {
   }
 
   /**
-   * This fuction will be removed after integration 
-   * @param {*} dossierName 
+   * This fuction will be removed after integration
+   * @param {*} dossierName
    */
   __addDossier(dossierName) {
     this.model.content.push({
