@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "CSB UI v2",
   "scripts": {
-    "octopus": "node ./node_modules/octopus/scripts/run"
+    "postinstall": "node ./node_modules/octopus/scripts/run",
+    "prebuild": "node ./node_modules/octopus/scripts/run prebuild",
+    "build": "node ./bin/build.js"
   },
   "dependencies": {
     "octopus": "git+http://github.com/privatesky/octopus.git#1.0"
