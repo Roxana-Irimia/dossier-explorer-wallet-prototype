@@ -24,7 +24,7 @@
     },
     "pages": [{
         "name": "E-wallet",
-        "path": "/e-wallet",
+        "path": "/",
         "pageSrc": "Wallet/wallet.html"
       },
       {
@@ -47,6 +47,7 @@
       },
       {
         "name": "404",
+        "path":"404",
         "indexed": false
       }
     ]
