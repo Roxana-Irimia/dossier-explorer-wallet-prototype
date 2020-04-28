@@ -1,0 +1,37 @@
+{
+    "workDir": ".",
+    "dependencies": [{
+        "name": "cardinal",
+        "src": "https://github.com/privatesky/cardinal.git",
+        "actions": [{
+                "type": "smartClone",
+                "target": "./temp",
+                "collectLog": false
+            },
+            {
+                "type": "execute",
+                "cmd": "cd ./temp/cardinal && npm install && npm run build"
+            },
+            {
+                "type": "copy",
+                "src": "./temp/cardinal/dist/cardinal",
+                "target": "./src/cardinal",
+                "options": {
+                    "overwrite": true
+                }
+            },
+            {
+                "type": "copy",
+                "src": "./temp/cardinal/dist/cardinal.js",
+                "target": "./src/cardinal.js",
+                "options": {
+                    "overwrite": true
+                }
+            },
+            {
+                "type": "remove",
+                "target": "./temp"
+            }
+        ]
+    }]
+}

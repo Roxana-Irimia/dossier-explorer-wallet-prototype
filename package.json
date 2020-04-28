@@ -3,17 +3,14 @@
   "version": "0.0.1",
   "description": "CSB UI v2",
   "scripts": {
-    "web-server": "cd release && ws --spa ./index.html",
-    "dev": "gulp build && npm run web-server",
-    "build": "gulp build"
+    "web-server": "cd src && ws --spa ./index.html",
+    "octopus": "node ./node_modules/octopus/scripts/run"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-include": "^2.4.1",
-    "gulp-run-command": "^0.0.9",
-    "local-web-server": "^3.0.7",
-    "vinyl-source-stream": "^2.0.0",
-    "cardinal": "file:../cardinal"
+    "local-web-server": "^3.0.7"
+  },
+  "dependencies": {
+    "octopus": "git+http://github.com/privatesky/octopus.git#1.0"
   },
   "license": "MIT"
 }
