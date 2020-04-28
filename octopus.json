@@ -15,7 +15,7 @@
             {
                 "type": "copy",
                 "src": "./temp/cardinal/dist/cardinal",
-                "target": "./src/cardinal",
+                "target": "./code/cardinal",
                 "options": {
                     "overwrite": true
                 }
@@ -23,7 +23,7 @@
             {
                 "type": "copy",
                 "src": "./temp/cardinal/dist/cardinal.js",
-                "target": "./src/cardinal.js",
+                "target": "./code/cardinal.js",
                 "options": {
                     "overwrite": true
                 }
