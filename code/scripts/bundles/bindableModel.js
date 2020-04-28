@@ -1,4 +1,4 @@
-bindableModelRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\bindableModel_intermediar.js":[function(require,module,exports){
+bindableModelRequire=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\builds\\tmp\\bindableModel_intermediar.js":[function(require,module,exports){
 (function (global){
 global.bindableModelLoadModules = function(){ 
 
@@ -40,7 +40,7 @@ if (typeof $$ !== "undefined") {
 require('source-map-support').install({});
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"buffer-from":"buffer-from","overwrite-require":"overwrite-require","psk-bindable-model":"psk-bindable-model","soundpubsub":"soundpubsub","source-map":"source-map","source-map-support":"source-map-support","swarmutils":"swarmutils"}],"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\moduleConstants.js":[function(require,module,exports){
+},{"buffer-from":"buffer-from","overwrite-require":"overwrite-require","psk-bindable-model":"psk-bindable-model","soundpubsub":"soundpubsub","source-map":"source-map","source-map-support":"source-map-support","swarmutils":"swarmutils"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\overwrite-require\\moduleConstants.js":[function(require,module,exports){
 module.exports = {
   BROWSER_ENVIRONMENT_TYPE: 'browser',
   SERVICE_WORKER_ENVIRONMENT_TYPE: 'service-worker',
@@ -49,12 +49,14 @@ module.exports = {
   NODEJS_ENVIRONMENT_TYPE: 'nodejs'
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js":[function(require,module,exports){
 (function (global){
 let logger = console;
 
 if (!global.process || process.env.NO_LOGS !== 'true') {
     try {
+        const zmqName = "zeromq";
+        require(zmqName);
         const PSKLoggerModule = require('psklogger');
         const PSKLogger = PSKLoggerModule.PSKLogger;
 
@@ -62,7 +64,7 @@ if (!global.process || process.env.NO_LOGS !== 'true') {
 
         console.log('Logger init successful', process.pid);
     } catch (e) {
-        if(e.message.indexOf("psklogger")!==-1){
+        if(e.message.indexOf("psklogger")!==-1 || e.message.indexOf("zeromq")!==-1){
             console.log('Logger not available, using console');
             logger = console;
         }else{
@@ -361,7 +363,7 @@ $$.registerGlobalSymbol("throttlingEvent", function (...args) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"psklogger":false}],"D:\\Catalin\\Munca\\privatesky\\modules\\psk-bindable-model\\lib\\PskBindableModel.js":[function(require,module,exports){
+},{"psklogger":false}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\psk-bindable-model\\lib\\PskBindableModel.js":[function(require,module,exports){
 const SoundPubSub = require("soundpubsub").soundPubSub;
 const CHAIN_CHANGED = 'chainChanged';
 const WILDCARD = "*";
@@ -697,7 +699,7 @@ class PskBindableModel {
 
 module.exports = PskBindableModel;
 
-},{"soundpubsub":"soundpubsub"}],"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js":[function(require,module,exports){
+},{"soundpubsub":"soundpubsub"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js":[function(require,module,exports){
 /*
 Initial License: (c) Axiologic Research & Alboaie Sînică.
 Contributors: Axiologic Research , PrivateSky project
@@ -1072,7 +1074,7 @@ function SoundPubSub(){
 }
 
 exports.soundPubSub = new SoundPubSub();
-},{"swarmutils":"swarmutils"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Combos.js":[function(require,module,exports){
+},{"swarmutils":"swarmutils"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\Combos.js":[function(require,module,exports){
 function product(args) {
     if(!args.length){
         return [ [] ];
@@ -1098,7 +1100,7 @@ function objectProduct(obj) {
 }
 
 module.exports = objectProduct;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\OwM.js":[function(require,module,exports){
 var meta = "meta";
 
 function OwM(serialized){
@@ -1189,7 +1191,7 @@ OwM.prototype.setMetaFor = function(obj, name, value){
 };
 
 module.exports = OwM;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\Queue.js":[function(require,module,exports){
 function QueueElement(content) {
 	this.content = content;
 	this.next = null;
@@ -1257,7 +1259,7 @@ Queue.prototype.toString = function () {
 Queue.prototype.inspect = Queue.prototype.toString;
 
 module.exports = Queue;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js":[function(require,module,exports){
 const HEADER_SIZE_RESEARVED = 4;
 
 function SwarmPacker(){
@@ -1406,7 +1408,7 @@ SwarmPacker.getHeader = function(pack){
     return header;
 };
 module.exports = SwarmPacker;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js":[function(require,module,exports){
 
 function TaskCounter(finalCallback) {
 	let results = [];
@@ -1456,7 +1458,7 @@ function TaskCounter(finalCallback) {
 }
 
 module.exports = TaskCounter;
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js":[function(require,module,exports){
 const OwM = require("./OwM");
 
 /*
@@ -1512,7 +1514,81 @@ exports.jsonToNative = function(serialisedValues, result){
     };
 
 };
-},{"./OwM":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js"}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js":[function(require,module,exports){
+},{"./OwM":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\OwM.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\path.js":[function(require,module,exports){
+function replaceAll(str, search, replacement) {
+    return str.split(search).join(replacement);
+}
+
+function resolve(pth) {
+    let pathSegments = pth.split("/");
+    let makeAbsolute = pathSegments[0] === "" ? true : false;
+    for (let i = 0; i < pathSegments.length; i++) {
+        let segment = pathSegments[i];
+        if (segment === "..") {
+            let j = 1;
+            if (i > 0) {
+                j = j + 1;
+            } else {
+                makeAbsolute = true;
+            }
+            pathSegments.splice(i + 1 - j, j);
+            i = i - j;
+        }
+    }
+    let res = pathSegments.join("/");
+    if (makeAbsolute && res !== "") {
+        res = __ensureIsAbsolute(res);
+    }
+    return res;
+}
+
+function normalize(pth) {
+    if (typeof pth !== "string") {
+        throw new TypeError();
+    }
+    pth = replaceAll(pth, "\\", "/");
+    pth = replaceAll(pth, /[/]+/, "/");
+
+    return resolve(pth);
+}
+
+function join(...args) {
+    let pth = "";
+    for (let i = 0; i < args.length; i++) {
+        pth += "/" + args[i];
+    }
+    return normalize(pth);
+}
+
+function __ensureIsAbsolute(pth) {
+    if (pth[0] !== "/") {
+        pth = "/" + pth;
+    }
+    return pth;
+}
+
+function isAbsolute(pth) {
+    pth = normalize(pth);
+    if (pth[0] !== "/") {
+        return false;
+    }
+
+    return true;
+}
+
+function ensureIsAbsolute(pth) {
+    pth = normalize(pth);
+    return __ensureIsAbsolute(pth);
+}
+
+module.exports = {
+    normalize,
+    join,
+    isAbsolute,
+    ensureIsAbsolute
+};
+
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js":[function(require,module,exports){
 const PING = "PING";
 const PONG = "PONG";
 
@@ -1604,7 +1680,7 @@ module.exports.enableLifeLine = function(timeout){
         }
     }, interval);
 };
-},{"child_process":false}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js":[function(require,module,exports){
+},{"child_process":false}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js":[function(require,module,exports){
 var commands = {};
 var commands_help = {};
 
@@ -1675,7 +1751,7 @@ module.exports = {
 };
 
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js":[function(require,module,exports){
 
 function encode(buffer) {
     return buffer.toString('base64')
@@ -1743,7 +1819,7 @@ exports.short_uuid = function(callback) {
         callback(null, encode(buf));
     });
 };
-},{"crypto":false}],"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js":[function(require,module,exports){
+},{"crypto":false}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js":[function(require,module,exports){
 (function (Buffer){
 const crypto = require('crypto');
 const Queue = require("./Queue");
@@ -1849,7 +1925,7 @@ module.exports.createUidGenerator = function (minBuffers, bufferSize) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"./Queue":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js","buffer":false,"crypto":false}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js":[function(require,module,exports){
+},{"./Queue":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\Queue.js","buffer":false,"crypto":false}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\array-set.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -1972,7 +2048,7 @@ ArraySet.prototype.toArray = function ArraySet_toArray() {
 
 exports.ArraySet = ArraySet;
 
-},{"./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js":[function(require,module,exports){
+},{"./util":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -2114,7 +2190,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
   aOutParam.rest = aIndex;
 };
 
-},{"./base64":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64.js":[function(require,module,exports){
+},{"./base64":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\base64.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\base64.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -2183,7 +2259,7 @@ exports.decode = function (charCode) {
   return -1;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\binary-search.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\binary-search.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -2296,7 +2372,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
   return index;
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -2377,7 +2453,7 @@ MappingList.prototype.toArray = function MappingList_toArray() {
 
 exports.MappingList = MappingList;
 
-},{"./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js":[function(require,module,exports){
+},{"./util":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -2493,7 +2569,7 @@ exports.quickSort = function (ary, comparator) {
   doQuickSort(ary, comparator, 0, ary.length - 1);
 };
 
-},{}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js":[function(require,module,exports){
+},{}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -3577,7 +3653,7 @@ IndexedSourceMapConsumer.prototype._parseMappings =
 
 exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
 
-},{"./array-set":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./binary-search":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\binary-search.js","./quick-sort":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js":[function(require,module,exports){
+},{"./array-set":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./binary-search":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\binary-search.js","./quick-sort":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\quick-sort.js","./util":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -3995,7 +4071,7 @@ SourceMapGenerator.prototype.toString =
 
 exports.SourceMapGenerator = SourceMapGenerator;
 
-},{"./array-set":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./mapping-list":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-node.js":[function(require,module,exports){
+},{"./array-set":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\array-set.js","./base64-vlq":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\base64-vlq.js","./mapping-list":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\mapping-list.js","./util":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-node.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -4410,7 +4486,7 @@ SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSou
 
 exports.SourceNode = SourceNode;
 
-},{"./source-map-generator":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./util":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\util.js":[function(require,module,exports){
+},{"./source-map-generator":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./util":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js"}],"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\util.js":[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -5063,7 +5139,7 @@ function enableForEnvironment(envType){
 
             } catch (err) {
                 if (err.type !== "PSKIgnorableError") {
-                    $$.err("Require encountered an error while loading ", request, "\nCause:\n", err.stack);
+                    //$$.err("Require encountered an error while loading ", request, "\nCause:\n", err.stack);
                 }
             }
         }
@@ -5245,13 +5321,13 @@ module.exports = {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./moduleConstants":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\moduleConstants.js","./standardGlobalSymbols.js":"D:\\Catalin\\Munca\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js"}],"psk-bindable-model":[function(require,module,exports){
+},{"./moduleConstants":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\overwrite-require\\moduleConstants.js","./standardGlobalSymbols.js":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\overwrite-require\\standardGlobalSymbols.js"}],"psk-bindable-model":[function(require,module,exports){
 module.exports = require("./lib/PskBindableModel");
-},{"./lib/PskBindableModel":"D:\\Catalin\\Munca\\privatesky\\modules\\psk-bindable-model\\lib\\PskBindableModel.js"}],"soundpubsub":[function(require,module,exports){
+},{"./lib/PskBindableModel":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\psk-bindable-model\\lib\\PskBindableModel.js"}],"soundpubsub":[function(require,module,exports){
 module.exports = {
 					soundPubSub: require("./lib/soundPubSub").soundPubSub
 };
-},{"./lib/soundPubSub":"D:\\Catalin\\Munca\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js"}],"source-map-support":[function(require,module,exports){
+},{"./lib/soundPubSub":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\soundpubsub\\lib\\soundPubSub.js"}],"source-map-support":[function(require,module,exports){
 var SourceMapConsumer = require('source-map').SourceMapConsumer;
 var path = require('path');
 
@@ -5267,6 +5343,16 @@ try {
 }
 
 var bufferFrom = require('buffer-from');
+
+/**
+ * Requires a module which is protected against bundler minification.
+ *
+ * @param {NodeModule} mod
+ * @param {string} request
+ */
+function dynamicRequire(mod, request) {
+  return mod.require(request);
+}
 
 // Only install once if called multiple times
 var errorFormatterInstalled = false;
@@ -5589,8 +5675,13 @@ function cloneCallSite(frame) {
   return object;
 }
 
-function wrapCallSite(frame) {
+function wrapCallSite(frame, state) {
+  // provides interface backward compatibility
+  if (state === undefined) {
+    state = { nextPosition: null, curPosition: null }
+  }
   if(frame.isNative()) {
+    state.curPosition = null;
     return frame;
   }
 
@@ -5604,7 +5695,11 @@ function wrapCallSite(frame) {
 
     // Fix position in Node where some (internal) code is prepended.
     // See https://github.com/evanw/node-source-map-support/issues/36
-    var headerLength = 62;
+    // Header removed in node at ^10.16 || >=11.11.0
+    // v11 is not an LTS candidate, we can just test the one version with it.
+    // Test node versions for: 10.16-19, 10.20+, 12-19, 20-99, 100+, or 11.11
+    var noHeader = /^v(10\.1[6-9]|10\.[2-9][0-9]|10\.[0-9]{3,}|1[2-9]\d*|[2-9]\d|\d{3,}|11\.11)/;
+    var headerLength = noHeader.test(process.version) ? 0 : 62;
     if (line === 1 && column > headerLength && !isInBrowser() && !frame.isEval()) {
       column -= headerLength;
     }
@@ -5614,9 +5709,15 @@ function wrapCallSite(frame) {
       line: line,
       column: column
     });
+    state.curPosition = position;
     frame = cloneCallSite(frame);
     var originalFunctionName = frame.getFunctionName;
-    frame.getFunctionName = function() { return position.name || originalFunctionName(); };
+    frame.getFunctionName = function() {
+      if (state.nextPosition == null) {
+        return originalFunctionName();
+      }
+      return state.nextPosition.name || originalFunctionName();
+    };
     frame.getFileName = function() { return position.source; };
     frame.getLineNumber = function() { return position.line; };
     frame.getColumnNumber = function() { return position.column + 1; };
@@ -5649,9 +5750,14 @@ function prepareStackTrace(error, stack) {
   var message = error.message || '';
   var errorString = name + ": " + message;
 
-  return errorString + stack.map(function(frame) {
-    return '\n    at ' + wrapCallSite(frame);
-  }).join('');
+  var state = { nextPosition: null, curPosition: null };
+  var processedStack = [];
+  for (var i = stack.length - 1; i >= 0; i--) {
+    processedStack.push('\n    at ' + wrapCallSite(stack[i], state));
+    state.nextPosition = state.curPosition;
+  }
+  state.curPosition = state.nextPosition = null;
+  return errorString + processedStack.reverse().join('');
 }
 
 // Generate position and snippet of original source with pointer
@@ -5760,12 +5866,8 @@ exports.install = function(options) {
 
   // Support runtime transpilers that include inline source maps
   if (options.hookRequire && !isInBrowser()) {
-    var Module;
-    try {
-      Module = require('module');
-    } catch (err) {
-      // NOP: Loading in catch block to convert webpack error to warning.
-    }
+    // Use dynamicRequire to avoid including in browser bundles
+    var Module = dynamicRequire(module, 'module');
     var $compile = Module.prototype._compile;
 
     if (!$compile.__sourceMapSupport) {
@@ -5795,6 +5897,17 @@ exports.install = function(options) {
     var installHandler = 'handleUncaughtExceptions' in options ?
       options.handleUncaughtExceptions : true;
 
+    // Do not override 'uncaughtException' with our own handler in Node.js
+    // Worker threads. Workers pass the error to the main thread as an event,
+    // rather than printing something to stderr and exiting.
+    try {
+      // We need to use `dynamicRequire` because `require` on it's own will be optimized by WebPack/Browserify.
+      var worker_threads = dynamicRequire(module, 'worker_threads');
+      if (worker_threads.isMainThread === false) {
+        installHandler = false;
+      }
+    } catch(e) {}
+
     // Provide the option to not install the uncaught exception handler. This is
     // to support other uncaught exception handlers (in test frameworks, for
     // example). If this handler is not installed and there are no other uncaught
@@ -5815,12 +5928,12 @@ exports.resetRetrieveHandlers = function() {
 
   retrieveFileHandlers = originalRetrieveFileHandlers.slice(0);
   retrieveMapHandlers = originalRetrieveMapHandlers.slice(0);
-  
+
   retrieveSourceMap = handlerExec(retrieveMapHandlers);
   retrieveFile = handlerExec(retrieveFileHandlers);
 }
 
-},{"buffer-from":"buffer-from","fs":false,"module":false,"path":false,"source-map":"source-map"}],"source-map":[function(require,module,exports){
+},{"buffer-from":"buffer-from","fs":false,"path":false,"source-map":"source-map"}],"source-map":[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -5830,7 +5943,7 @@ exports.SourceMapGenerator = require('./lib/source-map-generator').SourceMapGene
 exports.SourceMapConsumer = require('./lib/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./lib/source-node').SourceNode;
 
-},{"./lib/source-map-consumer":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js","./lib/source-map-generator":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./lib/source-node":"D:\\Catalin\\Munca\\privatesky\\node_modules\\source-map\\lib\\source-node.js"}],"swarmutils":[function(require,module,exports){
+},{"./lib/source-map-consumer":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-map-consumer.js","./lib/source-map-generator":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-map-generator.js","./lib/source-node":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\node_modules\\source-map\\lib\\source-node.js"}],"swarmutils":[function(require,module,exports){
 (function (global){
 module.exports.OwM = require("./lib/OwM");
 module.exports.beesHealer = require("./lib/beesHealer");
@@ -5846,7 +5959,7 @@ module.exports.uidGenerator = uidGenerator;
 module.exports.generateUid = uidGenerator.generateUid;
 module.exports.TaskCounter = require("./lib/TaskCounter");
 module.exports.SwarmPacker = require("./lib/SwarmPacker");
-
+module.exports.path = require("./lib/path");
 module.exports.createPskConsole = function () {
   return require('./lib/pskconsole');
 };
@@ -5864,5 +5977,5 @@ if(typeof global.$$.uidGenerator == "undefined"){
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./lib/Combos":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Combos.js","./lib/OwM":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\OwM.js","./lib/Queue":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\Queue.js","./lib/SwarmPacker":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js","./lib/TaskCounter":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js","./lib/beesHealer":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js","./lib/pingpongFork":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js","./lib/pskconsole":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js","./lib/safe-uuid":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js","./lib/uidGenerator":"D:\\Catalin\\Munca\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js"}]},{},["D:\\Catalin\\Munca\\privatesky\\builds\\tmp\\bindableModel_intermediar.js"])
+},{"./lib/Combos":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\Combos.js","./lib/OwM":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\OwM.js","./lib/Queue":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\Queue.js","./lib/SwarmPacker":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\SwarmPacker.js","./lib/TaskCounter":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\TaskCounter.js","./lib/beesHealer":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\beesHealer.js","./lib/path":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\path.js","./lib/pingpongFork":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\pingpongFork.js","./lib/pskconsole":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\pskconsole.js","./lib/safe-uuid":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\safe-uuid.js","./lib/uidGenerator":"D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\modules\\swarmutils\\lib\\uidGenerator.js"}]},{},["D:\\work\\git\\webcomponents\\web-wallet\\privatesky\\builds\\tmp\\bindableModel_intermediar.js"])
 //# sourceMappingURL=bindableModel.js.map
