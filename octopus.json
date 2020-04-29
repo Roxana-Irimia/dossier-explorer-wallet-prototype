@@ -40,11 +40,23 @@
             "src": "",
             "actions": [
                 {
+                    "type": "execute",
+                    "cmd": "node ../privatesky/bin/scripts/pskbuild.js --projectMap=./build/build.json  --prod=true --output=./code/constitution"
+                },
+                {
                     "type": "copy",
-                    "src": "../privatesky/psknode/bundles",
-                    "target": "code/constitution",
+                    "src": "../privatesky/psknode/bundles/pskruntime.js",
+                    "target": "code/constitution/pskruntime.js",
                     "options": {
-                        "overwrite" : true
+                        "overwrite": true
+                    }
+                },
+                {
+                    "type": "copy",
+                    "src": "../privatesky/psknode/bundles/webshims.js",
+                    "target": "code/constitution/webshims.js",
+                    "options": {
+                        "overwrite": true
                     }
                 },
                 {
