@@ -1,35 +1,39 @@
 <psk-container controller-name='ShareDossierController'>
-  <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
+  <psk-modal opened class="dossier-modal">
     <psk-label slot="title" label="@title"></psk-label>
 
-    <psk-condition condition="@getIdentityState">
-      <psk-label slot="condition-true" label="@disclaimer"></psk-label>
-      <psk-card class="share-dossier" slot="condition-true">
+    <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
+      <psk-label label="@disclaimer"></psk-label>
+      <psk-card class="share-dossier">
         <psk-grid class="scan-qr">
           <psk-label label="@useQrCodeLabel"></psk-label>
-          <psk-button view-model="scanBtn"></psk-button>
+          <psk-button view-model="buttons.scanIdentityButton"></psk-button>
         </psk-grid>
         <psk-label label="@orLabel"></psk-label>
-        <psk-text-input class="enter-code" view-model="enterCode"></psk-text-input>
+        <psk-text-input class="enter-code" view-model="identitySecureCodeInput"></psk-text-input>
       </psk-card>
-
-      <psk-condition slot="condition-false" condition="@sendLoading">
-        <psk-ui-loader slot="condition-true" should-be-rendered="true"></psk-ui-loader>
-        <psk-label slot="condition-true" label="@loadingDisclaimer"></psk-label>
-
-        <psk-icon slot="condition-false" icon="check" color="#8197bc" class="dossier-modal"></psk-icon>
-        <psk-label label="@confirmedShareDisclaimer"></psk-label>
-      </psk-condition>
     </psk-condition>
 
-    <psk-condition condition="@hasError">
-      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+    <psk-condition condition="@conditionalExpressions.isSendDossierStep">
+      <psk-icon icon="check" color="#8197bc" class="dossier-modal"></psk-icon>
+      <psk-label label="@confirmedShareDisclaimer"></psk-label>
     </psk-condition>
 
-    <psk-condition condition="@getIdentityState">
-      <psk-button slot="condition-true" view-model="sendBtn"></psk-button>
+    <psk-condition condition="@conditionalExpressions.isLoading">
+      <psk-ui-loader should-be-rendered="true"></psk-ui-loader>
+      <psk-label label="@loadingDisclaimer"></psk-label>
+    </psk-condition>
 
-      <psk-button slot="condition-false" view-model="finishBtn"></psk-button>
+    <psk-condition condition="@error.hasError">
+      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+    </psk-condition>
+
+    <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
+      <psk-button view-model="buttons.sendDossierButton"></psk-button>
+    </psk-condition>
+
+    <psk-condition condition="@conditionalExpressions.isSendDossierStep">
+      <psk-button view-model="buttons.finishButton"></psk-button>
     </psk-condition>
   </psk-modal>
 </psk-container>
