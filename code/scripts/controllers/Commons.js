@@ -13,8 +13,20 @@ export default class Commons {
         model.setChainValue('error.errorMessage', errorMsg);
     }
 
+    static setLoadingState(model, loadingState = false) {
+        model.setChainValue('conditionalExpressions.isLoading', loadingState);
+    }
+
     static validateSeedForm(SEED) {
         // Validate seed according to specifications
         return true;
     }
+
+    static getJsonResponseBody(response) {
+        return response.json((result) => {
+            return result;
+        }).catch((err) => {
+            return Promise.resolve({});
+        })
+    };
 }

@@ -1,5 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import {getDossierServiceInstance} from "../service/DossierExplorerService.js";
+import DossierService from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
@@ -9,18 +9,15 @@ import importDossierModal from '../view-models/importDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
 import shareDossierModal from '../view-models/shareDossierModal.js';
+import Commons from "./Commons.js";
 
 export default class ExplorerController extends ContainerController {
   constructor(element) {
     super(element);
 
     this.model = this.setModel(rootModel);
-     let DossierService = getDossierServiceInstance();
 
-     DossierService.listDossierFiles(function (err, files) {
-       console.log(err, files);
-     });
-
+    this._listFiles();
     this._initListeners();
   }
 
@@ -28,6 +25,7 @@ export default class ExplorerController extends ContainerController {
     this.on("sign-out", this._signOutFromWalletHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
 
+    this.on('add-file-folder', this._handleFileFolderUpload, true)
     this.on('create-dossier', this._createDossierHandler, true);
     this.on('receive-dossier', this._receiveDossierHandler, true);
     this.on('import-dossier', this._importDossierHandler, true);
@@ -59,9 +57,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('createDossier', createDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
-      this.__addDossier(response.dossierName);
+      this._listFiles();
     });
   }
 
@@ -71,9 +67,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
-      this.__addDossier(response.dossierName);
+      this._listFiles();
     });
   }
 
@@ -83,9 +77,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('importDossier', importDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
-      this.__addDossier(response.dossierName);
+      this._listFiles();
     });
   }
 
@@ -103,18 +95,13 @@ export default class ExplorerController extends ContainerController {
       selectedItemsPaths = this.model.content
         .filter(item => item.selected === 'selected')
         .map(item => `${currentPath}${item.name}`);
-
-      // To be deleted after item selection implementation
-      // Testing deletion callbacks
-      selectedItemsPaths.push(JSON.parse(JSON.stringify(this.model.content[0])).name);
     }
 
     deleteDossierModal.selectedItemsPaths = selectedItemsPaths;
 
     this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
+      this._listFiles();
     });
   }
 
@@ -126,10 +113,6 @@ export default class ExplorerController extends ContainerController {
       let selectedItem = this.model.content
         .find(item => item.selected === 'selected');
 
-      // To be deleted after item selection implementation
-      // Testing deletion callbacks
-      selectedItem = JSON.parse(JSON.stringify(this.model.content[0]));
-
       if (selectedItem) {
         renameDossierModal.fileName.value = selectedItem.name;
       }
@@ -138,8 +121,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
+      this._listFiles();
     });
   }
 
@@ -147,39 +129,63 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    let currentPath = this.model.currentPath === '/' ? '/' : `${this.model.currentPath}/`;
     if (this.model.content.length) {
       let selectedItem = this.model.content
         .find(item => item.selected === 'selected');
 
-      // To be deleted after item selection implementation
-      // Testing deletion callbacks
-      selectedItem = JSON.parse(JSON.stringify(this.model.content[0]));
-
       if (selectedItem) {
-        shareDossierModal.selectedFile = `${currentPath}${selectedItem.name}`;
+        shareDossierModal.selectedFile = selectedItem.name;
       }
     }
+    shareDossierModal.currentPath = this.model.currentPath;
 
     this.showModal('shareDossier', shareDossierModal, (err, response) => {
       console.log(err, response);
-      // Fetch the new list for current path
-      // Testing list items:
+      this._listFiles();
     });
   }
 
-  /**
-   * This fuction will be removed after integration
-   * @param {*} dossierName
-   */
-  __addDossier(dossierName) {
-    this.model.content.push({
-      name: dossierName,
-      type: 'dossier',
-      icon: 'lock',
-      gridIcon: 'lock',
-      size: '-',
-      lastModified: new Date().getTime()
+  _listFiles() {
+    let wDir = this.model.currentPath || '/';
+    DossierService.listDossierFiles(wDir, (err, files) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, this.model.error.genericErrorLabel);
+      } else {
+        this.model.content = files.map(fileName => {
+          return {
+            name: fileName.replace(wDir, ''),
+            type: 'file'
+          };
+        });
+      }
     });
+  }
+
+  _handleFileFolderUpload = async (event) => {
+    event.stopImmediatePropagation();
+
+    let filesArray = event.data || [];
+    let wDir = this.model.currentPath || '/';
+    let file = filesArray[0] || {
+      name: 'no-file'
+    };
+    // filesArray.forEach(file => {
+    const url = `/upload?path=${wDir}&filename=${file.name}`;
+    let response = await fetch(url, {
+      method: "POST",
+      body: file
+    });
+    let resJson = await response.json();
+    console.log(resJson);
+    this._listFiles();
+    // .then((response) => {
+    //   return response.json((result) => {
+    //     this._listFiles();
+    //     return result;
+    //   }).catch((err) => {
+    //     return Promise.resolve({});
+    //   })
+    // });
+    // });
   }
 }

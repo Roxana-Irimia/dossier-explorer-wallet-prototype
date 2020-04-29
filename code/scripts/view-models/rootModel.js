@@ -15,7 +15,6 @@ const rootModel = {
   content: [],
   pageTitle: "E-Wallet",
   sectionTitle: "Dashboard",
-  isGridLayout: true,
   signOutLabel: "Exit",
   currentPath: '/',
   dossierContentLabels: {
@@ -47,7 +46,16 @@ const rootModel = {
       label: "Rename",
       eventName: 'rename-dossier'
     }
-  ]
+  ],
+  error: {
+    hasError: false,
+    errorMessage: '',
+    genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!"
+  },
+  conditionalExpressions: {
+    isLoading: false,
+    isGridLayout: false,
+  }
 };
 
 export default rootModel;

@@ -17,9 +17,11 @@ class DossierExplorerService {
 
 }
 
-let dossierExplorer = new DossierExplorerService();
+// let dossierExplorer = new DossierExplorerService();
 
-let getDossierServiceInstance = function () {
-    return dossierExplorer;
-};
-export {getDossierServiceInstance} ;
+// let getDossierServiceInstance = function () {
+//     return dossierExplorer;
+// };
+// export {getDossierServiceInstance} ;
+
+export default new DossierExplorerService();
