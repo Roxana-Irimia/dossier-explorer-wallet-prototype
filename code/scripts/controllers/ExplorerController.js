@@ -169,6 +169,7 @@ export default class ExplorerController extends ContainerController {
         });
 
         this.model.content = foldersViewModel;
+
       }
     });
 
@@ -188,12 +189,14 @@ export default class ExplorerController extends ContainerController {
           };
         });
 
-        this.model.content = filesViewModel;
+        filesViewModel.forEach((f) => {
+          this.model.content.push(f);
+        });
       }
     });
   }
 
-  _handleFileFolderUpload = async (event) => {
+  _handleFileFolderUpload = (event) => {
     event.stopImmediatePropagation();
 
     let filesArray = event.data || [];
@@ -203,26 +206,54 @@ export default class ExplorerController extends ContainerController {
     }
 
     let wDir = this.model.currentPath || '/';
-    const url = `/upload?path=${wDir}&input=files[]`;
 
-    let formData = new FormData();
-    for (const f of filesArray) {
-      if (f.webkitRelativePath.length) {
-        f.name = f.webkitRelativePath;
+    filesArray.forEach((file) => {
+      let fName = file.name;
+      if (file.webkitRelativePath.length) {
+        wDir = file.webkitRelativePath.replace(`/${file.name}`, '');
       }
-      formData.append('files[]', f);
-    }
 
-    console.log(filesArray, formData);
+      const url = `/upload?path=${wDir}&filename=${fName}&preventOverwrite=true`;
+      fetch(url, {
+          method: "POST",
+          body: file
+        })
+        .then((response) => {
+          response.json().then((result) => {
+            if (response.ok) {
+              console.log("Upload was successful!");
+            } else {
+              console.log("Upload failed!");
+            }
 
-    let response = await fetch(url, {
-      method: "POST",
-      body: formData
+            // Success or file level validation error
+            if (Array.isArray(result)) {
+              for (const item of result) {
+                if (item.error) {
+                  console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
+                  continue;
+                }
+                console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
+              }
+              return;
+            }
+
+            // Validation error. Can happend when HTTP status is 400
+            if (typeof result === 'object') {
+              console.error(`An error occured: ${result.message}. Code: ${result.code}`);
+              return;
+            }
+
+            // Error is a string. This happens when the HTTP status is 500
+            console.error(`An error occured: ${result}`);
+          });
+
+          // Update the model, so the new file/folder can be displayed
+          this._listFiles();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
-
-    let resJson = await response.json();
-    console.log('Response json after upload');
-    console.log(resJson);
-    this._listFiles();
   }
 }
