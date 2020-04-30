@@ -14,9 +14,13 @@
         <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
       </psk-grid>
 
-      <psk-condition condition="@isGridLayout">
-        <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
-        <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
+      <psk-condition condition="@conditionalExpressions.isLoading">
+        <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
+
+        <psk-condition slot="condition-false" condition="@isGridLayout">
+          <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
+          <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
+        </psk-condition>
       </psk-condition>
     </psk-card>
   </psk-page>

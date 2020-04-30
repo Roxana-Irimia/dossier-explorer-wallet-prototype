@@ -18,3 +18,13 @@ $$.swarms.describe("listDossierFolders", {
 		this.return(new Error("Dossier is not available."))
 	}
 });
+
+$$.swarms.describe("listMountedDossiers", {
+	start: function (path) {
+		if (rawDossier) {
+			return rawDossier.listMountedDossiers(path, this.return);
+		}
+
+		this.return(new Error("Dossier is not available."))
+	}
+});

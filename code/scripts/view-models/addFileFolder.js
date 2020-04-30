@@ -8,6 +8,12 @@ const addFileFolderViewModel = {
         type: 'folder',
         gridIcon: 'folder',
         isApplication: false,
+    },
+    defaultDossierAttributes: {
+        type: 'dossier',
+        gridIcon: 'lock',
+        icon: 'lock',
+        isApplication: false,
     }
 }
 

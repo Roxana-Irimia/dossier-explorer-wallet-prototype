@@ -1,7 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import {
-  getDossierServiceInstance
-} from "../service/DossierExplorerService.js";
+import dossierExplorerInstance from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
@@ -19,7 +17,7 @@ export default class ExplorerController extends ContainerController {
     super(element);
 
     this.model = this.setModel(rootModel);
-    this.dossierService = getDossierServiceInstance();
+    // this.dossierService = getDossierServiceInstance();
 
     this._listFiles();
     this._initListeners();
@@ -152,9 +150,10 @@ export default class ExplorerController extends ContainerController {
   _listFiles() {
     let wDir = this.model.currentPath || '/';
 
-    this.dossierService.listDossierFolders(wDir, (err, folders) => {
+    dossierExplorerInstance.listDossierFolders(wDir, (err, folders) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, this.model.error.genericErrorLabel);
+        console.log(err);
+        Commons.updateErrorMessage(this.model, err);
       } else {
         const filteredFolders = folders.filter((folderName) => {
           let paths = folderName.replace(wDir, '').split('/');
@@ -173,9 +172,10 @@ export default class ExplorerController extends ContainerController {
       }
     });
 
-    this.dossierService.listDossierFiles(wDir, (err, files) => {
+    dossierExplorerInstance.listDossierFiles(wDir, (err, files) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, this.model.error.genericErrorLabel);
+        console.log(err);
+        Commons.updateErrorMessage(this.model, err);
       } else {
         const filteredFiles = files.filter((fileName) => {
           let paths = fileName.replace(wDir, '').split('/');
@@ -194,6 +194,24 @@ export default class ExplorerController extends ContainerController {
         });
       }
     });
+
+    dossierExplorerInstance.listMountedDossiers(wDir, (err, dossiers) => {
+      if (err) {
+        console.log(err);
+        Commons.updateErrorMessage(this.model, err);
+      } else {
+        const dossiersViewModel = dossiers.map((dossier) => {
+          return {
+            name: dossier.path.replace(wDir, ''),
+            ...addFileFolderViewModel.defaultDossierAttributes
+          };
+        });
+
+        dossiersViewModel.forEach((d) => {
+          this.model.content.push(d);
+        });
+      }
+    });
   }
 
   _handleFileFolderUpload = (event) => {
@@ -206,6 +224,9 @@ export default class ExplorerController extends ContainerController {
     }
 
     let wDir = this.model.currentPath || '/';
+    let filesToBeUploaded = filesArray.length;
+    // Open the ui-loader
+    Commons.setLoadingState(this.model, true);
 
     filesArray.forEach((file) => {
       let fName = file.name;
@@ -213,7 +234,7 @@ export default class ExplorerController extends ContainerController {
         wDir = file.webkitRelativePath.replace(`/${file.name}`, '');
       }
 
-      const url = `/upload?path=${wDir}&filename=${fName}&preventOverwrite=true`;
+      const url = `/upload?path=${wDir}&filename=${fName}`;
       fetch(url, {
           method: "POST",
           body: file
@@ -248,8 +269,11 @@ export default class ExplorerController extends ContainerController {
             console.error(`An error occured: ${result}`);
           });
 
-          // Update the model, so the new file/folder can be displayed
-          this._listFiles();
+          if ((--filesToBeUploaded) === 0) {
+            // Close ui-loader after all the files are uploaded
+            Commons.setLoadingState(this.model, false);
+            this._listFiles();
+          }
         })
         .catch((err) => {
           console.log(err);

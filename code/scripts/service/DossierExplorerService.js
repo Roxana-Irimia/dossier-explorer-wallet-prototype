@@ -25,14 +25,28 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    listMountedDossiers(path, callback) {
+        if (typeof path === "function") {
+            callback = path;
+            path = "/";
+        }
+
+        $$.interactions.startSwarmAs("test/agent/007", "listMountedDossiers", "start", path)
+            .onReturn(callback);
+    }
+
 }
 
-let dossierExplorer = new DossierExplorerService();
+let dossierExplorerInstance = new DossierExplorerService();
+Object.freeze(dossierExplorerInstance);
 
-let getDossierServiceInstance = function () {
-    return dossierExplorer;
-};
+export default dossierExplorerInstance;
 
-export {
-    getDossierServiceInstance
-};
+// let dossierExplorer = new DossierExplorerService();
+// let getDossierServiceInstance = function () {
+//     return dossierExplorer;
+// };
+
+// export {
+//     getDossierServiceInstance
+// };
