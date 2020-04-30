@@ -1,6 +1,6 @@
 class DossierExplorerService {
 
-    constructor(){
+    constructor() {
         const HostBootScript = require("boot-host").HostBootScript;
         const HostPC = new HostBootScript("dossier-explorer");
     }
@@ -15,13 +15,24 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    listDossierFolders(path, callback) {
+        if (typeof path === "function") {
+            callback = path;
+            path = "/";
+        }
+
+        $$.interactions.startSwarmAs("test/agent/007", "listDossierFolders", "start", path)
+            .onReturn(callback);
+    }
+
 }
 
-// let dossierExplorer = new DossierExplorerService();
+let dossierExplorer = new DossierExplorerService();
 
-// let getDossierServiceInstance = function () {
-//     return dossierExplorer;
-// };
-// export {getDossierServiceInstance} ;
+let getDossierServiceInstance = function () {
+    return dossierExplorer;
+};
 
-export default new DossierExplorerService();
+export {
+    getDossierServiceInstance
+};

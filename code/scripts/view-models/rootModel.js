@@ -50,6 +50,7 @@ const rootModel = {
   error: {
     hasError: false,
     errorMessage: '',
+    noFileUploadedLabel: 'No file or folder was uploaded',
     genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!"
   },
   conditionalExpressions: {

@@ -1,8 +1,11 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import DossierService from "../service/DossierExplorerService.js";
+import {
+  getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
+import addFileFolderViewModel from '../view-models/addFileFolder.js';
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import importDossierModal from '../view-models/importDossierModal.js';
@@ -16,6 +19,7 @@ export default class ExplorerController extends ContainerController {
     super(element);
 
     this.model = this.setModel(rootModel);
+    this.dossierService = getDossierServiceInstance();
 
     this._listFiles();
     this._initListeners();
@@ -147,16 +151,44 @@ export default class ExplorerController extends ContainerController {
 
   _listFiles() {
     let wDir = this.model.currentPath || '/';
-    DossierService.listDossierFiles(wDir, (err, files) => {
+
+    this.dossierService.listDossierFolders(wDir, (err, folders) => {
       if (err) {
         Commons.updateErrorMessage(this.model, this.model.error.genericErrorLabel);
       } else {
-        this.model.content = files.map(fileName => {
+        const filteredFolders = folders.filter((folderName) => {
+          let paths = folderName.replace(wDir, '').split('/');
+          return paths.length <= 1;
+        })
+
+        const foldersViewModel = filteredFolders.map((folderName) => {
           return {
-            name: fileName.replace(wDir, ''),
-            type: 'file'
+            name: folderName.replace(wDir, ''),
+            ...addFileFolderViewModel.defaultFolderAttributes
           };
         });
+
+        this.model.content = foldersViewModel;
+      }
+    });
+
+    this.dossierService.listDossierFiles(wDir, (err, files) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, this.model.error.genericErrorLabel);
+      } else {
+        const filteredFiles = files.filter((fileName) => {
+          let paths = fileName.replace(wDir, '').split('/');
+          return paths.length <= 1;
+        })
+
+        const filesViewModel = filteredFiles.map((fileName) => {
+          return {
+            name: fileName.replace(wDir, ''),
+            ...addFileFolderViewModel.defaultFileAttributes
+          };
+        });
+
+        this.model.content = filesViewModel;
       }
     });
   }
@@ -165,27 +197,32 @@ export default class ExplorerController extends ContainerController {
     event.stopImmediatePropagation();
 
     let filesArray = event.data || [];
+    if (!filesArray.length) {
+      Commons.updateErrorMessage(this.model, this.model.error.noFileUploadedLabel)
+      return;
+    }
+
     let wDir = this.model.currentPath || '/';
-    let file = filesArray[0] || {
-      name: 'no-file'
-    };
-    // filesArray.forEach(file => {
-    const url = `/upload?path=${wDir}&filename=${file.name}`;
+    const url = `/upload?path=${wDir}&input=files[]`;
+
+    let formData = new FormData();
+    for (const f of filesArray) {
+      if (f.webkitRelativePath.length) {
+        f.name = f.webkitRelativePath;
+      }
+      formData.append('files[]', f);
+    }
+
+    console.log(filesArray, formData);
+
     let response = await fetch(url, {
       method: "POST",
-      body: file
+      body: formData
     });
+
     let resJson = await response.json();
+    console.log('Response json after upload');
     console.log(resJson);
     this._listFiles();
-    // .then((response) => {
-    //   return response.json((result) => {
-    //     this._listFiles();
-    //     return result;
-    //   }).catch((err) => {
-    //     return Promise.resolve({});
-    //   })
-    // });
-    // });
   }
 }
