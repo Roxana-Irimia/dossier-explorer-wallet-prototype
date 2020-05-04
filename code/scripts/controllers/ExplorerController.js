@@ -256,72 +256,107 @@ export default class ExplorerController extends ContainerController {
     // Open the ui-loader
     Commons.setLoadingState(this.model, true);
 
-    // const formData = new FormData();
-    // for (const f of filesArray) {
-    //   // Use array notation in the key to indicate multiple files
-    //   formData.append('files[]', f);
-    // }
+		const formData = new FormData();
+		for (const f of filesArray) {
+			// Use array notation in the key to indicate multiple files
+			formData.append('files[]', f);
+		}
 
-    // const url = '/upload?path=/&input=files[]';
-    // fetch(url, {
-    //   method: "POST",
-    //   body: formData
-    // }).then(res => res.json()).then(resJson => {
-    //   console.log(resJson);
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-    filesArray.forEach((file) => {
-      let fName = file.name;
-      if (file.webkitRelativePath.length) {
-        wDir = file.webkitRelativePath.replace(`/${file.name}`, '');
-      }
+		let folderName = filesArray[0].webkitRelativePath.replace(`/${filesArray[0].name}`, '');
+		const url = `/upload?path=${wDir}&input=files[]&filename=${folderName}`;
+		fetch(url, {
+			method: "POST",
+			body: formData
+		}).then(response =>
 
-      const url = `/upload?path=${wDir}&filename=${fName}`;
-      fetch(url, {
-          method: "POST",
-          body: file
-        })
-        .then((response) => {
-          response.json().then((result) => {
-            console.log(result);
-            if (response.ok) {
-              console.log("Upload was successful!");
-            } else {
-              console.log("Upload failed!");
-            }
+			response.json().then((result) => {
+				if (response.ok) {
+					console.log("Upload was successful!");
+					Commons.setLoadingState(this.model, false);
+					this._listWalletContent();
+				} else {
+					console.log("Upload failed!");
 
-            // Success or file level validation error
-            if (Array.isArray(result)) {
-              for (const item of result) {
-                if (item.error) {
-                  console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
-                  continue;
-                }
-                console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
-              }
-              return;
-            }
 
-            // Validation error. Can happend when HTTP status is 400
-            if (typeof result === 'object') {
-              console.error(`An error occured: ${result.message}. Code: ${result.code}`);
-              return;
-            }
+					// Success or file level validation error
+					if (Array.isArray(result)) {
+						for (const item of result) {
+							if (item.error) {
+								console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
+								continue;
+							}
+							console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
+						}
+						return;
+					}
 
-            // Error is a string. This happens when the HTTP status is 500
-            console.error(`An error occured: ${result}`);
-          });
+					// Validation error. Can happend when HTTP status is 400
+					if (typeof result === 'object') {
+						console.error(`An error occurred: ${result.message}. Code: ${result.code}`);
+						return;
+					}
 
-          if ((--filesToBeUploaded) === 0) {
-            // Close ui-loader after all the files are uploaded
-            Commons.setLoadingState(this.model, false);
-            this._listWalletContent();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  }
+					// Error is a string. This happens when the HTTP status is 500
+					console.error(`An error occurred: ${result}`);
+				}
+			})
+
+
+				.catch((err) => {
+					console.log(err);
+				}));
+
+
+		// filesArray.forEach((file) => {
+		//   let fName = file.name;
+		//   if (file.webkitRelativePath.length) {
+		//     wDir = file.webkitRelativePath.replace(`/${file.name}`, '');
+		//   }
+		//
+		//   const url = `/upload?path=${wDir}&filename=${fName}`;
+		//   fetch(url, {
+		//       method: "POST",
+		//       body: file
+		//     })
+		//     .then((response) => {
+		//       response.json().then((result) => {
+		//         if (response.ok) {
+		//           console.log("Upload was successful!");
+		//         } else {
+		//           console.log("Upload failed!");
+		//         }
+		//
+		//         // Success or file level validation error
+		//         if (Array.isArray(result)) {
+		//           for (const item of result) {
+		//             if (item.error) {
+		//               console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
+		//               continue;
+		//             }
+		//             console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
+		//           }
+		//           return;
+		//         }
+		//
+		//         // Validation error. Can happend when HTTP status is 400
+		//         if (typeof result === 'object') {
+		//           console.error(`An error occured: ${result.message}. Code: ${result.code}`);
+		//           return;
+		//         }
+		//
+		//         // Error is a string. This happens when the HTTP status is 500
+		//         console.error(`An error occured: ${result}`);
+		//       });
+		//
+		//       if ((--filesToBeUploaded) === 0) {
+		//         // Close ui-loader after all the files are uploaded
+		//         Commons.setLoadingState(this.model, false);
+		//         this._listWalletContent();
+		//       }
+		//     })
+		//     .catch((err) => {
+		//       console.log(err);
+		//     });
+		// });
+	}
 }
