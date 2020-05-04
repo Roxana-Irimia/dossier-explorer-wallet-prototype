@@ -5,11 +5,15 @@ class DossierExplorerService {
         const HostPC = new HostBootScript("dossier-explorer");
     }
 
-    readDir(path, callback) {
+    readDir(path, options, callback) {
+        if (typeof options === 'function') {
+            callback = options;
+            options = {
+                withFileTypes: false
+            };
+        }
         $$.interactions
-            .startSwarmAs("test/agent/007", "readDir", "start", path, {
-                withFileTypes: true
-            })
+            .startSwarmAs("test/agent/007", "readDir", "start", path, options)
             .onReturn(callback);
     }
 

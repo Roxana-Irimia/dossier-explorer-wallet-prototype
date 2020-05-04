@@ -27,8 +27,8 @@ const createDossierModal = {
     hasError: false,
     errorMessage: "",
     errorLabels: {
-      fileExistsLabel: "A file with the same name already exists!",
-      nameNotEmptyLabel: "The file name cannot be empty or only with empty spaces!"
+      fileExistsLabel: "An entry with the same name already exists!",
+      nameNotEmptyLabel: "The entry name cannot be empty or only with empty spaces!"
     }
   },
 };

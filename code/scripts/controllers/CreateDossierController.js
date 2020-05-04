@@ -23,8 +23,22 @@ export default class CreateDossierController extends ModalController {
   _setNameForNewDossier = (event) => {
     event.stopImmediatePropagation();
     Commons.updateErrorMessage(this.model);
-
     let dossierName = this.model.dossierNameInput.value;
+
+    this.dossierService.readDir(this.model.currentPath, (err, dirContent) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, err);
+      } else {
+        if (dirContent.find((el) => el === dossierName)) {
+          Commons.updateErrorMessage(this.model, this.model.error.errorLabels.fileExistsLabel);
+        } else {
+          this._createDossier(dossierName);
+        }
+      }
+    });
+  };
+
+  _createDossier = (dossierName) => {
     this.dossierService.createDossier(this.model.currentPath + dossierName, dossierName, (err, outputSEED) => {
       if (err) {
         Commons.updateErrorMessage(this.model, err);
@@ -33,7 +47,7 @@ export default class CreateDossierController extends ModalController {
         this.model.isDossierNameStep = false;
       }
     });
-  };
+  }
 
   _finishNewDossierProcess = (event) => {
     event.stopImmediatePropagation();

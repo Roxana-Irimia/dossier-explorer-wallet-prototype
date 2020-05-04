@@ -37,6 +37,15 @@ export default class ExplorerController extends ContainerController {
     this.on('rename-dossier', this._renameDossierHandler, true);
 
     this.on('add-file-folder', this._handleFileFolderUpload, true);
+
+    this.on('double-click-item', this._handleNavigation, true);
+
+    /**
+     * Model chain change watchers
+     */
+    this.model.onChange('currentPath', () => {
+      this._listWalletContent();
+    });
   };
 
   _handleSwitchLayout = (event) => {
@@ -151,14 +160,45 @@ export default class ExplorerController extends ContainerController {
     });
   }
 
+  _handleNavigation = (event) => {
+    event.stopImmediatePropagation();
+
+    let clickedDir = event.data;
+    if (!clickedDir) {
+      console.error(`Clicked directory is not valid!`, event);
+      return;
+    }
+
+    let clickedDirViewModel = this.model.content.find((el) => el.name === clickedDir);
+    if (!clickedDirViewModel) {
+      console.error(`Clicked directory is not present in the model!`);
+      return;
+    }
+
+    if (clickedDirViewModel.type !== 'folder' && clickedDirViewModel.type !== 'dossier') {
+      console.error(`Clicked directory is not folder or dossier!`);
+      return;
+    }
+
+    let wDir = this.model.currentPath || '/';
+    let newWorkingDirectory = wDir === '/' ?
+      `${wDir}${clickedDir}` :
+      `${wDir}/${clickedDir}`;
+    this.model.setChainValue('currentPath', newWorkingDirectory);
+    this.model.setChainValue('content', []);
+  };
+
   _listWalletContent() {
     let wDir = this.model.currentPath || '/';
-    this.dossierService.readDir(wDir, (err, dirContent) => {
+    this.dossierService.readDir(wDir, {
+      withFileTypes: true
+    }, (err, dirContent) => {
       if (err) {
         console.log(err);
         Commons.updateErrorMessage(this.model, err);
         return;
       }
+      console.log(dirContent);
 
       /** Add files to content model */
       if (dirContent.files && dirContent.files.length) {
@@ -244,6 +284,7 @@ export default class ExplorerController extends ContainerController {
         })
         .then((response) => {
           response.json().then((result) => {
+            console.log(result);
             if (response.ok) {
               console.log("Upload was successful!");
             } else {
