@@ -1,4 +1,4 @@
-const basePagesPath = "http://localhost:8000/pages/";
+const basePagesPath = "/pages/";
 
 const pageLoader = {
   walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,

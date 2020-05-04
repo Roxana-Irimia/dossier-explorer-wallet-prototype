@@ -1,9 +1,11 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import dossierExplorerInstance from "../service/DossierExplorerService.js";
+import {
+  getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
-import addFileFolderViewModel from '../view-models/addFileFolder.js';
+import walletContentViewModel from '../view-models/walletContentViewModel.js';
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import importDossierModal from '../view-models/importDossierModal.js';
@@ -17,9 +19,9 @@ export default class ExplorerController extends ContainerController {
     super(element);
 
     this.model = this.setModel(rootModel);
-    // this.dossierService = getDossierServiceInstance();
+    this.dossierService = getDossierServiceInstance();
 
-    this._listFiles();
+    this._listWalletContent();
     this._initListeners();
   }
 
@@ -27,13 +29,14 @@ export default class ExplorerController extends ContainerController {
     this.on("sign-out", this._signOutFromWalletHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
 
-    this.on('add-file-folder', this._handleFileFolderUpload, true)
     this.on('create-dossier', this._createDossierHandler, true);
     this.on('receive-dossier', this._receiveDossierHandler, true);
     this.on('import-dossier', this._importDossierHandler, true);
     this.on('delete-dossier', this._deleteDossierHandler, true);
     this.on('share-dossier', this._shareDossierHandler, true);
     this.on('rename-dossier', this._renameDossierHandler, true);
+
+    this.on('add-file-folder', this._handleFileFolderUpload, true);
   };
 
   _handleSwitchLayout = (event) => {
@@ -57,9 +60,10 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
+    createDossierModal.currentPath = this.model.currentPath;
     this.showModal('createDossier', createDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
@@ -69,7 +73,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
@@ -79,7 +83,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('importDossier', importDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
@@ -103,7 +107,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
@@ -123,7 +127,7 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
@@ -143,72 +147,56 @@ export default class ExplorerController extends ContainerController {
 
     this.showModal('shareDossier', shareDossierModal, (err, response) => {
       console.log(err, response);
-      this._listFiles();
+      this._listWalletContent();
     });
   }
 
-  _listFiles() {
+  _listWalletContent() {
     let wDir = this.model.currentPath || '/';
-
-    dossierExplorerInstance.listDossierFolders(wDir, (err, folders) => {
+    this.dossierService.readDir(wDir, (err, dirContent) => {
       if (err) {
         console.log(err);
         Commons.updateErrorMessage(this.model, err);
-      } else {
-        const filteredFolders = folders.filter((folderName) => {
-          let paths = folderName.replace(wDir, '').split('/');
-          return paths.length <= 1;
-        })
-
-        const foldersViewModel = filteredFolders.map((folderName) => {
-          return {
-            name: folderName.replace(wDir, ''),
-            ...addFileFolderViewModel.defaultFolderAttributes
-          };
-        });
-
-        this.model.content = foldersViewModel;
-
+        return;
       }
-    });
 
-    dossierExplorerInstance.listDossierFiles(wDir, (err, files) => {
-      if (err) {
-        console.log(err);
-        Commons.updateErrorMessage(this.model, err);
-      } else {
-        const filteredFiles = files.filter((fileName) => {
-          let paths = fileName.replace(wDir, '').split('/');
-          return paths.length <= 1;
-        })
-
-        const filesViewModel = filteredFiles.map((fileName) => {
+      /** Add files to content model */
+      if (dirContent.files && dirContent.files.length) {
+        let viewModelFiles = dirContent.files.map((file) => {
           return {
-            name: fileName.replace(wDir, ''),
-            ...addFileFolderViewModel.defaultFileAttributes
+            ...walletContentViewModel.defaultFileAttributes,
+            name: file
           };
         });
 
-        filesViewModel.forEach((f) => {
-          this.model.content.push(f);
+        this.model.content = viewModelFiles;
+      }
+
+      /** Add folders to content model */
+      if (dirContent.folders && dirContent.folders.length) {
+        let viewModelFolders = dirContent.folders.map((folder) => {
+          return {
+            ...walletContentViewModel.defaultFolderAttributes,
+            name: folder
+          };
+        });
+
+        viewModelFolders.forEach((folder) => {
+          this.model.content.push(folder);
         });
       }
-    });
 
-    dossierExplorerInstance.listMountedDossiers(wDir, (err, dossiers) => {
-      if (err) {
-        console.log(err);
-        Commons.updateErrorMessage(this.model, err);
-      } else {
-        const dossiersViewModel = dossiers.map((dossier) => {
+      /** Add dossiers to content model */
+      if (dirContent.mounts && dirContent.mounts.length) {
+        let viewModelDossiers = dirContent.mounts.map((dossier) => {
           return {
-            name: dossier.path.replace(wDir, ''),
-            ...addFileFolderViewModel.defaultDossierAttributes
+            ...walletContentViewModel.defaultDossierAttributes,
+            name: dossier
           };
         });
 
-        dossiersViewModel.forEach((d) => {
-          this.model.content.push(d);
+        viewModelDossiers.forEach((dossier) => {
+          this.model.content.push(dossier);
         });
       }
     });
@@ -228,6 +216,21 @@ export default class ExplorerController extends ContainerController {
     // Open the ui-loader
     Commons.setLoadingState(this.model, true);
 
+    // const formData = new FormData();
+    // for (const f of filesArray) {
+    //   // Use array notation in the key to indicate multiple files
+    //   formData.append('files[]', f);
+    // }
+
+    // const url = '/upload?path=/&input=files[]';
+    // fetch(url, {
+    //   method: "POST",
+    //   body: formData
+    // }).then(res => res.json()).then(resJson => {
+    //   console.log(resJson);
+    // }).catch((err) => {
+    //   console.log(err);
+    // });
     filesArray.forEach((file) => {
       let fName = file.name;
       if (file.webkitRelativePath.length) {
@@ -272,7 +275,7 @@ export default class ExplorerController extends ContainerController {
           if ((--filesToBeUploaded) === 0) {
             // Close ui-loader after all the files are uploaded
             Commons.setLoadingState(this.model, false);
-            this._listFiles();
+            this._listWalletContent();
           }
         })
         .catch((err) => {

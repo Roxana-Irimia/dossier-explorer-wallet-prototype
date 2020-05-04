@@ -7,8 +7,7 @@ const createDossierModal = {
   },
   dossierSeedOutput: {
     label: "Dossier with the SEED below has been successfully created!",
-    // the real value of the seed will be set from the controller
-    value: "ep8n5buype895ubye8netpmtu9rutepu9teertue58yuet7iy7tijht",
+    value: "",
     readOnly: true,
   },
   buttons: {

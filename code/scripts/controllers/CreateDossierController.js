@@ -1,9 +1,15 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import Commons from "./Commons.js";
+import {
+  getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 export default class CreateDossierController extends ModalController {
   constructor(element) {
     super(element);
+
+    this.dossierService = getDossierServiceInstance();
+
     this._initListeners();
   }
 
@@ -19,22 +25,21 @@ export default class CreateDossierController extends ModalController {
     Commons.updateErrorMessage(this.model);
 
     let dossierName = this.model.dossierNameInput.value;
-    this.dossierName = dossierName;
-    console.log(`${dossierName} will be created`);
-    // Send a post request to add the new dossier and then to receive the seed of the created dossier
-    // Also, if the file already exists, the error labels will be added.
-    // Set the seed to the model (dossierSeedOutput.value) and display the finish step of the wizard
-    this.model.isDossierNameStep = false;
+    this.dossierService.createDossier(this.model.currentPath + dossierName, dossierName, (err, outputSEED) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, err);
+      } else {
+        this.model.dossierSeedOutput.value = outputSEED;
+        this.model.isDossierNameStep = false;
+      }
+    });
   };
 
   _finishNewDossierProcess = (event) => {
     event.stopImmediatePropagation();
 
     this.responseCallback(undefined, {
-      success: true,
-      dossierName: this.dossierName // To be removed after integration
-      // Send back to main Explorer controller the respose that can close the modal 
-      //and to fetch the new list items
+      success: true
     });
   };
 
