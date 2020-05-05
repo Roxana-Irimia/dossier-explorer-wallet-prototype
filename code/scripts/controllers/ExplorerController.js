@@ -39,7 +39,7 @@ export default class ExplorerController extends ContainerController {
 
     this.on('add-file-folder', this._handleFileFolderUpload, true);
 
-    this.on('double-click-item', this._handleNavigation, true);
+    this.on('double-click-item', this._handleDoubleClick, true);
     this.on('change-directory', this._handleChangeDirectory, true);
 
     /**
@@ -83,6 +83,7 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
+    receiveDossierModal.currentPath = this.model.currentPath;
     this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
       console.log(err, response);
       this._listWalletContent();
@@ -93,6 +94,7 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
+    importDossierModal.currentPath = this.model.currentPath;
     this.showModal('importDossier', importDossierModal, (err, response) => {
       console.log(err, response);
       this._listWalletContent();
@@ -205,7 +207,7 @@ export default class ExplorerController extends ContainerController {
     this.model.setChainValue('navigationLinks', links);
   }
 
-  _handleNavigation = (event) => {
+  _handleDoubleClick = (event) => {
     event.stopImmediatePropagation();
 
     let clickedDir = event.data;
@@ -220,17 +222,27 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    if (clickedDirViewModel.type !== 'folder' && clickedDirViewModel.type !== 'dossier') {
-      console.error(`Clicked directory is not folder or dossier!`);
-      return;
+    switch (clickedDirViewModel.type) {
+      case 'file': {
+        // handle double-click or click+enter to enter preview
+        break;
+      }
+      case 'app': {
+        // handle double-click or click+enter to run the applicaion
+        break;
+      }
+      case 'folder':
+      case 'dossier': {
+        let wDir = this.model.currentPath || '/';
+        let newWorkingDirectory = wDir === '/' ?
+          `${wDir}${clickedDir}` :
+          `${wDir}/${clickedDir}`;
+        this.model.setChainValue('currentPath', newWorkingDirectory);
+        this.model.setChainValue('content', []);
+      }
+      default:
+        break;
     }
-
-    let wDir = this.model.currentPath || '/';
-    let newWorkingDirectory = wDir === '/' ?
-      `${wDir}${clickedDir}` :
-      `${wDir}/${clickedDir}`;
-    this.model.setChainValue('currentPath', newWorkingDirectory);
-    this.model.setChainValue('content', []);
   };
 
   _handleChangeDirectory = (event) => {

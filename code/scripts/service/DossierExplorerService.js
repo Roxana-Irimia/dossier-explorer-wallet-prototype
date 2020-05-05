@@ -47,17 +47,17 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    createDossier(path, dossierName, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "createDossier", "start", path, dossierName)
+    createDossier(path, dossierName, SEED, callback) {
+        if (typeof SEED === 'function') {
+            callback = SEED;
+            SEED = null;
+        }
+
+        $$.interactions.startSwarmAs("test/agent/007", "createDossier", "start", path, dossierName, SEED)
             .onReturn(callback);
     }
 
 }
-
-// let dossierExplorerInstance = new DossierExplorerService();
-// Object.freeze(dossierExplorerInstance);
-
-// export default dossierExplorerInstance;
 
 let dossierExplorer = new DossierExplorerService();
 let getDossierServiceInstance = function () {

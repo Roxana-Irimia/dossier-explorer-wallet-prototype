@@ -31,13 +31,29 @@ $$.swarms.describe("listMountedDossiers", {
 	}
 });
 
+$$.swarms.describe('readDir', {
+	start: function (path, options) {
+		if (rawDossier) {
+			return rawDossier.readDir(path, options, this.return);
+		}
+
+		this.return(new Error("Dossier is not available."))
+	}
+});
+
 $$.swarms.describe("createDossier", {
-	start: function (path, dossierName) {
+	start: function (path, dossierName, SEED) {
 		if (rawDossier) {
 			const EDFS = require("edfs");
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
-			const newRawDossier = edfs.createRawDossier();
+			let newRawDossier;
+			if (SEED) {
+				newRawDossier = edfs.loadRawDossier(SEED);
+			} else {
+				newRawDossier = edfs.createRawDossier();
+			}
+
 			return rawDossier.mount(path, dossierName, newRawDossier.getSeed(), (err) => {
 				console.log(err, newRawDossier.getSeed());
 				if (!err) {
@@ -46,16 +62,6 @@ $$.swarms.describe("createDossier", {
 					this.return(err);
 				}
 			});
-		}
-
-		this.return(new Error("Dossier is not available."))
-	}
-})
-
-$$.swarms.describe('readDir', {
-	start: function (path, options) {
-		if (rawDossier) {
-			return rawDossier.readDir(path, options, this.return);
 		}
 
 		this.return(new Error("Dossier is not available."))

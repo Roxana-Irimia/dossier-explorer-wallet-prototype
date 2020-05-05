@@ -1,9 +1,15 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import Commons from "./Commons.js";
+import {
+  getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 export default class ImportDossierController extends ModalController {
   constructor(element) {
     super(element);
+
+    this.dossierService = getDossierServiceInstance();
+
     this._initListeners();
   }
 
@@ -19,24 +25,36 @@ export default class ImportDossierController extends ModalController {
     event.stopImmediatePropagation();
     Commons.updateErrorMessage(this.model);
 
-    let dossierName = this.model.dossierNameInput.value;
-    this.dossierName = dossierName;
-    console.log(`${dossierName} will be created`);
-    // Send a post request to add the new dossier and then to receive the seed of the created dossier
-    // Also, if the file already exists, the error labels will be added.
-    // Set the seed to the model (dossierSeedOutput.value) and display the finish step of the wizard
-    this.model.isDossierNameStep = false;
+    const wDir = this.model.currentPath || '/';
+    this.dossierName = this.model.dossierNameInput.value;
+    this.dossierService.readDir(wDir, (err, dirContent) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, err);
+      } else {
+        if (dirContent.find((el) => el === this.dossierName)) {
+          Commons.updateErrorMessage(this.model, this.model.error.errorLabels.fileExistsLabel);
+        } else {
+          // Go to the next step, where the user provides the SEED for the dossier
+          this.model.isDossierNameStep = false;
+        }
+      }
+    });
   };
 
   _importDossierFromSeed = (event) => {
     event.stopImmediatePropagation();
 
-    this.responseCallback(undefined, {
-      success: true,
-      dossierName: this.dossierName, // To be removed after integration
-      dossierSeed: this.model.dossierSeedInput.value // To be removed after integration
-      // Send back to main Explorer controller the respose that can close the modal 
-      //and to fetch the new list items
+    const wDir = this.model.currentPath || '/';
+    const SEED = this.model.dossierSeedInput.value;
+
+    this.dossierService.createDossier(wDir + this.dossierName, this.dossierName, SEED, (err) => {
+      if (err) {
+        Commons.updateErrorMessage(this.model, err);
+      } else {
+        this.responseCallback(undefined, {
+          success: true
+        });
+      }
     });
   };
 
