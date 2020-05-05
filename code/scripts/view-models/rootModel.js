@@ -1,11 +1,11 @@
-const basePagesPath = "/pages/";
+const basePagesPath = "/pages/Wallet/";
 
 const pageLoader = {
-  walletGridContent: `${basePagesPath}Wallet/wallet-content-grid.html`,
-  walletListContent: `${basePagesPath}Wallet/wallet-content-list.html`,
-  addDossierMenu: `${basePagesPath}Wallet/add-dossier-menu.html`,
-  rightIconsMenu: `${basePagesPath}Wallet/right-icons-menu.html`,
-  switchLayout: `${basePagesPath}Wallet/switch-layout.html`,
+  walletGridContent: `${basePagesPath}wallet-content-grid.html`,
+  walletListContent: `${basePagesPath}wallet-content-list.html`,
+  addDossierMenu: `${basePagesPath}add-dossier-menu.html`,
+  rightIconsMenu: `${basePagesPath}right-icons-menu.html`,
+  switchLayout: `${basePagesPath}switch-layout.html`
 };
 
 const rootModel = {
@@ -13,6 +13,7 @@ const rootModel = {
     ...pageLoader
   },
   content: [],
+  navigationLinks: [],
   pageTitle: "E-Wallet",
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",

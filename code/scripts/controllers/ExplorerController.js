@@ -22,6 +22,7 @@ export default class ExplorerController extends ContainerController {
     this.dossierService = getDossierServiceInstance();
 
     this._listWalletContent();
+    this._initNavigationLinks();
     this._initListeners();
   }
 
@@ -39,12 +40,14 @@ export default class ExplorerController extends ContainerController {
     this.on('add-file-folder', this._handleFileFolderUpload, true);
 
     this.on('double-click-item', this._handleNavigation, true);
+    this.on('change-directory', this._handleChangeDirectory, true);
 
     /**
      * Model chain change watchers
      */
     this.model.onChange('currentPath', () => {
       this._listWalletContent();
+      this._initNavigationLinks();
     });
   };
 
@@ -160,6 +163,48 @@ export default class ExplorerController extends ContainerController {
     });
   }
 
+  _initNavigationLinks() {
+    let wDir = this.model.currentPath || '/';
+    let links = [{
+      label: this.model.dossierContentLabels.homeLabel,
+      path: '/',
+      disabled: false
+    }];
+
+    // If the current path is root
+    if (wDir === '/') {
+      links[0].disabled = true;
+      this.model.setChainValue('navigationLinks', links);
+      return;
+    }
+
+    // If anything, but root
+    let paths = wDir.split('/');
+    // pop out first element as it is the root and create below the My Wallet(Home / Root) Link
+    paths.shift();
+
+    paths.forEach((pathSegment) => {
+      let path = links[links.length - 1].path;
+      if (path === '/') {
+        path = `/${pathSegment}`;
+      } else {
+        path = `${path}/${pathSegment}`;
+      }
+
+      links.push({
+        label: pathSegment,
+        path: path,
+        disabled: false
+      });
+    });
+
+    // Disable the last link as it is the current directory in navigation
+    links[links.length - 1].disabled = true;
+
+    // Set the navigation links to view-model
+    this.model.setChainValue('navigationLinks', links);
+  }
+
   _handleNavigation = (event) => {
     event.stopImmediatePropagation();
 
@@ -186,6 +231,13 @@ export default class ExplorerController extends ContainerController {
       `${wDir}/${clickedDir}`;
     this.model.setChainValue('currentPath', newWorkingDirectory);
     this.model.setChainValue('content', []);
+  };
+
+  _handleChangeDirectory = (event) => {
+    event.stopImmediatePropagation();
+
+    let path = event.data || '/';
+    this.model.setChainValue('currentPath', path);
   };
 
   _listWalletContent() {
@@ -252,76 +304,57 @@ export default class ExplorerController extends ContainerController {
     }
 
     let wDir = this.model.currentPath || '/';
-    let filesToBeUploaded = filesArray.length;
     // Open the ui-loader
     Commons.setLoadingState(this.model, true);
 
-    // const formData = new FormData();
-    // for (const f of filesArray) {
-    //   // Use array notation in the key to indicate multiple files
-    //   formData.append('files[]', f);
-    // }
+    const formData = new FormData();
+    for (const f of filesArray) {
+      // Use array notation in the key to indicate multiple files
+      formData.append('files[]', f);
+    }
 
-    // const url = '/upload?path=/&input=files[]';
-    // fetch(url, {
-    //   method: "POST",
-    //   body: formData
-    // }).then(res => res.json()).then(resJson => {
-    //   console.log(resJson);
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-    filesArray.forEach((file) => {
-      let fName = file.name;
-      if (file.webkitRelativePath.length) {
-        wDir = file.webkitRelativePath.replace(`/${file.name}`, '');
-      }
+    let folderName = filesArray[0].webkitRelativePath.replace(`/${filesArray[0].name}`, '');
+    const url = `/upload?path=${wDir}&input=files[]&filename=${folderName}`;
+    fetch(url, {
+        method: "POST",
+        body: formData
+      })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Upload OK!');
+        } else {
+          console.log('Upload FAILED!');
+        }
+        return response.json();
+      })
+      .then((responseJSON) => {
+        console.log(responseJSON);
+        Commons.setLoadingState(this.model, false);
+        this._listWalletContent();
 
-      const url = `/upload?path=${wDir}&filename=${fName}`;
-      fetch(url, {
-          method: "POST",
-          body: file
-        })
-        .then((response) => {
-          response.json().then((result) => {
-            console.log(result);
-            if (response.ok) {
-              console.log("Upload was successful!");
-            } else {
-              console.log("Upload failed!");
+        // Success or file level validation error
+        if (Array.isArray(responseJSON)) {
+          for (const item of responseJSON) {
+            if (item.error) {
+              console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
+              continue;
             }
-
-            // Success or file level validation error
-            if (Array.isArray(result)) {
-              for (const item of result) {
-                if (item.error) {
-                  console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
-                  continue;
-                }
-                console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
-              }
-              return;
-            }
-
-            // Validation error. Can happend when HTTP status is 400
-            if (typeof result === 'object') {
-              console.error(`An error occured: ${result.message}. Code: ${result.code}`);
-              return;
-            }
-
-            // Error is a string. This happens when the HTTP status is 500
-            console.error(`An error occured: ${result}`);
-          });
-
-          if ((--filesToBeUploaded) === 0) {
-            // Close ui-loader after all the files are uploaded
-            Commons.setLoadingState(this.model, false);
-            this._listWalletContent();
+            console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
           }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+          return;
+        }
+
+        // Validation error. Can happend when HTTP status is 400
+        if (typeof responseJSON === 'object') {
+          console.error(`An error occurred: ${responseJSON.message}. Code: ${responseJSON.code}`);
+          return;
+        }
+
+        // Error is a string. This happens when the HTTP status is 500
+        console.error(`An error occurred: ${responseJSON}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
