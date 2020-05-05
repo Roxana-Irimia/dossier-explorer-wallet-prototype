@@ -238,7 +238,6 @@ export default class ExplorerController extends ContainerController {
           `${wDir}${clickedDir}` :
           `${wDir}/${clickedDir}`;
         this.model.setChainValue('currentPath', newWorkingDirectory);
-        this.model.setChainValue('content', []);
       }
       default:
         break;
@@ -263,46 +262,57 @@ export default class ExplorerController extends ContainerController {
         return;
       }
       console.log(dirContent);
+      let newContent = [];
 
       /** Add files to content model */
       if (dirContent.files && dirContent.files.length) {
-        let viewModelFiles = dirContent.files.map((file) => {
-          return {
-            ...walletContentViewModel.defaultFileAttributes,
-            name: file
-          };
-        });
+        let viewModelFiles = dirContent.files
+          .filter(el => !!el)
+          .map((file) => {
+            return {
+              ...walletContentViewModel.defaultFileAttributes,
+              name: file
+            };
+          });
 
-        this.model.content = viewModelFiles;
+        viewModelFiles.forEach((file) => {
+          newContent.push(file);
+        });
       }
 
       /** Add folders to content model */
       if (dirContent.folders && dirContent.folders.length) {
-        let viewModelFolders = dirContent.folders.map((folder) => {
-          return {
-            ...walletContentViewModel.defaultFolderAttributes,
-            name: folder
-          };
-        });
+        let viewModelFolders = dirContent.folders
+          .filter(el => !!el)
+          .map((folder) => {
+            return {
+              ...walletContentViewModel.defaultFolderAttributes,
+              name: folder
+            };
+          });
 
         viewModelFolders.forEach((folder) => {
-          this.model.content.push(folder);
+          newContent.push(folder);
         });
       }
 
       /** Add dossiers to content model */
       if (dirContent.mounts && dirContent.mounts.length) {
-        let viewModelDossiers = dirContent.mounts.map((dossier) => {
-          return {
-            ...walletContentViewModel.defaultDossierAttributes,
-            name: dossier
-          };
-        });
+        let viewModelDossiers = dirContent.mounts
+          .filter(el => !!el)
+          .map((dossier) => {
+            return {
+              ...walletContentViewModel.defaultDossierAttributes,
+              name: dossier
+            };
+          });
 
         viewModelDossiers.forEach((dossier) => {
-          this.model.content.push(dossier);
+          newContent.push(dossier);
         });
       }
+
+      this.model.setChainValue('content', newContent);
     });
   }
 
