@@ -1,4 +1,6 @@
 {
+  "theme":"dossier-explorer",
+  "appVersion":"0.1",
   "basePagesUrl": "/pages/",
   "profile": {
     "username": "Dossier Explorer",
