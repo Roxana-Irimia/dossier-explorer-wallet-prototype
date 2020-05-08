@@ -1,5 +1,3 @@
-
-
 .header .row {
   margin-top: 2rem;
 }
@@ -7,9 +5,10 @@
 div.row {
   color: #572a57;
   font-weight: bold;
+  margin: 0;
 }
 
-.items div.row > * {
+.items div.row>* {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

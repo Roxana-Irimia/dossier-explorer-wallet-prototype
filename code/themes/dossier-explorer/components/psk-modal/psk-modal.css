@@ -1,4 +1,3 @@
-
 #backdrop {
   position: fixed;
   top: 0;
@@ -44,9 +43,19 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease-out;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#modal .modal-header button.close {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  opacity: 1;
 }
 
 @media screen and (max-width: 769px) {
+
   #modal,
   #backdrop {
     position: absolute;
@@ -55,42 +64,42 @@
     top: 0;
     left: 0;
   }
+
   :host([opened]) #modal {
     top: 0;
   }
 }
 
-:host(.exit-modal) .modal-header ::slotted(psk-label) {
-  font-size: 1.25rem;
-  padding: 0;
-}
-
 :host(.exit-modal) .modal-content ::slotted(psk-label) {
   font-size: 1.1rem;
   padding: 0;
+  color: #808080;
 }
 
-.modal-header {
+:host .modal-header {
   background-color: #8197bc;
   border-color: #8197bc;
   border-radius: 0;
+  padding: 0.75rem 1rem;
 }
 
-.modal-content {
+:host .modal-content {
   background-color: #f2f2f2;
   border: none;
   border-radius: 5px;
 }
 
-.modal-body {
+:host .modal-body {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  flex: 0 0 auto;
-  width: 100%;
+  width: 70%;
+  left: 15%;
+  padding: 2rem 1rem;
+  line-height: 2rem;
 }
 
-.modal-body ::slotted(*) {
+:host .modal-body ::slotted(*) {
   width: 100%;
 }

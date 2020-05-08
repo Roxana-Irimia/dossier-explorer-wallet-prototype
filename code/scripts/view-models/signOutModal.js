@@ -13,7 +13,7 @@ const signOutModal = {
     label: "Yes",
     eventName: "sign-out-confirm",
     eventData: "delete-seed",
-    buttonClass: "btn-confirm",
+    buttonClass: "btn-confirm-secondary",
   },
   exitBtn: {
     label: "No, just exit",

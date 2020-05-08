@@ -1,1 +1,8 @@
+psk-modal .form-check-inline psk-label {
+    color: #819bc6;
+}
 
+psk-modal .form-check-inline input {
+    border: 1px solid #6183ba;
+    border-radius: 0.25rem;
+}

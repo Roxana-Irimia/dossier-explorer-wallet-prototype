@@ -114,7 +114,7 @@ export default class ExplorerController extends ContainerController {
     if (this.model.content.length) {
       selectedItemsPaths = this.model.content
         .filter(item => item.selected === 'selected')
-        .map(item => `${currentPath}${item.name}`);
+        .map(item => `${currentPath}/${item.name}`);
     }
 
     deleteDossierModal.selectedItemsPaths = selectedItemsPaths;
@@ -336,7 +336,7 @@ export default class ExplorerController extends ContainerController {
     }
 
     let folderName = filesArray[0].webkitRelativePath.replace(`/${filesArray[0].name}`, '');
-    const url = `/upload?path=${wDir}&input=files[]&filename=${folderName}`;
+    const url = `/upload?path=${wDir}&input=files[]&preventOverwrite=true&filename=${folderName}`;
     fetch(url, {
         method: "POST",
         body: formData

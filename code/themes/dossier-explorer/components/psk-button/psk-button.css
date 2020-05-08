@@ -13,6 +13,19 @@
   text-decoration: none;
 }
 
+/* Reset bootstrap style for button borders and shadows */
+:host button.btn,
+:host button.btn:active,
+:host button.btn:focus,
+:host button.btn:visited,
+:host button.btn:active:focus {
+  border: none;
+  background: none;
+  color: inherit;
+  box-shadow: none;
+  width: 100%;
+}
+
 :host(.wallet-path) ::slotted(psk-grid) {
   display: flex;
   justify-content: space-between;
@@ -27,15 +40,47 @@
   flex: 0 0 auto;
 }
 
-:host(.wallet-path) .btn,
-:host(.wallet-path) .btn:active,
-:host(.wallet-path) .btn:focus,
-:host(.wallet-path) .btn:active:focus {
-  border: none;
-  background: none;
-  color: inherit;
-  box-shadow: none;
+:host button.btn:disabled {
+  color: #b1b1b1;
+}
+
+:host button[class*="btn-confirm"] {
   width: 100%;
+  color: #e7ebf2;
+  padding: 0.1rem 0.5rem;
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+}
+
+:host button[class*="btn-confirm"]:disabled {
+  border: 1px solid rgb(177, 177, 177);
+  background: rgb(177, 177, 177);
+}
+
+:host button.btn-confirm-primary {
+  border: 1px solid rgb(129, 151, 188);
+  background: rgb(129, 151, 188);
+}
+
+:host button.btn-confirm-primary:hover,
+:host button.btn-confirm-primary:active,
+:host button.btn-confirm-primary:focus,
+:host button.btn-confirm-primary:visited,
+:host button.btn-confirm-primary:active:focus {
+  background: rgba(129, 151, 188, 0.7);
+}
+
+:host button.btn-confirm-secondary {
+  border: 1px solid rgb(87, 42, 87);
+  background: rgb(87, 42, 87);
+}
+
+:host button.btn-confirm-secondary:hover,
+:host button.btn-confirm-secondary:active,
+:host button.btn-confirm-secondary:focus,
+:host button.btn-confirm-secondary:visited,
+:host button.btn-confirm-secondary:active:focus {
+  background: rgba(87, 42, 87, 0.7);
 }
 
 .btn-run {
@@ -49,7 +94,9 @@
 
 .btn-run:hover,
 .btn-run:active,
-.btn-run:focus {
+.btn-run:focus,
+.btn-run:visited,
+.btn-run:active:focus {
   background-color: #e3cbff;
 }
 
