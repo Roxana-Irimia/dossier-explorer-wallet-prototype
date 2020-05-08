@@ -52,7 +52,13 @@
   border-radius: 0.25rem;
 }
 
-:host button[class*="btn-confirm"]:disabled {
+:host button[class*="btn-confirm"]:disabled,
+:host button[class*="btn-confirm"]:disabled:hover,
+:host button[class*="btn-confirm"]:disabled:focus,
+:host button[class*="btn-confirm"]:disabled:visited,
+:host button[class*="btn-confirm"]:disabled:active,
+:host button[class*="btn-confirm"]:disabled:active:focus,
+:host button[class*="btn-confirm"]:disabled:focus-within {
   border: 1px solid rgb(177, 177, 177);
   background: rgb(177, 177, 177);
 }

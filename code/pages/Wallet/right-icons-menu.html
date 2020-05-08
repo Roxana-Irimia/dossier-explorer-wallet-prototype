@@ -1,20 +1,32 @@
-<psk-grid columns="5" layout="xs=[2,2,2,2,2] s=[2,2,2,2,2] m=[2,2,2,2,2] l=[2,2,2,2,2] xl=[2,2,2,2,2]">
-  <psk-button event-name="preview-file" button-class="btn-menu">
-    <psk-icon icon="eye" color="#572a57" classes="right-menu"></psk-icon>
-  </psk-button>
-  <psk-button event-name="export-dossier" button-class="btn-menu">
-    <psk-icon icon="download" color="#572a57" classes="right-menu"></psk-icon>
-  </psk-button>
-  <psk-button event-name="share-dossier" button-class="btn-menu">
-    <psk-icon icon="share" color="#572a57" classes="right-menu"></psk-icon>
-  </psk-button>
-  <psk-button event-name="delete-dossier" button-class="btn-menu">
-    <psk-icon icon="trash" color="#572a57" classes="right-menu"></psk-icon>
-  </psk-button>
+<div class="menu-icons">
+  <psk-condition condition='@selectedItem.item.isFile'>
+    <psk-button event-name="preview-file" button-class="btn-menu">
+      <psk-icon icon="eye" color="#572a57" classes="right-menu"></psk-icon>
+    </psk-button>
+  </psk-condition>
+
+  <psk-condition condition="@selectedItem.item.isFile">
+    <psk-button event-name="export-dossier" button-class="btn-menu">
+      <psk-icon icon="download" color="#572a57" classes="right-menu"></psk-icon>
+    </psk-button>
+  </psk-condition>
+
+  <psk-condition condition="@selectedItem.item.isDossier">
+    <psk-button event-name="share-dossier" button-class="btn-menu">
+      <psk-icon icon="share" color="#572a57" classes="right-menu"></psk-icon>
+    </psk-button>
+  </psk-condition>
+
+  <psk-condition condition="@selectedItem.selected">
+    <psk-button event-name="delete-dossier" button-class="btn-menu">
+      <psk-icon icon="trash" color="#572a57" classes="right-menu"></psk-icon>
+    </psk-button>
+  </psk-condition>
+
   <psk-button-group icon='ellipsis-v' icon-color='#572a57' classes="dots-menu">
     <psk-for-each data-view-model="iconsMenuMoreOptions">
       <psk-button label="@label" title="@label" event-name="@eventName" button-class="btn-menu">
       </psk-button>
     </psk-for-each>
   </psk-button-group>
-</psk-grid>
+</div>

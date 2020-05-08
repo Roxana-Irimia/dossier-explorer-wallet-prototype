@@ -1,4 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+import FileDownloader from "./FileDownloader.js";
 import {
   getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
@@ -30,6 +31,8 @@ export default class ExplorerController extends ContainerController {
     this.on("sign-out", this._signOutFromWalletHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
 
+    this.on('export-dossier', this._handleDownload, true);
+
     this.on('create-dossier', this._createDossierHandler, true);
     this.on('receive-dossier', this._receiveDossierHandler, true);
     this.on('import-dossier', this._importDossierHandler, true);
@@ -39,6 +42,7 @@ export default class ExplorerController extends ContainerController {
 
     this.on('add-file-folder', this._handleFileFolderUpload, true);
 
+    this.on('select-wallet-item', this._handleSelectWalletItem, true);
     this.on('double-click-item', this._handleDoubleClick, true);
     this.on('change-directory', this._handleChangeDirectory, true);
 
@@ -251,6 +255,51 @@ export default class ExplorerController extends ContainerController {
     this.model.setChainValue('currentPath', path);
   };
 
+  _handleSelectWalletItem = (event) => {
+    event.stopImmediatePropagation();
+
+    let selectedItem = event.data || null;
+    if (!selectedItem) {
+      console.error('An item was not clicked!');
+      return;
+    }
+
+    let selectedItemViewModel = this.model.content.find((el) => el.name === selectedItem);
+    if (!selectedItemViewModel) {
+      console.error('The clicked item is not in the view-model!');
+      return;
+    }
+
+    // Reset the previous selected item(if any), as for the moment we support only single selection
+    let previouslySelected = this.model.content.find((item) => {
+      return item.selected === 'selected' &&
+        item.name !== selectedItemViewModel.name;
+    });
+    if (previouslySelected) {
+      previouslySelected.selected = '';
+    }
+
+    let isSelected = selectedItemViewModel.selected === 'selected';
+    if (isSelected) {
+      selectedItemViewModel.selected = '';
+      this.model.setChainValue('selectedItem.selected', false);
+      this.model.setChainValue('selectedItem.item', []);
+    } else {
+      selectedItemViewModel.selected = 'selected';
+      let item = {
+        ...selectedItemViewModel,
+        currentPath: this.model.currentPath,
+        isFile: selectedItemViewModel.type === 'file',
+        isFolder: selectedItemViewModel.type === 'folder',
+        isDossier: selectedItemViewModel.type === 'dossier',
+        isApplication: selectedItemViewModel.isApplication
+      };
+
+      this.model.setChainValue('selectedItem.item', JSON.parse(JSON.stringify(item)));
+      this.model.setChainValue('selectedItem.selected', true);
+    }
+  };
+
   _listWalletContent() {
     let wDir = this.model.currentPath || '/';
     this.dossierService.readDir(wDir, {
@@ -269,9 +318,13 @@ export default class ExplorerController extends ContainerController {
         let viewModelFiles = dirContent.files
           .filter(el => !!el)
           .map((file) => {
+            let fName = file.trim();
+            if (fName.length && fName.charAt(0) === '/') {
+              fName = fName.replace('/', '');
+            }
             return {
               ...walletContentViewModel.defaultFileAttributes,
-              name: file
+              name: fName
             };
           });
 
@@ -285,9 +338,13 @@ export default class ExplorerController extends ContainerController {
         let viewModelFolders = dirContent.folders
           .filter(el => !!el)
           .map((folder) => {
+            let fName = folder.trim();
+            if (fName.length && fName.charAt(0) === '/') {
+              fName = fName.replace('/', '');
+            }
             return {
               ...walletContentViewModel.defaultFolderAttributes,
-              name: folder
+              name: fName
             };
           });
 
@@ -301,9 +358,13 @@ export default class ExplorerController extends ContainerController {
         let viewModelDossiers = dirContent.mounts
           .filter(el => !!el)
           .map((dossier) => {
+            let dName = dossier.trim();
+            if (dName.length && dName.charAt(0) === '/') {
+              dName = dName.replace('/', '');
+            }
             return {
               ...walletContentViewModel.defaultDossierAttributes,
-              name: dossier
+              name: dName
             };
           });
 
@@ -378,5 +439,32 @@ export default class ExplorerController extends ContainerController {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  _handleDownload = (event) => {
+    event.stopImmediatePropagation();
+
+    let selectedItem = this.model.selectedItem;
+    if (!selectedItem || !selectedItem.item) {
+      console.error(`No item selected to be downloaded!`);
+      return;
+    }
+
+    let itemViewModel = selectedItem.item;
+    switch (itemViewModel.type) {
+      case 'file': {
+        this._handleDownloadFile(itemViewModel.currentPath, itemViewModel.name);
+        break;
+      }
+      case 'folder':
+      case 'dossier':
+      default:
+        break;
+    }
+  }
+
+  _handleDownloadFile(path, fileName) {
+    let fileDownloader = new FileDownloader(path, fileName);
+    fileDownloader.downloadFile();
   }
 }

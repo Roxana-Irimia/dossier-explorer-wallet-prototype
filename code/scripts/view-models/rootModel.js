@@ -13,6 +13,10 @@ const rootModel = {
     ...pageLoader
   },
   content: [],
+  selectedItem: {
+    selected: false,
+    item: []
+  },
   navigationLinks: [],
   pageTitle: "E-Wallet",
   sectionTitle: "Dashboard",
