@@ -103,3 +103,26 @@
 :host .modal-body ::slotted(*) {
   width: 100%;
 }
+
+:host(.asset-modal) .modal-content .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host(.asset-modal) .asset-view {
+  width: 100%;
+  height: 100%;
+}
+
+:host(.asset-modal) .asset-view img {
+  margin: auto;
+  display: block;
+  width: 80%;
+}
+
+@media only screen and (max-width: 700px) {
+  :host(.asset-modal) .asset-view img {
+    width: 100%;
+  }
+}

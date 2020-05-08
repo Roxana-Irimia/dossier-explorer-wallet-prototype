@@ -41,8 +41,10 @@ $$.swarms.describe('readDir', {
 	}
 });
 
+
+// Refactor: Swarmu-ri separate + abstractizare
 $$.swarms.describe("createDossier", {
-	start: function (path, dossierName, SEED) {
+	start: function (path, SEED) {
 		if (rawDossier) {
 			const EDFS = require("edfs");
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
@@ -54,8 +56,7 @@ $$.swarms.describe("createDossier", {
 				newRawDossier = edfs.createRawDossier();
 			}
 
-			return rawDossier.mount(path, dossierName, newRawDossier.getSeed(), (err) => {
-				console.log(err, newRawDossier.getSeed());
+			return rawDossier.mount(path, newRawDossier.getSeed(), (err) => {
 				if (!err) {
 					this.return(undefined, newRawDossier.getSeed());
 				} else {

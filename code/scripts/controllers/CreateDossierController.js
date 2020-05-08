@@ -42,7 +42,7 @@ export default class CreateDossierController extends ModalController {
   _createDossier = (dossierName) => {
     const wDir = this.model.currentPath || '/';
 
-    this.dossierService.createDossier(wDir + dossierName, dossierName, (err, outputSEED) => {
+    this.dossierService.createDossier(wDir + dossierName + '/', (err, outputSEED) => {
       if (err) {
         Commons.updateErrorMessage(this.model, err);
       } else {

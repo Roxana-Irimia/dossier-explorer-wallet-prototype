@@ -47,13 +47,13 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    createDossier(path, dossierName, SEED, callback) {
+    createDossier(path, SEED, callback) {
         if (typeof SEED === 'function') {
             callback = SEED;
             SEED = null;
         }
 
-        $$.interactions.startSwarmAs("test/agent/007", "createDossier", "start", path, dossierName, SEED)
+        $$.interactions.startSwarmAs("test/agent/007", "createDossier", "start", path, SEED)
             .onReturn(callback);
     }
 

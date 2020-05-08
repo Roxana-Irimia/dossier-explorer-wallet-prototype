@@ -1,0 +1,10 @@
+div.menu-icons {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+div.menu-icons>* {
+    padding: 0 0.2rem;
+    margin: 0 0.2rem;
+}

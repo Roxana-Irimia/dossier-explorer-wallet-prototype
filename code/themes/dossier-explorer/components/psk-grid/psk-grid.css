@@ -21,14 +21,3 @@ psk-grid label.col-form-label {
   align-items: center;
   flex: 0 0 auto;
 }
-
-div.menu-icons {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-div.menu-icons>* {
-  padding: 0 0.2rem;
-  margin: 0 0.2rem;
-}

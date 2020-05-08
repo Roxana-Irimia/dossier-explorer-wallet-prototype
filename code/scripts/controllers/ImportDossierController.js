@@ -47,7 +47,7 @@ export default class ImportDossierController extends ModalController {
     const wDir = this.model.currentPath || '/';
     const SEED = this.model.dossierSeedInput.value;
 
-    this.dossierService.createDossier(wDir + this.dossierName, this.dossierName, SEED, (err) => {
+    this.dossierService.createDossier(wDir + this.dossierName + '/', SEED, (err) => {
       if (err) {
         Commons.updateErrorMessage(this.model, err);
       } else {

@@ -27,6 +27,15 @@ export default class Commons {
             return result;
         }).catch((err) => {
             return Promise.resolve({});
-        })
-    };
+        });
+    }
+
+    static fetchFile(path, fileName, callback) {
+        let url = `/download${path}/${fileName}`;
+        fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => {
+                callback(blob);
+            });
+    }
 }

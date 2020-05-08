@@ -1,3 +1,5 @@
+import Commons from "./Commons.js";
+
 export default class FileDownloader {
     constructor(path, fileName) {
         this.path = path;
@@ -9,7 +11,7 @@ export default class FileDownloader {
     }
 
     downloadFile() {
-        this._fetchFile((blob) => {
+        Commons.fetchFile(this.path, this.fileName, (blob) => {
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                 const file = new File([blob], this.fileName);
                 window.navigator.msSaveOrOpenBlob(file);
@@ -21,18 +23,5 @@ export default class FileDownloader {
             link.download = this.fileName;
             link.click();
         });
-    }
-
-    _fetchFile(callback) {
-        let url = `/download${this.path}/${this.fileName}`;
-        fetch(url)
-            .then((response) => {
-                console.log(response);
-                return response.blob();
-            })
-            .then((blob) => {
-                console.log(blob);
-                callback(blob);
-            });
     }
 }

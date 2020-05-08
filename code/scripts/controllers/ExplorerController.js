@@ -31,6 +31,7 @@ export default class ExplorerController extends ContainerController {
     this.on("sign-out", this._signOutFromWalletHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
 
+    this.on('view-file', this._handlePreviewFile, true);
     this.on('export-dossier', this._handleDownload, true);
 
     this.on('create-dossier', this._createDossierHandler, true);
@@ -377,6 +378,7 @@ export default class ExplorerController extends ContainerController {
     });
   }
 
+  // Refactor: similar cu FileDownloader
   _handleFileFolderUpload = (event) => {
     event.stopImmediatePropagation();
 
@@ -466,5 +468,27 @@ export default class ExplorerController extends ContainerController {
   _handleDownloadFile(path, fileName) {
     let fileDownloader = new FileDownloader(path, fileName);
     fileDownloader.downloadFile();
+  }
+
+  _handlePreviewFile = (event) => {
+    event.stopImmediatePropagation();
+
+    let selectedItem = this.model.selectedItem;
+    if (!selectedItem || !selectedItem.item) {
+      console.error(`No item selected to be downloaded!`);
+      return;
+    }
+
+    let itemViewModel = selectedItem.item;
+    if (itemViewModel.type !== 'file') {
+      console.error(`Only files support this funtionality!`);
+      return;
+    }
+
+    let path = itemViewModel.currentPath || '/';
+    if (path === '/') {
+      path = '';
+    }
+    itemViewModel.title = path + itemViewModel.name;
   }
 }
