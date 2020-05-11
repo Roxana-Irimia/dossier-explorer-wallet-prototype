@@ -4,6 +4,10 @@ import {
   getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
 
+import {
+  getAccountServiceInstance
+} from "../service/AccountService.js";
+
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
 import walletContentViewModel from '../view-models/walletContentViewModel.js';
@@ -67,10 +71,11 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    this.showModal("signOut", signOutModal, (err, response) => {
-      console.log(err, response);
+    this.showModal("signOut", signOutModal, (err, preferences) => {
+      if (!err) {
+        getAccountServiceInstance().signOut(preferences);
+      }
     });
-
   };
 
   _createDossierHandler = (event) => {
@@ -490,9 +495,5 @@ export default class ExplorerController extends ContainerController {
       path = '';
     }
     itemViewModel.title = path + itemViewModel.name;
-    itemViewModel.path = path;
-    this.showModal('viewAsset', itemViewModel, (err, response) => {
-      console.log(err, response);
-    });
   }
 }
