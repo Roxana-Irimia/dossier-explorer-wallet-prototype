@@ -49,20 +49,34 @@ $$.swarms.describe("createDossier", {
 			const EDFS = require("edfs");
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
-			let newRawDossier;
-			if (SEED) {
-				newRawDossier = edfs.loadRawDossier(SEED);
-			} else {
-				newRawDossier = edfs.createRawDossier();
+			const mountNewDossier = (newRawDossier) => {
+				rawDossier.mount(path, newRawDossier.getSeed(), (err) => {
+					if (!err) {
+						this.return(undefined, newRawDossier.getSeed());
+					} else {
+						this.return(err);
+					}
+				});
 			}
 
-			return rawDossier.mount(path, newRawDossier.getSeed(), (err) => {
-				if (!err) {
-					this.return(undefined, newRawDossier.getSeed());
-				} else {
-					this.return(err);
+			if (SEED) {
+				return edfs.loadRawDossier(SEED, (err, newRawDossier) => {
+					if (err) {
+						return this.return(err);
+					}
+
+					mountNewDossier(newRawDossier);
+				});
+			}
+
+			newRawDossier = edfs.createRawDossier();
+			newRawDossier.load((err) => {
+				if (err) {
+					return this.return(err);
 				}
-			});
+
+				mountNewDossier(newRawDossier);
+			})
 		}
 
 		this.return(new Error("Dossier is not available."))

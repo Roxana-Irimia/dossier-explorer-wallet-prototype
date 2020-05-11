@@ -1,3 +1,4 @@
+// Refactor:
 export default class Commons {
     static DELETE_ITEMS_PLACEHOLDER = "[DELETE_ITEMS_PLACEHOLDER]";
 
@@ -33,9 +34,17 @@ export default class Commons {
     static fetchFile(path, fileName, callback) {
         let url = `/download${path}/${fileName}`;
         fetch(url)
-            .then((response) => response.blob())
-            .then((blob) => {
-                callback(blob);
+            .then((response) => {
+                if (response.ok) {
+                    response.blob().then((blob) => {
+                        callback({
+                            contentType: response.headers.get('Content-Type') || '',
+                            rawBlob: blob
+                        });
+                    });
+                } else {
+                    console.error(`Error on download file ${path}/${fileName}: `, response);
+                }
             });
     }
 }

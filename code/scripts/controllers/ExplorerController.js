@@ -490,5 +490,9 @@ export default class ExplorerController extends ContainerController {
       path = '';
     }
     itemViewModel.title = path + itemViewModel.name;
+    itemViewModel.path = path;
+    this.showModal('viewAsset', itemViewModel, (err, response) => {
+      console.log(err, response);
+    });
   }
 }

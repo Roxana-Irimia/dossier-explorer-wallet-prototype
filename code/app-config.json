@@ -1,6 +1,6 @@
 {
-  "theme":"dossier-explorer",
-  "appVersion":"0.1",
+  "theme": "dossier-explorer",
+  "appVersion": "0.1",
   "basePagesUrl": "/pages/",
   "profile": {
     "username": "Dossier Explorer",
@@ -13,7 +13,8 @@
     "receiveDossier": "Wallet/modals/receive-dossier.html",
     "deleteDossier": "Wallet/modals/delete-dossier.html",
     "shareDossier": "Wallet/modals/share-dossier.html",
-    "renameDossier": "Wallet/modals/rename-dossier.html"
+    "renameDossier": "Wallet/modals/rename-dossier.html",
+    "viewAsset": "Wallet/modals/view-asset.html"
   },
   "menu": {
     "defaultMenuConfig": {
@@ -49,7 +50,7 @@
       },
       {
         "name": "404",
-        "path":"404",
+        "path": "404",
         "indexed": false
       }
     ]
