@@ -25,7 +25,9 @@ div.global_container.is-mobile {
 
 aside {
   height: 100%;
-  background-color: #8997ab;
+  background: url("/themes/dossier-explorer/images/nav-background.jpg") no-repeat left bottom;
+  background-color: #8395af;
+  background-size:contain ;
   color: white;
   align-items: center;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
