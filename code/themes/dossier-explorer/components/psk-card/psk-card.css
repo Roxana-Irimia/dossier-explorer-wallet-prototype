@@ -16,6 +16,13 @@ psk-card,
   border: none;
 }
 
+
+psk-card.page-title .card .card-header{
+  background: #e9e8e8;
+}
+
+
+
 .card-header {
   background-color: #eee;
 }
@@ -26,11 +33,12 @@ psk-card,
 
 .card-header h5 {
   width: 100%;
-  line-height: 2rem;
   color: #5076b3;
   font-weight: bold;
-  padding-left: 16px;
-  font-size: 1.2rem;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  line-height: 2.8rem;
 }
 
 /** first level of psk-card */
@@ -132,4 +140,3 @@ psk-card,
   }
 }
 /** end wallet-grid **/
-  

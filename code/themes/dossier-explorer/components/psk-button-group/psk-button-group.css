@@ -5,7 +5,7 @@
   top: 100%;
   z-index: 1000;
   display: none;
-  margin: 0 calc(1rem - 1px);
+  margin: 0;
 }
 
 psk-button-group[opened] .list-group {
@@ -64,4 +64,8 @@ psk-button-group[opened] .dots-menu .list-group {
   will-change: transform;
   min-width: 10rem;
   margin: 0;
+}
+
+.add-menu  .list-group psk-files-chooser:last-of-type{
+  border-bottom:1px solid white;
 }
