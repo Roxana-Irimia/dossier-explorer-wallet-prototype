@@ -22,16 +22,16 @@ export default class CreateDossierController extends ModalController {
 
   _setNameForNewDossier = (event) => {
     event.stopImmediatePropagation();
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     const wDir = this.model.currentPath || '/';
     let dossierName = this.model.dossierNameInput.value;
     this.dossierService.readDir(wDir, (err, dirContent) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, err);
+        Commons.updateErrorMessage(err, this.model);
       } else {
         if (dirContent.find((el) => el === dossierName)) {
-          Commons.updateErrorMessage(this.model, this.model.error.errorLabels.fileExistsLabel);
+          Commons.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel, this.model);
         } else {
           this._createDossier(dossierName);
         }
@@ -44,7 +44,7 @@ export default class CreateDossierController extends ModalController {
 
     this.dossierService.createDossier(wDir + dossierName + '/', (err, outputSEED) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, err);
+        Commons.updateErrorMessage(err, this.model);
       } else {
         this.model.dossierSeedOutput.value = outputSEED;
         this.model.isDossierNameStep = false;
@@ -61,13 +61,13 @@ export default class CreateDossierController extends ModalController {
   };
 
   _validateInput = () => {
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
     this.model.setChainValue('buttons.createDossier.disabled', isEmptyName);
 
     if (isEmptyName) {
-      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.nameNotEmptyLabel);
+      Commons.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel, this.model);
     }
   };
 }

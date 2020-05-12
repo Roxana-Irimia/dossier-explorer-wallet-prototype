@@ -23,16 +23,16 @@ export default class ImportDossierController extends ModalController {
 
   _setNameForImportedDossier = (event) => {
     event.stopImmediatePropagation();
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     const wDir = this.model.currentPath || '/';
     this.dossierName = this.model.dossierNameInput.value;
     this.dossierService.readDir(wDir, (err, dirContent) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, err);
+        Commons.updateErrorMessage(err, this.model);
       } else {
         if (dirContent.find((el) => el === this.dossierName)) {
-          Commons.updateErrorMessage(this.model, this.model.error.errorLabels.fileExistsLabel);
+          Commons.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel, this.model);
         } else {
           // Go to the next step, where the user provides the SEED for the dossier
           this.model.isDossierNameStep = false;
@@ -49,7 +49,7 @@ export default class ImportDossierController extends ModalController {
 
     this.dossierService.createDossier(wDir + this.dossierName + '/', SEED, (err) => {
       if (err) {
-        Commons.updateErrorMessage(this.model, err);
+        Commons.updateErrorMessage(err, this.model);
       } else {
         this.responseCallback(undefined, {
           success: true
@@ -59,18 +59,18 @@ export default class ImportDossierController extends ModalController {
   };
 
   _validateInput = () => {
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
     this.model.setChainValue('buttons.continueButton.disabled', isEmptyName);
 
     if (isEmptyName) {
-      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.nameNotEmptyLabel);
+      Commons.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel, this.model);
     }
   };
 
   _validateSeedInput = () => {
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     let SEED = this.model.dossierSeedInput.value;
     let isEmptySeed = SEED.trim().length === 0;
@@ -80,10 +80,10 @@ export default class ImportDossierController extends ModalController {
     this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
 
     if (isEmptySeed) {
-      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.seedNotEmptyLabel);
+      Commons.updateErrorMessage(this.model.error.errorLabels.seedNotEmptyLabel, this.model);
     }
     if (!isValidSeedForm) {
-      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.seedNotValidLabel);
+      Commons.updateErrorMessage(this.model.error.errorLabels.seedNotValidLabel, this.model);
     }
   };
 }

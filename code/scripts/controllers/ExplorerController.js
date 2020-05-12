@@ -309,7 +309,7 @@ export default class ExplorerController extends ContainerController {
     }, (err, dirContent) => {
       if (err) {
         console.log(err);
-        Commons.updateErrorMessage(this.model, err);
+        Commons.updateErrorMessage(err, this.model);
         return;
       }
       console.log(dirContent);
@@ -385,7 +385,7 @@ export default class ExplorerController extends ContainerController {
 
     let filesArray = event.data || [];
     if (!filesArray.length) {
-      Commons.updateErrorMessage(this.model, this.model.error.noFileUploadedLabel)
+      Commons.updateErrorMessage(this.model.error.noFileUploadedLabel, this.model);
       return;
     }
 

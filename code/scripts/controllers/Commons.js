@@ -7,17 +7,23 @@ export default class Commons {
      * The model has to include a proxified object named "error", with at least two fields: "hasError" and "errorMessage".
      * These view-model attributes will be updated and reflected back to UI.
      * @param {Proxy} model - the model to be updated
-     * @param {string} errorMsg - the error message that will be set inside the error model
+     * @param {string} error - the error message that will be set inside the error model
      */
-    static updateErrorMessage(model, errorMsg = '') {
-        model.setChainValue('error.hasError', errorMsg !== '');
-        model.setChainValue('error.errorMessage', errorMsg);
+    static updateErrorMessage(error, model) {
+        if (!error) {
+            // error cannot be null or undefied when it is assigned to a proxified object
+            error = '';
+        }
+
+        model.setChainValue('error.hasError', error !== '');
+        model.setChainValue('error.errorMessage', error);
     }
 
     static setLoadingState(model, loadingState = false) {
         model.setChainValue('conditionalExpressions.isLoading', loadingState);
     }
 
+    // TBD: if needed or directly try to recover the dossier by seed and send the error if any
     static validateSeedForm(SEED) {
         // Validate seed according to specifications
         return true;

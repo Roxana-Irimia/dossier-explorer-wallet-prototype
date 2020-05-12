@@ -18,6 +18,9 @@ export default class DeleteDossierController extends ModalController {
     this.on('delete', this._handleDeleteModalActions.bind(this), true);
   };
 
+  /**
+   * TBD
+   */
   _updateNotificationMessage() {
     let message = this.model.notificationMessage;
     message = message.replace(Commons.DELETE_ITEMS_PLACEHOLDER, '1');

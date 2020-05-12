@@ -24,7 +24,7 @@ export default class ReceiveDossierController extends ModalController {
 
   _finishReceiveDossierProcess = (event) => {
     event.stopImmediatePropagation();
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     let dossierName = this.model.dossierNameInput.value;
     let selectedDossierDestination = this.model.destinationOptionsForDossier.value;
@@ -39,7 +39,7 @@ export default class ReceiveDossierController extends ModalController {
   }
 
   _validateUserForm = () => {
-    Commons.updateErrorMessage(this.model);
+    Commons.updateErrorMessage(null, this.model);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
     let isDestinationSelected = this.model.destinationOptionsForDossier.value.trim().length !== 0;
@@ -52,7 +52,7 @@ export default class ReceiveDossierController extends ModalController {
     this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
 
     if (isEmptyName) {
-      Commons.updateErrorMessage(this.model, this.model.error.errorLabels.nameNotEmptyLabel);
+      Commons.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel, this.model);
     }
   };
 }
