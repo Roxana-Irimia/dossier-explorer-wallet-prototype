@@ -78,8 +78,9 @@ $$.swarms.describe("createDossier", {
 				mountNewDossier(newRawDossier);
 			})
 		}
-
-		this.return(new Error("Dossier is not available."))
+		else{
+			this.return(new Error("Dossier is not available."))
+		}
 	}
 });
 
