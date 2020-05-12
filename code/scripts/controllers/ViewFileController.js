@@ -24,7 +24,7 @@ export default class ViewFileController extends ModalController {
         });
     }
 
-    _initFile = () => {
+    _displayFile = () => {
         if (window.navigator && window.navigator.msSaveOrOpenBlob) {
             const file = new File([this.rawBlob], this.fileName);
             window.navigator.msSaveOrOpenBlob(file);
@@ -35,39 +35,16 @@ export default class ViewFileController extends ModalController {
         const fileType = this.mimeType.split('/')[0];
         switch (fileType) {
             case 'image': {
-                this._loadBlob((base64Blob) => {
-                    const img = document.createElement('img');
-                    img.src = base64Blob;
-                    img.alt = this.path;
-                    
-                    this._appendAsset(img);
-                });
+                this._loadImageFile();
                 break;
             }
             case 'audio':
             case 'video': {
-                this._loadBlob((base64Blob) => {
-                    const elm = document.createElement(fileType),
-                        source = document.createElement('source');
-                    source.type = this.mimeType;
-                    source.src = base64Blob;
-                    elm.append(source);
-                    elm.controls = 'true';
-
-                    this._appendAsset(elm);
-                });
+                this._loadAudioVideoFile(fileType);
                 break;
             }
             default: {
-                this._loadBlob((base64Blob) => {
-                    const obj = document.createElement('object');
-                    obj.width = '100%';
-                    obj.height = '100%';
-                    obj.type = this.mimeType;
-                    obj.data = base64Blob;
-
-                    this._appendAsset(obj);
-                });
+                this._loadOtherFile();
                 break;
             }
         }
@@ -81,6 +58,41 @@ export default class ViewFileController extends ModalController {
         reader.onloadend = function () {
             callback(reader.result);
         }
+    }
+
+    _loadImageFile = () => {
+        this._loadBlob((base64Blob) => {
+            const img = document.createElement('img');
+            img.src = base64Blob;
+            img.alt = this.path;
+
+            this._appendAsset(img);
+        });
+    }
+
+    _loadAudioVideoFile = (fileType) => {
+        this._loadBlob((base64Blob) => {
+            const elm = document.createElement(fileType),
+                source = document.createElement('source');
+            source.type = this.mimeType;
+            source.src = base64Blob;
+            elm.append(source);
+            elm.controls = 'true';
+
+            this._appendAsset(elm);
+        });
+    }
+
+    _loadOtherFile = () => {
+        this._loadBlob((base64Blob) => {
+            const obj = document.createElement('object');
+            obj.width = '100%';
+            obj.height = '100%';
+            obj.type = this.mimeType;
+            obj.data = base64Blob;
+
+            this._appendAsset(obj);
+        });
     }
 
     _appendAsset = (assetObject) => {
