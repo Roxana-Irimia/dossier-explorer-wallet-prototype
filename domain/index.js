@@ -82,3 +82,23 @@ $$.swarms.describe("createDossier", {
 		this.return(new Error("Dossier is not available."))
 	}
 });
+
+$$.swarms.describe('deleteFileFolder', {
+	start: function (path) {
+		if (rawDossier) {
+			return rawDossier.delete(path, this.return);
+		}
+
+		this.return(new Error("Dossier is not available."))
+	}
+});
+
+$$.swarms.describe('deleteDossier', {
+	start: function (path) {
+		if (rawDossier) {
+			return rawDossier.unmount(path, this.return);
+		}
+
+		this.return(new Error("Dossier is not available."))
+	}
+});

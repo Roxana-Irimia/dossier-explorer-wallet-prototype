@@ -120,14 +120,10 @@ export default class ExplorerController extends ContainerController {
      * so the controller can handle the delete process
      */
     let currentPath = this.model.currentPath === '/' ? '/' : `${this.model.currentPath}/`;
-    let selectedItemsPaths = [];
-    if (this.model.content.length) {
-      selectedItemsPaths = this.model.content
-        .filter(item => item.selected === 'selected')
-        .map(item => `${currentPath}/${item.name}`);
-    }
-
-    deleteDossierModal.selectedItemsPaths = selectedItemsPaths;
+    let selectedItem = this.model.selectedItem.item;
+    deleteDossierModal.path = currentPath;
+    deleteDossierModal.selectedItemName = selectedItem.name;
+    deleteDossierModal.selectedItemType = selectedItem.type;
 
     this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
       console.log(err, response);

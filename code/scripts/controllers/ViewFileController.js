@@ -20,7 +20,7 @@ export default class ViewFileController extends ModalController {
                 type: this.mimeType
             });
 
-            this._initFile();
+            this._displayFile();
         });
     }
 

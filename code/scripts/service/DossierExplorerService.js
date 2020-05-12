@@ -57,6 +57,16 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    deleteFileFolder(path, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "deleteFileFolder", "start", path)
+            .onReturn(callback);
+    }
+
+    deleteDossier(path, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "deleteDossier", "start", path)
+            .onReturn(callback);
+    }
+
 }
 
 let dossierExplorer = new DossierExplorerService();
