@@ -1,35 +1,22 @@
 console.log("Loaded from domain.js");
-const EDFS_ENDPOINT = "http://127.0.0.1:8080";
+const EDFS_ENDPOINT = "http://localhost:8080";
 
-$$.swarms.describe("listDossierFiles", {
-	start: function (path) {
-		if (rawDossier) {
-			return rawDossier.listFiles(path, this.return);
-		}
+/**
+ * Common function used in more places.
+ * TBD: if move to some other place to avoid overcrowding the file in the future
+ */
+const abstractFunctions = {
+	mountDossier: function (rawDossier, path, newDossierSEED) {
+		let self = this;
+		rawDossier.mount(path, newDossierSEED, (err) => {
+			if (err) {
+				return self.return(err);
+			}
 
-		this.return(new Error("Dossier is not available."))
+			self.return(undefined, newDossierSEED);
+		});
 	}
-});
-
-$$.swarms.describe("listDossierFolders", {
-	start: function (path) {
-		if (rawDossier) {
-			return rawDossier.listFolders(path, this.return);
-		}
-
-		this.return(new Error("Dossier is not available."))
-	}
-});
-
-$$.swarms.describe("listMountedDossiers", {
-	start: function (path) {
-		if (rawDossier) {
-			return rawDossier.listMountedDossiers(path, this.return);
-		}
-
-		this.return(new Error("Dossier is not available."))
-	}
-});
+}
 
 $$.swarms.describe('readDir', {
 	start: function (path, options) {
@@ -37,37 +24,15 @@ $$.swarms.describe('readDir', {
 			return rawDossier.readDir(path, options, this.return);
 		}
 
-		this.return(new Error("Dossier is not available."))
+		this.return(new Error("Raw Dossier is not available."))
 	}
 });
 
-
-// Refactor: Swarmu-ri separate + abstractizare
-$$.swarms.describe("createDossier", {
-	start: function (path, SEED) {
+$$.swarms.describe("attachDossier", {
+	newDossier: function (path) {
 		if (rawDossier) {
 			const EDFS = require("edfs");
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
-
-			const mountNewDossier = (newRawDossier) => {
-				rawDossier.mount(path, newRawDossier.getSeed(), (err) => {
-					if (!err) {
-						this.return(undefined, newRawDossier.getSeed());
-					} else {
-						this.return(err);
-					}
-				});
-			}
-
-			if (SEED) {
-				return edfs.loadRawDossier(SEED, (err, newRawDossier) => {
-					if (err) {
-						return this.return(err);
-					}
-
-					mountNewDossier(newRawDossier);
-				});
-			}
 
 			newRawDossier = edfs.createRawDossier();
 			newRawDossier.load((err) => {
@@ -75,31 +40,46 @@ $$.swarms.describe("createDossier", {
 					return this.return(err);
 				}
 
-				mountNewDossier(newRawDossier);
-			})
+				abstractFunctions.mountDossier
+					.call(this, rawDossier, path, newRawDossier.getSeed());
+			});
+		} else {
+			this.return(new Error("Raw Dossier is not available."))
 		}
-		else{
-			this.return(new Error("Dossier is not available."))
+	},
+	fromSeed: function (path, SEED) {
+		if (rawDossier) {
+			const EDFS = require("edfs");
+			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
+
+			edfs.loadRawDossier(SEED, (err, newRawDossier) => {
+				if (err) {
+					return this.return(err);
+				}
+
+				abstractFunctions.mountDossier
+					.call(this, rawDossier, path, newRawDossier.getSeed());
+			});
+
+		} else {
+			this.return(new Error("Raw Dossier is not available."))
 		}
 	}
 });
 
-$$.swarms.describe('deleteFileFolder', {
-	start: function (path) {
+$$.swarms.describe('delete', {
+	fileFolder: function (path) {
 		if (rawDossier) {
 			return rawDossier.delete(path, this.return);
 		}
 
-		this.return(new Error("Dossier is not available."))
-	}
-});
-
-$$.swarms.describe('deleteDossier', {
-	start: function (path) {
+		this.return(new Error("Raw Dossier is not available."))
+	},
+	dossier: function (path) {
 		if (rawDossier) {
 			return rawDossier.unmount(path, this.return);
 		}
 
-		this.return(new Error("Dossier is not available."))
+		this.return(new Error("Raw Dossier is not available."))
 	}
 });

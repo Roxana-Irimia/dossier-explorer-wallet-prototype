@@ -4,14 +4,14 @@ class AccountService {
 	 * implement a mechanism to talk with loader and communicate that it have to unregister the service worker
 	 * @param preferences
 	 */
-	signOut(preferences){
-		if(preferences.deleteSeed){
+	signOut(preferences) {
+		if (preferences.deleteSeed) {
 			this.forgetWallet();
 		}
 		window.location.reload();
 	}
 
-	forgetWallet(){
+	forgetWallet() {
 		localStorage.clear();
 	}
 }

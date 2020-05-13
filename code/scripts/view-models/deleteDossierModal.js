@@ -1,8 +1,8 @@
-import Commons from "../controllers/Commons.js";
+import Constants from "../controllers/Constants.js";
 
 const deleteDossierModal = {
   title: "Notification",
-  notificationMessage: `Are you sure you want to delete ${Commons.DELETE_ITEMS_PLACEHOLDER} items?`,
+  notificationMessage: `Are you sure you want to delete ${Constants.DELETE_ITEMS_PLACEHOLDER} items?`,
   buttons: {
     cancelButton: {
       label: "Cancel",

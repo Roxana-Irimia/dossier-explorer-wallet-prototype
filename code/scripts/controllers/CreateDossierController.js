@@ -1,5 +1,5 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
-import Commons from "./Commons.js";
+import FeedbackController from "./FeedbackController.js";
 import {
   getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
@@ -9,6 +9,7 @@ export default class CreateDossierController extends ModalController {
     super(element);
 
     this.dossierService = getDossierServiceInstance();
+    this.feedbackController = new FeedbackController(this.model);
 
     this._initListeners();
   }
@@ -22,16 +23,16 @@ export default class CreateDossierController extends ModalController {
 
   _setNameForNewDossier = (event) => {
     event.stopImmediatePropagation();
-    Commons.updateErrorMessage(null, this.model);
+    this.feedbackController.updateErrorMessage();
 
     const wDir = this.model.currentPath || '/';
     let dossierName = this.model.dossierNameInput.value;
     this.dossierService.readDir(wDir, (err, dirContent) => {
       if (err) {
-        Commons.updateErrorMessage(err, this.model);
+        this.feedbackController.updateErrorMessage(err);
       } else {
         if (dirContent.find((el) => el === dossierName)) {
-          Commons.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel, this.model);
+          this.feedbackController.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel);
         } else {
           this._createDossier(dossierName);
         }
@@ -40,11 +41,14 @@ export default class CreateDossierController extends ModalController {
   };
 
   _createDossier = (dossierName) => {
-    const wDir = this.model.currentPath || '/';
+    let wDir = this.model.currentPath || '/';
+    if (wDir == '/') {
+      wDir = '';
+    }
 
-    this.dossierService.createDossier(wDir + dossierName + '/', (err, outputSEED) => {
+    this.dossierService.createDossier(`${wDir}/${dossierName}/`, (err, outputSEED) => {
       if (err) {
-        Commons.updateErrorMessage(err, this.model);
+        this.feedbackController.updateErrorMessage(err);
       } else {
         this.model.dossierSeedOutput.value = outputSEED;
         this.model.isDossierNameStep = false;
@@ -61,13 +65,13 @@ export default class CreateDossierController extends ModalController {
   };
 
   _validateInput = () => {
-    Commons.updateErrorMessage(null, this.model);
+    this.feedbackController.updateErrorMessage(null);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
     this.model.setChainValue('buttons.createDossier.disabled', isEmptyName);
 
     if (isEmptyName) {
-      Commons.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel, this.model);
+      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel);
     }
   };
 }

@@ -1,9 +1,10 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
-import Commons from "./Commons.js";
+import FeedbackController from "./FeedbackController.js";
 
 export default class ReceiveDossierController extends ModalController {
   constructor(element) {
     super(element);
+    this.feedbackController = new FeedbackController(this.model);
     this._initListeners();
   }
 
@@ -24,7 +25,7 @@ export default class ReceiveDossierController extends ModalController {
 
   _finishReceiveDossierProcess = (event) => {
     event.stopImmediatePropagation();
-    Commons.updateErrorMessage(null, this.model);
+    this.feedbackController.updateErrorMessage(null);
 
     let dossierName = this.model.dossierNameInput.value;
     let selectedDossierDestination = this.model.destinationOptionsForDossier.value;
@@ -39,7 +40,7 @@ export default class ReceiveDossierController extends ModalController {
   }
 
   _validateUserForm = () => {
-    Commons.updateErrorMessage(null, this.model);
+    this.feedbackController.updateErrorMessage(null);
 
     let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
     let isDestinationSelected = this.model.destinationOptionsForDossier.value.trim().length !== 0;
@@ -52,7 +53,7 @@ export default class ReceiveDossierController extends ModalController {
     this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
 
     if (isEmptyName) {
-      Commons.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel, this.model);
+      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel);
     }
   };
 }

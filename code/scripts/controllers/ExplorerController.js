@@ -1,5 +1,8 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 import FileDownloader from "./FileDownloader.js";
+import FileUploader from "./FileUploader.js";
+import FeedbackController from "./FeedbackController.js";
+
 import {
   getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
@@ -17,7 +20,6 @@ import importDossierModal from '../view-models/importDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
 import shareDossierModal from '../view-models/shareDossierModal.js';
-import Commons from "./Commons.js";
 
 export default class ExplorerController extends ContainerController {
   constructor(element) {
@@ -25,6 +27,7 @@ export default class ExplorerController extends ContainerController {
 
     this.model = this.setModel(rootModel);
     this.dossierService = getDossierServiceInstance();
+    this.feedbackController = new FeedbackController(this.model);
 
     this._listWalletContent();
     this._initNavigationLinks();
@@ -35,7 +38,7 @@ export default class ExplorerController extends ContainerController {
     this.on("sign-out", this._signOutFromWalletHandler, true);
     this.on("switch-layout", this._handleSwitchLayout, true);
 
-    this.on('view-file', this._handlePreviewFile, true);
+    this.on('view-file', this._handleViewFile, true);
     this.on('export-dossier', this._handleDownload, true);
 
     this.on('create-dossier', this._createDossierHandler, true);
@@ -230,7 +233,7 @@ export default class ExplorerController extends ContainerController {
 
     switch (clickedDirViewModel.type) {
       case 'file': {
-        // handle double-click or click+enter to enter preview
+        // handle double-click or click+enter to enter view
         break;
       }
       case 'app': {
@@ -309,7 +312,7 @@ export default class ExplorerController extends ContainerController {
     }, (err, dirContent) => {
       if (err) {
         console.log(err);
-        Commons.updateErrorMessage(err, this.model);
+        this.feedbackController.updateErrorMessage(err);
         return;
       }
       console.log(dirContent);
@@ -379,69 +382,32 @@ export default class ExplorerController extends ContainerController {
     });
   }
 
-  // Refactor: similar cu FileDownloader
   _handleFileFolderUpload = (event) => {
     event.stopImmediatePropagation();
 
     let filesArray = event.data || [];
     if (!filesArray.length) {
-      Commons.updateErrorMessage(this.model.error.noFileUploadedLabel, this.model);
+      this.feedbackController.updateErrorMessage(this.model.error.noFileUploadedLabel);
       return;
     }
 
     let wDir = this.model.currentPath || '/';
     // Open the ui-loader
-    Commons.setLoadingState(this.model, true);
+    this.feedbackController.setLoadingState(true);
+    let fileUploader = new FileUploader(wDir, filesArray);
+    fileUploader.startUpload((err, result) => {
+      if (err) {
+        return this.feedbackController.updateErrorMessage(err);
+      }
 
-    const formData = new FormData();
-    for (const f of filesArray) {
-      // Use array notation in the key to indicate multiple files
-      formData.append('files[]', f);
-    }
+      console.log("[Upload Finished!]");
+      console.log(result);
+      console.log("[Upload Finished!]");
 
-    let folderName = filesArray[0].webkitRelativePath.replace(`/${filesArray[0].name}`, '');
-    const url = `/upload?path=${wDir}&input=files[]&preventOverwrite=true&filename=${folderName}`;
-    fetch(url, {
-        method: "POST",
-        body: formData
-      })
-      .then((response) => {
-        if (response.ok) {
-          console.log('Upload OK!');
-        } else {
-          console.log('Upload FAILED!');
-        }
-        return response.json();
-      })
-      .then((responseJSON) => {
-        console.log(responseJSON);
-        Commons.setLoadingState(this.model, false);
-        this._listWalletContent();
-
-        // Success or file level validation error
-        if (Array.isArray(responseJSON)) {
-          for (const item of responseJSON) {
-            if (item.error) {
-              console.error(`Unable to upload ${item.file.name} due to an error. Code: ${item.error.code}. Message: ${item.error.message}`);
-              continue;
-            }
-            console.log(`Uploaded ${item.file.name} to ${item.result.path}`);
-          }
-          return;
-        }
-
-        // Validation error. Can happend when HTTP status is 400
-        if (typeof responseJSON === 'object') {
-          console.error(`An error occurred: ${responseJSON.message}. Code: ${responseJSON.code}`);
-          return;
-        }
-
-        // Error is a string. This happens when the HTTP status is 500
-        console.error(`An error occurred: ${responseJSON}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      // Close the ui-loader as upload is finished
+      this.feedbackController.setLoadingState(false);
+      this._listWalletContent();
+    });
   }
 
   _handleDownload = (event) => {
@@ -471,7 +437,7 @@ export default class ExplorerController extends ContainerController {
     fileDownloader.downloadFile();
   }
 
-  _handlePreviewFile = (event) => {
+  _handleViewFile = (event) => {
     event.stopImmediatePropagation();
 
     let selectedItem = this.model.selectedItem;

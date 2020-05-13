@@ -17,53 +17,23 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    listDossierFiles(path, callback) {
-        if (typeof path === "function") {
-            callback = path;
-            path = "/";
-        }
-
-        $$.interactions.startSwarmAs("test/agent/007", "listDossierFiles", "start", path)
+    createDossier(path, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "newDossier", path)
             .onReturn(callback);
     }
 
-    listDossierFolders(path, callback) {
-        if (typeof path === "function") {
-            callback = path;
-            path = "/";
-        }
-
-        $$.interactions.startSwarmAs("test/agent/007", "listDossierFolders", "start", path)
-            .onReturn(callback);
-    }
-
-    listMountedDossiers(path, callback) {
-        if (typeof path === "function") {
-            callback = path;
-            path = "/";
-        }
-
-        $$.interactions.startSwarmAs("test/agent/007", "listMountedDossiers", "start", path)
-            .onReturn(callback);
-    }
-
-    createDossier(path, SEED, callback) {
-        if (typeof SEED === 'function') {
-            callback = SEED;
-            SEED = null;
-        }
-
-        $$.interactions.startSwarmAs("test/agent/007", "createDossier", "start", path, SEED)
+    importDossier(path, SEED, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "fromSeed", path, SEED)
             .onReturn(callback);
     }
 
     deleteFileFolder(path, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "deleteFileFolder", "start", path)
+        $$.interactions.startSwarmAs("test/agent/007", "delete", "fileFolder", path)
             .onReturn(callback);
     }
 
     deleteDossier(path, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "deleteDossier", "start", path)
+        $$.interactions.startSwarmAs("test/agent/007", "delete", "dossier", path)
             .onReturn(callback);
     }
 

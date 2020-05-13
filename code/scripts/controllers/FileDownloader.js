@@ -1,4 +1,4 @@
-import Commons from "./Commons.js";
+import FeedbackController from "./FeedbackController.js";
 
 export default class FileDownloader {
 
@@ -16,7 +16,7 @@ export default class FileDownloader {
             callback = this._defaultDownloadCallback;
         }
 
-        Commons.fetchFile(this.path, this.fileName, callback);
+        this._getFileBlob(this.path, this.fileName, callback);
     }
 
     _defaultDownloadCallback = (downloadedFile) => {
@@ -33,5 +33,22 @@ export default class FileDownloader {
         link.href = window.URL.createObjectURL(blob);
         link.download = this.fileName;
         link.click();
+    }
+
+    _getFileBlob(path, fileName, callback) {
+        let url = `/download${path}/${fileName}`;
+        fetch(url)
+            .then((response) => {
+                if (response.ok) {
+                    response.blob().then((blob) => {
+                        callback({
+                            contentType: response.headers.get('Content-Type') || '',
+                            rawBlob: blob
+                        });
+                    });
+                } else {
+                    console.error(`Error on download file ${path}/${fileName}: `, response);
+                }
+            });
     }
 }
