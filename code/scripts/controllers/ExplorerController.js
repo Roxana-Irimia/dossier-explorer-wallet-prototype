@@ -87,6 +87,7 @@ export default class ExplorerController extends ContainerController {
 
     createDossierModal.currentPath = this.model.currentPath;
     this.showModal('createDossier', createDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -98,6 +99,7 @@ export default class ExplorerController extends ContainerController {
 
     receiveDossierModal.currentPath = this.model.currentPath;
     this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -109,6 +111,7 @@ export default class ExplorerController extends ContainerController {
 
     importDossierModal.currentPath = this.model.currentPath;
     this.showModal('importDossier', importDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -129,6 +132,7 @@ export default class ExplorerController extends ContainerController {
     deleteDossierModal.selectedItemType = selectedItem.type;
 
     this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -149,6 +153,7 @@ export default class ExplorerController extends ContainerController {
     renameDossierModal.currentPath = this.model.currentPath;
 
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -169,6 +174,7 @@ export default class ExplorerController extends ContainerController {
     shareDossierModal.currentPath = this.model.currentPath;
 
     this.showModal('shareDossier', shareDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
     });
@@ -219,21 +225,22 @@ export default class ExplorerController extends ContainerController {
   _handleDoubleClick = (event) => {
     event.stopImmediatePropagation();
 
-    let clickedDir = event.data;
-    if (!clickedDir) {
-      console.error(`Clicked directory is not valid!`, event);
+    let clickedItem = event.data;
+    if (!clickedItem) {
+      console.error(`Clicked item is not valid!`, event);
       return;
     }
 
-    let clickedDirViewModel = this.model.content.find((el) => el.name === clickedDir);
-    if (!clickedDirViewModel) {
-      console.error(`Clicked directory is not present in the model!`);
+    let clickedItemViewModel = this.model.content.find((el) => el.name === clickedItem);
+    if (!clickedItemViewModel) {
+      console.error(`Clicked item is not present in the model!`);
       return;
     }
 
-    switch (clickedDirViewModel.type) {
+    switch (clickedItemViewModel.type) {
       case 'file': {
-        // handle double-click or click+enter to enter view
+        clickedItemViewModel.currentPath = this.model.currentPath || '/';
+        this._openViewFileModal(clickedItemViewModel);
         break;
       }
       case 'app': {
@@ -244,8 +251,8 @@ export default class ExplorerController extends ContainerController {
       case 'dossier': {
         let wDir = this.model.currentPath || '/';
         let newWorkingDirectory = wDir === '/' ?
-          `${wDir}${clickedDir}` :
-          `${wDir}/${clickedDir}`;
+          `${wDir}${clickedItem}` :
+          `${wDir}/${clickedItem}`;
         this.model.setChainValue('currentPath', newWorkingDirectory);
       }
       default:
@@ -259,6 +266,18 @@ export default class ExplorerController extends ContainerController {
     let path = event.data || '/';
     this.model.setChainValue('currentPath', path);
   };
+
+  _resetLastSelected = (lastSelectedName) => {
+    let previouslySelected = this.model.content.find((item) => {
+      return item.selected === 'selected' &&
+        (lastSelectedName && item.name !== lastSelectedName);
+    });
+    if (previouslySelected) {
+      previouslySelected.selected = '';
+      this.model.setChainValue('selectedItem.selected', false);
+      this.model.setChainValue('selectedItem.item', []);
+    }
+  }
 
   _handleSelectWalletItem = (event) => {
     event.stopImmediatePropagation();
@@ -275,14 +294,8 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    // Reset the previous selected item(if any), as for the moment we support only single selection
-    let previouslySelected = this.model.content.find((item) => {
-      return item.selected === 'selected' &&
-        item.name !== selectedItemViewModel.name;
-    });
-    if (previouslySelected) {
-      previouslySelected.selected = '';
-    }
+    // Reset the last selected item(if any), as for the moment we support only single selection
+    this._resetLastSelected(selectedItemViewModel.name);
 
     let isSelected = selectedItemViewModel.selected === 'selected';
     if (isSelected) {
@@ -311,11 +324,10 @@ export default class ExplorerController extends ContainerController {
       withFileTypes: true
     }, (err, dirContent) => {
       if (err) {
-        console.log(err);
+        console.error(err);
         this.feedbackController.updateErrorMessage(err);
         return;
       }
-      console.log(dirContent);
       let newContent = [];
 
       /** Add files to content model */
@@ -452,13 +464,17 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    let path = itemViewModel.currentPath || '/';
+    this._openViewFileModal(itemViewModel);
+  }
+
+  _openViewFileModal = (viewModel) => {
+    let path = viewModel.currentPath || '/';
     if (path === '/') {
       path = '';
     }
-    itemViewModel.title = path + itemViewModel.name;
-    itemViewModel.path = path;
-    this.showModal('viewAsset', itemViewModel, (err, response) => {
+    viewModel.title = path + viewModel.name;
+    viewModel.path = path;
+    this.showModal('viewAsset', viewModel, (err, response) => {
       console.log(err, response);
     });
   }
