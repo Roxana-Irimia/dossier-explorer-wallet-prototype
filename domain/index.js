@@ -34,8 +34,7 @@ $$.swarms.describe("attachDossier", {
 			const EDFS = require("edfs");
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
-			newRawDossier = edfs.createRawDossier();
-			newRawDossier.load((err) => {
+			edfs.createRawDossier((err, newRawDossier) => {
 				if (err) {
 					return this.return(err);
 				}
