@@ -82,3 +82,24 @@ $$.swarms.describe('delete', {
 		this.return(new Error("Raw Dossier is not available."))
 	}
 });
+
+$$.swarms.describe('listDossiers', {
+	printSeed: function (path, dossierName) {
+		if (rawDossier) {
+			return rawDossier.listMountedDossiers(path, (err, result) => {
+				if (err) {
+					return this.return(err);
+				}
+
+				let dossier = result.find((dsr) => dsr.path === dossierName);
+				if (!dossier) {
+					return this.return(new Error(`Dossier with the name ${dossierName} was not found in the mounted points!`));
+				}
+
+				this.return(null, dossier.identifier);
+			});
+		}
+
+		this.return(new Error("Raw Dossier is not available."));
+	}
+});

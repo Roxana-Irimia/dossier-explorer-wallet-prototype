@@ -5,6 +5,11 @@ const shareDossierModal = {
   confirmedShareDisclaimer: "Your collaborator has received the dossier succesfuly!",
   orLabel: "or",
   useQrCodeLabel: "Use QR Code",
+  dossierSEEDInput: {
+    label: "Dossier SEED",
+    value: '',
+    readOnly: true
+  },
   identitySecureCodeInput: {
     value: "",
     placeholder: "e.g. %rt78qtp%$",

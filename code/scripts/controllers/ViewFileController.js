@@ -96,9 +96,9 @@ export default class ViewFileController extends ModalController {
     }
 
     _appendAsset = (assetObject) => {
-        let assetContent = this.element.querySelector('.asset-content');
-        if (assetContent) {
-            assetContent.append(assetObject);
+        let assetModal = this.element.querySelector('.asset-modal');
+        if (assetModal) {
+            assetModal.append(assetObject);
         }
     }
 }

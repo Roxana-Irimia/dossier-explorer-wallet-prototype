@@ -37,6 +37,11 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    printDossierSeed(path, dossierName, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "printSeed", path, dossierName)
+            .onReturn(callback);
+    }
+
 }
 
 let dossierExplorer = new DossierExplorerService();
