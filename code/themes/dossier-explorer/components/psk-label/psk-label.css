@@ -63,3 +63,15 @@ psk-label.warning label {
   color: #ffbb00;
   word-wrap: break-word;
 }
+
+psk-label.success.small label {
+  display: inline-block;
+  padding: .25em .4em;
+  color: #28a745;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+}

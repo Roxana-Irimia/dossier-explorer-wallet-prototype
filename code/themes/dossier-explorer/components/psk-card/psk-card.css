@@ -1,11 +1,3 @@
-
-* {
-  outline: none !important;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-}
-
 /* clean old style inherited from bootstrap */
 psk-card,
 .card.psk-card,
@@ -17,11 +9,9 @@ psk-card,
 }
 
 
-psk-card.page-title .card .card-header{
+psk-card.page-title .card .card-header {
   background: #e9e8e8;
 }
-
-
 
 .card-header {
   background-color: #eee;
@@ -103,7 +93,7 @@ psk-card.page-title .card .card-header{
   box-shadow: 0px 0px 2.5px rgba(150, 150, 150, 0.75);
 }
 
-.wallet-grid-container psk-card :not(psk-button) > psk-icon span.icon {
+.wallet-grid-container psk-card :not(psk-button)>psk-icon span.icon {
   font-size: 20px;
 }
 
@@ -139,4 +129,5 @@ psk-card.page-title .card .card-header{
     margin: 1.5rem 1rem !important;
   }
 }
+
 /** end wallet-grid **/

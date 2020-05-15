@@ -1,1 +1,7 @@
+div.input-group {
+    flex-wrap: nowrap;
+}
 
+div.input-group psk-text-input {
+    width: 100%;
+}

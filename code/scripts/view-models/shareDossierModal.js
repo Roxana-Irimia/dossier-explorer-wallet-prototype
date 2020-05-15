@@ -5,8 +5,9 @@ const shareDossierModal = {
   confirmedShareDisclaimer: "Your collaborator has received the dossier succesfuly!",
   orLabel: "or",
   useQrCodeLabel: "Use QR Code",
+  dossierSEEDLabel: "Dossier SEED",
+  seedCopiedToClipboardLabel: "The SEED is copied to cliboard!",
   dossierSEEDInput: {
-    label: "Dossier SEED",
     value: '',
     readOnly: true
   },
@@ -41,6 +42,7 @@ const shareDossierModal = {
     isIdentitySelectionStep: true,
     isSendDossierStep: false,
     isLoading: false,
+    isSeedCopied: false
   }
 };
 

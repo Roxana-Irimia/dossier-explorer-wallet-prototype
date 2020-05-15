@@ -171,13 +171,20 @@
   border-color: #806489;
 }
 
+:host(.copy-clipboard):hover span.fa-clipboard,
+:host(.copy-clipboard):active span.fa-clipboard,
+:host(.copy-clipboard):focus span.fa-clipboard,
+:host(.copy-clipboard):active:focus span.fa-clipboard {
+  color: #FFF !important;
+}
+
 @media (max-width: 959px) {
   .btn-exit {
     top: 106px;
   }
 }
 
-.cd-link{
+.cd-link {
   background: none;
-  border:none;
+  border: none;
 }
