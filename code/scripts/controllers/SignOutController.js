@@ -7,7 +7,7 @@ export default class SignOutController extends ModalController {
   }
 
   _initListeners = () => {
-    this.on("sign-out-confirm", this.element, this._confirmExitHandler, true);
+    this.on("sign-out-confirm", this._confirmExitHandler);
 
     this.model.onChange(
       "checkboxDeleteSeed.value",

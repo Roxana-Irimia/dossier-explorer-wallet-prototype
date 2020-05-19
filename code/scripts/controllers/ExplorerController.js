@@ -35,24 +35,24 @@ export default class ExplorerController extends ContainerController {
   }
 
   _initListeners = () => {
-    this.on("sign-out", this._signOutFromWalletHandler, true);
-    this.on("switch-layout", this._handleSwitchLayout, true);
+    this.on("sign-out", this._signOutFromWalletHandler);
+    this.on("switch-layout", this._handleSwitchLayout);
 
-    this.on('view-file', this._handleViewFile, true);
-    this.on('export-dossier', this._handleDownload, true);
+    this.on('view-file', this._handleViewFile);
+    this.on('export-dossier', this._handleDownload);
 
-    this.on('create-dossier', this._createDossierHandler, true);
-    this.on('receive-dossier', this._receiveDossierHandler, true);
-    this.on('import-dossier', this._importDossierHandler, true);
-    this.on('delete-dossier', this._deleteDossierHandler, true);
-    this.on('share-dossier', this._shareDossierHandler, true);
-    this.on('rename-dossier', this._renameDossierHandler, true);
+    this.on('create-dossier', this._createDossierHandler);
+    this.on('receive-dossier', this._receiveDossierHandler);
+    this.on('import-dossier', this._importDossierHandler);
+    this.on('delete-dossier', this._deleteDossierHandler);
+    this.on('share-dossier', this._shareDossierHandler);
+    this.on('rename-dossier', this._renameDossierHandler);
 
-    this.on('add-file-folder', this._handleFileFolderUpload, true);
+    this.on('add-file-folder', this._handleFileFolderUpload, );
 
-    this.on('select-wallet-item', this._handleSelectWalletItem, true);
-    this.on('double-click-item', this._handleDoubleClick, true);
-    this.on('change-directory', this._handleChangeDirectory, true);
+    this.on('select-wallet-item', this._handleSelectWalletItem);
+    this.on('double-click-item', this._handleDoubleClick);
+    this.on('change-directory', this._handleChangeDirectory);
 
     /**
      * Model chain change watchers

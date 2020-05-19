@@ -15,8 +15,8 @@ export default class CreateDossierController extends ModalController {
   }
 
   _initListeners = () => {
-    this.on('name-new-dossier', this._setNameForNewDossier, true);
-    this.on('new-dossier-seed-received', this._finishNewDossierProcess, true);
+    this.on('name-new-dossier', this._setNameForNewDossier);
+    this.on('new-dossier-seed-received', this._finishNewDossierProcess);
 
     this.model.onChange("dossierNameInput.value", this._validateInput);
   };

@@ -15,7 +15,7 @@ export default class ShareDossierController extends ModalController {
   }
 
   _initListeners() {
-    this.on('copy-clipboard', this._copyToClipboardHandler, true);
+    this.on('copy-clipboard', this._copyToClipboardHandler);
   }
 
   _setSeedForInput() {

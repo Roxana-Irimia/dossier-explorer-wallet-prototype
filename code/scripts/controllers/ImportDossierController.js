@@ -15,8 +15,8 @@ export default class ImportDossierController extends ModalController {
   }
 
   _initListeners = () => {
-    this.on('import-dossier-name', this._setNameForImportedDossier, true);
-    this.on('import-dossier-seed', this._importDossierFromSeed, true);
+    this.on('import-dossier-name', this._setNameForImportedDossier);
+    this.on('import-dossier-seed', this._importDossierFromSeed);
 
     this.model.onChange("dossierNameInput.value", this._validateInput);
     this.model.onChange("dossierSeedInput.value", this._validateSeedInput);

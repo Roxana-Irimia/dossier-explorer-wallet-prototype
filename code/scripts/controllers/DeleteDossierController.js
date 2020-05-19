@@ -15,7 +15,7 @@ export default class DeleteDossierController extends ModalController {
   }
 
   _initListeners() {
-    this.on('delete', this._handleDeleteModalActions.bind(this), true);
+    this.on('delete', this._handleDeleteModalActions.bind(this));
   };
 
   /**

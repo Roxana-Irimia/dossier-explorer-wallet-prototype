@@ -8,7 +8,7 @@ export default class RenameDossierController extends ModalController {
   }
 
   _initListeners = () => {
-    this.on('confirm-rename', this._handleRenameFile, true);
+    this.on('confirm-rename', this._handleRenameFile);
   };
 
   _handleRenameFile = () => {

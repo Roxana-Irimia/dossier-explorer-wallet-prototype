@@ -9,8 +9,8 @@ export default class ReceiveDossierController extends ModalController {
   }
 
   _initListeners = () => {
-    this.on('next-receive-dossier', this._continueReceiveProcess, true);
-    this.on('finish-receive-dossier', this._finishReceiveDossierProcess, true);
+    this.on('next-receive-dossier', this._continueReceiveProcess);
+    this.on('finish-receive-dossier', this._finishReceiveDossierProcess);
 
     this.model.onChange("dossierNameInput.value", this._validateUserForm);
     this.model.onChange("destinationOptionsForDossier.value", this._validateUserForm);
