@@ -326,12 +326,9 @@ export default class ExplorerController extends ContainerController {
   }
 
   _updateWalletContent = (err, dirContent) => {
-    console.log(err, dirContent);
-
     let newContent = [];
 
     if (err) {
-      console.error(err);
       this.feedbackController.updateErrorMessage(err);
       this.model.setChainValue('content', newContent);
       return;
@@ -358,9 +355,7 @@ export default class ExplorerController extends ContainerController {
         walletContentViewModel.defaultDossierAttributes);
     }
 
-    console.log(newContent);
     this.model.setChainValue('content', newContent);
-    console.log(this.model.content);
   }
 
   _updateContentForType = (fullContentList, contentToAppend, defaultViewModel) => {
