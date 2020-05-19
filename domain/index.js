@@ -35,13 +35,24 @@ $$.swarms.describe("attachDossier", {
 			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
 			edfs.createRawDossier((err, newRawDossier) => {
-				console.log(`New dossier called: path: ${path}, new dossier's seed: ${newRawDossier.getSeed()}, wallet dossier seed: ${rawDossier.getSeed()}`);
+				console.log(`
+				New dossier called: 
+				path: ${path} 
+				new dossier's seed: ${newRawDossier.getSeed()}
+				wallet dossier seed: ${rawDossier.getSeed()}
+				`);
 				if (err) {
 					return this.return(err);
 				}
 
-				abstractFunctions.mountDossier
-					.call(this, rawDossier, path, newRawDossier.getSeed());
+				newRawDossier.writeFile('manifest', '{}', (err, archiveDigest) => {
+					if (err) {
+						return this.return(err);
+					}
+
+					abstractFunctions.mountDossier
+						.call(this, rawDossier, path, newRawDossier.getSeed());
+				});
 			});
 		} else {
 			this.return(new Error("Raw Dossier is not available."))
@@ -54,10 +65,18 @@ $$.swarms.describe("attachDossier", {
 
 			edfs.loadRawDossier(SEED, (err, newRawDossier) => {
 				if (err) {
-					console.trace(`attach with seed called: path: ${path}, fromSeed: ${SEED}, err:`, err);
+					console.trace(`
+					attach with seed called: path: ${path}
+					fromSeed: ${SEED}
+					err:`, err);
 					return this.return(err);
 				}
-				console.log(`New dossier called: path: ${path}, new dossier's seed: ${newRawDossier.getSeed()}, wallet dossier seed: ${rawDossier.getSeed()}`);
+				console.log(`
+				Attach dossier called: 
+				path: ${path}
+				new dossier's seed: ${newRawDossier.getSeed()}
+				wallet dossier seed: ${rawDossier.getSeed()}
+				`);
 
 				abstractFunctions.mountDossier
 					.call(this, rawDossier, path, newRawDossier.getSeed());
