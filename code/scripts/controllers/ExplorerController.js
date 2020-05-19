@@ -472,7 +472,8 @@ export default class ExplorerController extends ContainerController {
     if (path === '/') {
       path = '';
     }
-    viewModel.title = path + viewModel.name;
+
+    viewModel.title = `${path}/${viewModel.name}`;
     viewModel.path = path;
     this.showModal('viewAsset', viewModel, (err, response) => {
       console.log(err, response);

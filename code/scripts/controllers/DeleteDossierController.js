@@ -19,7 +19,7 @@ export default class DeleteDossierController extends ModalController {
   };
 
   /**
-   * TBD
+   * TODO: Validate how to display this message
    */
   _updateNotificationMessage() {
     let message = this.model.notificationMessage;

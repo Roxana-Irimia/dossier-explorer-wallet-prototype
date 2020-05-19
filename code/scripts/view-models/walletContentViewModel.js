@@ -4,14 +4,12 @@ const walletContentViewModel = {
         gridIcon: 'file',
         isApplication: false,
         size: '-',
-        lastModified: '-'
     },
     defaultFolderAttributes: {
         type: 'folder',
         gridIcon: 'folder',
         isApplication: false,
         size: '-',
-        lastModified: '-'
     },
     defaultDossierAttributes: {
         type: 'dossier',
@@ -19,7 +17,6 @@ const walletContentViewModel = {
         icon: 'lock',
         isApplication: false,
         size: '-',
-        lastModified: '-'
     }
 }
 
