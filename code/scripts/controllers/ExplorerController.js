@@ -322,76 +322,65 @@ export default class ExplorerController extends ContainerController {
     let wDir = this.model.currentPath || '/';
     this.dossierService.readDir(wDir, {
       withFileTypes: true
-    }, (err, dirContent) => {
-      if (err) {
-        console.error(err);
-        this.feedbackController.updateErrorMessage(err);
-        return;
-      }
-      let newContent = [];
+    }, this._updateWalletContent);
+  }
 
-      /** Add files to content model */
-      if (dirContent.files && dirContent.files.length) {
-        let viewModelFiles = dirContent.files
-          .filter(el => !!el)
-          .map((file) => {
-            let fName = file.trim();
-            if (fName.length && fName.charAt(0) === '/') {
-              fName = fName.replace('/', '');
-            }
-            return {
-              ...walletContentViewModel.defaultFileAttributes,
-              name: fName
-            };
-          });
+  _updateWalletContent = (err, dirContent) => {
+    console.log(err, dirContent);
 
-        viewModelFiles.forEach((file) => {
-          newContent.push(file);
-        });
-      }
+    let newContent = [];
 
-      /** Add folders to content model */
-      if (dirContent.folders && dirContent.folders.length) {
-        let viewModelFolders = dirContent.folders
-          .filter(el => !!el)
-          .map((folder) => {
-            let fName = folder.trim();
-            if (fName.length && fName.charAt(0) === '/') {
-              fName = fName.replace('/', '');
-            }
-            return {
-              ...walletContentViewModel.defaultFolderAttributes,
-              name: fName
-            };
-          });
-
-        viewModelFolders.forEach((folder) => {
-          newContent.push(folder);
-        });
-      }
-
-      /** Add dossiers to content model */
-      if (dirContent.mounts && dirContent.mounts.length) {
-        let viewModelDossiers = dirContent.mounts
-          .filter(el => !!el)
-          .map((dossier) => {
-            let dName = dossier.trim();
-            if (dName.length && dName.charAt(0) === '/') {
-              dName = dName.replace('/', '');
-            }
-            return {
-              ...walletContentViewModel.defaultDossierAttributes,
-              name: dName
-            };
-          });
-
-        viewModelDossiers.forEach((dossier) => {
-          newContent.push(dossier);
-        });
-      }
-
+    if (err) {
+      console.error(err);
+      this.feedbackController.updateErrorMessage(err);
       this.model.setChainValue('content', newContent);
+      return;
+    }
+
+    /** Add files to content model */
+    if (dirContent.files && dirContent.files.length) {
+      newContent = this._updateContentForType(newContent,
+        dirContent.files,
+        walletContentViewModel.defaultFileAttributes);
+    }
+
+    /** Add folders to content model */
+    if (dirContent.folders && dirContent.folders.length) {
+      newContent = this._updateContentForType(newContent,
+        dirContent.folders,
+        walletContentViewModel.defaultFolderAttributes);
+    }
+
+    /** Add dossiers to content model */
+    if (dirContent.mounts && dirContent.mounts.length) {
+      newContent = this._updateContentForType(newContent,
+        dirContent.mounts,
+        walletContentViewModel.defaultDossierAttributes);
+    }
+
+    console.log(newContent);
+    this.model.setChainValue('content', newContent);
+    console.log(this.model.content);
+  }
+
+  _updateContentForType = (fullContentList, contentToAppend, defaultViewModel) => {
+    let mappedContentToAppend = contentToAppend.filter(el => !!el)
+      .map(el => {
+        let name = el.trim();
+        if (name.length && name.charAt(0) === '/') {
+          name = name.replace('/', '');
+        }
+        return {
+          ...defaultViewModel,
+          name: name
+        };
+      });
+
+    mappedContentToAppend.forEach(el => {
+      fullContentList.push(el);
     });
+
+    return fullContentList;
   }
 
   _handleFileFolderUpload = (event) => {
