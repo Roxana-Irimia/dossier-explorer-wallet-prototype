@@ -46,9 +46,9 @@ export default class CreateDossierController extends ModalController {
       wDir = '';
     }
 
-    this.dossierService.createDossier(`${wDir}/${dossierName}`, (err, outputSEED) => {
+    this.dossierService.createDossier(wDir, dossierName, (err, outputSEED) => {
       if (err) {
-        console.trace(err);
+        console.log(err);
         this.feedbackController.updateErrorMessage(err);
       } else {
         this.model.dossierSeedOutput.value = outputSEED;

@@ -51,8 +51,9 @@ export default class ImportDossierController extends ModalController {
     }
     const SEED = this.model.dossierSeedInput.value;
 
-    this.dossierService.importDossier(`${wDir}/${this.dossierName}`, SEED, (err) => {
+    this.dossierService.importDossier(wDir, this.dossierName, SEED, (err) => {
       if (err) {
+        console.log(err);
         this.feedbackController.updateErrorMessage(err);
       } else {
         this.responseCallback(undefined, {

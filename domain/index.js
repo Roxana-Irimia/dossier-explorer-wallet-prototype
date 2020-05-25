@@ -1,22 +1,9 @@
 console.log("Loaded from domain.js");
 const EDFS_ENDPOINT = "http://localhost:8080";
+const EDFS = require("edfs");
+const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
-/**
- * Common function used in more places.
- * TBD: if move to some other place to avoid overcrowding the file in the future
- */
-const abstractFunctions = {
-	mountDossier: function (rawDossier, path, newDossierSEED) {
-		let self = this;
-		rawDossier.mount(path, newDossierSEED, (err) => {
-			if (err) {
-				return self.return(err);
-			}
-
-			self.return(undefined, newDossierSEED);
-		});
-	}
-}
+const commons = require('./commons');
 
 $$.swarms.describe('readDir', {
 	start: function (path, options) {
@@ -24,48 +11,64 @@ $$.swarms.describe('readDir', {
 			return rawDossier.readDir(path, options, this.return);
 		}
 
-		this.return(new Error("Raw Dossier is not available."))
+		this.return(new Error("Raw Dossier is not available."));
 	}
 });
 
 $$.swarms.describe("attachDossier", {
-	newDossier: function (path) {
+	newDossier: function (path, dossierName) {
 		if (rawDossier) {
-			const EDFS = require("edfs");
-			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
-
-			edfs.createRawDossier((err, newRawDossier) => {
+			commons.createNewDossier((err, newDossier) => {
 				if (err) {
 					return this.return(err);
 				}
 
-				newRawDossier.writeFile('manifest', '{}', (err, archiveDigest) => {
+				commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
 					if (err) {
 						return this.return(err);
 					}
 
-					abstractFunctions.mountDossier
-						.call(this, rawDossier, path, newRawDossier.getSeed());
+					if (parentDossierSeed) {
+						return edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
+							if (err) {
+								return this.return(err);
+							}
+
+							const mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
+							commons.mountDossier.call(this, parentRawDossier, mountPoint, newDossier.getSeed());
+						});
+					}
+
+					const mountPoint = `${path}/${dossierName}`;
+					commons.mountDossier.call(this, rawDossier, mountPoint, newDossier.getSeed());
 				});
 			});
 		} else {
 			this.return(new Error("Raw Dossier is not available."))
 		}
 	},
-	fromSeed: function (path, SEED) {
+	fromSeed: function (path, dossierName, SEED) {
 		if (rawDossier) {
-			const EDFS = require("edfs");
-			const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
-
-			edfs.loadRawDossier(SEED, (err, newRawDossier) => {
+			edfs.loadRawDossier(SEED, (err, loadedDossier) => {
 				if (err) {
 					return this.return(err);
 				}
 
-				abstractFunctions.mountDossier
-					.call(this, rawDossier, path, newRawDossier.getSeed());
-			});
+				commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
+					if (err) {
+						return this.return(err);
+					}
 
+					edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
+						if (err) {
+							return this.return(err);
+						}
+
+						const mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
+						commons.mountDossier.call(this, parentRawDossier, mountPoint, loadedDossier.getSeed());
+					});
+				});
+			});
 		} else {
 			this.return(new Error("Raw Dossier is not available."))
 		}
@@ -102,7 +105,7 @@ $$.swarms.describe('listDossiers', {
 					return this.return(new Error(`Dossier with the name ${dossierName} was not found in the mounted points!`));
 				}
 
-				this.return(null, dossier.identifier);
+				this.return(undefined, dossier.identifier);
 			});
 		}
 

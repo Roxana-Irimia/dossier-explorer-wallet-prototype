@@ -17,13 +17,13 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    createDossier(path, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "newDossier", path)
+    createDossier(path, dossierName, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "newDossier", path, dossierName)
             .onReturn(callback);
     }
 
-    importDossier(path, SEED, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "fromSeed", path, SEED)
+    importDossier(path, dossierName, SEED, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "fromSeed", path, dossierName, SEED)
             .onReturn(callback);
     }
 
