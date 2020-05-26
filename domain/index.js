@@ -59,14 +59,19 @@ $$.swarms.describe("attachDossier", {
 						return this.return(err);
 					}
 
-					edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
-						if (err) {
-							return this.return(err);
-						}
+					if (parentDossierSeed) {
+						return edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
+							if (err) {
+								return this.return(err);
+							}
 
-						const mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
-						commons.mountDossier.call(this, parentRawDossier, mountPoint, loadedDossier.getSeed());
-					});
+							const mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
+							commons.mountDossier.call(this, parentRawDossier, mountPoint, loadedDossier.getSeed());
+						});
+					}
+
+					const mountPoint = `${path}/${dossierName}`;
+					commons.mountDossier.call(this, rawDossier, mountPoint, loadedDossier.getSeed());
 				});
 			});
 		} else {
