@@ -10,9 +10,10 @@
       <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
     </psk-condition>
 
-    <psk-grid columns="2" layout="xs=[12,12] s=[6,6] m=[6,6] l=[6,6] xl=[6,6]">
-      <psk-button view-model="confirmBtn"></psk-button>
-      <psk-button view-model="exitBtn"></psk-button>
-    </psk-grid>
+      <psk-button-group class="modal-buttons">
+        <psk-button view-model="confirmBtn"></psk-button>
+        <psk-button view-model="exitBtn"></psk-button>
+      </psk-button-group>
+
   </psk-modal>
 </psk-container>

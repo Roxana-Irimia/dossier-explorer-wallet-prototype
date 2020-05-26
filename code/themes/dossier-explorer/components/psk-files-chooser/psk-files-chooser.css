@@ -13,15 +13,21 @@ psk-files-chooser{
     clear:both;
 }
 
-button.btn.btn-secondary.p-0,
-button.btn.btn-secondary.p-0:hover,
-button.btn.btn-secondary.p-0:focus,
-button.btn.btn-secondary.p-0:active,
-button.btn.btn-secondary.p-0:active:focus{
+button.btn.btn-secondary,
+button.btn.btn-secondary:hover,
+button.btn.btn-secondary:focus,
+button.btn.btn-secondary:active,
+button.btn.btn-secondary:active:focus,
+button.btn.btn-secondary:not(:disabled):not(.disabled):active,
+button.btn.btn-secondary:not(:disabled):not(.disabled):active:focus{
     background: transparent;
     border: none;
     outline:none;
     box-shadow: none;
+}
+psk-files-chooser .btn{
+    text-align: left;
+    padding: 0 0 0 0.25rem;
 }
 
 

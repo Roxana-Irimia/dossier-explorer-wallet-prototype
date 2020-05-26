@@ -69,3 +69,18 @@ psk-button-group[opened] .dots-menu .list-group {
 .add-menu  .list-group psk-files-chooser:last-of-type{
   border-bottom:1px solid white;
 }
+
+psk-button-group.modal-buttons{
+display: flex;
+flex-wrap: nowrap;
+}
+
+psk-button-group.modal-buttons psk-button{
+  margin:0 1rem;
+}
+
+psk-button-group.modal-buttons psk-button button.btn-confirm-primary,
+psk-button-group.modal-buttons psk-button button.btn-confirm-secondary{
+  padding: 0.25rem 1rem;
+}
+
