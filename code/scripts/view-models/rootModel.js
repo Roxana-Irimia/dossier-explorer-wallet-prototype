@@ -18,7 +18,7 @@ const rootModel = {
     item: []
   },
   navigationLinks: [],
-  pageTitle: "E-Wallet",
+  pageTitle: "Explorer",
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",
   currentPath: '/',
