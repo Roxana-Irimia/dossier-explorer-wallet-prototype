@@ -20,6 +20,7 @@ import importDossierModal from '../view-models/importDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
 import shareDossierModal from '../view-models/shareDossierModal.js';
+import DateFormat from "./libs/DateFormat.js";
 
 export default class ExplorerController extends ContainerController {
   constructor(element) {
@@ -334,11 +335,11 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    /** Add files to content model */
-    if (dirContent.files && dirContent.files.length) {
+    /** Add dossiers to content model */
+    if (dirContent.mounts && dirContent.mounts.length) {
       newContent = this._updateContentForType(newContent,
-        dirContent.files,
-        walletContentViewModel.defaultFileAttributes);
+        dirContent.mounts,
+        walletContentViewModel.defaultDossierAttributes);
     }
 
     /** Add folders to content model */
@@ -348,14 +349,23 @@ export default class ExplorerController extends ContainerController {
         walletContentViewModel.defaultFolderAttributes);
     }
 
-    /** Add dossiers to content model */
-    if (dirContent.mounts && dirContent.mounts.length) {
+    /** Add files to content model */
+    if (dirContent.files && dirContent.files.length) {
       newContent = this._updateContentForType(newContent,
-        dirContent.mounts,
-        walletContentViewModel.defaultDossierAttributes);
+        dirContent.files,
+        walletContentViewModel.defaultFileAttributes);
     }
 
     this.model.setChainValue('content', newContent);
+  }
+
+  /**
+   * To be removed after edfs provides the last modified attribute
+   */
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   _updateContentForType = (fullContentList, contentToAppend, defaultViewModel) => {
@@ -365,11 +375,21 @@ export default class ExplorerController extends ContainerController {
         if (name.length && name.charAt(0) === '/') {
           name = name.replace('/', '');
         }
-        return {
+
+        let viewModelObject = {
           ...defaultViewModel,
           name: name
         };
-      });
+
+        const lastModified = this.getRandomInt(1590000000000, new Date().getTime());
+        const dateFormat = new DateFormat(lastModified, this.model.dateFormatOptions);
+        viewModelObject.fullDateHover = dateFormat.getFullDateString();
+        viewModelObject.lastModified = dateFormat.isInLastDay() ?
+          dateFormat.getFormattedTime() : dateFormat.getFormattedDate();
+
+        return viewModelObject;
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
 
     mappedContentToAppend.forEach(el => {
       fullContentList.push(el);

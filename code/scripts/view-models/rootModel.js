@@ -22,9 +22,14 @@ const rootModel = {
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",
   currentPath: '/',
+  dateFormatOptions: {
+    date: 'dd-MM-yyyy',
+    time: 'HH:mm:SS',
+    fullTime: 'dd-MM-yyyy HH:mm:SS.sss'
+  },
   dossierContentLabels: {
     homeLabel: "My Wallet",
-    sizeLabel: "Size",
+    lastModifiedLabel: "Last modification",
     typeLabel: "Type",
     nameLabel: "Name",
     runAppLabel: "Run",

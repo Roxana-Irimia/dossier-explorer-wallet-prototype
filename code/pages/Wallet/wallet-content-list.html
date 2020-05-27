@@ -1,14 +1,14 @@
-<psk-grid class="wallet-list-header" columns="3" layout="xs=[8,2,2] s=[8,2,2] m=[8,2,2] l=[8,2,2] xl=[8,2,2]">
+<psk-grid class="wallet-list-header" columns="3" layout="xs=[7,2,3] s=[7,2,3] m=[7,2,3] l=[7,2,3] xl=[7,2,3]">
   <psk-label label="@dossierContentLabels.nameLabel"></psk-label>
   <psk-label label="@dossierContentLabels.typeLabel"></psk-label>
-  <psk-label label="@dossierContentLabels.sizeLabel"></psk-label>
+  <psk-label label="@dossierContentLabels.lastModifiedLabel"></psk-label>
 </psk-grid>
 
 <psk-for-each class="wallet-list-container" data-view-model="content">
   <psk-card class="@selected">
     <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item"
       event-data="@name">
-      <psk-grid class="items" columns="3" layout="xs=[8,2,2] s=[8,2,2] m=[8,2,2] l=[8,2,2] xl=[8,2,2]">
+      <psk-grid class="items" columns="3" layout="xs=[7,2,3] s=[7,2,3] m=[7,2,3] l=[7,2,3] xl=[7,2,3]">
         <psk-grid>
           <psk-label label="@name"> </psk-label>
 
@@ -22,7 +22,7 @@
           <psk-icon color="#572a57" icon="@icon"></psk-icon>
         </psk-grid>
         <psk-label label="@type"></psk-label>
-        <psk-label label="@size"></psk-label>
+        <psk-label title="@fullDateHover" label="@lastModified"></psk-label>
       </psk-grid>
     </psk-button>
   </psk-card>

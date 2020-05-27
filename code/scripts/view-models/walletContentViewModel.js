@@ -2,21 +2,18 @@ const walletContentViewModel = {
     defaultFileAttributes: {
         type: 'file',
         gridIcon: 'file',
-        isApplication: false,
-        size: '-',
+        isApplication: false
     },
     defaultFolderAttributes: {
         type: 'folder',
         gridIcon: 'folder',
-        isApplication: false,
-        size: '-',
+        isApplication: false
     },
     defaultDossierAttributes: {
         type: 'dossier',
         gridIcon: 'lock',
         icon: 'lock',
-        isApplication: false,
-        size: '-',
+        isApplication: false
     }
 }
 
