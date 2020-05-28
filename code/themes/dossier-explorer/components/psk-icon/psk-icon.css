@@ -22,3 +22,7 @@ psk-button span.icon {
 .icon.right-menu {
   font-size: 1.5rem;
 }
+
+.descendant span.icon {
+  transform: rotate(180deg);
+}

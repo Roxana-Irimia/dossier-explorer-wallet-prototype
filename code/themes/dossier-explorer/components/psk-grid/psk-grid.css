@@ -21,3 +21,9 @@ psk-grid label.col-form-label {
   align-items: center;
   flex: 0 0 auto;
 }
+
+.wallet-list-header psk-button .btn {
+  font-weight: bold;
+  text-align: left;
+  padding: 0 0 0 0.25rem;
+}

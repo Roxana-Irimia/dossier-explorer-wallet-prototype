@@ -54,6 +54,7 @@ export default class ExplorerController extends ContainerController {
     this.on('select-wallet-item', this._handleSelectWalletItem);
     this.on('double-click-item', this._handleDoubleClick);
     this.on('change-directory', this._handleChangeDirectory);
+    this.on('sort-working-directory', this._handleSortWorkingDirectory);
 
     /**
      * Model chain change watchers
@@ -383,19 +384,99 @@ export default class ExplorerController extends ContainerController {
 
         const lastModified = this.getRandomInt(1590000000000, new Date().getTime());
         const dateFormat = new DateFormat(lastModified, this.model.dateFormatOptions);
+        viewModelObject.lastModifiedTimestamp = lastModified;
         viewModelObject.fullDateHover = dateFormat.getFullDateString();
         viewModelObject.lastModified = dateFormat.isInLastDay() ?
           dateFormat.getFormattedTime() : dateFormat.getFormattedDate();
 
         return viewModelObject;
-      })
-      .sort((a, b) => a.name.localeCompare(b.name));
+      });
+
+    mappedContentToAppend = this._sortByProperty(mappedContentToAppend, 'name');
+    this.model.setChainValue('sortedTypes.name.isSorted', true);
 
     mappedContentToAppend.forEach(el => {
       fullContentList.push(el);
     });
 
     return fullContentList;
+  }
+
+  _handleSortWorkingDirectory = (event) => {
+    event.stopImmediatePropagation();
+    let propertyName = event.data;
+    if (!propertyName) {
+      console.error(`Sort is not possible. The property name is not ok. Provided: ${propertyName}`);
+      return;
+    }
+
+    let sortTypeViewModel = this.model.sortedTypes[propertyName];
+
+    if (!sortTypeViewModel) {
+      console.error(`Sort is not possible. The property name is not ok. Provided: ${propertyName}`);
+      return;
+    }
+
+    const isSorted = sortTypeViewModel.isSorted;
+    let reverse;
+    if (!isSorted) {
+      reverse = false;
+    } else {
+      reverse = sortTypeViewModel.descendant !== 'descendant';
+    }
+    let newContent = JSON.parse(JSON.stringify(this.model.content));
+
+    /**
+     * Sort dossiers
+     */
+    let sortedDossiers = newContent.filter(el => el.type === 'dossier');
+    sortedDossiers = this._sortByProperty(sortedDossiers, propertyName, reverse);
+    /**
+     * Sort folders
+     */
+    let sortedFolders = newContent.filter(el => el.type === 'folder');
+    sortedFolders = this._sortByProperty(sortedFolders, propertyName, reverse);
+    /**
+     * Sort files
+     */
+    let sortedFiles = newContent.filter(el => el.type === 'file');
+    sortedFiles = this._sortByProperty(sortedFiles, propertyName, reverse);
+
+    newContent = [...sortedDossiers, ...sortedFolders, ...sortedFiles];
+
+    /**
+     * Reset the view model for sorted types and conditionals and update according to the requested sort option
+     */
+    let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));
+    sortedTypesViewModel[propertyName].isSorted = true;
+    sortedTypesViewModel[propertyName].descendant = reverse ? 'descendant' : '';
+
+    this.model.setChainValue('content', newContent);
+    this.model.setChainValue('sortedTypes', sortedTypesViewModel);
+
+    console.log(newContent);
+  }
+
+  _sortByProperty = (arr, pName, reverse) => {
+    switch (pName) {
+      case 'name': {
+        arr = arr.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      }
+      case 'lastModified': {
+        arr = arr.sort((a, b) => b.lastModifiedTimestamp - a.lastModifiedTimestamp);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
+    if (reverse) {
+      arr = arr.reverse();
+    }
+
+    return arr;
   }
 
   _handleFileFolderUpload = (event) => {

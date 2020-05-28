@@ -14,6 +14,16 @@ const walletContentViewModel = {
         gridIcon: 'lock',
         icon: 'lock',
         isApplication: false
+    },
+    defaultSortedViewModel: {
+        name: {
+            isSorted: false,
+            descendant: ''
+        },
+        lastModified: {
+            isSorted: false,
+            descendant: ''
+        }
     }
 }
 

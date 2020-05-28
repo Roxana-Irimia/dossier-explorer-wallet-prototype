@@ -27,6 +27,16 @@ const rootModel = {
     time: 'HH:mm:SS',
     fullTime: 'dd-MM-yyyy HH:mm:SS.sss'
   },
+  sortedTypes: {
+    name: {
+      isSorted: false,
+      descendant: ''
+    },
+    lastModified: {
+      isSorted: false,
+      descendant: ''
+    }
+  },
   dossierContentLabels: {
     homeLabel: "My Wallet",
     lastModifiedLabel: "Last modification",
