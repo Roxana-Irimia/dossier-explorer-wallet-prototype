@@ -14,7 +14,8 @@
     "deleteDossier": "Wallet/modals/delete-dossier.html",
     "shareDossier": "Wallet/modals/share-dossier.html",
     "renameDossier": "Wallet/modals/rename-dossier.html",
-    "viewAsset": "Wallet/modals/view-asset.html"
+    "viewAsset": "Wallet/modals/view-asset.html",
+    "moveDossier": "Wallet/modals/move-dossier.html"
   },
   "menu": {
     "defaultMenuConfig": {

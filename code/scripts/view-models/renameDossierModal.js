@@ -1,6 +1,6 @@
 const renameDossierModal = {
   title: "Rename",
-  fileName: {
+  fileNameInput: {
     label: "Enter the new name",
     value: "",
   },

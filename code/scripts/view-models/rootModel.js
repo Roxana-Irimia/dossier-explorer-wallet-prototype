@@ -22,20 +22,11 @@ const rootModel = {
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",
   currentPath: '/',
-  dateFormatOptions: {
-    date: 'dd-MM-yyyy',
-    time: 'HH:mm:SS',
-    fullTime: 'dd-MM-yyyy HH:mm:SS.sss'
-  },
-  sortedTypes: {
-    name: {
-      isSorted: false,
-      descendant: ''
-    },
-    lastModified: {
-      isSorted: false,
-      descendant: ''
-    }
+  dateFormatOptions: { // Currently not used. 
+    // To be used when extending the DateFormat to allow masked formats
+    date: 'dd-mm-yyyy',
+    time: 'HH:MM',
+    fullTime: 'dd-mm-yyyy and HH:MM'
   },
   dossierContentLabels: {
     homeLabel: "My Wallet",

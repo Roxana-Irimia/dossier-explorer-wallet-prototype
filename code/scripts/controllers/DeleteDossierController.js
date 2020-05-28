@@ -51,13 +51,13 @@ export default class DeleteDossierController extends ModalController {
     switch (type) {
       case 'file':
       case 'folder': {
-        this.dossierService.deleteFileFolder(path + name, (err) => {
+        this.dossierService.deleteFileFolder(`${path}/${name}`, (err) => {
           callback(err);
         });
         break;
       }
       case 'dossier': {
-        this.dossierService.deleteDossier(path + name, (err) => {
+        this.dossierService.deleteDossier(`${path}/${name}`, (err) => {
           callback(err);
         });
         break;

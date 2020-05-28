@@ -2,14 +2,14 @@
   <psk-button event-name='sort-working-directory' event-data='name'>
     <psk-label label="@dossierContentLabels.nameLabel"></psk-label>
     <psk-condition condition='@sortedTypes.name.isSorted'>
-      <psk-icon icon='long-arrow-up' color='#572a57' class='@sortedTypes.name.descendant'></psk-icon>
+      <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
     </psk-condition>
   </psk-button>
   <psk-label label="@dossierContentLabels.typeLabel"></psk-label>
   <psk-button event-name='sort-working-directory' event-data='lastModified'>
     <psk-label label="@dossierContentLabels.lastModifiedLabel"></psk-label>
     <psk-condition condition='@sortedTypes.lastModified.isSorted'>
-      <psk-icon icon='long-arrow-up' color='#572a57' class='@sortedTypes.lastModified.descendant'></psk-icon>
+      <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.lastModified.descending'></psk-icon>
     </psk-condition>
   </psk-button>
 </psk-grid>

@@ -26,14 +26,14 @@
   width: 100%;
 }
 
-:host(.wallet-path) ::slotted(psk-grid) {
+.wallet-path psk-grid {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex: 0 0 auto;
 }
 
-:host(.wallet-path) ::slotted(psk-grid.items) {
+.wallet-path psk-grid.items {
   display: inline;
   justify-content: flex-start;
   align-items: center;

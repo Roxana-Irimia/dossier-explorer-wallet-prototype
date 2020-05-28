@@ -10,24 +10,24 @@ export default class DateFormat {
     }
 
     /**
-     *  @returns {string} the string representation of the date in format HH:mm:SS (24h format)
+     *  @returns {string} the string representation of the date in format HH:MM (24h format)
      */
     getFormattedTime() {
         return this.formattedTime;
     }
 
     /**
-     *  @returns {string} the string representation of the date in format dd-MM-yyyy
+     *  @returns {string} the string representation of the date in format dd-mm-yyyy
      */
     getFormattedDate() {
         return this.formattedDate;
     }
 
     /**
-     * @returns {string} the string representation of the date in format dd-MM-yyyy HH:mm:SS.sss (24h format)
+     * @returns {string} the string representation of the date in format dd-mm-yyyy HH:MM (24h format)
      */
     getFullDateString() {
-        return this.date.toISOString().replace('T', ' ').replace('Z', '')
+        return `${this.formattedDate} ${this.formattedTime}`;
     }
 
     /**
@@ -43,8 +43,8 @@ export default class DateFormat {
     // ###################### Internal methods ######################
 
     /**
-     * This method is formatting the date to dd-MM-yyyy and HH:mm:SS.sss (24h format)
-     * This functionality will be extended with masked formats
+     * This method is formatting the date to dd-mm-yyyy and HH:MM (24h format)
+     * This functionality may be extended with masked formats
      */
     _formatDate() {
         if (!this.dateTimestamp) {
@@ -68,11 +68,7 @@ export default class DateFormat {
         if (minutes < 10) {
             minutes = `0${minutes}`;
         }
-        let seconds = this.date.getSeconds();
-        if (seconds < 10) {
-            seconds = `0${seconds}`;
-        }
 
-        this.formattedTime = `${hours}:${minutes}:${seconds}`;
+        this.formattedTime = `${hours}:${minutes}`;
     }
 }

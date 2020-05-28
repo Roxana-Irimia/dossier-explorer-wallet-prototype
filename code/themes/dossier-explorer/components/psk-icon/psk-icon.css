@@ -23,6 +23,6 @@ psk-button span.icon {
   font-size: 1.5rem;
 }
 
-.descendant span.icon {
+psk-icon[descending='true'] span.icon {
   transform: rotate(180deg);
 }

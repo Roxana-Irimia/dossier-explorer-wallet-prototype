@@ -15,7 +15,7 @@ $$.swarms.describe('readDir', {
 	}
 });
 
-$$.swarms.describe('rename', {
+$$.swarms.describe('move', {
 	start: function (oldPath, newPath) {
 		if (rawDossier) {
 			this.return(undefined, `

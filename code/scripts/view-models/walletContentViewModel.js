@@ -18,11 +18,11 @@ const walletContentViewModel = {
     defaultSortedViewModel: {
         name: {
             isSorted: false,
-            descendant: ''
+            descending: false,
         },
         lastModified: {
             isSorted: false,
-            descendant: ''
+            descending: false
         }
     }
 }

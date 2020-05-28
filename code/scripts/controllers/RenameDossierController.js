@@ -20,7 +20,7 @@ export default class RenameDossierController extends ModalController {
 
   _handleRenameFile = () => {
     const oldFileName = this.model.oldFileName;
-    const newFileName = this.model.fileName.value;
+    const newFileName = this.model.fileNameInput.value;
     const currentPath = this.model.currentPath;
 
     if (!newFileName.trim().length) {
@@ -33,7 +33,7 @@ export default class RenameDossierController extends ModalController {
 
     const oldPath = `${currentPath}/${oldFileName}`;
     const newPath = `${currentPath}/${newFileName}`;
-    this.dossierService.rename(oldPath, newPath, (err, result) => {
+    this.dossierService.move(oldPath, newPath, (err, result) => {
       if (err) {
         console.error(err);
         return this.feedbackController.updateErrorMessage(err);

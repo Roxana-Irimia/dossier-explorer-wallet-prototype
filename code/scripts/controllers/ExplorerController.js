@@ -19,6 +19,7 @@ import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import importDossierModal from '../view-models/importDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
+import moveDossierModal from '../view-models/moveDossierModal.js';
 import shareDossierModal from '../view-models/shareDossierModal.js';
 import DateFormat from "./libs/DateFormat.js";
 
@@ -48,6 +49,7 @@ export default class ExplorerController extends ContainerController {
     this.on('delete-dossier', this._deleteDossierHandler);
     this.on('share-dossier', this._shareDossierHandler);
     this.on('rename-dossier', this._renameDossierHandler);
+    this.on('move-dossier', this._moveDossierHandler);
 
     this.on('add-file-folder', this._handleFileFolderUpload, );
 
@@ -127,7 +129,7 @@ export default class ExplorerController extends ContainerController {
      * Before showModal, set the selectedItemsPaths attribute inside deleteDossierModal,
      * so the controller can handle the delete process
      */
-    let currentPath = this.model.currentPath === '/' ? '/' : `${this.model.currentPath}/`;
+    let currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
     let selectedItem = this.model.selectedItem.item;
     deleteDossierModal.path = currentPath;
     deleteDossierModal.selectedItemName = selectedItem.name;
@@ -144,26 +146,50 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    if (this.model.content.length) {
-      let selectedItem = this.model.content
-        .find(item => item.selected === 'selected');
-
-      if (selectedItem) {
-        const name = selectedItem.name;
-
-        if (name === 'manifest') {
-          console.error(this.model.error.manifestRenameError);
-          this.feedbackController.updateErrorMessage(this.model.error.manifestRenameError);
-          return;
-        }
-
-        renameDossierModal.fileName.value = name;
-        renameDossierModal.oldFileName = name;
-      }
+    if (!this.model.content.length) {
+      return console.error('No content available');
     }
-    renameDossierModal.currentPath = this.model.currentPath;
+
+    const currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
+    const selectedItem = this.model.selectedItem.item;
+
+    if (selectedItem) {
+      const name = selectedItem.name;
+
+      if (name === 'manifest') {
+        console.error(this.model.error.manifestRenameError);
+        return this.feedbackController.updateErrorMessage(this.model.error.manifestRenameError);
+      }
+
+      renameDossierModal.fileNameInput.value = name;
+      renameDossierModal.oldFileName = name;
+      renameDossierModal.currentPath = currentPath;
+    }
 
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
+      // Response will be used to display notification messages using psk-feedback component
+      console.log(err, response);
+      this._listWalletContent();
+    });
+  }
+
+  _moveDossierHandler = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    if (!this.model.content.length) {
+      return console.error('No content available');
+    }
+
+    const currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
+    const selectedItem = this.model.selectedItem.item;
+
+    if (selectedItem) {
+      moveDossierModal.selectedEntryName = selectedItem.name;
+      moveDossierModal.currentPath = currentPath;
+    }
+
+    this.showModal('moveDossier', moveDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this._listWalletContent();
@@ -402,7 +428,9 @@ export default class ExplorerController extends ContainerController {
       });
 
     mappedContentToAppend = this._sortByProperty(mappedContentToAppend, 'name');
-    this.model.setChainValue('sortedTypes.name.isSorted', true);
+    let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));;
+    sortedTypesViewModel.name.isSorted = true;
+    this.model.setChainValue('sortedTypes', sortedTypesViewModel);
 
     mappedContentToAppend.forEach(el => {
       fullContentList.push(el);
@@ -412,7 +440,9 @@ export default class ExplorerController extends ContainerController {
   }
 
   _handleSortWorkingDirectory = (event) => {
+    event.preventDefault();
     event.stopImmediatePropagation();
+
     let propertyName = event.data;
     if (!propertyName) {
       console.error(`Sort is not possible. The property name is not ok. Provided: ${propertyName}`);
@@ -426,39 +456,23 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    const isSorted = sortTypeViewModel.isSorted;
-    let reverse;
-    if (!isSorted) {
-      reverse = false;
-    } else {
-      reverse = sortTypeViewModel.descendant !== 'descendant';
-    }
-    let newContent = JSON.parse(JSON.stringify(this.model.content));
+    const reverseSorting = sortTypeViewModel.isSorted && !sortTypeViewModel.descending;
+    const content = JSON.parse(JSON.stringify(this.model.content));
 
-    /**
-     * Sort dossiers
-     */
-    let sortedDossiers = newContent.filter(el => el.type === 'dossier');
-    sortedDossiers = this._sortByProperty(sortedDossiers, propertyName, reverse);
-    /**
-     * Sort folders
-     */
-    let sortedFolders = newContent.filter(el => el.type === 'folder');
-    sortedFolders = this._sortByProperty(sortedFolders, propertyName, reverse);
-    /**
-     * Sort files
-     */
-    let sortedFiles = newContent.filter(el => el.type === 'file');
-    sortedFiles = this._sortByProperty(sortedFiles, propertyName, reverse);
+    let newContent = [];
+    ["dossier", "folder", "file"].forEach((type) => {
+      let sortedContent = content.filter(el => el.type === type);
+      sortedContent = this._sortByProperty(sortedContent, propertyName, reverseSorting);
 
-    newContent = [...sortedDossiers, ...sortedFolders, ...sortedFiles];
+      newContent = [...newContent, ...sortedContent];
+    });
 
     /**
      * Reset the view model for sorted types and conditionals and update according to the requested sort option
      */
     let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));
     sortedTypesViewModel[propertyName].isSorted = true;
-    sortedTypesViewModel[propertyName].descendant = reverse ? 'descendant' : '';
+    sortedTypesViewModel[propertyName].descending = reverseSorting;
 
     this.model.setChainValue('content', newContent);
     this.model.setChainValue('sortedTypes', sortedTypesViewModel);
@@ -471,7 +485,7 @@ export default class ExplorerController extends ContainerController {
         break;
       }
       case 'lastModified': {
-        arr = arr.sort((a, b) => b.lastModifiedTimestamp - a.lastModifiedTimestamp);
+        arr = arr.sort((a, b) => a.lastModifiedTimestamp - b.lastModifiedTimestamp);
         break;
       }
       default: {
