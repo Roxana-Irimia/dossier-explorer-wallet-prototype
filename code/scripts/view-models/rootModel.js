@@ -70,7 +70,8 @@ const rootModel = {
     hasError: false,
     errorMessage: '',
     noFileUploadedLabel: 'No file or folder was uploaded',
-    genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!"
+    genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!",
+    manifestRenameError: "manifest file cannot be renamed!"
   },
   conditionalExpressions: {
     isLoading: false,

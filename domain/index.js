@@ -15,6 +15,18 @@ $$.swarms.describe('readDir', {
 	}
 });
 
+$$.swarms.describe('rename', {
+	start: function (oldPath, newPath) {
+		if (rawDossier) {
+			this.return(undefined, `
+			Received: ${oldPath} - ${newPath}
+			`);
+		}
+
+		this.return(new Error("Raw Dossier is not available."));
+	}
+});
+
 $$.swarms.describe("attachDossier", {
 	newDossier: function (path, dossierName) {
 		if (rawDossier) {

@@ -149,7 +149,16 @@ export default class ExplorerController extends ContainerController {
         .find(item => item.selected === 'selected');
 
       if (selectedItem) {
-        renameDossierModal.fileName.value = selectedItem.name;
+        const name = selectedItem.name;
+
+        if (name === 'manifest') {
+          console.error(this.model.error.manifestRenameError);
+          this.feedbackController.updateErrorMessage(this.model.error.manifestRenameError);
+          return;
+        }
+
+        renameDossierModal.fileName.value = name;
+        renameDossierModal.oldFileName = name;
       }
     }
     renameDossierModal.currentPath = this.model.currentPath;
@@ -453,8 +462,6 @@ export default class ExplorerController extends ContainerController {
 
     this.model.setChainValue('content', newContent);
     this.model.setChainValue('sortedTypes', sortedTypesViewModel);
-
-    console.log(newContent);
   }
 
   _sortByProperty = (arr, pName, reverse) => {

@@ -1,8 +1,15 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
+import FeedbackController from "./FeedbackController.js";
+import {
+  getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 export default class RenameDossierController extends ModalController {
   constructor(element) {
     super(element);
+
+    this.dossierService = getDossierServiceInstance();
+    this.feedbackController = new FeedbackController(this.model);
 
     this._initListeners();
   }
@@ -12,15 +19,30 @@ export default class RenameDossierController extends ModalController {
   };
 
   _handleRenameFile = () => {
-    let newFileName = this.model.fileName.value;
-    let currentPath = this.model.currentPath;
-    // Request to middleware for changing the name of file/dossier
+    const oldFileName = this.model.oldFileName;
+    const newFileName = this.model.fileName.value;
+    const currentPath = this.model.currentPath;
 
-    this.responseCallback(undefined, {
-      success: true,
-      newFileName: newFileName,
-      currentPath: currentPath
+    if (!newFileName.trim().length) {
+      return this.feedbackController.updateErrorMessage(this.model.error.nameNotEmptyLabel);
+    }
+
+    if (newFileName.indexOf('/') !== -1) {
+      return this.feedbackController.updateErrorMessage(this.model.error.specialCharactersLabel);
+    }
+
+    const oldPath = `${currentPath}/${oldFileName}`;
+    const newPath = `${currentPath}/${newFileName}`;
+    this.dossierService.rename(oldPath, newPath, (err, result) => {
+      if (err) {
+        console.error(err);
+        return this.feedbackController.updateErrorMessage(err);
+      }
+
+      this.responseCallback(undefined, {
+        success: true,
+        result: result
+      });
     });
   }
-
 }

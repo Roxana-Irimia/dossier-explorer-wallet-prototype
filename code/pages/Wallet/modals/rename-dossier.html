@@ -5,8 +5,8 @@
     <psk-icon icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
     <psk-text-input view-model="fileName"></psk-text-input>
 
-    <psk-condition condition="@hasError">
-      <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+    <psk-condition condition="@error.hasError">
+      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
     </psk-condition>
 
     <psk-button view-model="buttons.renameButton"></psk-button>

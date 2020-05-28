@@ -27,6 +27,11 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    rename(oldPath, newPath, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "rename", "start", oldPath, newPath)
+            .onReturn(callback);
+    }
+
     deleteFileFolder(path, callback) {
         $$.interactions.startSwarmAs("test/agent/007", "delete", "fileFolder", path)
             .onReturn(callback);
