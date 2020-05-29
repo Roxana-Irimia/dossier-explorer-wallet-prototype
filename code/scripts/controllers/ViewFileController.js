@@ -1,7 +1,10 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import FileDownloader from "./FileDownloader.js";
 
+const TEXT_MIME_TYPE = 'text/';
+
 export default class ViewFileController extends ModalController {
+
     constructor(element) {
         super(element);
 
@@ -20,8 +23,39 @@ export default class ViewFileController extends ModalController {
                 type: this.mimeType
             });
 
-            this._displayFile();
+            if (this.mimeType.indexOf(TEXT_MIME_TYPE) !== -1) {
+                this._prepareTextEditorViewModel();
+            } else {
+                this._displayFile();
+            }
         });
+    }
+
+    _prepareTextEditorViewModel = () => {
+        const attachInnerHTML = (innerHTML) => {
+            const conditionElm = document.createElement('psk-condition');
+            conditionElm.condition = "@textEditor.isEditable";
+
+            const codeElm = document.createElement('psk-code');
+            codeElm.language = "@textEditor.language";
+            codeElm.innerHTML = innerHTML;
+
+            conditionElm.appendChild(codeElm);
+            this._appendAsset(conditionElm);
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const textEditorViewModel = {
+                isEditable: true,
+                innerHTML: reader.result,
+                language: this.mimeType.split(TEXT_MIME_TYPE)[1]
+            };
+
+            this.model.setChainValue('textEditor', textEditorViewModel);
+            attachInnerHTML(textEditorViewModel.innerHTML);
+        }
+        reader.readAsText(this.blob);
     }
 
     _displayFile = () => {
@@ -48,8 +82,6 @@ export default class ViewFileController extends ModalController {
                 break;
             }
         }
-
-
     }
 
     _loadBlob = (callback) => {
