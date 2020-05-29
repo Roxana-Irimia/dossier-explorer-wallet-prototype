@@ -95,7 +95,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         switch (clickedItemViewModel.type) {
             case 'file': {
                 clickedItemViewModel.currentPath = this.model.currentPath || '/';
-                this._openViewFileModal(clickedItemViewModel);
+                this.openViewFileModal(clickedItemViewModel);
                 break;
             }
             case 'app': {
@@ -152,6 +152,19 @@ export default class ExplorerNavigatorController extends ContainerController {
 
         this.model.setChainValue('content', newContent);
         this.model.setChainValue('sortedTypes', sortedTypesViewModel);
+    }
+
+    openViewFileModal = (viewModel) => {
+        let path = viewModel.currentPath || '/';
+        if (path === '/') {
+            path = '';
+        }
+
+        viewModel.title = `${path}/${viewModel.name}`;
+        viewModel.path = path;
+        this.showModal('viewAsset', viewModel, (err, response) => {
+            console.log(err, response);
+        });
     }
 
     /* ############################## INTERNAL METHODS ############################## */
