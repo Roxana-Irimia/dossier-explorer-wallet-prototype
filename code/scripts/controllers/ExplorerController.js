@@ -110,12 +110,11 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    /**
-     * Before showModal, set the selectedItemsPaths attribute inside deleteDossierModal,
-     * so the controller can handle the delete process
-     */
-    let currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
-    let selectedItem = this.model.selectedItem.item;
+    const {
+      currentPath,
+      selectedItem
+    } = this._getSelectedItemAndWorkingDir();
+
     deleteDossierModal.path = currentPath;
     deleteDossierModal.selectedItemName = selectedItem.name;
     deleteDossierModal.selectedItemType = selectedItem.type;
@@ -131,25 +130,20 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    if (!this.model.content.length) {
-      return console.error('No content available');
+    const {
+      currentPath,
+      selectedItem
+    } = this._getSelectedItemAndWorkingDir();
+
+    const name = selectedItem.name;
+    if (name === 'manifest') {
+      console.error(this.model.error.manifestManipulationError);
+      return this.feedbackController.updateErrorMessage(this.model.error.manifestManipulationError);
     }
 
-    const currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
-    const selectedItem = this.model.selectedItem.item;
-
-    if (selectedItem) {
-      const name = selectedItem.name;
-
-      if (name === 'manifest') {
-        console.error(this.model.error.manifestRenameError);
-        return this.feedbackController.updateErrorMessage(this.model.error.manifestRenameError);
-      }
-
-      renameDossierModal.fileNameInput.value = name;
-      renameDossierModal.oldFileName = name;
-      renameDossierModal.currentPath = currentPath;
-    }
+    renameDossierModal.fileNameInput.value = name;
+    renameDossierModal.oldFileName = name;
+    renameDossierModal.currentPath = currentPath;
 
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
@@ -162,18 +156,22 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    if (!this.model.content.length) {
-      return console.error('No content available');
+    const {
+      currentPath,
+      selectedItem
+    } = this._getSelectedItemAndWorkingDir();
+
+    if (selectedItem.name === 'manifest') {
+      console.error(this.model.error.manifestManipulationError);
+      return this.feedbackController.updateErrorMessage(this.model.error.manifestManipulationError);
     }
 
-    const currentPath = this.model.currentPath === '/' ? '' : `${this.model.currentPath}`;
-    const selectedItem = this.model.selectedItem.item;
-
-    if (selectedItem) {
-      moveDossierModal.myWalletLabel = this.model.myWalletLabel;
-      moveDossierModal.selectedEntryName = selectedItem.name;
-      moveDossierModal.currentPath = currentPath;
-    }
+    moveDossierModal.selectedEntryName = selectedItem.name;
+    moveDossierModal.currentWorkingDirectory = currentPath;
+    moveDossierModal.contentLabels = {
+      ...this.model.contentLabels,
+      ...moveDossierModal.contentLabels
+    };
 
     this.showModal('moveDossier', moveDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
@@ -186,21 +184,35 @@ export default class ExplorerController extends ContainerController {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    if (this.model.content.length) {
-      let selectedItem = this.model.content
-        .find(item => item.selected === 'selected');
+    const {
+      currentPath,
+      selectedItem
+    } = this._getSelectedItemAndWorkingDir();
 
-      if (selectedItem) {
-        shareDossierModal.selectedFile = selectedItem.name;
-      }
-    }
-    shareDossierModal.currentPath = this.model.currentPath;
+    shareDossierModal.currentPath = currentPath;
+    shareDossierModal.selectedFile = selectedItem.name;
 
     this.showModal('shareDossier', shareDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
       this.navigatorController.listWalletContent();
     });
+  }
+
+  _getSelectedItemAndWorkingDir = () => {
+    if (!this.model.content.length) {
+      throw console.error('No content available');
+    }
+
+    const selectedItem = this.model.selectedItem;
+    if (!selectedItem || !selectedItem.selected) {
+      throw console.error('No item selected!');
+    }
+
+    return {
+      currentPath: this.model.currentPath,
+      selectedItem: selectedItem.item
+    };
   }
 
   _handleFileFolderUpload = (event) => {

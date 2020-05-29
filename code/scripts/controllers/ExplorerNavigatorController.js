@@ -187,7 +187,7 @@ export default class ExplorerNavigatorController extends ContainerController {
     _initNavigationLinks = () => {
         let wDir = this.model.currentPath || '/';
         let links = [{
-            label: this.model.myWalletLabel,
+            label: this.model.contentLabels.myWalletLabel,
             path: '/',
             disabled: false
         }];
@@ -249,26 +249,16 @@ export default class ExplorerNavigatorController extends ContainerController {
             return;
         }
 
-        /** Add dossiers to content model */
-        if (dirContent.mounts && dirContent.mounts.length) {
-            newContent = this._updateContentForType(newContent,
-                dirContent.mounts,
-                walletContentViewModel.defaultDossierAttributes);
-        }
+        this.model.contentTypesToDisplay.map((type) => {
+            if (dirContent[type] && dirContent[type].length) {
+                const updatedContent = this._updateContentForType(
+                    dirContent[type],
+                    walletContentViewModel[type]
+                );
 
-        /** Add folders to content model */
-        if (dirContent.folders && dirContent.folders.length) {
-            newContent = this._updateContentForType(newContent,
-                dirContent.folders,
-                walletContentViewModel.defaultFolderAttributes);
-        }
-
-        /** Add files to content model */
-        if (dirContent.files && dirContent.files.length) {
-            newContent = this._updateContentForType(newContent,
-                dirContent.files,
-                walletContentViewModel.defaultFileAttributes);
-        }
+                newContent = [...newContent, ...updatedContent];
+            }
+        });
 
         this.model.setChainValue('content', newContent);
     }
@@ -283,8 +273,8 @@ export default class ExplorerNavigatorController extends ContainerController {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    _updateContentForType = (fullContentList, contentToAppend, defaultViewModel) => {
-        let mappedContentToAppend = contentToAppend.filter(el => !!el)
+    _updateContentForType = (content, defaultViewModel) => {
+        let mappedContent = content.filter(el => !!el)
             .map(el => {
                 let name = el.trim();
                 if (name.length && name.charAt(0) === '/') {
@@ -306,16 +296,12 @@ export default class ExplorerNavigatorController extends ContainerController {
                 return viewModelObject;
             });
 
-        mappedContentToAppend = this._sortByProperty(mappedContentToAppend, 'name');
+        mappedContent = this._sortByProperty(mappedContent, 'name');
         let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));;
         sortedTypesViewModel.name.isSorted = true;
         this.model.setChainValue('sortedTypes', sortedTypesViewModel);
 
-        mappedContentToAppend.forEach(el => {
-            fullContentList.push(el);
-        });
-
-        return fullContentList;
+        return mappedContent;
     }
 
     _sortByProperty = (arr, pName, reverse) => {

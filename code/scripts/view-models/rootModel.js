@@ -12,12 +12,12 @@ const rootModel = {
   pageLoader: {
     ...pageLoader
   },
+  contentTypesToDisplay: ["mounts", "folders", "files"],
   content: [],
   navigationLinks: [],
   pageTitle: "Explorer",
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",
-  myWalletLabel: "My Wallet",
   currentPath: '/',
   dateFormatOptions: { // Currently not used. 
     // To be used when extending the DateFormat to allow masked formats
@@ -25,7 +25,8 @@ const rootModel = {
     time: 'HH:MM',
     fullTime: 'dd-mm-yyyy and HH:MM'
   },
-  dossierContentLabels: {
+  contentLabels: {
+    myWalletLabel: "My Wallet",
     lastModifiedLabel: "Last modification",
     typeLabel: "Type",
     nameLabel: "Name",
@@ -58,7 +59,7 @@ const rootModel = {
     errorMessage: '',
     noFileUploadedLabel: 'No file or folder was uploaded',
     genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!",
-    manifestRenameError: "manifest file cannot be renamed!"
+    manifestManipulationError: "manifest file is not available for this kind of operation!"
   },
   conditionalExpressions: {
     isLoading: false,

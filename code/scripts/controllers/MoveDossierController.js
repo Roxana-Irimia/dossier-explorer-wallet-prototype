@@ -1,5 +1,6 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import FeedbackController from "./FeedbackController.js";
+import ExplorerNavigatorController from "./ExplorerNavigatorController.js";
 import {
   getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
@@ -10,34 +11,40 @@ export default class MoveDossierController extends ModalController {
 
     this.dossierService = getDossierServiceInstance();
     this.feedbackController = new FeedbackController(this.model);
+    this.navigatorController = new ExplorerNavigatorController(element, this.model);
 
     this._initListeners();
-    this._displayCurrentWorkingDirectory();
   }
 
   _initListeners = () => {
     this.on('confirm-move', this._handleMoveFile);
+    this.on('cancel-move', this._handleCancel)
   };
 
-  _displayCurrentWorkingDirectory = () => {
-    let wDir = this.model.destinationPath || '';
-    if (wDir === '/') {
-      wDir = '';
-    }
+  _handleMoveFile = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
 
-    
-  }
-
-  _handleMoveFile = () => {
     const selectedEntryName = this.model.selectedEntryName;
-    const currentPath = this.model.currentPath || '';
-    let destinationPath = this.model.destinationPath || '';
-    if (destinationPath === '/') {
-      destinationPath = '';
+    const currentWorkingDirectory = this.model.currentWorkingDirectory || '';
+    let currentPath = this.model.currentPath || '';
+    if (currentPath === '/') {
+      currentPath = '';
     }
 
-    const oldPath = `${currentPath}/${selectedEntryName}`;
-    const newPath = `${destinationPath}/${selectedEntryName}`;
+    let selectedItem = this.model.getChainValue('selectedItem');
+    if (selectedItem && selectedItem.selected) {
+      currentPath = `${currentPath}/${selectedItem.item.name}`;
+    }
+
+    const oldPath = `${currentWorkingDirectory}/${selectedEntryName}`;
+    const newPath = `${currentPath}/${selectedEntryName}`;
+
+    if (oldPath === newPath) {
+      console.error(err);
+      return this.feedbackController.updateErrorMessage(this.model.error.samePathError);
+    }
+
     this.dossierService.move(oldPath, newPath, (err, result) => {
       if (err) {
         console.error(err);
@@ -48,6 +55,15 @@ export default class MoveDossierController extends ModalController {
         success: true,
         result: result
       });
+    });
+  }
+
+  _handleCancel = (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    this.responseCallback(undefined, {
+      cancel: true
     });
   }
 }

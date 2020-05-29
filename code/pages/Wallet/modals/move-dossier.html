@@ -3,14 +3,49 @@
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
         <psk-icon icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
-        <psk-label label="@selectDestinationLabel"></psk-label>
+        <psk-label label="@contentLabels.selectDestinationLabel"></psk-label>
 
-        <!-- <psk-for-each ></psk-for-each> --> 
+        <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
+            <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link'
+                disabled='@disabled'>
+            </psk-button>
+            <psk-label>/</psk-label>
+        </psk-for-each>
+
+        <psk-grid class="wallet-list-header" columns="2" layout="xs=[9,3] s=[9,3] m=[9,3] l=[9,3] xl=[9,3]">
+            <psk-button event-name='sort-working-directory' event-data='name'>
+                <psk-label label="@contentLabels.nameLabel"></psk-label>
+                <psk-condition condition='@sortedTypes.name.isSorted'>
+                    <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
+                </psk-condition>
+            </psk-button>
+            <psk-label label="@contentLabels.typeLabel"></psk-label>
+        </psk-grid>
+
+        <psk-for-each class="wallet-list-container" data-view-model="content">
+            <psk-card class="@selected">
+                <psk-button class="wallet-path" event-name="select-wallet-item"
+                    double-click-event-name="double-click-item" event-data="@name">
+                    <psk-grid class="items" columns="2" layout="xs=[9,3] s=[9,3] m=[9,3] l=[9,3] xl=[9,3]">
+                        <psk-grid>
+                            <psk-label label="@name"> </psk-label>
+                            <psk-icon color="#572a57" icon="@icon"></psk-icon>
+                        </psk-grid>
+                        <psk-label label="@type"></psk-label>
+                    </psk-grid>
+                </psk-button>
+            </psk-card>
+
+            <psk-label slot="no-data" class="h2 info" label="@noItemsLabel"></psk-label>
+        </psk-for-each>
 
         <psk-condition condition="@error.hasError">
             <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
         </psk-condition>
 
-        <psk-button view-model="buttons.moveButton"></psk-button>
+        <psk-button-group class="modal-buttons">
+            <psk-button view-model="buttons.cancelButton"></psk-button>
+            <psk-button view-model="buttons.moveButton"></psk-button>
+        </psk-button-group>
     </psk-modal>
 </psk-container>

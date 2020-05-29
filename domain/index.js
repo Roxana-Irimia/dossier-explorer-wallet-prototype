@@ -18,9 +18,10 @@ $$.swarms.describe('readDir', {
 $$.swarms.describe('move', {
 	start: function (oldPath, newPath) {
 		if (rawDossier) {
-			this.return(undefined, `
-			Received: ${oldPath} - ${newPath}
-			`);
+			this.return(undefined, {
+				from: oldPath,
+				to: newPath
+			});
 		}
 
 		this.return(new Error("Raw Dossier is not available."));
