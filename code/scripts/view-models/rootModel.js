@@ -13,14 +13,11 @@ const rootModel = {
     ...pageLoader
   },
   content: [],
-  selectedItem: {
-    selected: false,
-    item: []
-  },
   navigationLinks: [],
   pageTitle: "Explorer",
   sectionTitle: "Dashboard",
   signOutLabel: "Exit",
+  myWalletLabel: "My Wallet",
   currentPath: '/',
   dateFormatOptions: { // Currently not used. 
     // To be used when extending the DateFormat to allow masked formats
@@ -29,7 +26,6 @@ const rootModel = {
     fullTime: 'dd-mm-yyyy and HH:MM'
   },
   dossierContentLabels: {
-    homeLabel: "My Wallet",
     lastModifiedLabel: "Last modification",
     typeLabel: "Type",
     nameLabel: "Name",

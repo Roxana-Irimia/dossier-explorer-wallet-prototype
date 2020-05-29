@@ -13,7 +13,6 @@ import {
 
 import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
-import walletContentViewModel from '../view-models/walletContentViewModel.js';
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import importDossierModal from '../view-models/importDossierModal.js';
@@ -21,7 +20,7 @@ import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
 import moveDossierModal from '../view-models/moveDossierModal.js';
 import shareDossierModal from '../view-models/shareDossierModal.js';
-import DateFormat from "./libs/DateFormat.js";
+import ExplorerNavigatorController from "./ExplorerNavigatorController.js";
 
 export default class ExplorerController extends ContainerController {
   constructor(element) {
@@ -30,9 +29,8 @@ export default class ExplorerController extends ContainerController {
     this.model = this.setModel(rootModel);
     this.dossierService = getDossierServiceInstance();
     this.feedbackController = new FeedbackController(this.model);
-
-    this._listWalletContent();
-    this._initNavigationLinks();
+    this.navigatorController = new ExplorerNavigatorController(element, this.model);
+    
     this._initListeners();
   }
 
@@ -51,20 +49,7 @@ export default class ExplorerController extends ContainerController {
     this.on('rename-dossier', this._renameDossierHandler);
     this.on('move-dossier', this._moveDossierHandler);
 
-    this.on('add-file-folder', this._handleFileFolderUpload, );
-
-    this.on('select-wallet-item', this._handleSelectWalletItem);
-    this.on('double-click-item', this._handleDoubleClick);
-    this.on('change-directory', this._handleChangeDirectory);
-    this.on('sort-working-directory', this._handleSortWorkingDirectory);
-
-    /**
-     * Model chain change watchers
-     */
-    this.model.onChange('currentPath', () => {
-      this._listWalletContent();
-      this._initNavigationLinks();
-    });
+    this.on('add-file-folder', this._handleFileFolderUpload);
   };
 
   _handleSwitchLayout = (event) => {
@@ -93,7 +78,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('createDossier', createDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -105,7 +90,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -117,7 +102,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('importDossier', importDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -138,7 +123,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -169,7 +154,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('renameDossier', renameDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -185,6 +170,7 @@ export default class ExplorerController extends ContainerController {
     const selectedItem = this.model.selectedItem.item;
 
     if (selectedItem) {
+      moveDossierModal.myWalletLabel = this.model.myWalletLabel;
       moveDossierModal.selectedEntryName = selectedItem.name;
       moveDossierModal.currentPath = currentPath;
     }
@@ -192,7 +178,7 @@ export default class ExplorerController extends ContainerController {
     this.showModal('moveDossier', moveDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
@@ -213,291 +199,8 @@ export default class ExplorerController extends ContainerController {
     this.showModal('shareDossier', shareDossierModal, (err, response) => {
       // Response will be used to display notification messages using psk-feedback component
       console.log(err, response);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
-  }
-
-  _initNavigationLinks() {
-    let wDir = this.model.currentPath || '/';
-    let links = [{
-      label: this.model.dossierContentLabels.homeLabel,
-      path: '/',
-      disabled: false
-    }];
-
-    // If the current path is root
-    if (wDir === '/') {
-      links[0].disabled = true;
-      this.model.setChainValue('navigationLinks', links);
-      return;
-    }
-
-    // If anything, but root
-    let paths = wDir.split('/');
-    // pop out first element as it is the root and create below the My Wallet(Home / Root) Link
-    paths.shift();
-
-    paths.forEach((pathSegment) => {
-      let path = links[links.length - 1].path;
-      if (path === '/') {
-        path = `/${pathSegment}`;
-      } else {
-        path = `${path}/${pathSegment}`;
-      }
-
-      links.push({
-        label: pathSegment,
-        path: path,
-        disabled: false
-      });
-    });
-
-    // Disable the last link as it is the current directory in navigation
-    links[links.length - 1].disabled = true;
-
-    // Set the navigation links to view-model
-    this.model.setChainValue('navigationLinks', links);
-  }
-
-  _handleDoubleClick = (event) => {
-    event.stopImmediatePropagation();
-
-    let clickedItem = event.data;
-    if (!clickedItem) {
-      console.error(`Clicked item is not valid!`, event);
-      return;
-    }
-
-    let clickedItemViewModel = this.model.content.find((el) => el.name === clickedItem);
-    if (!clickedItemViewModel) {
-      console.error(`Clicked item is not present in the model!`);
-      return;
-    }
-
-    switch (clickedItemViewModel.type) {
-      case 'file': {
-        clickedItemViewModel.currentPath = this.model.currentPath || '/';
-        this._openViewFileModal(clickedItemViewModel);
-        break;
-      }
-      case 'app': {
-        // handle double-click or click+enter to run the applicaion
-        break;
-      }
-      case 'folder':
-      case 'dossier': {
-        let wDir = this.model.currentPath || '/';
-        let newWorkingDirectory = wDir === '/' ?
-          `${wDir}${clickedItem}` :
-          `${wDir}/${clickedItem}`;
-        this.model.setChainValue('currentPath', newWorkingDirectory);
-      }
-      default:
-        break;
-    }
-  };
-
-  _handleChangeDirectory = (event) => {
-    event.stopImmediatePropagation();
-
-    let path = event.data || '/';
-    this.model.setChainValue('currentPath', path);
-  };
-
-  _resetLastSelected = (lastSelectedName) => {
-    let previouslySelected = this.model.content.find((item) => {
-      return item.selected === 'selected' &&
-        (lastSelectedName && item.name !== lastSelectedName);
-    });
-    if (previouslySelected) {
-      previouslySelected.selected = '';
-      this.model.setChainValue('selectedItem.selected', false);
-      this.model.setChainValue('selectedItem.item', []);
-    }
-  }
-
-  _handleSelectWalletItem = (event) => {
-    event.stopImmediatePropagation();
-
-    let selectedItem = event.data || null;
-    if (!selectedItem) {
-      console.error('An item was not clicked!');
-      return;
-    }
-
-    let selectedItemViewModel = this.model.content.find((el) => el.name === selectedItem);
-    if (!selectedItemViewModel) {
-      console.error('The clicked item is not in the view-model!');
-      return;
-    }
-
-    // Reset the last selected item(if any), as for the moment we support only single selection
-    this._resetLastSelected(selectedItemViewModel.name);
-
-    let isSelected = selectedItemViewModel.selected === 'selected';
-    if (isSelected) {
-      selectedItemViewModel.selected = '';
-      this.model.setChainValue('selectedItem.selected', false);
-      this.model.setChainValue('selectedItem.item', []);
-    } else {
-      selectedItemViewModel.selected = 'selected';
-      let item = {
-        ...selectedItemViewModel,
-        currentPath: this.model.currentPath,
-        isFile: selectedItemViewModel.type === 'file',
-        isFolder: selectedItemViewModel.type === 'folder',
-        isDossier: selectedItemViewModel.type === 'dossier',
-        isApplication: selectedItemViewModel.isApplication
-      };
-
-      this.model.setChainValue('selectedItem.item', JSON.parse(JSON.stringify(item)));
-      this.model.setChainValue('selectedItem.selected', true);
-    }
-  };
-
-  _listWalletContent() {
-    let wDir = this.model.currentPath || '/';
-    this.dossierService.readDir(wDir, {
-      withFileTypes: true
-    }, this._updateWalletContent);
-  }
-
-  _updateWalletContent = (err, dirContent) => {
-    let newContent = [];
-
-    if (err) {
-      this.feedbackController.updateErrorMessage(err);
-      this.model.setChainValue('content', newContent);
-      return;
-    }
-
-    /** Add dossiers to content model */
-    if (dirContent.mounts && dirContent.mounts.length) {
-      newContent = this._updateContentForType(newContent,
-        dirContent.mounts,
-        walletContentViewModel.defaultDossierAttributes);
-    }
-
-    /** Add folders to content model */
-    if (dirContent.folders && dirContent.folders.length) {
-      newContent = this._updateContentForType(newContent,
-        dirContent.folders,
-        walletContentViewModel.defaultFolderAttributes);
-    }
-
-    /** Add files to content model */
-    if (dirContent.files && dirContent.files.length) {
-      newContent = this._updateContentForType(newContent,
-        dirContent.files,
-        walletContentViewModel.defaultFileAttributes);
-    }
-
-    this.model.setChainValue('content', newContent);
-  }
-
-  /**
-   * To be removed after edfs provides the last modified attribute
-   */
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  _updateContentForType = (fullContentList, contentToAppend, defaultViewModel) => {
-    let mappedContentToAppend = contentToAppend.filter(el => !!el)
-      .map(el => {
-        let name = el.trim();
-        if (name.length && name.charAt(0) === '/') {
-          name = name.replace('/', '');
-        }
-
-        let viewModelObject = {
-          ...defaultViewModel,
-          name: name
-        };
-
-        const lastModified = this.getRandomInt(1590000000000, new Date().getTime());
-        const dateFormat = new DateFormat(lastModified, this.model.dateFormatOptions);
-        viewModelObject.lastModifiedTimestamp = lastModified;
-        viewModelObject.fullDateHover = dateFormat.getFullDateString();
-        viewModelObject.lastModified = dateFormat.isInLastDay() ?
-          dateFormat.getFormattedTime() : dateFormat.getFormattedDate();
-
-        return viewModelObject;
-      });
-
-    mappedContentToAppend = this._sortByProperty(mappedContentToAppend, 'name');
-    let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));;
-    sortedTypesViewModel.name.isSorted = true;
-    this.model.setChainValue('sortedTypes', sortedTypesViewModel);
-
-    mappedContentToAppend.forEach(el => {
-      fullContentList.push(el);
-    });
-
-    return fullContentList;
-  }
-
-  _handleSortWorkingDirectory = (event) => {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    let propertyName = event.data;
-    if (!propertyName) {
-      console.error(`Sort is not possible. The property name is not ok. Provided: ${propertyName}`);
-      return;
-    }
-
-    let sortTypeViewModel = this.model.sortedTypes[propertyName];
-
-    if (!sortTypeViewModel) {
-      console.error(`Sort is not possible. The property name is not ok. Provided: ${propertyName}`);
-      return;
-    }
-
-    const reverseSorting = sortTypeViewModel.isSorted && !sortTypeViewModel.descending;
-    const content = JSON.parse(JSON.stringify(this.model.content));
-
-    let newContent = [];
-    ["dossier", "folder", "file"].forEach((type) => {
-      let sortedContent = content.filter(el => el.type === type);
-      sortedContent = this._sortByProperty(sortedContent, propertyName, reverseSorting);
-
-      newContent = [...newContent, ...sortedContent];
-    });
-
-    /**
-     * Reset the view model for sorted types and conditionals and update according to the requested sort option
-     */
-    let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));
-    sortedTypesViewModel[propertyName].isSorted = true;
-    sortedTypesViewModel[propertyName].descending = reverseSorting;
-
-    this.model.setChainValue('content', newContent);
-    this.model.setChainValue('sortedTypes', sortedTypesViewModel);
-  }
-
-  _sortByProperty = (arr, pName, reverse) => {
-    switch (pName) {
-      case 'name': {
-        arr = arr.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      }
-      case 'lastModified': {
-        arr = arr.sort((a, b) => a.lastModifiedTimestamp - b.lastModifiedTimestamp);
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-
-    if (reverse) {
-      arr = arr.reverse();
-    }
-
-    return arr;
   }
 
   _handleFileFolderUpload = (event) => {
@@ -524,7 +227,7 @@ export default class ExplorerController extends ContainerController {
 
       // Close the ui-loader as upload is finished
       this.feedbackController.setLoadingState(false);
-      this._listWalletContent();
+      this.navigatorController.listWalletContent();
     });
   }
 
