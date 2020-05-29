@@ -32,7 +32,7 @@ export default class DeleteDossierController extends ModalController {
     event.stopImmediatePropagation();
 
     if (event.data === 'confirm-delete') {
-      this._deleteSelectedItems((err) => {
+      return this._deleteSelectedItems((err) => {
         if (err) {
           console.error(err);
         }
@@ -41,6 +41,10 @@ export default class DeleteDossierController extends ModalController {
         });
       });
     }
+
+    this.responseCallback(undefined, {
+      success: true
+    });
   }
 
   _deleteSelectedItems(callback) {

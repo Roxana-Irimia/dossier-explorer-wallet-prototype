@@ -30,7 +30,7 @@ export default class ExplorerController extends ContainerController {
     this.dossierService = getDossierServiceInstance();
     this.feedbackController = new FeedbackController(this.model);
     this.navigatorController = new ExplorerNavigatorController(element, this.model);
-    
+
     this._initListeners();
   }
 
@@ -273,19 +273,6 @@ export default class ExplorerController extends ContainerController {
       return;
     }
 
-    this._openViewFileModal(itemViewModel);
-  }
-
-  _openViewFileModal = (viewModel) => {
-    let path = viewModel.currentPath || '/';
-    if (path === '/') {
-      path = '';
-    }
-
-    viewModel.title = `${path}/${viewModel.name}`;
-    viewModel.path = path;
-    this.showModal('viewAsset', viewModel, (err, response) => {
-      console.log(err, response);
-    });
+    this.navigatorController.openViewFileModal(itemViewModel);
   }
 }
