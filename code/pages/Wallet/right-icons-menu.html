@@ -23,10 +23,12 @@
     </psk-button>
   </psk-condition>
 
-  <psk-button-group icon='ellipsis-v' icon-color='#572a57' classes="dots-menu">
-    <psk-for-each data-view-model="iconsMenuMoreOptions">
-      <psk-button label="@label" title="@label" event-name="@eventName" button-class="btn-menu">
-      </psk-button>
-    </psk-for-each>
-  </psk-button-group>
+  <psk-condition condition="@selectedItem.selected">
+    <psk-button-group icon='ellipsis-v' icon-color='#572a57' classes="dots-menu">
+      <psk-for-each data-view-model="iconsMenuMoreOptions">
+        <psk-button label="@label" title="@label" event-name="@eventName" button-class="btn-menu">
+        </psk-button>
+      </psk-for-each>
+    </psk-button-group>
+  </psk-condition>
 </div>
