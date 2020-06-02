@@ -33,21 +33,16 @@ export default class ViewFileController extends ModalController {
 
     _prepareTextEditorViewModel = () => {
         const attachInnerHTML = (innerHTML) => {
-            const conditionElm = document.createElement('psk-condition');
-            conditionElm.condition = "@textEditor.isEditable";
-
             const codeElm = document.createElement('psk-code');
             codeElm.language = "@textEditor.language";
             codeElm.innerHTML = innerHTML;
 
-            conditionElm.appendChild(codeElm);
-            this._appendAsset(conditionElm);
+            this._appendAsset(codeElm);
         }
 
         const reader = new FileReader();
         reader.onload = () => {
             const textEditorViewModel = {
-                isEditable: true,
                 innerHTML: reader.result,
                 language: this.mimeType.split(TEXT_MIME_TYPE)[1]
             };
