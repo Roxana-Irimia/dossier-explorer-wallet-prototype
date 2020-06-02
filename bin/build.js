@@ -14,17 +14,17 @@ function storeSeed(seed_path, seed, callback) {
     });
 }
 
-function createWallet(callback) {
+function createDossier(callback) {
     edfs.createBar((err, bar) => {
         if (err) {
             return callback(err);
         }
 
-        updateWallet(bar, callback);
+        updateDossier(bar, callback);
     })
 }
 
-function updateWallet(bar, callback) {
+function updateDossier(bar, callback) {
     bar.delete("/", function(err){
         if(err){
             throw err;
@@ -44,7 +44,7 @@ function build(callback) {
     fs.readFile(DOSSIER_SEED_FILE_PATH, (err, content) => {
         if (err || content.length === 0) {
             console.log(`Creating a new Dossier...`);
-            return createWallet(callback);
+            return createDossier(callback);
         }
 
         const SEED = require("bar").Seed;
@@ -53,12 +53,12 @@ function build(callback) {
             seed = new SEED(content);
         } catch (err) {
             console.log("Invalid seed. Creating a new Dossier...");
-            return createWallet(callback);
+            return createDossier(callback);
         }
 
         if(seed.getEndpoint() !== BRICK_STORAGE_ENDPOINT){
             console.log("Endpoint change detected. Creating a new Dossier...");
-            return createWallet(callback);
+            return createDossier(callback);
         }
 
         console.log("Dossier updating...");
@@ -67,7 +67,7 @@ function build(callback) {
                 return callback(err);
             }
 
-            updateWallet(bar, callback);
+            updateDossier(bar, callback);
         });
     });
 }
