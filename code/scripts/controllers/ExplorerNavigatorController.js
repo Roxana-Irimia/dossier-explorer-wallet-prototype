@@ -22,7 +22,7 @@ export default class ExplorerNavigatorController extends ContainerController {
 
     listWalletContent = () => {
         let wDir = this.model.currentPath || '/';
-        this.dossierService.readDir(wDir, {
+        this.dossierService.readDirDetailed(wDir, {
             withFileTypes: true
         }, this._updateWalletContent);
     }
@@ -93,23 +93,25 @@ export default class ExplorerNavigatorController extends ContainerController {
         }
 
         switch (clickedItemViewModel.type) {
-            case 'file': {
-                clickedItemViewModel.currentPath = this.model.currentPath || '/';
-                this.openViewFileModal(clickedItemViewModel);
-                break;
-            }
-            case 'app': {
-                // handle double-click or click+enter to run the applicaion
-                break;
-            }
+            case 'file':
+                {
+                    clickedItemViewModel.currentPath = this.model.currentPath || '/';
+                    this.openViewFileModal(clickedItemViewModel);
+                    break;
+                }
+            case 'app':
+                {
+                    // handle double-click or click+enter to run the applicaion
+                    break;
+                }
             case 'folder':
-            case 'dossier': {
-                let wDir = this.model.currentPath || '/';
-                let newWorkingDirectory = wDir === '/' ?
-                    `${wDir}${clickedItem}` :
-                    `${wDir}/${clickedItem}`;
-                this.model.setChainValue('currentPath', newWorkingDirectory);
-            }
+            case 'dossier':
+                {
+                    let wDir = this.model.currentPath || '/';
+                    let newWorkingDirectory = wDir === '/' ?
+                        `${wDir}${clickedItem}` : `${wDir}/${clickedItem}`;
+                    this.model.setChainValue('currentPath', newWorkingDirectory);
+                }
             default:
                 break;
         }
@@ -276,16 +278,35 @@ export default class ExplorerNavigatorController extends ContainerController {
     _updateContentForType = (content, defaultViewModel) => {
         let mappedContent = content.filter(el => !!el)
             .map(el => {
-                let name = el.trim();
+                let name, isApplication = false;
+                if (typeof el === 'object') {
+                    name = el.name.trim();
+                    isApplication = el.isApplication;
+                } else {
+                    name = el.trim();
+                }
+
                 if (name.length && name.charAt(0) === '/') {
                     name = name.replace('/', '');
                 }
 
+                let dossierApplicationViewModel = {};
+                if (isApplication) {
+                    dossierApplicationViewModel.isApplication = isApplication
+                    dossierApplicationViewModel.gridIcon = 'cog';
+                    dossierApplicationViewModel.icon = '';
+                }
+
                 let viewModelObject = {
                     ...defaultViewModel,
+                    ...dossierApplicationViewModel,
                     name: name
                 };
 
+                /**
+                 * Set the attributes regarding the displaying of the lst modification time
+                 * lastModifiedTimestamp, fullDateHover, lastModified
+                 */
                 const lastModified = this.getRandomInt(1590000000000, new Date().getTime());
                 const dateFormat = new DateFormat(lastModified, this.model.dateFormatOptions);
                 viewModelObject.lastModifiedTimestamp = lastModified;
@@ -306,17 +327,20 @@ export default class ExplorerNavigatorController extends ContainerController {
 
     _sortByProperty = (arr, pName, reverse) => {
         switch (pName) {
-            case 'name': {
-                arr = arr.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            }
-            case 'lastModified': {
-                arr = arr.sort((a, b) => a.lastModifiedTimestamp - b.lastModifiedTimestamp);
-                break;
-            }
-            default: {
-                break;
-            }
+            case 'name':
+                {
+                    arr = arr.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                }
+            case 'lastModified':
+                {
+                    arr = arr.sort((a, b) => a.lastModifiedTimestamp - b.lastModifiedTimestamp);
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
         }
 
         if (reverse) {

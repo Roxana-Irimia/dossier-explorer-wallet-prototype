@@ -1,29 +1,34 @@
 .header .row {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 div.row {
-  color: #572a57;
-  font-weight: bold;
-  margin: 0;
+    color: #572a57;
+    font-weight: bold;
+    margin: 0;
 }
 
 .items div.row>* {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 psk-grid label.col-form-label {
-  display: inline;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 auto;
+    display: inline;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0 0 auto;
 }
 
 .wallet-list-header psk-button .btn {
-  font-weight: bold;
-  text-align: left;
-  padding: 0 0 0 0.25rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 0 0 0 0.25rem;
+}
+
+psk-grid.items psk-grid {
+    display: flex;
+    justify-content: space-between;
 }

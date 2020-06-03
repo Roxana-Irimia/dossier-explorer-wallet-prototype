@@ -30,7 +30,6 @@ const rootModel = {
     lastModifiedLabel: "Last modification",
     typeLabel: "Type",
     nameLabel: "Name",
-    runAppLabel: "Run",
     noItemsLabel: "There are no items in the current folder/dossier. You can add some by using the Add button.",
   },
   addMenuLabels: {

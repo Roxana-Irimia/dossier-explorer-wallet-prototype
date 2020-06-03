@@ -12,8 +12,7 @@ const walletContentViewModel = {
     mounts: {
         type: 'dossier',
         gridIcon: 'lock',
-        icon: 'lock',
-        isApplication: false
+        icon: 'lock'
     },
     defaultSortedViewModel: {
         name: {
