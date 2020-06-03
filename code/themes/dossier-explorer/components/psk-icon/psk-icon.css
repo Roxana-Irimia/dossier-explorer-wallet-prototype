@@ -26,3 +26,7 @@ psk-button span.icon {
 psk-icon[descending='true'] span.icon {
   transform: rotate(180deg);
 }
+
+.btn-modal span.icon {
+  font-size: 2rem;
+}

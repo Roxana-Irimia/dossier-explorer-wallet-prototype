@@ -24,15 +24,11 @@
   pointer-events: all;
 }
 
-:host([opened]) #modal {
-  top: 15vh;
-}
-
 #modal {
   position: fixed;
-  top: 10vh;
-  left: 25%;
-  width: 50%;
+  top: 5vh;
+  left: 15%;
+  width: 70%;
   z-index: 99999;
   background: white;
   border-radius: 3px;
@@ -63,10 +59,6 @@
     height: 100%;
     top: 0;
     left: 0;
-  }
-
-  :host([opened]) #modal {
-    top: 0;
   }
 }
 
@@ -100,37 +92,18 @@
   line-height: 2rem;
 }
 
-:host .modal-body ::slotted(*) {
-  max-width: 100%;
-}
-
-:host(.asset-modal) #modal,
-:host(.asset-modal) .modal-content,
-:host(.asset-modal) .modal-content .modal-body,
-:host(.asset-modal) .asset-view {
+:host(.asset-modal[expanded='true']) #modal,
+:host(.asset-modal[expanded='true']) .modal-content,
+:host(.asset-modal[expanded='true']) .modal-content .modal-body {
   width: 100%;
   height: 100%;
-}
-
-:host(.asset-modal) #modal {
   top: 0;
   left: 0;
 }
 
-:host(.asset-modal) .modal-content .modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  vertical-align: middle;
-  left: 0;
-  flex-wrap: wrap;
-  padding-top: 0;
-}
-
 :host(.asset-modal) ::slotted(:not(psk-label)) {
   display: flex;
+  flex-direction: row;
   max-width: 90%;
   max-height: 90%;
-  padding: 1.5rem;
-  flex-wrap: wrap;
 }

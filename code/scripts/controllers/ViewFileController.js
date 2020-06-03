@@ -10,13 +10,38 @@ export default class ViewFileController extends ModalController {
 
         this.fileName = this.model.name;
         this.path = this.model.path;
+        this.model.setChainValue('isExpanded', true);
+        this.fileDownloader = new FileDownloader(this.path, this.fileName);
 
         this._downloadFile();
+        this._initListeners();
+    }
+
+    _initListeners = () => {
+        this.on('download', this._downloadHandler);
+        this.on('expand-collapse', this._expandCollapseHandler);
+    }
+
+    _downloadHandler = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        this.fileDownloader.downloadFileToDevice({
+            contentType: this.mimeType,
+            rawBlob: this.rawBlob
+        });
+    }
+
+    _expandCollapseHandler = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const isExpanded = this.model.isExpanded === true;
+        this.model.setChainValue('isExpanded', !isExpanded);
     }
 
     _downloadFile = () => {
-        let fileDownloader = new FileDownloader(this.path, this.fileName);
-        fileDownloader.downloadFile((downloadedFile) => {
+        this.fileDownloader.downloadFile((downloadedFile) => {
             this.rawBlob = downloadedFile.rawBlob;
             this.mimeType = downloadedFile.contentType;
             this.blob = new Blob([this.rawBlob], {
@@ -123,7 +148,7 @@ export default class ViewFileController extends ModalController {
     }
 
     _appendAsset = (assetObject) => {
-        let assetModal = this.element.querySelector('.asset-modal');
+        let assetModal = this.element.querySelector('.asset-modal .content');
         if (assetModal) {
             assetModal.append(assetObject);
         }

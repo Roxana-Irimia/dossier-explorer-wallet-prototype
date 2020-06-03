@@ -1,5 +1,20 @@
 <psk-container controller-name="ViewFileController">
-    <psk-modal opened class="asset-modal">
+    <psk-modal opened expanded="@isExpanded" class="asset-modal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
+        <psk-card class='modal-container'>
+            <div class="toolbar">
+                <psk-button class='btn-modal' event-name='expand-collapse'>
+                    <psk-condition condition='@isExpanded'>
+                        <psk-icon slot='condition-true' color="#572a57" icon='compress'></psk-icon>
+                        <psk-icon slot='condition-false' color="#572a57" icon='expand'></psk-icon>
+                    </psk-condition>
+                </psk-button>
+                <psk-button class='btn-modal' event-name='download'>
+                    <psk-icon color="#572a57" icon='download'></psk-icon>
+                </psk-button>
+            </div>
+            <div class='content'>
+            </div>
+        </psk-card>
     </psk-modal>
 </psk-container>

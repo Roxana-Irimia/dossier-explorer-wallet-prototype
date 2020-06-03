@@ -13,13 +13,16 @@ export default class FileDownloader {
 
     downloadFile(callback) {
         if (!callback || typeof callback !== 'function') {
-            callback = this._defaultDownloadCallback;
+            callback = this.downloadFileToDevice;
         }
 
         this._getFileBlob(this.path, this.fileName, callback);
     }
 
-    _defaultDownloadCallback = (downloadedFile) => {
+    /**
+     * @param {Object{ contentType: string, rawBlob: Blob }
+     */
+    downloadFileToDevice = (downloadedFile) => {
         window.URL = window.URL || window.webkitURL;
         let blob = downloadedFile.rawBlob;
 
