@@ -5,99 +5,134 @@ const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
 const commons = require('./commons');
 
+//Refactor: Create constants file
+const WITH_FILE_TYPES = { withFileTypes: true };
+
 $$.swarms.describe('readDir', {
-    readDir: function(path, options) {
+    readDir: function (path, options) {
         if (rawDossier) {
             return rawDossier.readDir(path, options, this.return);
         }
 
         this.return(new Error("Raw Dossier is not available."));
     },
-    start: function(path, options) {
+    start: function (path) {
         if (rawDossier) {
-            return rawDossier.readDir(path, options, (err, content) => {
+            return rawDossier.readDir(path, WITH_FILE_TYPES, (err, content) => {
                 if (err) {
                     return this.return(err);
                 }
 
                 this.path = path === '/' ? '' : path;
-                this.content = content;
+                this.content = {
+                    ...content,
+                    applications: []
+                };
                 this.checkForApplications();
             });
         }
 
         this.return(new Error("Raw Dossier is not available."));
     },
-    checkForApplications: function() {
+    checkForApplications: function () {
         const mounts = this.content.mounts;
-        const mountsLength = mounts.length;
-        if (!mountsLength) {
+        const numberOfMounts = mounts.length;
+        if (!numberOfMounts ||
+            (numberOfMounts === 1 && mounts[0] === 'code')) {
             return this.return(undefined, this.content);
         }
 
         mounts.forEach((mount, index) => {
-            rawDossier.readDir(`${this.path}/${mount}`, { withFileTypes: true }, (err, mountContent) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                const folders = mountContent.folders;
-                if (!folders || !folders.length) {
-                    this.content.mounts[index] = {
-                        name: mount,
-                        isApplication: false
-                    };
-
-                    if (mountsLength === index + 1) {
-                        this.return(undefined, this.content);
-                    }
-                } else {
-                    const hasAppFolder = folders.findIndex((fName) => fName === "app") !== -1;
-                    if (!hasAppFolder) {
-                        this.checkForCodeHTML(mount, index, mountsLength);
-                    } else {
-                        this.content.mounts[index] = {
-                            name: mount,
-                            isApplication: hasAppFolder
-                        };
-
-                        if (mountsLength === index + 1) {
-                            this.return(undefined, this.content);
-                        }
-                    }
-                }
-            });
+            if (mount !== 'code') {
+                this.checkForAppFolder(mount, index, numberOfMounts);
+            }
         });
     },
-    checkForCodeHTML: function(mount, index, mountsLength) {
-        rawDossier.readDir(`${this.path}/${mount}/code`, { withFileTypes: true }, (err, codeContent) => {
+    updateMountsList: function () {
+        const { mounts, applications } = this.content;
+        const filteredMountPoints = mounts.filter((mountPoint) => {
+            let remove = false;
+            applications.forEach((appName) => {
+                remove = remove || appName === mountPoint;
+            });
+
+            return !remove;
+        });
+
+        this.content.mounts = filteredMountPoints;
+        this.return(undefined, this.content);
+    },
+    checkForAppFolder: function (mountPoint, index, numberOfMounts) {
+        const wDir = `${this.path}/${mountPoint}`;
+        rawDossier.readDir(wDir, WITH_FILE_TYPES, (err, mountPointContent) => {
             if (err) {
                 return this.return(err);
             }
 
-            const files = codeContent.files;
-            if (!files || !files.length) {
-                this.content.mounts[index] = {
-                    name: mount,
-                    isApplication: false
-                };
-            } else {
-                const hasIndexHtml = files.findIndex((fName) => fName === 'index.html') !== -1;
-                this.content.mounts[index] = {
-                    name: mount,
-                    isApplication: hasIndexHtml
-                };
+            const { folders, mounts } = mountPointContent;
+            if (!folders || !folders.length) {
+                const hasCodeFolder = mounts.findIndex(mPoint => mPoint === 'code') !== -1;
+                if (hasCodeFolder) {
+                    return this.checkForCode(mountPoint, index, numberOfMounts);
+                }
+
+                if (numberOfMounts === index + 1) {
+                    this.updateMountsList();
+                }
+
+                return;
             }
 
-            if (mountsLength === index + 1) {
-                this.return(undefined, this.content);
+            const hasAppFolder = folders.findIndex((fName) => fName === "app") !== -1;
+            if (!hasAppFolder) {
+                return this.checkForCode(mountPoint, index, numberOfMounts);
+            }
+
+            this.content.applications.push(this.content.mounts[index]);
+
+            if (numberOfMounts === index + 1) {
+                this.updateMountsList();
+            }
+
+        });
+    },
+    checkForCode: function (mountPoint, index, numberOfMounts) {
+        const wDir = `${this.path}/${mountPoint}`;
+        rawDossier.readDir(`${wDir}/code`, WITH_FILE_TYPES, (err, codeContent) => {
+            if (err) {
+                return this.return(err);
+            }
+
+            const { files, folders } = codeContent;
+            if (!files || !files.length) {
+                this.content.mounts[index] = {
+                    name: this.content.mounts[index],
+                    isApplication: false
+                };
+
+                return;
+            }
+
+            const hasIndexHtml = files.findIndex((fName) => fName === 'index.html') !== -1;
+            if (!hasIndexHtml) {
+                const hasAppFolder = folders.findIndex((fName) => fName === 'app') !== -1;
+                if (hasAppFolder) {
+                    this.path = wDir;
+                    return this.checkForAppFolder('code', index, numberOfMounts);
+                }
+            }
+
+            this.content.applications.push(this.content.mounts[index]);
+
+            if (numberOfMounts === index + 1) {
+                this.updateMountsList();
             }
         });
     }
 });
 
 $$.swarms.describe('move', {
-    start: function(oldPath, newPath) {
+    start: function (oldPath, newPath) {
         if (rawDossier) {
             this.return(undefined, {
                 from: oldPath,
@@ -110,7 +145,7 @@ $$.swarms.describe('move', {
 });
 
 $$.swarms.describe("attachDossier", {
-    newDossier: function(path, dossierName) {
+    newDossier: function (path, dossierName) {
         if (rawDossier) {
             commons.createNewDossier((err, newDossier) => {
                 if (err) {
@@ -141,7 +176,7 @@ $$.swarms.describe("attachDossier", {
             this.return(new Error("Raw Dossier is not available."))
         }
     },
-    fromSeed: function(path, dossierName, SEED) {
+    fromSeed: function (path, dossierName, SEED) {
         if (rawDossier) {
             edfs.loadRawDossier(SEED, (err, loadedDossier) => {
                 if (err) {
@@ -175,14 +210,14 @@ $$.swarms.describe("attachDossier", {
 });
 
 $$.swarms.describe('delete', {
-    fileFolder: function(path) {
+    fileFolder: function (path) {
         if (rawDossier) {
             return rawDossier.delete(path, this.return);
         }
 
         this.return(new Error("Raw Dossier is not available."))
     },
-    dossier: function(path) {
+    dossier: function (path) {
         if (rawDossier) {
             return rawDossier.unmount(path, this.return);
         }
@@ -192,7 +227,7 @@ $$.swarms.describe('delete', {
 });
 
 $$.swarms.describe('listDossiers', {
-    printSeed: function(path, dossierName) {
+    printSeed: function (path, dossierName) {
         if (rawDossier) {
             return rawDossier.listMountedDossiers(path, (err, result) => {
                 if (err) {

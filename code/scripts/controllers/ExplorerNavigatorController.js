@@ -22,9 +22,7 @@ export default class ExplorerNavigatorController extends ContainerController {
 
     listWalletContent = () => {
         let wDir = this.model.currentPath || '/';
-        this.dossierService.readDirDetailed(wDir, {
-            withFileTypes: true
-        }, this._updateWalletContent);
+        this.dossierService.readDirDetailed(wDir, this._updateWalletContent);
     }
 
     changeDirectoryHandler = (event) => {
@@ -99,13 +97,9 @@ export default class ExplorerNavigatorController extends ContainerController {
                     this.openViewFileModal(clickedItemViewModel);
                     break;
                 }
-            case 'app':
-                {
-                    // handle double-click or click+enter to run the applicaion
-                    break;
-                }
-            case 'folder':
+            case 'application':
             case 'dossier':
+            case 'folder':
                 {
                     let wDir = this.model.currentPath || '/';
                     let newWorkingDirectory = wDir === '/' ?
@@ -138,7 +132,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         const content = JSON.parse(JSON.stringify(this.model.content));
 
         let newContent = [];
-        ["dossier", "folder", "file"].forEach((type) => {
+        ["application", "dossier", "folder", "file"].forEach((type) => {
             let sortedContent = content.filter(el => el.type === type);
             sortedContent = this._sortByProperty(sortedContent, propertyName, reverseSorting);
 
@@ -278,28 +272,13 @@ export default class ExplorerNavigatorController extends ContainerController {
     _updateContentForType = (content, defaultViewModel) => {
         let mappedContent = content.filter(el => !!el)
             .map(el => {
-                let name, isApplication = false;
-                if (typeof el === 'object') {
-                    name = el.name.trim();
-                    isApplication = el.isApplication;
-                } else {
-                    name = el.trim();
-                }
-
+                name = el.trim();
                 if (name.length && name.charAt(0) === '/') {
                     name = name.replace('/', '');
                 }
 
-                let dossierApplicationViewModel = {};
-                if (isApplication) {
-                    dossierApplicationViewModel.isApplication = isApplication
-                    dossierApplicationViewModel.gridIcon = 'cog';
-                    dossierApplicationViewModel.icon = '';
-                }
-
                 let viewModelObject = {
                     ...defaultViewModel,
-                    ...dossierApplicationViewModel,
                     name: name
                 };
 

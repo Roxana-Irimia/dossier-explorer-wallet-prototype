@@ -17,9 +17,9 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    readDirDetailed(path, options, callback) {
+    readDirDetailed(path, callback) {
         $$.interactions
-            .startSwarmAs("test/agent/007", "readDir", "start", path, options)
+            .startSwarmAs("test/agent/007", "readDir", "start", path)
             .onReturn(callback);
     }
 
@@ -56,7 +56,7 @@ class DossierExplorerService {
 }
 
 let dossierExplorer = new DossierExplorerService();
-let getDossierServiceInstance = function() {
+let getDossierServiceInstance = function () {
     return dossierExplorer;
 };
 

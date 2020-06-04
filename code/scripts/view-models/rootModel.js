@@ -12,7 +12,7 @@ const rootModel = {
   pageLoader: {
     ...pageLoader
   },
-  contentTypesToDisplay: ["mounts", "folders", "files"],
+  contentTypesToDisplay: ["applications", "mounts", "folders", "files"],
   content: [],
   navigationLinks: [],
   pageTitle: "Explorer",
@@ -45,13 +45,13 @@ const rootModel = {
     switchListHover: "Click to switch to grid",
   },
   iconsMenuMoreOptions: [{
-      label: "Move",
-      eventName: 'move-dossier'
-    },
-    {
-      label: "Rename",
-      eventName: 'rename-dossier'
-    }
+    label: "Move",
+    eventName: 'move-dossier'
+  },
+  {
+    label: "Rename",
+    eventName: 'rename-dossier'
+  }
   ],
   error: {
     hasError: false,
