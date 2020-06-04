@@ -21,7 +21,22 @@ const getParentDossier = function (rawDossier, path, callback) {
             return getParentDossier(rawDossier, remainingPath, callback);
         }
 
-        callback(undefined, dossier.identifier, `${remainingPath}/${wDir}`);
+        rawDossier.listMountedDossiers(`${remainingPath}/${wDir}`, (err, mountedPoints) => {
+            if (err) {
+                console.error(err);
+                return callback(err);
+            }
+
+            let childDossier = mountedPoints.find((dsr) => {
+                return dsr.identifier === dossier.identifier;
+            });
+
+            if (childDossier) {
+                return getParentDossier(rawDossier, remainingPath, callback);
+            }
+
+            callback(undefined, dossier.identifier, `${remainingPath}/${wDir}`);
+        });
     });
 };
 
