@@ -25,6 +25,10 @@ export default class CreateDossierController extends ModalController {
     event.stopImmediatePropagation();
     this.feedbackController.updateErrorMessage();
 
+    if (!this._validateInput()) {
+      return;
+    }
+
     const wDir = this.model.currentPath || '/';
     let dossierName = this.model.dossierNameInput.value;
     this.dossierService.readDir(wDir, (err, dirContent) => {
@@ -66,13 +70,18 @@ export default class CreateDossierController extends ModalController {
   };
 
   _validateInput = () => {
-    this.feedbackController.updateErrorMessage(null);
+    this.feedbackController.updateErrorMessage();
 
-    let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
-    this.model.setChainValue('buttons.createDossier.disabled', isEmptyName);
+    const value = this.model.dossierNameInput.value;
+    const isEmptyName = value.trim().length === 0;
+    const hasWhiteSpaces = value.replace(/\s/g, '') !== value;
+    this.model.setChainValue('buttons.createDossier.disabled', isEmptyName || hasWhiteSpaces);
 
-    if (isEmptyName) {
-      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel);
+    if (isEmptyName || hasWhiteSpaces) {
+      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotValidLabel);
+      return false;
     }
+
+    return true;
   };
 }

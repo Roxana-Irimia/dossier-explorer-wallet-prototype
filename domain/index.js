@@ -105,11 +105,6 @@ $$.swarms.describe('readDir', {
 
             const { files, folders } = codeContent;
             if (!files || !files.length) {
-                this.content.mounts[index] = {
-                    name: this.content.mounts[index],
-                    isApplication: false
-                };
-
                 return;
             }
 

@@ -24,7 +24,11 @@ export default class ImportDossierController extends ModalController {
 
   _setNameForImportedDossier = (event) => {
     event.stopImmediatePropagation();
-    this.feedbackController.updateErrorMessage(null);
+    this.feedbackController.updateErrorMessage();
+
+    if (!this._validateInput()) {
+      return;
+    }
 
     const wDir = this.model.currentPath || '/';
     this.dossierName = this.model.dossierNameInput.value;
@@ -64,18 +68,23 @@ export default class ImportDossierController extends ModalController {
   };
 
   _validateInput = () => {
-    this.feedbackController.updateErrorMessage(null);
+    this.feedbackController.updateErrorMessage();
 
-    let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
-    this.model.setChainValue('buttons.continueButton.disabled', isEmptyName);
+    const value = this.model.dossierNameInput.value;
+    const isEmptyName = value.trim().length === 0;
+    const hasWhiteSpaces = value.replace(/\s/g, '') !== value;
+    this.model.setChainValue('buttons.continueButton.disabled', isEmptyName || hasWhiteSpaces);
 
-    if (isEmptyName) {
-      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel);
+    if (isEmptyName || hasWhiteSpaces) {
+      this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotValidLabel);
+      return false;
     }
+
+    return true;
   };
 
   _validateSeedInput = () => {
-    this.feedbackController.updateErrorMessage(null);
+    this.feedbackController.updateErrorMessage();
 
     let SEED = this.model.dossierSeedInput.value;
     let isEmptySeed = SEED.trim().length === 0;
