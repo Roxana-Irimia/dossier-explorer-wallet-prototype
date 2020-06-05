@@ -1,3 +1,11 @@
+const isSubPath = function (path, subPath) {
+    if (path !== '/') {
+        path = `${path}/`;
+    }
+
+    return path.indexOf(`/${subPath}/`) !== -1;
+}
+
 const getParentDossier = function (rawDossier, path, callback) {
     if (path === '' || path === '/') {
         return callback(undefined);
@@ -14,29 +22,14 @@ const getParentDossier = function (rawDossier, path, callback) {
         }
 
         let dossier = mountPoints.find((dsr) => {
-            return dsr.path === wDir || dsr.path.indexOf(wDir) !== -1;
+            return dsr.path === wDir || isSubPath(path, dsr.path);
         });
 
         if (!dossier) {
             return getParentDossier(rawDossier, remainingPath, callback);
         }
 
-        rawDossier.listMountedDossiers(`${remainingPath}/${wDir}`, (err, mountedPoints) => {
-            if (err) {
-                console.error(err);
-                return callback(err);
-            }
-
-            let childDossier = mountedPoints.find((dsr) => {
-                return dsr.identifier === dossier.identifier;
-            });
-
-            if (childDossier) {
-                return getParentDossier(rawDossier, remainingPath, callback);
-            }
-
-            callback(undefined, dossier.identifier, `${remainingPath}/${wDir}`);
-        });
+        callback(undefined, dossier.identifier, `${remainingPath}/${wDir}`);
     });
 };
 
