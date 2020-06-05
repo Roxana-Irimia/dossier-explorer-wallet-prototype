@@ -124,7 +124,20 @@ $$.swarms.describe('readDir', {
                 this.updateMountsList();
             }
         });
+    },
+
+
+    //TODO:temporary: mock usage
+    getApplications:function(path){
+
+            rawDossier.listMountedDossiers(path, (err, mountedDossiersList) => {
+                if(err){
+					return this.return(err);
+                }
+				this.return(undefined, mountedDossiersList);
+            })
     }
+
 });
 
 $$.swarms.describe('move', {

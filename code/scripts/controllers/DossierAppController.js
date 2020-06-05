@@ -1,27 +1,18 @@
-const lazyItemsModel = [
-  {
-    name: "App1",
-    path: "/my-apps/path1",
-    exact: true,
-    icon: "fa-home",
-    component: "psk-page-loader",
-    componentProps: {
-      pageUrl: "http://localhost:8000/pages/nested-menu/item1.html"
-    }
-  },
-  {
-    name: "App2",
-    path: "/my-apps/path2",
-    icon: "fa-home",
-    exact: true,
-    componentProps: {
-      pageUrl: "http://localhost:8000/pages/nested-menu/item1.html"
-    }
-  }
-];
+import {getDossierServiceInstance} from "../service/DossierExplorerService.js"
+const DossierExplorerService = getDossierServiceInstance();
+const APPS_FOLDER = "/apps";
+
+const appTemplate = {
+	exact: false,
+	component: "psk-ss-app",
+	componentProps: {}
+};
 
 export default class DossierAppController {
   constructor(element) {
+
+	let mntApps;
+
     element.addEventListener("getSSApps", function(event) {
       if (
         typeof event.getEventType === "function" &&
@@ -31,10 +22,57 @@ export default class DossierAppController {
         if (typeof callback !== "function") {
           throw new Error("Callback should be a function");
         }
-        setTimeout(() => {
-          callback(undefined, lazyItemsModel);
-        }, 500);
+
+        DossierExplorerService.getInstalledApps(APPS_FOLDER, (err, mountedDossiers)=>{
+
+			if(err){
+				return callback(err);
+			}
+			DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, { applications }) => {
+
+				if(err){
+					return callback(err);
+				}
+
+				let mountedApps = mountedDossiers.filter((mountedDossier)=>{
+					return applications.indexOf(mountedDossier.path) !== -1;
+				});
+
+
+				let apps = [];
+				mntApps = mountedApps;
+				mountedApps.forEach((mountedApp)=>{
+					let app = JSON.parse(JSON.stringify(appTemplate));
+					app.name = mountedApp.path;
+					app.path = "/my-apps/"+ mountedApp.path;
+					app.componentProps.appName = mountedApp.path;
+					apps.push(app);
+				});
+
+				callback(err, apps);
+
+			});
+
+        });
+
       }
     });
+
+
+    element.addEventListener("giveMeSeed",(evt)=>{
+
+    	let appName = evt.detail.appName;
+    	let callback = evt.detail.callback;
+
+    	for(let i = 0; i<mntApps.length; i++){
+    		if(mntApps[i].path === appName){
+    			return callback(undefined, mntApps[i].identifier);
+			}
+		}
+
+		callback(new Error("No seed for app "+appName));
+
+
+	})
   }
 }

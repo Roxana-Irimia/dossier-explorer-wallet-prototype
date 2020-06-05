@@ -1,1 +1,5 @@
 /*psk-app-router css*/
+psk-ss-app{
+    display: flex;
+    height:100vh;
+}

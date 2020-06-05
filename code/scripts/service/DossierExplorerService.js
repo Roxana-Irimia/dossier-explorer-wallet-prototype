@@ -53,6 +53,11 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+	getInstalledApps(path, callback) {
+		$$.interactions.startSwarmAs("test/agent/007", "readDir", "getApplications", path)
+			.onReturn(callback);
+	}
+
 }
 
 let dossierExplorer = new DossierExplorerService();

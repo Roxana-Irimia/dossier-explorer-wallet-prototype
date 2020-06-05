@@ -106,6 +106,7 @@ export default class ExplorerNavigatorController extends ContainerController {
                         `${wDir}${clickedItem}` : `${wDir}/${clickedItem}`;
                     this.model.setChainValue('currentPath', newWorkingDirectory);
                 }
+                break;
             default:
                 break;
         }

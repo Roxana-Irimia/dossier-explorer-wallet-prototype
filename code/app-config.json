@@ -28,31 +28,16 @@
     },
     "pages": [{
         "name": "Explorer",
-        "path": "/",
+        "path": "/explorer",
         "pageSrc": "Wallet/wallet.html"
       },
       {
         "name": "My Apps",
         "path": "/my-apps",
         "icon": "fa-plug",
-        "children": "@event:getSSApps"
-      },
-      {
-        "name": "Nested Menu",
-        "path": "/nested-menu",
-        "icon": "fa-plug",
-        "children": [{
-            "name": "Item1"
-          },
-          {
-            "name": "item2"
-          }
-        ]
-      },
-      {
-        "name": "404",
-        "path": "404",
-        "indexed": false
+        "children": "@event:getSSApps",
+        "propName":"appName",
+        "component": "psk-ss-app"
       }
     ]
   }
