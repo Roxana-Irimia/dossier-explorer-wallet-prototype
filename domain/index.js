@@ -4,9 +4,7 @@ const EDFS = require("edfs");
 const edfs = EDFS.attachToEndpoint(EDFS_ENDPOINT);
 
 const commons = require('./commons');
-
-//Refactor: Create constants file
-const WITH_FILE_TYPES = { withFileTypes: true };
+const constants = require('./constants');
 
 $$.swarms.describe('readDir', {
     readDir: function (path, options) {
@@ -18,7 +16,7 @@ $$.swarms.describe('readDir', {
     },
     start: function (path) {
         if (rawDossier) {
-            return rawDossier.readDir(path, WITH_FILE_TYPES, (err, content) => {
+            return rawDossier.readDir(path, constants.WITH_FILE_TYPES, (err, content) => {
                 if (err) {
                     return this.return(err);
                 }
@@ -38,12 +36,12 @@ $$.swarms.describe('readDir', {
         const mounts = this.content.mounts;
         const numberOfMounts = mounts.length;
         if (!numberOfMounts ||
-            (numberOfMounts === 1 && mounts[0] === 'code')) {
+            (numberOfMounts === 1 && mounts[0] === constants.CODE)) {
             return this.return(undefined, this.content);
         }
 
         mounts.forEach((mount, index) => {
-            if (mount !== 'code') {
+            if (mount !== constants.CODE) {
                 this.checkForAppFolder(mount, index, numberOfMounts);
             }
         });
@@ -64,28 +62,19 @@ $$.swarms.describe('readDir', {
     },
     checkForAppFolder: function (mountPoint, index, numberOfMounts) {
         const wDir = `${this.path}/${mountPoint}`;
-        rawDossier.readDir(wDir, WITH_FILE_TYPES, (err, mountPointContent) => {
+        rawDossier.readDir(wDir, constants.WITH_FILE_TYPES, (err, mountPointContent) => {
             if (err) {
                 return this.return(err);
             }
 
             const { folders, mounts } = mountPointContent;
             if (!folders || !folders.length) {
-                const hasCodeFolder = mounts.findIndex(mPoint => mPoint === 'code') !== -1;
-                if (hasCodeFolder) {
-                    return this.checkForCode(mountPoint, index, numberOfMounts);
-                }
-
-                if (numberOfMounts === index + 1) {
-                    this.updateMountsList();
-                }
-
-                return;
+                return this.checkForCodeDossier(mounts, mountPoint, index, numberOfMounts);
             }
 
-            const hasAppFolder = folders.findIndex((fName) => fName === "app") !== -1;
+            const hasAppFolder = folders.findIndex((fName) => fName === constants.APP) !== -1;
             if (!hasAppFolder) {
-                return this.checkForCode(mountPoint, index, numberOfMounts);
+                return this.checkForIndexHTML(mountPoint, index, numberOfMounts);
             }
 
             this.content.applications.push(this.content.mounts[index]);
@@ -96,9 +85,19 @@ $$.swarms.describe('readDir', {
 
         });
     },
-    checkForCode: function (mountPoint, index, numberOfMounts) {
+    checkForCodeDossier: function (mounts, mountPoint, index, numberOfMounts) {
+        const hasCodeFolder = mounts.findIndex(mPoint => mPoint === constants.CODE) !== -1;
+        if (hasCodeFolder) {
+            return this.checkForIndexHTML(mountPoint, index, numberOfMounts);
+        }
+
+        if (numberOfMounts === index + 1) {
+            this.updateMountsList();
+        }
+    },
+    checkForIndexHTML: function (mountPoint, index, numberOfMounts) {
         const wDir = `${this.path}/${mountPoint}`;
-        rawDossier.readDir(`${wDir}/code`, WITH_FILE_TYPES, (err, codeContent) => {
+        rawDossier.readDir(`${wDir}/${constants.CODE}`, constants.WITH_FILE_TYPES, (err, codeContent) => {
             if (err) {
                 return this.return(err);
             }
@@ -108,13 +107,15 @@ $$.swarms.describe('readDir', {
                 return;
             }
 
-            const hasIndexHtml = files.findIndex((fName) => fName === 'index.html') !== -1;
+            const hasIndexHtml = files.findIndex((fName) => fName === constants.INDEX_HTML) !== -1;
             if (!hasIndexHtml) {
-                const hasAppFolder = folders.findIndex((fName) => fName === 'app') !== -1;
+                const hasAppFolder = folders.findIndex((fName) => fName === constants.APP) !== -1;
                 if (hasAppFolder) {
                     this.path = wDir;
-                    return this.checkForAppFolder('code', index, numberOfMounts);
+                    return this.checkForAppFolder(constants.CODE, index, numberOfMounts);
                 }
+
+                return this.checkForCodeDossier(mounts, mountPoint, index, numberOfMounts);
             }
 
             this.content.applications.push(this.content.mounts[index]);
