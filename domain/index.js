@@ -126,10 +126,7 @@ $$.swarms.describe('readDir', {
         });
     },
 
-
-    //TODO:temporary: mock usage
-    getApplications:function(path){
-
+	getMountedDossiers:function(path){
             rawDossier.listMountedDossiers(path, (err, mountedDossiersList) => {
                 if(err){
 					return this.return(err);
@@ -137,7 +134,6 @@ $$.swarms.describe('readDir', {
 				this.return(undefined, mountedDossiersList);
             })
     }
-
 });
 
 $$.swarms.describe('move', {

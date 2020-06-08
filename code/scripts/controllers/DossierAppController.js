@@ -23,37 +23,25 @@ export default class DossierAppController {
           throw new Error("Callback should be a function");
         }
 
-        DossierExplorerService.getInstalledApps(APPS_FOLDER, (err, mountedDossiers)=>{
+        DossierExplorerService.getInstalledApps(APPS_FOLDER, (err, mountedApps)=>{
 
-			if(err){
+			if (err) {
 				return callback(err);
 			}
-			DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, { applications }) => {
 
-				if(err){
-					return callback(err);
-				}
-
-				let mountedApps = mountedDossiers.filter((mountedDossier)=>{
-					return applications.indexOf(mountedDossier.path) !== -1;
-				});
-
-
-				let apps = [];
-				mntApps = mountedApps;
-				mountedApps.forEach((mountedApp)=>{
-					let app = JSON.parse(JSON.stringify(appTemplate));
-					app.name = mountedApp.path;
-					app.path = "/my-apps/"+ mountedApp.path;
-					app.componentProps.appName = mountedApp.path;
-					apps.push(app);
-				});
-
-				callback(err, apps);
-
+			let apps = [];
+			mntApps = mountedApps;
+			mountedApps.forEach((mountedApp) => {
+				let app = JSON.parse(JSON.stringify(appTemplate));
+				app.name = mountedApp.path;
+				app.path = "/my-apps/" + mountedApp.path;
+				app.componentProps.appName = mountedApp.path;
+				apps.push(app);
 			});
 
-        });
+			callback(err, apps);
+
+		});
 
       }
     });
