@@ -16,7 +16,9 @@ export default class DossierAppController {
         typeof event.getEventType === "function" &&
         event.getEventType() === "PSK_SUB_MENU_EVT"
       ) {
-        let callback = event.data;
+
+        let callback = event.data.callback;
+        let pathPrefix = event.data.pathPrefix;
         if (typeof callback !== "function") {
           throw new Error("Callback should be a function");
         }
@@ -30,7 +32,7 @@ export default class DossierAppController {
 			applications.forEach((mountedApp) => {
 				let app = JSON.parse(JSON.stringify(appTemplate));
 				app.name = mountedApp;
-				app.path = "/my-apps/" + mountedApp;
+				app.path = pathPrefix +"/" + mountedApp;
 				app.componentProps.appName = mountedApp;
 				apps.push(app);
 			});
