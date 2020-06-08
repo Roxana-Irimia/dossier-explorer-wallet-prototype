@@ -11,8 +11,6 @@ const appTemplate = {
 export default class DossierAppController {
   constructor(element) {
 
-	let mntApps;
-
     element.addEventListener("getSSApps", function(event) {
       if (
         typeof event.getEventType === "function" &&
@@ -23,19 +21,17 @@ export default class DossierAppController {
           throw new Error("Callback should be a function");
         }
 
-        DossierExplorerService.getInstalledApps(APPS_FOLDER, (err, mountedApps)=>{
-
+        DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {applications})=>{
 			if (err) {
 				return callback(err);
 			}
 
 			let apps = [];
-			mntApps = mountedApps;
-			mountedApps.forEach((mountedApp) => {
+			applications.forEach((mountedApp) => {
 				let app = JSON.parse(JSON.stringify(appTemplate));
-				app.name = mountedApp.path;
-				app.path = "/my-apps/" + mountedApp.path;
-				app.componentProps.appName = mountedApp.path;
+				app.name = mountedApp;
+				app.path = "/my-apps/" + mountedApp;
+				app.componentProps.appName = mountedApp;
 				apps.push(app);
 			});
 
@@ -45,22 +41,5 @@ export default class DossierAppController {
 
       }
     });
-
-
-    element.addEventListener("giveMeSeed",(evt)=>{
-
-    	let appName = evt.detail.appName;
-    	let callback = evt.detail.callback;
-
-    	for(let i = 0; i<mntApps.length; i++){
-    		if(mntApps[i].path === appName){
-    			return callback(undefined, mntApps[i].identifier);
-			}
-		}
-
-		callback(new Error("No seed for app "+appName));
-
-
-	})
   }
 }

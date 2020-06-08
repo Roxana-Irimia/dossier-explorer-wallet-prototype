@@ -124,15 +124,6 @@ $$.swarms.describe('readDir', {
                 this.updateMountsList();
             }
         });
-    },
-
-	getMountedDossiers:function(path){
-            rawDossier.listMountedDossiers(path, (err, mountedDossiersList) => {
-                if(err){
-					return this.return(err);
-                }
-				this.return(undefined, mountedDossiersList);
-            })
     }
 });
 

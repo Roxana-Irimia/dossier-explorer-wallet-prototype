@@ -53,26 +53,6 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-	getInstalledApps(path, callback) {
-
-		$$.interactions.startSwarmAs("test/agent/007", "readDir", "getMountedDossiers", path)
-			.onReturn((err, mountedDossiers)=>{
-
-			    this.readDirDetailed(path, (err, { applications }) => {
-
-					if (err) {
-						return callback(err);
-					}
-
-					let mountedApps = mountedDossiers.filter((mountedDossier) => {
-						return applications.indexOf(mountedDossier.path) !== -1;
-					});
-
-					callback(undefined, mountedApps);
-				});
-            });
-	}
-
 }
 
 let dossierExplorer = new DossierExplorerService();
