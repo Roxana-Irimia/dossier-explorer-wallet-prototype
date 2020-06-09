@@ -92,13 +92,15 @@
   line-height: 2rem;
 }
 
-:host(.asset-modal[expanded='true']) #modal,
-:host(.asset-modal[expanded='true']) .modal-content,
-:host(.asset-modal[expanded='true']) .modal-content .modal-body {
+:host([expanded='true']) #modal,
+:host([expanded='true']) .modal-content,
+:host([expanded='true']) .modal-content .modal-body {
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+  padding:0;
+  margin:0;
 }
 
 :host(.asset-modal) ::slotted(:not(psk-label)) {
