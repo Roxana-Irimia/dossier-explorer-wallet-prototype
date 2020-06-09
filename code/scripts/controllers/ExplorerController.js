@@ -57,7 +57,11 @@ export default class ExplorerController extends ContainerController {
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        console.log('\n\n[RUN APP] Run application triggered\n\n');
+        let applicationName = event.data;
+
+        this.showModal("runApp",{name:applicationName},()=>{
+
+        })
     }
 
     _handleSwitchLayout = (event) => {

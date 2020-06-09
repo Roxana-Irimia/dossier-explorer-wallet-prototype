@@ -4,7 +4,7 @@ const APPS_FOLDER = "/apps";
 
 const appTemplate = {
 	exact: false,
-	component: "psk-ss-app",
+	component: "psk-ssapp",
 	componentProps: {}
 };
 
