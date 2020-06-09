@@ -12,6 +12,10 @@
                 <psk-button class='btn-modal' event-name='download'>
                     <psk-icon color="#572a57" icon='download'></psk-icon>
                 </psk-button>
+                <psk-condition condition="@isEditing">
+                    <psk-button slot='condition-true' view-model="buttons.saveButton"> </psk-button>
+                    <psk-button slot='condition-false' view-model="buttons.editButton"> </psk-button>
+                </psk-condition>
             </div>
             <div class='content'>
             </div>

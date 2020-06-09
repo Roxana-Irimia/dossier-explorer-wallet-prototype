@@ -6,6 +6,7 @@ import FeedbackController from "./FeedbackController.js";
 import DateFormat from "./libs/DateFormat.js";
 
 import walletContentViewModel from '../view-models/walletContentViewModel.js';
+import viewFileModal from "../view-models/viewFileModal.js";
 
 export default class ExplorerNavigatorController extends ContainerController {
     constructor(element, model) {
@@ -159,6 +160,11 @@ export default class ExplorerNavigatorController extends ContainerController {
 
         viewModel.title = `${path}/${viewModel.name}`;
         viewModel.path = path;
+
+        viewModel = {
+            ...viewFileModal,
+            ...viewModel
+        };
         this.showModal('viewAsset', viewModel, (err, response) => {
             console.log(err, response);
         });
