@@ -27,7 +27,7 @@ aside {
   height: 100%;
   background: url("/themes/dossier-explorer/images/nav-background.jpg") no-repeat left bottom;
   background-color: #8395af;
-  background-size:contain ;
+  background-size:100% ;
   color: white;
   align-items: center;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
