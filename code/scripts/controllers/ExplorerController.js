@@ -32,6 +32,7 @@ export default class ExplorerController extends ContainerController {
         this.navigatorController = new ExplorerNavigatorController(element, this.model);
 
         this._initListeners();
+        this._checkForLandingApp();
     }
 
     _initListeners = () => {
@@ -53,6 +54,19 @@ export default class ExplorerController extends ContainerController {
         this.on('add-file-folder', this._handleFileFolderUpload);
     };
 
+    _checkForLandingApp(){
+        this.DSUStorage.getObject("apps/.landingApp", (err, landingApp)=>{
+            if(!err && landingApp.name){
+				this.showModal("runApp",{name:landingApp.name});
+				this.dossierService.deleteFileFolder("apps/.landingApp", (err) => {
+					if(err){
+					    console.log(err);
+                    }
+				});
+            }
+        })
+
+    }
     _handleRunApplication = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
