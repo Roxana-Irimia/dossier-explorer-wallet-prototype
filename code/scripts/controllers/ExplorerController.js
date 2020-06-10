@@ -26,7 +26,7 @@ export default class ExplorerController extends ContainerController {
     constructor(element) {
         super(element);
 
-        this.model = this.setModel(rootModel);
+        this.model = this.setModel(JSON.parse(JSON.stringify(rootModel)));
         this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
         this.navigatorController = new ExplorerNavigatorController(element, this.model);
