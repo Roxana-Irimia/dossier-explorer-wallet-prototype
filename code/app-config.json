@@ -15,7 +15,8 @@
     "shareDossier": "Wallet/modals/share-dossier.html",
     "renameDossier": "Wallet/modals/rename-dossier.html",
     "viewAsset": "Wallet/modals/view-asset.html",
-    "moveDossier": "Wallet/modals/move-dossier.html"
+    "moveDossier": "Wallet/modals/move-dossier.html",
+    "runApp": "Wallet/modals/run-app.html"
   },
   "menu": {
     "defaultMenuConfig": {
@@ -37,7 +38,7 @@
         "icon": "fa-plug",
         "children": "@event:getSSApps",
         "propName":"appName",
-        "component": "psk-ss-app"
+        "component": "psk-ssapp"
       }
     ]
   }
