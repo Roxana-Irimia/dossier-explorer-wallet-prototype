@@ -10,7 +10,6 @@ export default class ViewFileController extends ModalController {
 
         this.fileName = this.model.name;
         this.path = this.model.path;
-        this.model.setChainValue("isExpanded", true);
         this.fileDownloader = new FileDownloader(this.path, this.fileName);
 
         this._downloadFile();
@@ -19,9 +18,47 @@ export default class ViewFileController extends ModalController {
 
     _initListeners = () => {
         this.on("download", this._downloadHandler);
-        this.on("expand-collapse", this._expandCollapseHandler);
         this.on("start-edit", this._startEditHandler);
         this.on("save-edit", this._saveEditHandler);
+
+        this.on('exit-save', this._saveChangesHandler);
+        this.on('exit-discard', this._discardChangesHandler);
+        this.on('exit-cancel', this._cancelExitHandler);
+
+        this.on('closeModal', this._closeModalHandler, true);
+    }
+
+    _saveChangesHandler = (evt) => {
+        this._saveEditHandler(evt);
+        this.model.setChainValue('closingConfirmation.opened', false);
+    }
+
+    _discardChangesHandler = (evt) => {
+        evt.stopImmediatePropagation();
+        evt.preventDefault();
+
+        this.model.setChainValue('textEditor.value', this.model.textEditor.oldValue);
+        this.model.setChainValue("isEditing", false);
+        this.model.setChainValue('closingConfirmation.opened', false);
+    }
+
+    _cancelExitHandler = (evt) => {
+        evt.stopImmediatePropagation();
+        evt.preventDefault();
+
+        this.model.setChainValue('closingConfirmation.opened', false);
+    }
+
+    _closeModalHandler = (evt) => {
+        if (this.model.isEditing === true && this._isFileModified()) {
+            evt.stopImmediatePropagation();
+            evt.preventDefault();
+            this.model.setChainValue('closingConfirmation.opened', true);
+        }
+    }
+
+    _isFileModified = () => {
+        return this.model.textEditor.value !== this.model.textEditor.oldValue;
     }
 
     _startEditHandler = (event) => {
@@ -39,14 +76,18 @@ export default class ViewFileController extends ModalController {
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        this.DSUStorage.setItem(this.model.title, this.model.textEditor.value, (err) => {
-            if (err) {
-                return console.error(err);
-            }
+        if (this._isFileModified()) {
+            this.DSUStorage.setItem(this.model.title, this.model.textEditor.value, (err) => {
+                if (err) {
+                    this.model.setChainValue("isEditing", true);
+                    return console.error(err);
+                }
 
-            this._downloadFile();
-            this.model.setChainValue("isEditing", false);
-        });
+                this._downloadFile();
+            });
+        }
+
+        this.model.setChainValue("isEditing", false);
     }
 
     _downloadHandler = (event) => {
@@ -57,14 +98,6 @@ export default class ViewFileController extends ModalController {
             contentType: this.mimeType,
             rawBlob: this.rawBlob
         });
-    }
-
-    _expandCollapseHandler = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const isExpanded = this.model.isExpanded === true;
-        this.model.setChainValue("isExpanded", !isExpanded);
     }
 
     _downloadFile = () => {
@@ -97,16 +130,16 @@ export default class ViewFileController extends ModalController {
             const conditionElm = document.createElement("psk-condition");
             conditionElm.condition = "@isEditing";
 
-            const textAreaElm = document.createElement("psk-textarea");
-            textAreaElm.slot = "condition-true";
-            textAreaElm.value = "@textEditor.value";
+            const liveCodeElm = document.createElement("psk-live-code");
+            liveCodeElm.slot = "condition-true";
+            liveCodeElm.setAttribute('view-model', 'textEditor');
 
             const codeElm = document.createElement("psk-code");
             codeElm.slot = "condition-false";
             codeElm.language = "@textEditor.language";
             codeElm.innerHTML = this.model.textEditor.value;
 
-            conditionElm.appendChild(textAreaElm);
+            conditionElm.appendChild(liveCodeElm);
             conditionElm.appendChild(codeElm);
             this._appendAsset(conditionElm);
         }
@@ -114,7 +147,9 @@ export default class ViewFileController extends ModalController {
         const reader = new FileReader();
         reader.onload = () => {
             const textEditorViewModel = {
+                isEditable: true,
                 value: reader.result,
+                oldValue: reader.result,
                 language: this.mimeType.split(TEXT_MIME_TYPE)[1]
             };
 

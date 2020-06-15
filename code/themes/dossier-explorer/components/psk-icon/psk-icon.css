@@ -1,32 +1,31 @@
 @import url("/themes/commons/styles/styles.css");
-
 span.icon {
-  font-size: 1rem;
-  margin: 0;
-  padding: calc(0.375rem + 1px) 0;
-  color: #572a57;
+    font-size: 1rem;
+    margin: 0;
+    padding: calc(0.375rem + 1px) 0;
+    color: #572a57;
 }
 
 psk-button span.icon {
-  padding: 0;
+    padding: 0;
 }
 
 .icon.disable-color {
-  color: #999 !important;
+    color: #999 !important;
 }
 
 .icon.icon-run-app {
-  font-size: 0.75rem;
+    font-size: 0.75rem;
 }
 
 .icon.right-menu {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 psk-icon[descending='true'] span.icon {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
-.btn-modal span.icon {
-  font-size: 2rem;
+.expand-icon span.icon {
+    color: #fff;
 }
