@@ -40,12 +40,22 @@ $$.swarms.describe('readDir', {
             return this.return(undefined, this.content);
         }
 
-        mounts.forEach((mount, index) => {
-            if (mount !== constants.CODE) {
-                this.checkForAppFolder(mount, index, numberOfMounts);
-            }
+        let sequence = Promise.resolve();
+        mounts.forEach((mount) => {
+            sequence = sequence.then(()=>{
+                return new Promise((resolve)=>{
+					if (mount !== constants.CODE) {
+						return this.checkForAppFolder(mount, resolve);
+					}
+					resolve();
+                })
+            })
         });
-    },
+
+		sequence.then(()=>{
+			this.updateMountsList();
+        })
+	},
     updateMountsList: function () {
         const { mounts, applications } = this.content;
         const filteredMountPoints = mounts.filter((mountPoint) => {
@@ -60,7 +70,7 @@ $$.swarms.describe('readDir', {
         this.content.mounts = filteredMountPoints;
         this.return(undefined, this.content);
     },
-    checkForAppFolder: function (mountPoint, index, numberOfMounts) {
+    checkForAppFolder: function (mountPoint, callback) {
         const wDir = `${this.path}/${mountPoint}`;
         rawDossier.readDir(wDir, constants.WITH_FILE_TYPES, (err, mountPointContent) => {
             if (err) {
@@ -69,33 +79,29 @@ $$.swarms.describe('readDir', {
 
             const { folders, mounts } = mountPointContent;
             if (!folders || !folders.length) {
-                return this.checkForCodeDossier(mounts, mountPoint, index, numberOfMounts);
+               return this.checkForCodeDossier(mounts, mountPoint, callback);
             }
 
             const hasAppFolder = folders.findIndex((fName) => fName === constants.APP) !== -1;
             if (!hasAppFolder) {
-                return this.checkForIndexHTML(mountPoint, index, numberOfMounts);
+                return this.checkForIndexHTML(mountPoint, callback);
             }
 
-            this.content.applications.push(this.content.mounts[index]);
+            this.content.applications.push(mountPoint);
 
-            if (numberOfMounts === index + 1) {
-                this.updateMountsList();
-            }
+            callback();
 
         });
     },
-    checkForCodeDossier: function (mounts, mountPoint, index, numberOfMounts) {
+    checkForCodeDossier: function (mounts, mountPoint, callback) {
         const hasCodeFolder = mounts.findIndex(mPoint => mPoint === constants.CODE) !== -1;
         if (hasCodeFolder) {
-            return this.checkForIndexHTML(mountPoint, index, numberOfMounts);
+            return this.checkForIndexHTML(mountPoint, callback);
         }
 
-        if (numberOfMounts === index + 1) {
-            this.updateMountsList();
-        }
+        callback();
     },
-    checkForIndexHTML: function (mountPoint, index, numberOfMounts) {
+    checkForIndexHTML: function (mountPoint, callback) {
         const wDir = `${this.path}/${mountPoint}`;
         rawDossier.readDir(`${wDir}/${constants.CODE}`, constants.WITH_FILE_TYPES, (err, codeContent) => {
             if (err) {
@@ -104,7 +110,7 @@ $$.swarms.describe('readDir', {
 
             const { files, folders } = codeContent;
             if (!files || !files.length) {
-                return;
+				return callback();
             }
 
             const hasIndexHtml = files.findIndex((fName) => fName === constants.INDEX_HTML) !== -1;
@@ -112,17 +118,15 @@ $$.swarms.describe('readDir', {
                 const hasAppFolder = folders.findIndex((fName) => fName === constants.APP) !== -1;
                 if (hasAppFolder) {
                     this.path = wDir;
-                    return this.checkForAppFolder(constants.CODE, index, numberOfMounts);
+                    return this.checkForAppFolder(constants.CODE, callback);
                 }
 
-                return this.checkForCodeDossier(mounts, mountPoint, index, numberOfMounts);
+                return this.checkForCodeDossier(mounts, mountPoint, callback);
             }
 
-            this.content.applications.push(this.content.mounts[index]);
+            this.content.applications.push(mountPoint);
 
-            if (numberOfMounts === index + 1) {
-                this.updateMountsList();
-            }
+            callback();
         });
     }
 });
