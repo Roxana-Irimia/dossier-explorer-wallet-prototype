@@ -1,6 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 import FileDownloader from "./FileDownloader.js";
-import FileUploader from "./FileUploader.js";
 import FeedbackController from "./FeedbackController.js";
 
 import {
@@ -253,21 +252,22 @@ export default class ExplorerController extends ContainerController {
         let wDir = this.model.currentPath || '/';
         // Open the ui-loader
         this.feedbackController.setLoadingState(true);
-        let fileUploader = new FileUploader(wDir, filesArray);
-        fileUploader.startUpload((err, result) => {
+        this.DSUStorage.uploadMultipleFiles(wDir, filesArray,{preventOverwrite:true},(err, filesUploaded) => {
+
+			//TODO: check for errors:
+            //successfully uploaded files are in err.data
             if (err) {
-                return this.feedbackController.updateErrorMessage(err);
-            }
+				return this.feedbackController.updateErrorMessage(err);
+			}
 
-            console.log("[Upload Finished!]");
-            console.log(result);
-            console.log("[Upload Finished!]");
+			console.log(filesUploaded);
+			console.log("[Upload Finished!]");
 
-            // Close the ui-loader as upload is finished
-            this.feedbackController.setLoadingState(false);
-            this.navigatorController.listWalletContent();
-        });
-    }
+			// Close the ui-loader as upload is finished
+			this.feedbackController.setLoadingState(false);
+			this.navigatorController.listWalletContent();
+		})
+    };
 
     _handleDownload = (event) => {
         event.stopImmediatePropagation();
