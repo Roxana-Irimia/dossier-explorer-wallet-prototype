@@ -157,7 +157,7 @@ $$.swarms.describe("attachDossier", {
                         return this.return(err);
                     }
 
-                    if (parentDossierSeed) {
+                    if (parentDossierSeed !== rawDossier.getSeed()) {
                         return edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
                             if (err) {
                                 return this.return(err);
@@ -188,7 +188,7 @@ $$.swarms.describe("attachDossier", {
                         return this.return(err);
                     }
 
-                    if (parentDossierSeed) {
+                    if (parentDossierSeed !== rawDossier.getSeed()) {
                         return edfs.loadRawDossier(parentDossierSeed, (err, parentRawDossier) => {
                             if (err) {
                                 return this.return(err);
