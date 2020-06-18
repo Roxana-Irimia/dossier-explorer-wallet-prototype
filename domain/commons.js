@@ -51,14 +51,12 @@ const createNewDossier = function (callback) {
     });
 }
 
-const mountDossier = function (rawDossier, mountPoint, seed) {
+const mountDossier = function (rawDossier, mountPoint, seed, callback) {
     rawDossier.mount(mountPoint, seed, (err) => {
         if (err) {
-            console.error(err);
-            return this.return(err);
+            return callback(err)
         }
-
-        this.return(undefined, seed);
+        callback(undefined, seed);
     });
 }
 
