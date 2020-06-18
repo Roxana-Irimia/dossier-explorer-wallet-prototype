@@ -8,7 +8,7 @@ const isSubPath = function (path, subPath) {
 
 const getParentDossier = function (rawDossier, path, callback) {
     if (path === '' || path === '/') {
-        return callback(undefined);
+        return callback(undefined, rawDossier.getSeed(), "/");
     }
 
     let paths = path.split('/');

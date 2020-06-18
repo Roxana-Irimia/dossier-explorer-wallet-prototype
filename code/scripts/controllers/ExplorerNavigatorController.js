@@ -20,7 +20,6 @@ export default class ExplorerNavigatorController extends ContainerController {
         this._initNavigationLinks();
         this._initListeners();
     }
-
     listWalletContent = () => {
         let wDir = this.model.currentPath || '/';
         this.dossierService.readDirDetailed(wDir, this._updateWalletContent);
@@ -31,6 +30,10 @@ export default class ExplorerNavigatorController extends ContainerController {
 
         let path = event.data || '/';
         this.model.setChainValue('currentPath', path);
+    };
+
+	getFullPath = ()=>{
+        return this.model.currentPath;
     };
 
     selectWalletItemHandler = (event) => {
@@ -101,12 +104,10 @@ export default class ExplorerNavigatorController extends ContainerController {
             case 'application':
             case 'dossier':
             case 'folder':
-                {
                     let wDir = this.model.currentPath || '/';
                     let newWorkingDirectory = wDir === '/' ?
                         `${wDir}${clickedItem}` : `${wDir}/${clickedItem}`;
                     this.model.setChainValue('currentPath', newWorkingDirectory);
-                }
                 break;
             default:
                 break;

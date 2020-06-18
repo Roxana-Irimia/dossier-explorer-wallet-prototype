@@ -71,9 +71,15 @@ export default class ExplorerController extends ContainerController {
         event.stopImmediatePropagation();
 
         let applicationName = event.data;
+        let fullPath = this.navigatorController.getFullPath();
 
-        this.showModal("runApp",{name:applicationName},()=>{
-
+        this.dossierService.getMountedDossier(fullPath, (err, currentDossierPath) => {
+            this.showModal("runApp", {
+                name: applicationName,
+                dossierContext: {fullPath: fullPath, currentDossierPath: currentDossierPath}
+            }, () => {
+                //TODO: what should happen when user closes the app?
+            })
         })
     }
 

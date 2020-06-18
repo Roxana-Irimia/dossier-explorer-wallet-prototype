@@ -227,6 +227,14 @@ $$.swarms.describe('delete', {
 });
 
 $$.swarms.describe('listDossiers', {
+    getMountedDossier:function(path){
+		commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
+		    if(err){
+                return this.return(err);
+            }
+			this.return(undefined, relativePath);
+		})
+    },
     printSeed: function (path, dossierName) {
         if (rawDossier) {
             return rawDossier.listMountedDossiers(path, (err, result) => {
