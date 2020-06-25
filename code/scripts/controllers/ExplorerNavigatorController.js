@@ -9,8 +9,8 @@ import walletContentViewModel from '../view-models/walletContentViewModel.js';
 import viewFileModal from "../view-models/viewFileModal.js";
 
 export default class ExplorerNavigatorController extends ContainerController {
-    constructor(element, model) {
-        super(element);
+    constructor(element, history, model) {
+        super(element, history);
 
         this.model = model;
         this.dossierService = getDossierServiceInstance();
@@ -32,7 +32,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         this.model.setChainValue('currentPath', path);
     };
 
-	getFullPath = ()=>{
+    getFullPath = () => {
         return this.model.currentPath;
     };
 
@@ -104,10 +104,10 @@ export default class ExplorerNavigatorController extends ContainerController {
             case 'application':
             case 'dossier':
             case 'folder':
-                    let wDir = this.model.currentPath || '/';
-                    let newWorkingDirectory = wDir === '/' ?
-                        `${wDir}${clickedItem}` : `${wDir}/${clickedItem}`;
-                    this.model.setChainValue('currentPath', newWorkingDirectory);
+                let wDir = this.model.currentPath || '/';
+                let newWorkingDirectory = wDir === '/' ?
+                    `${wDir}${clickedItem}` : `${wDir}/${clickedItem}`;
+                this.model.setChainValue('currentPath', newWorkingDirectory);
                 break;
             default:
                 break;

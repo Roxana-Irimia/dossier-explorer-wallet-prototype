@@ -22,13 +22,13 @@ import shareDossierModal from '../view-models/shareDossierModal.js';
 import ExplorerNavigatorController from "./ExplorerNavigatorController.js";
 
 export default class ExplorerController extends ContainerController {
-    constructor(element) {
-        super(element);
+    constructor(element, history) {
+        super(element, history);
 
         this.model = this.setModel(JSON.parse(JSON.stringify(rootModel)));
         this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
-        this.navigatorController = new ExplorerNavigatorController(element, this.model);
+        this.navigatorController = new ExplorerNavigatorController(element, history, this.model);
 
         this._initListeners();
         this._checkForLandingApp();
@@ -53,15 +53,15 @@ export default class ExplorerController extends ContainerController {
         this.on('add-file-folder', this._handleFileFolderUpload);
     };
 
-    _checkForLandingApp(){
-        this.DSUStorage.getObject("apps/.landingApp", (err, landingApp)=>{
-            if(!err && landingApp.name){
-				this.showModal("runApp",{name:landingApp.name});
-				this.dossierService.deleteFileFolder("apps/.landingApp", (err) => {
-					if(err){
-					    console.log(err);
+    _checkForLandingApp() {
+        this.DSUStorage.getObject("apps/.landingApp", (err, landingApp) => {
+            if (!err && landingApp.name) {
+                this.showModal("runApp", { name: landingApp.name });
+                this.dossierService.deleteFileFolder("apps/.landingApp", (err) => {
+                    if (err) {
+                        console.log(err);
                     }
-				});
+                });
             }
         })
 
@@ -76,7 +76,7 @@ export default class ExplorerController extends ContainerController {
         this.dossierService.getMountedDossier(fullPath, (err, currentDossierPath) => {
             this.showModal("runApp", {
                 name: applicationName,
-                dossierContext: {fullPath: fullPath, currentDossierPath: currentDossierPath}
+                dossierContext: { fullPath: fullPath, currentDossierPath: currentDossierPath }
             }, () => {
                 //TODO: what should happen when user closes the app?
             })
@@ -258,21 +258,21 @@ export default class ExplorerController extends ContainerController {
         let wDir = this.model.currentPath || '/';
         // Open the ui-loader
         this.feedbackController.setLoadingState(true);
-        this.DSUStorage.uploadMultipleFiles(wDir, filesArray,{preventOverwrite:true},(err, filesUploaded) => {
+        this.DSUStorage.uploadMultipleFiles(wDir, filesArray, { preventOverwrite: true }, (err, filesUploaded) => {
 
-			//TODO: check for errors:
+            //TODO: check for errors:
             //successfully uploaded files are in err.data
             if (err) {
-				return this.feedbackController.updateErrorMessage(err);
-			}
+                return this.feedbackController.updateErrorMessage(err);
+            }
 
-			console.log(filesUploaded);
-			console.log("[Upload Finished!]");
+            console.log(filesUploaded);
+            console.log("[Upload Finished!]");
 
-			// Close the ui-loader as upload is finished
-			this.feedbackController.setLoadingState(false);
-			this.navigatorController.listWalletContent();
-		})
+            // Close the ui-loader as upload is finished
+            this.feedbackController.setLoadingState(false);
+            this.navigatorController.listWalletContent();
+        })
     };
 
     _handleDownload = (event) => {

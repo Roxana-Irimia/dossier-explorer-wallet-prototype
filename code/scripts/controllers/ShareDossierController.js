@@ -1,59 +1,59 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import {
-  getDossierServiceInstance
+    getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
 import FeedbackController from "./FeedbackController.js";
 
 export default class ShareDossierController extends ModalController {
-  constructor(element) {
-    super(element);
+    constructor(element, history) {
+        super(element, history);
 
-    this.feedbackController = new FeedbackController(this.model);
-    this.dossierServive = getDossierServiceInstance();
-    this._setSeedForInput();
-    this._initListeners();
-  }
-
-  _initListeners() {
-    this.on('copy-clipboard', this._copyToClipboardHandler);
-  }
-
-  _setSeedForInput() {
-    let wDir = this.model.currentPath || '/';
-    let dossierName = this.model.selectedFile;
-    this.dossierServive.printDossierSeed(wDir, dossierName, (err, seed) => {
-      if (err) {
-        console.error(err);
-        this.feedbackController.updateErrorMessage(err);
-      } else {
-        this.model.setChainValue('dossierSEEDInput.value', seed);
-      }
-    });
-  }
-
-  _copyToClipboardHandler = (event) => {
-    event.stopImmediatePropagation();
-
-    if (!this._isCopySupported()) {
-      return console.warn(`Copy to clpboard functionality is not available!`);
+        this.feedbackController = new FeedbackController(this.model);
+        this.dossierServive = getDossierServiceInstance();
+        this._setSeedForInput();
+        this._initListeners();
     }
 
-    let SEED = event.data || '';
-    if (SEED !== this.model.dossierSEEDInput.value) {
-      return console.error('SEEDs are not the same!', SEED, this.model.dossierSEEDInput.value);
+    _initListeners() {
+        this.on('copy-clipboard', this._copyToClipboardHandler);
     }
 
-    navigator.clipboard.writeText(SEED);
-    this.model.setChainValue('conditionalExpressions.isSeedCopied', true);
-  }
+    _setSeedForInput() {
+        let wDir = this.model.currentPath || '/';
+        let dossierName = this.model.selectedFile;
+        this.dossierServive.printDossierSeed(wDir, dossierName, (err, seed) => {
+            if (err) {
+                console.error(err);
+                this.feedbackController.updateErrorMessage(err);
+            } else {
+                this.model.setChainValue('dossierSEEDInput.value', seed);
+            }
+        });
+    }
 
-  _isCopySupported() {
-    let support = !!document.queryCommandSupported;
+    _copyToClipboardHandler = (event) => {
+        event.stopImmediatePropagation();
 
-    ['copy', 'cut'].forEach((action) => {
-      support = support && !!document.queryCommandSupported(action);
-    });
-    return support;
-  }
+        if (!this._isCopySupported()) {
+            return console.warn(`Copy to clpboard functionality is not available!`);
+        }
+
+        let SEED = event.data || '';
+        if (SEED !== this.model.dossierSEEDInput.value) {
+            return console.error('SEEDs are not the same!', SEED, this.model.dossierSEEDInput.value);
+        }
+
+        navigator.clipboard.writeText(SEED);
+        this.model.setChainValue('conditionalExpressions.isSeedCopied', true);
+    }
+
+    _isCopySupported() {
+        let support = !!document.queryCommandSupported;
+
+        ['copy', 'cut'].forEach((action) => {
+            support = support && !!document.queryCommandSupported(action);
+        });
+        return support;
+    }
 
 }

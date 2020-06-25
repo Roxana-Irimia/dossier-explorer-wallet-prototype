@@ -5,8 +5,8 @@ const TEXT_MIME_TYPE = "text/";
 
 export default class ViewFileController extends ModalController {
 
-    constructor(element) {
-        super(element);
+    constructor(element, history) {
+        super(element, history);
 
         this.fileName = this.model.name;
         this.path = this.model.path;

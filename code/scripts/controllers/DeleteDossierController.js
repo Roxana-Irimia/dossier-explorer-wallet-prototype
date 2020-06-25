@@ -1,75 +1,78 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import Constants from "./Constants.js";
 import {
-  getDossierServiceInstance
+    getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
 
 export default class DeleteDossierController extends ModalController {
-  constructor(element) {
-    super(element);
+    constructor(element, history) {
+        super(element, history);
 
-    this.dossierService = getDossierServiceInstance();
+        this.dossierService = getDossierServiceInstance();
 
-    this._initListeners();
-    this._updateNotificationMessage();
-  }
+        this._initListeners();
+        this._updateNotificationMessage();
+    }
 
-  _initListeners() {
-    this.on('delete', this._handleDeleteModalActions.bind(this));
-  };
+    _initListeners() {
+        this.on('delete', this._handleDeleteModalActions.bind(this));
+    };
 
-  /**
-   * TODO: Validate how to display this message
-   */
-  _updateNotificationMessage() {
-    let message = this.model.notificationMessage;
-    message = message.replace(Constants.DELETE_ITEMS_PLACEHOLDER, '1');
+    /**
+     * TODO: Validate how to display this message
+     */
+    _updateNotificationMessage() {
+        let message = this.model.notificationMessage;
+        message = message.replace(Constants.DELETE_ITEMS_PLACEHOLDER, '1');
 
-    this.model.setChainValue('notificationMessage', message);
-  }
+        this.model.setChainValue('notificationMessage', message);
+    }
 
-  _handleDeleteModalActions(event) {
-    event.stopImmediatePropagation();
+    _handleDeleteModalActions(event) {
+        event.stopImmediatePropagation();
 
-    if (event.data === 'confirm-delete') {
-      return this._deleteSelectedItems((err) => {
-        if (err) {
-          console.error(err);
+        if (event.data === 'confirm-delete') {
+            return this._deleteSelectedItems((err) => {
+                if (err) {
+                    console.error(err);
+                }
+                this.responseCallback(undefined, {
+                    success: true
+                });
+            });
         }
+
         this.responseCallback(undefined, {
-          success: true
+            success: true
         });
-      });
     }
 
-    this.responseCallback(undefined, {
-      success: true
-    });
-  }
+    _deleteSelectedItems(callback) {
+        const path = this.model.path,
+            name = this.model.selectedItemName,
+            type = this.model.selectedItemType;
 
-  _deleteSelectedItems(callback) {
-    const path = this.model.path,
-      name = this.model.selectedItemName,
-      type = this.model.selectedItemType;
-
-    switch (type) {
-      case 'file':
-      case 'folder': {
-        this.dossierService.deleteFileFolder(`${path}/${name}`, (err) => {
-          callback(err);
-        });
-        break;
-      }
-      case 'dossier': {
-        this.dossierService.deleteDossier(`${path}/${name}`, (err) => {
-          callback(err);
-        });
-        break;
-      }
-      default: {
-        break;
-      }
+        switch (type) {
+            case 'file':
+            case 'folder':
+                {
+                    this.dossierService.deleteFileFolder(`${path}/${name}`, (err) => {
+                        callback(err);
+                    });
+                    break;
+                }
+            case 'dossier':
+                {
+                    this.dossierService.deleteDossier(`${path}/${name}`, (err) => {
+                        callback(err);
+                    });
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
-  }
 
 }
