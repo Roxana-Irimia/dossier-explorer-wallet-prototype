@@ -1,54 +1,53 @@
 <psk-container controller-name='ShareDossierController'>
-  <psk-modal opened class="dossier-modal">
-    <psk-label slot="title" class="title" label="@title"></psk-label>
+    <psk-modal opened>
+        <psk-label slot="title" class="title" label="@title"></psk-label>
 
-    <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
-      <div class='form-group mb-5'>
-        <psk-label label="@dossierSEEDLabel"></psk-label>
-        <div class="input-group copy-clipboard-input">
-          <psk-text-input view-model="dossierSEEDInput"></psk-text-input>
-          <div class="input-group-append">
-            <psk-button event-name="copy-clipboard" event-data="@dossierSEEDInput.value"
-              button-class="btn-outline-secondary form-control">
-              <psk-icon icon='clipboard' color="#572a57"></psk-icon>
-            </psk-button>
-          </div>
-        </div>
-        <psk-condition condition="@conditionalExpressions.isSeedCopied">
-          <psk-label class="success small" label="@seedCopiedToClipboardLabel"></psk-label>
+        <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
+            <div class='form-group mb-5'>
+                <psk-label label="@dossierSEEDLabel"></psk-label>
+                <div class="input-group copy-clipboard-input">
+                    <psk-text-input view-model="dossierSEEDInput"></psk-text-input>
+                    <div class="input-group-append">
+                        <psk-button event-name="copy-clipboard" event-data="@dossierSEEDInput.value" button-class="btn-outline-secondary form-control">
+                            <psk-icon icon='clipboard' color="#572a57"></psk-icon>
+                        </psk-button>
+                    </div>
+                </div>
+                <psk-condition condition="@conditionalExpressions.isSeedCopied">
+                    <psk-label class="success small" label="@seedCopiedToClipboardLabel"></psk-label>
+                </psk-condition>
+            </div>
+            <psk-label label="@disclaimer"></psk-label>
+            <psk-card class="share-dossier">
+                <psk-grid class="scan-qr">
+                    <psk-label label="@useQrCodeLabel"></psk-label>
+                    <psk-button view-model="buttons.scanIdentityButton"></psk-button>
+                </psk-grid>
+                <psk-label label="@orLabel"></psk-label>
+                <psk-text-input class="enter-code" view-model="identitySecureCodeInput"></psk-text-input>
+            </psk-card>
         </psk-condition>
-      </div>
-      <psk-label label="@disclaimer"></psk-label>
-      <psk-card class="share-dossier">
-        <psk-grid class="scan-qr">
-          <psk-label label="@useQrCodeLabel"></psk-label>
-          <psk-button view-model="buttons.scanIdentityButton"></psk-button>
-        </psk-grid>
-        <psk-label label="@orLabel"></psk-label>
-        <psk-text-input class="enter-code" view-model="identitySecureCodeInput"></psk-text-input>
-      </psk-card>
-    </psk-condition>
 
-    <psk-condition condition="@conditionalExpressions.isSendDossierStep">
-      <psk-icon icon="check" color="#8197bc" class="dossier-modal"></psk-icon>
-      <psk-label label="@confirmedShareDisclaimer"></psk-label>
-    </psk-condition>
+        <psk-condition condition="@conditionalExpressions.isSendDossierStep">
+            <psk-icon icon="check" color="#8197bc" class="modal-icon-big"></psk-icon>
+            <psk-label label="@confirmedShareDisclaimer"></psk-label>
+        </psk-condition>
 
-    <psk-condition condition="@conditionalExpressions.isLoading">
-      <psk-ui-loader should-be-rendered="true"></psk-ui-loader>
-      <psk-label label="@loadingDisclaimer"></psk-label>
-    </psk-condition>
+        <psk-condition condition="@conditionalExpressions.isLoading">
+            <psk-ui-loader should-be-rendered="true"></psk-ui-loader>
+            <psk-label label="@loadingDisclaimer"></psk-label>
+        </psk-condition>
 
-    <psk-condition condition="@error.hasError">
-      <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
-    </psk-condition>
+        <psk-condition condition="@error.hasError">
+            <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+        </psk-condition>
 
-    <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
-      <psk-button view-model="buttons.sendDossierButton"></psk-button>
-    </psk-condition>
+        <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
+            <psk-button view-model="buttons.sendDossierButton"></psk-button>
+        </psk-condition>
 
-    <psk-condition condition="@conditionalExpressions.isSendDossierStep">
-      <psk-button view-model="buttons.finishButton"></psk-button>
-    </psk-condition>
-  </psk-modal>
+        <psk-condition condition="@conditionalExpressions.isSendDossierStep">
+            <psk-button view-model="buttons.finishButton"></psk-button>
+        </psk-condition>
+    </psk-modal>
 </psk-container>

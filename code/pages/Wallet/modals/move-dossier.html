@@ -1,13 +1,12 @@
 <psk-container controller-name='MoveDossierController'>
-    <psk-modal opened event-name="@addItems.closeModal" class="dossier-modal">
+    <psk-modal opened event-name="@addItems.closeModal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <psk-icon icon="pencil" color="#8197bc" class="dossier-modal"></psk-icon>
+        <psk-icon icon="pencil" color="#8197bc" class="modal-icon-big"></psk-icon>
         <psk-label label="@contentLabels.selectDestinationLabel"></psk-label>
 
         <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
-            <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link'
-                disabled='@disabled'>
+            <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>
             </psk-button>
             <psk-label>/</psk-label>
         </psk-for-each>
@@ -24,8 +23,7 @@
 
         <psk-for-each class="wallet-list-container" data-view-model="content">
             <psk-card class="@selected">
-                <psk-button class="wallet-path" event-name="select-wallet-item"
-                    double-click-event-name="double-click-item" event-data="@name">
+                <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
                     <psk-grid class="items" columns="2" layout="xs=[9,3] s=[9,3] m=[9,3] l=[9,3] xl=[9,3]">
                         <psk-grid>
                             <psk-label label="@name"> </psk-label>
