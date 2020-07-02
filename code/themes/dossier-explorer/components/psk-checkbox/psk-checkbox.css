@@ -36,8 +36,8 @@ div.form-check-inline>input:checked+psk-label label::before {
     text-align: center;
     color: #e1e7f2;
     position: absolute;
-    left: 1.3rem;
-    top: 0.65rem;
+    left: 1.35rem;
+    top: 0.8rem;
     font-weight: 800;
 }
 

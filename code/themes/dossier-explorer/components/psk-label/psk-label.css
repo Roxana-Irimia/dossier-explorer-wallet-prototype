@@ -17,19 +17,18 @@ psk-button label {
     padding: 0 !important;
 }
 
-psk-modal .container>:not(.modal-buttons) {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: inherit;
-    padding-bottom: inherit;
+psk-modal .container>* {
+    padding: 1em;
 }
 
-psk-modal psk-label {
+psk-modal .container>psk-condition,
+psk-modal .container>.modal-buttons {
+    padding: 0;
+    margin: 0;
+}
+
+psk-modal .container>psk-label {
     font-size: 1.2rem;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: inherit;
-    padding-right: inherit;
     color: #808080;
 }
 
