@@ -1,0 +1,21 @@
+{
+    "theme": "dossier-explorer",
+    "appVersion": "0.1",
+    "basePagesUrl": "/pages/",
+    "profile": {
+        "username": "Dossier Explorer",
+        "avatar": "/assets/images/dossier-explorer.png"
+    },
+    "modals": {
+        "signOut": "Wallet/modals/sign-out.html",
+        "createDossier": "Wallet/modals/create-dossier.html",
+        "importDossier": "Wallet/modals/import-dossier.html",
+        "receiveDossier": "Wallet/modals/receive-dossier.html",
+        "deleteDossier": "Wallet/modals/delete-dossier.html",
+        "shareDossier": "Wallet/modals/share-dossier.html",
+        "renameDossier": "Wallet/modals/rename-dossier.html",
+        "viewAsset": "Wallet/modals/view-asset.html",
+        "moveDossier": "Wallet/modals/move-dossier.html",
+        "runApp": "Wallet/modals/run-app.html"
+    }
+}

@@ -19,7 +19,7 @@ export default class SignOutController extends ModalController {
     _checkboxDeleteSeedToggle = () => {
         let isCheckboxChecked =
             this.model.getChainValue("checkboxDeleteSeed.value") === "checked";
-        this.model.setChainValue("confirmBtn.disabled", !isCheckboxChecked);
+        this.model.setChainValue("buttons.confirmButton.disabled", !isCheckboxChecked);
     };
 
     _confirmExitHandler = (event) => {

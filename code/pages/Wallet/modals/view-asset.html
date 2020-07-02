@@ -2,17 +2,19 @@
     <psk-modal opened expanded="true" class="asset-modal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <psk-card class='content'>
-        </psk-card>
+        <div class='container'>
+            <div class='content'>
+            </div>
+        </div>
 
         <psk-condition condition='@closingConfirmation.opened'>
             <div class='unsaved-file'>
                 <psk-label label="@closingConfirmation.disclaimerMessage"></psk-label>
-                <div class='actions'>
+                <psk-button-group class="modal-buttons">
                     <psk-button view-model="@closingConfirmation.buttons.saveAndExitButton"></psk-button>
                     <psk-button view-model="@closingConfirmation.buttons.dismissAndExitButton"></psk-button>
                     <psk-button view-model="@closingConfirmation.buttons.cancelButton"></psk-button>
-                </div>
+                </psk-button-group>
             </div>
         </psk-condition>
 
@@ -20,8 +22,10 @@
             <psk-button view-model="buttons.downloadButton"> </psk-button>
             <psk-condition condition="@textEditor.isEditable">
                 <psk-condition condition="@isEditing">
-                    <psk-button slot='condition-true' view-model="buttons.saveButton"> </psk-button>
-                    <psk-button slot='condition-false' view-model="buttons.editButton"> </psk-button>
+                    <psk-button-group class="modal-buttons">
+                        <psk-button slot='condition-true' view-model="buttons.saveButton"> </psk-button>
+                        <psk-button slot='condition-false' view-model="buttons.editButton"> </psk-button>
+                    </psk-button-group>
                 </psk-condition>
             </psk-condition>
         </div>

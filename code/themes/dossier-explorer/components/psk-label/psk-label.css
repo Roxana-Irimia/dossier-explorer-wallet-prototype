@@ -1,30 +1,46 @@
 psk-label {
-  padding: 0.25rem calc(0.175rem + 1px);
+    padding: 0.25rem calc(0.175rem + 1px);
 }
 
 psk-label,
 label {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 psk-button psk-label,
 psk-button label {
-  cursor: pointer;
-  text-decoration: none;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .col-form-label {
-  padding: 0 !important;
+    padding: 0 !important;
+}
+
+psk-modal .container>:not(.modal-buttons) {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
+
+psk-modal psk-label {
+    font-size: 1.2rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: inherit;
+    padding-right: inherit;
+    color: #808080;
 }
 
 psk-label.title {
-  font-size: 1.25rem;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  color: #fff;
-  opacity: 0.8;
+    font-size: 1.25rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: #fff;
+    opacity: 0.8;
 }
 
 psk-label.h1 label,
@@ -33,45 +49,45 @@ psk-label.h3 label,
 psk-label.h4 label,
 psk-label.h5 label,
 psk-label.h6 label {
-  margin: 2rem 1rem 1rem 1rem;
-  font-size: inherit;
+    margin: 2rem 1rem 1rem 1rem;
+    font-size: inherit;
 }
 
 psk-label.info,
 psk-label.error,
 psk-label.warning {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 psk-label.info label {
-  font-style: italic;
-  color: #572a57;
-  word-wrap: break-word;
+    font-style: italic;
+    color: #572a57;
+    word-wrap: break-word;
 }
 
 psk-label.error label {
-  font-style: italic;
-  color: #ff0000;
-  word-wrap: break-word;
+    font-style: italic;
+    color: #ff0000;
+    word-wrap: break-word;
 }
 
 psk-label.warning label {
-  font-style: italic;
-  color: #ffbb00;
-  word-wrap: break-word;
+    font-style: italic;
+    color: #ffbb00;
+    word-wrap: break-word;
 }
 
 psk-label.success.small label {
-  display: inline-block;
-  padding: .25em .4em;
-  color: #28a745;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
+    display: inline-block;
+    padding: .25em .4em;
+    color: #28a745;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
 }
