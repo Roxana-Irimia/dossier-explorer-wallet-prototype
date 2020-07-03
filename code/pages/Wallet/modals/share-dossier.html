@@ -3,13 +3,13 @@
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
         <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
-            <div class='form-group mb-5'>
+            <div class='form-group mb-2'>
                 <psk-label label="@dossierSEEDLabel"></psk-label>
                 <div class="input-group copy-clipboard-input">
                     <psk-text-input view-model="dossierSEEDInput"></psk-text-input>
                     <div class="input-group-append">
                         <psk-button event-name="copy-clipboard" event-data="@dossierSEEDInput.value" button-class="btn-outline-secondary form-control">
-                            <psk-icon icon='clipboard' color="#572a57"></psk-icon>
+                            <psk-icon class="clipboard" icon='clipboard' color="#572a57"></psk-icon>
                         </psk-button>
                     </div>
                 </div>

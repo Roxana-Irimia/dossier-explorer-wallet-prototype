@@ -19,15 +19,19 @@
         </psk-condition>
 
         <div class='footer' slot='footer'>
-            <psk-button view-model="buttons.downloadButton"> </psk-button>
-            <psk-condition condition="@textEditor.isEditable">
-                <psk-condition condition="@isEditing">
-                    <psk-button-group class="modal-buttons">
-                        <psk-button slot='condition-true' view-model="buttons.saveButton"> </psk-button>
-                        <psk-button slot='condition-false' view-model="buttons.editButton"> </psk-button>
-                    </psk-button-group>
+            <psk-button-group class="modal-buttons">
+                <psk-button view-model="buttons.downloadButton"> </psk-button>
+                <psk-condition condition="@textEditor.isEditable">
+                    <psk-condition condition="@isEditing">
+                        <psk-button-group slot='condition-true' class="modal-buttons">
+                            <psk-button view-model="buttons.saveButton"> </psk-button>
+                        </psk-button-group>
+                        <psk-button-group slot='condition-false' class="modal-buttons">
+                            <psk-button view-model="buttons.editButton"> </psk-button>
+                        </psk-button-group>
+                    </psk-condition>
                 </psk-condition>
-            </psk-condition>
+            </psk-button-group>
         </div>
     </psk-modal>
 </psk-container>

@@ -11,7 +11,7 @@ export default class MoveDossierController extends ModalController {
 
         this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
-        this.navigatorController = new ExplorerNavigatorController(element, this.model);
+        this.navigatorController = new ExplorerNavigatorController(element, history, this.model);
 
         this._initListeners();
     }
@@ -63,7 +63,10 @@ export default class MoveDossierController extends ModalController {
         event.stopImmediatePropagation();
 
         this.responseCallback(undefined, {
-            cancel: true
+            success: true,
+            result: {
+                cancel: true
+            }
         });
     }
 }

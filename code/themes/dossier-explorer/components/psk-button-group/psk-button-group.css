@@ -9,7 +9,7 @@
 psk-button-group[opened] .list-group {
     display: block;
     visibility: visible;
-    top: 0px;
+    top: -10px;
     bottom: auto;
 }
 

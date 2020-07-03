@@ -6,6 +6,11 @@ span.icon {
     color: #572a57;
 }
 
+.clipboard span.icon {
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
 psk-button span.icon {
     padding: 0;
 }

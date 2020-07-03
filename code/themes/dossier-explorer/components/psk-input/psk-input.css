@@ -6,6 +6,6 @@ div.input-group psk-text-input {
     width: 100%;
 }
 
-div.form-group {
-    margin-top: 1rem;
+div.copy-clipboard-input+psk-condition {
+    margin-top: -0.5rem;
 }

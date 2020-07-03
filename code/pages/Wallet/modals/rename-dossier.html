@@ -3,13 +3,14 @@
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
         <psk-icon icon="pencil" color="#8197bc" class="modal-icon-big"></psk-icon>
-        <psk-text-input view-model="fileNameInput"></psk-text-input>
+        <psk-text-input view-model="fileNameInput" class="full-width"></psk-text-input>
 
         <psk-condition condition="@error.hasError">
             <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
         </psk-condition>
 
         <psk-button-group class="modal-buttons">
+            <psk-button view-model="buttons.cancelButton"></psk-button>
             <psk-button view-model="buttons.renameButton"></psk-button>
         </psk-button-group>
 

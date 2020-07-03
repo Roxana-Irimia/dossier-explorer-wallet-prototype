@@ -132,3 +132,42 @@ psk-card.page-title .card .card-header {
         margin: 1.5rem 1rem !important;
     }
 }
+
+
+/** receive dossier **/
+
+.receive-dossier div.card-body,
+.share-dossier div.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 auto;
+    border: 0.1rem solid #8197bc;
+    border-radius: 10px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #808080;
+}
+
+.receive-dossier .receive-qr {
+    width: 125px;
+    height: 125px;
+    background: #fff;
+}
+
+.receive-dossier .receive-code input.form-control[readonly],
+.receive-dossier .receive-code input.form-control[readonly]:focus {
+    background: #fff;
+    border: none;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 759px) {
+    .receive-dossier div.card-body,
+    .share-dossier div.card-body {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
