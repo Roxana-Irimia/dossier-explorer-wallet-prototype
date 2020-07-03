@@ -20,9 +20,12 @@
         </psk-condition>
 
         <psk-condition condition="@isDossierNameStep">
-            <psk-button slot="condition-false" view-model="buttons.nextButton"></psk-button>
-
-            <psk-button slot="condition-true" view-model="buttons.finishButton"></psk-button>
+            <psk-button-group slot="condition-true" class="modal-buttons">
+                <psk-button view-model="buttons.finishButton"></psk-button>
+            </psk-button-group>
+            <psk-button-group slot="condition-false" class="modal-buttons">
+                <psk-button view-model="buttons.nextButton"></psk-button>
+            </psk-button-group>
         </psk-condition>
     </psk-modal>
 </psk-container>

@@ -43,11 +43,15 @@
         </psk-condition>
 
         <psk-condition condition="@conditionalExpressions.isIdentitySelectionStep">
-            <psk-button view-model="buttons.sendDossierButton"></psk-button>
+            <psk-button-group class="modal-buttons">
+                <psk-button view-model="buttons.sendDossierButton"></psk-button>
+            </psk-button-group>
         </psk-condition>
 
         <psk-condition condition="@conditionalExpressions.isSendDossierStep">
-            <psk-button view-model="buttons.finishButton"></psk-button>
+            <psk-button-group class="modal-buttons">
+                <psk-button view-model="buttons.finishButton"></psk-button>
+            </psk-button-group>
         </psk-condition>
     </psk-modal>
 </psk-container>

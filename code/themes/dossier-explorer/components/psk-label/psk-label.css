@@ -17,27 +17,13 @@ psk-button label {
     padding: 0 !important;
 }
 
-psk-modal .container>* {
-    padding: 1em;
-}
-
-psk-modal .container>psk-condition,
-psk-modal .container>.modal-buttons {
-    padding: 0;
-    margin: 0;
-}
-
-psk-modal .container>psk-label {
-    font-size: 1.2rem;
-    color: #808080;
-}
-
 psk-label.title {
     font-size: 1.25rem;
     padding: 0;
     display: flex;
+    flex: 1 1 auto;
     justify-content: center;
-    width: 100%;
+    width: 250%;
     color: #fff;
     opacity: 0.8;
 }
@@ -89,4 +75,46 @@ psk-label.success.small label {
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
+}
+
+
+/* External CSS - Rules to be applied outside of shadow dom from psk-modal */
+
+psk-condition {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+psk-modal>*,
+psk-condition>* {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+psk-modal .container>* {
+    padding: 1em;
+}
+
+psk-modal .container>psk-condition,
+psk-modal .container>.modal-buttons {
+    padding: 0;
+    margin: 0;
+}
+
+psk-modal .container>psk-label {
+    font-size: 1.2rem;
+    color: #808080;
+}
+
+psk-modal psk-input psk-label {
+    font-size: 1.1rem;
+    color: #9d9d9d;
+    line-height: 1.5rem;
+}
+
+psk-label+input.form-control {
+    margin-top: 0.75rem;
 }
