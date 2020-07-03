@@ -131,3 +131,23 @@ psk-modal psk-input psk-label {
 psk-modal psk-label+input.form-control {
     margin-top: 0.75rem;
 }
+
+psk-modal psk-for-each {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    vertical-align: middle;
+    padding: 0.5rem 0px;
+}
+
+psk-modal psk-for-each.wallet-list-container {
+    flex-direction: column;
+}
+
+psk-modal.move-modal psk-grid psk-label,
+psk-modal.move-modal psk-for-each psk-label {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #000;
+}

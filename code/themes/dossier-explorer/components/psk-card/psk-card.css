@@ -171,3 +171,40 @@ psk-card.page-title .card .card-header {
         padding-right: 2rem;
     }
 }
+
+
+/** move modal **/
+
+.move-modal psk-card,
+.move-modal .card,
+.move-modal .card-body,
+.move-modal psk-button,
+.move-modal button.btn.btn-primary,
+.move-modal psk-grid,
+.move-modal .row {
+    display: flex !important;
+    width: 100%;
+}
+
+.move-modal .wallet-list-header {
+    padding: 0.375rem 0.75rem;
+}
+
+.move-modal .wallet-list-header span.icon {
+    padding: 0.5rem;
+}
+
+.move-modal .wallet-list-container {
+    height: 30vh;
+    overflow: auto;
+}
+
+.move-modal .navigation-links>*,
+.move-modal .modal-buttons psk-button {
+    width: auto;
+}
+
+.move-modal .items div.row psk-label {
+    text-align: center;
+    justify-content: center;
+}

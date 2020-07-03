@@ -26,9 +26,9 @@
 
 #modal {
     position: fixed;
-    top: 15vh;
-    left: 15%;
-    width: 70%;
+    top: 10vh;
+    right: 15%;
+    width: 60%;
     z-index: 99999;
     background: white;
     border-radius: 3px;
