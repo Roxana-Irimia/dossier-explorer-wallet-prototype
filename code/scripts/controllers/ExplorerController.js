@@ -11,6 +11,7 @@ import {
 } from "../service/AccountService.js";
 
 import rootModel from "../view-models/rootModel.js";
+import newFileModal from "../view-models/newFileModal.js";
 import signOutModal from "../view-models/signOutModal.js";
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
@@ -241,7 +242,12 @@ export default class ExplorerController extends ContainerController {
             wDir = '';
         }
 
-
+        newFileModal.currentPath = wDir;
+        this.showModal('newFile', newFileModal, (err, response) => {
+            // Response will be used to display notification messages using psk-feedback component
+            console.log(err, response);
+            this.navigatorController.listWalletContent();
+        });
     }
 
     _handleFileFolderUpload = (event) => {

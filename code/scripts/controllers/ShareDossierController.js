@@ -9,7 +9,7 @@ export default class ShareDossierController extends ModalController {
         super(element, history);
 
         this.feedbackController = new FeedbackController(this.model);
-        this.dossierServive = getDossierServiceInstance();
+        this.dossierService = getDossierServiceInstance();
         this._setSeedForInput();
         this._initListeners();
     }
@@ -26,7 +26,7 @@ export default class ShareDossierController extends ModalController {
     _setSeedForInput() {
         let wDir = this.model.currentPath || '/';
         let dossierName = this.model.selectedFile;
-        this.dossierServive.printDossierSeed(wDir, dossierName, (err, seed) => {
+        this.dossierService.printDossierSeed(wDir, dossierName, (err, seed) => {
             if (err) {
                 console.error(err);
                 this.feedbackController.updateErrorMessage(err);
