@@ -1,60 +1,100 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import FeedbackController from "./FeedbackController.js";
+import {
+    getDossierServiceInstance
+} from "../service/DossierExplorerService.js";
 
 export default class ReceiveDossierController extends ModalController {
     constructor(element, history) {
         super(element, history);
 
+        this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
+
         this._initListeners();
     }
 
     _initListeners = () => {
-        this.on('next-receive-dossier', this._continueReceiveProcess);
-        this.on('finish-receive-dossier', this._finishReceiveDossierProcess);
+        this.on('receive-dossier-name', this._setNameForImportedDossier);
+        this.on('receive-dossier-seed', this._importDossierFromSeed);
 
-        this.model.onChange("dossierNameInput.value", this._validateUserForm);
-        this.model.onChange("destinationOptionsForDossier.value", this._validateUserForm);
+        this.model.onChange("dossierNameInput.value", this._validateInput);
+        this.model.onChange("dossierSeedInput.value", this._validateSeedInput);
     };
 
-    _continueReceiveProcess = (event) => {
+    _setNameForImportedDossier = (event) => {
         event.stopImmediatePropagation();
+        this.feedbackController.updateErrorMessage();
 
-        console.log('Indentity shared. Proceeding to the next step.');
-        this.model.setChainValue('isDossierNameStep', true);
-    }
-
-    _finishReceiveDossierProcess = (event) => {
-        event.stopImmediatePropagation();
-        this.feedbackController.updateErrorMessage(null);
-
-        let dossierName = this.model.dossierNameInput.value;
-        let selectedDossierDestination = this.model.destinationOptionsForDossier.value;
-
-        this.responseCallback(undefined, {
-            success: true,
-            dossierName: dossierName, // To be removed after integration
-            selectedDossierDestination: selectedDossierDestination // To be removed after integration
-                // Send back to main Explorer controller the respose that can close the modal 
-                //and to fetch the new list items
-        });
-    }
-
-    _validateUserForm = () => {
-        this.feedbackController.updateErrorMessage(null);
-
-        let isEmptyName = this.model.dossierNameInput.value.trim().length === 0;
-        let isDestinationSelected = this.model.destinationOptionsForDossier.value.trim().length !== 0;
-        if (!isDestinationSelected) {
-            this.model.setChainValue('destinationOptionsForDossier.value', '/');
-            isDestinationSelected = true;
+        if (!this._validateInput()) {
+            return;
         }
 
-        let isFinishButtonDisabled = isEmptyName || !isDestinationSelected;
-        this.model.setChainValue('buttons.finishButton.disabled', isFinishButtonDisabled);
+        const wDir = this.model.currentPath || '/';
+        this.dossierName = this.model.dossierNameInput.value;
+        this.dossierService.readDir(wDir, (err, dirContent) => {
+            if (err) {
+                this.feedbackController.updateErrorMessage(err);
+            } else {
+                if (dirContent.find((el) => el === this.dossierName)) {
+                    this.feedbackController.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel);
+                } else {
+                    // Go to the next step, where the user provides the SEED for the dossier
+                    this.model.conditionalExpressions.isDossierNameStep = false;
+                }
+            }
+        });
+    };
 
-        if (isEmptyName) {
-            this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotEmptyLabel);
+    _importDossierFromSeed = (event) => {
+        event.stopImmediatePropagation();
+
+        let wDir = this.model.currentPath || '/';
+        if (wDir == '/') {
+            wDir = '';
+        }
+        this.feedbackController.setLoadingState(true);
+
+        const SEED = this.model.dossierSeedInput.value;
+        this.dossierService.importDossier(wDir, this.dossierName, SEED, (err) => {
+            this.feedbackController.setLoadingState();
+            if (err) {
+                console.log(err);
+                this.feedbackController.updateErrorMessage(err);
+            } else {
+                this.responseCallback(undefined, {
+                    success: true
+                });
+            }
+        });
+    };
+
+    _validateInput = () => {
+        this.feedbackController.updateErrorMessage();
+
+        const value = this.model.dossierNameInput.value;
+        const isEmptyName = value.trim().length === 0;
+        const hasWhiteSpaces = value.replace(/\s/g, '') !== value;
+        this.model.setChainValue('buttons.continueButton.disabled', isEmptyName || hasWhiteSpaces);
+
+        if (isEmptyName || hasWhiteSpaces) {
+            this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotValidLabel);
+            return false;
+        }
+
+        return true;
+    };
+
+    _validateSeedInput = () => {
+        this.feedbackController.updateErrorMessage();
+
+        let SEED = this.model.dossierSeedInput.value;
+        let isEmptySeed = SEED.trim().length === 0;
+
+        this.model.setChainValue('buttons.finishButton.disabled', isEmptySeed);
+
+        if (isEmptySeed) {
+            this.feedbackController.updateErrorMessage(this.model.error.errorLabels.seedNotEmptyLabel);
         }
     };
 }

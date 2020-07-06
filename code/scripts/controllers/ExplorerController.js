@@ -14,7 +14,6 @@ import rootModel from "../view-models/rootModel.js";
 import signOutModal from "../view-models/signOutModal.js";
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
-import importDossierModal from '../view-models/importDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
 import renameDossierModal from '../view-models/renameDossierModal.js';
 import moveDossierModal from '../view-models/moveDossierModal.js';
@@ -43,13 +42,13 @@ export default class ExplorerController extends ContainerController {
 
         this.on('create-dossier', this._createDossierHandler);
         this.on('receive-dossier', this._receiveDossierHandler);
-        this.on('import-dossier', this._importDossierHandler);
         this.on('delete-dossier', this._deleteDossierHandler);
         this.on('share-dossier', this._shareDossierHandler);
         this.on('rename-dossier', this._renameDossierHandler);
         this.on('move-dossier', this._moveDossierHandler);
         this.on('run-app', this._handleRunApplication);
 
+        this.on('new-file', this._addNewFileHandler);
         this.on('add-file-folder', this._handleFileFolderUpload);
     };
 
@@ -119,18 +118,6 @@ export default class ExplorerController extends ContainerController {
 
         receiveDossierModal.currentPath = this.model.currentPath;
         this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
-            this.navigatorController.listWalletContent();
-        });
-    }
-
-    _importDossierHandler = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        importDossierModal.currentPath = this.model.currentPath;
-        this.showModal('importDossier', importDossierModal, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
             this.navigatorController.listWalletContent();
@@ -244,6 +231,17 @@ export default class ExplorerController extends ContainerController {
             currentPath: this.model.currentPath,
             selectedItem: selectedItem.item
         };
+    }
+
+    _addNewFileHandler = (event) => {
+        event.stopImmediatePropagation();
+
+        let wDir = this.model.currentPath || '/';
+        if (wDir == '/') {
+            wDir = '';
+        }
+
+
     }
 
     _handleFileFolderUpload = (event) => {

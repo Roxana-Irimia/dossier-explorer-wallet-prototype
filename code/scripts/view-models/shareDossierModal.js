@@ -1,49 +1,24 @@
 const shareDossierModal = {
-  title: "Share",
-  disclaimer: "To share, we need to scan a QR code or enter a Collaborator Secure Code to identify to whom you want to send.",
-  loadingDisclaimer: "We are waiting for your collaborator to receive the dossier",
-  confirmedShareDisclaimer: "Your collaborator has received the dossier succesfuly!",
-  orLabel: "or",
-  useQrCodeLabel: "Use QR Code",
-  dossierSEEDLabel: "Dossier SEED",
-  seedCopiedToClipboardLabel: "The SEED is copied to cliboard!",
-  dossierSEEDInput: {
-    value: '',
-    readOnly: true
-  },
-  identitySecureCodeInput: {
-    value: "",
-    placeholder: "e.g. %rt78qtp%$",
-    label: "Enter Secure Code",
-  },
-  buttons: {
-    scanIdentityButton: {
-      label: "Scan",
-      eventName: "scan-identity",
-      buttonClass: "btn-confirm-secondary",
+    title: "Share",
+    disclaimer: "To share the dossier, copy the below SEED and use it to import the dossier into your wallet. If you wish, you can easily scan the QR Code to import the dossier into your wallet.",
+    orLabel: "or",
+    useQrCodeLabel: "Use QR Code",
+    dossierSEEDLabel: "Dossier SEED",
+    seedCopiedToClipboardLabel: "The SEED is copied to cliboard!",
+    dossierSEEDInput: {
+        value: '',
+        readOnly: true
     },
-    sendDossierButton: {
-      label: "Send",
-      eventName: "start-share",
-      buttonClass: "btn-confirm-primary",
+    buttons: {
+        closeButton: {
+            label: "Close",
+            eventName: "close-share",
+            buttonClass: "btn-confirm-primary",
+        },
     },
-    finishButton: {
-      disabled: false,
-      label: "Finish",
-      eventName: "finish-share",
-      buttonClass: "btn-confirm-primary",
-    },
-  },
-  error: {
-    hasError: 0,
-    errorMessage: ""
-  },
-  conditionalExpressions: {
-    isIdentitySelectionStep: true,
-    isSendDossierStep: false,
-    isLoading: false,
-    isSeedCopied: false
-  }
+    conditionalExpressions: {
+        isSeedCopied: false
+    }
 };
 
 export default shareDossierModal;

@@ -16,6 +16,11 @@ export default class ShareDossierController extends ModalController {
 
     _initListeners() {
         this.on('copy-clipboard', this._copyToClipboardHandler);
+        this.on('close-share', () => {
+            this.responseCallback(undefined, {
+                success: true
+            });
+        });
     }
 
     _setSeedForInput() {
