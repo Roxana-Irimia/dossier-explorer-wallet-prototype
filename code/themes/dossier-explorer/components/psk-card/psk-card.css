@@ -151,20 +151,28 @@ psk-card.page-title .card .card-header {
     color: #808080;
 }
 
-.receive-dossier .receive-qr {
+.receive-qr {
     width: 125px;
-    height: 125px;
     background: #fff;
 }
 
-.receive-dossier .receive-code input.form-control[readonly],
-.receive-dossier .receive-code input.form-control[readonly]:focus {
+.receive-qr div.image_container {
+    margin: 0;
+}
+
+.receive-qr+psk-label,
+.scan-qr+psk-label {
+    margin: 1rem;
+}
+
+.receive-code input.form-control[readonly],
+.receive-code input.form-control[readonly]:focus {
     background: #fff;
     border: none;
     box-shadow: none;
 }
 
-@media screen and (max-width: 759px) {
+@media screen and (max-width: 959px) {
     .receive-dossier div.card-body,
     .share-dossier div.card-body {
         padding-left: 2rem;

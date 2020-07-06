@@ -68,7 +68,7 @@ export default class ExplorerNavigatorController extends ContainerController {
                 currentPath: this.model.currentPath,
                 isFile: selectedItemViewModel.type === 'file',
                 isFolder: selectedItemViewModel.type === 'folder',
-                isDossier: selectedItemViewModel.type === 'dossier',
+                isDossier: selectedItemViewModel.type === 'dossier' || selectedItemViewModel.isApplication,
                 isApplication: selectedItemViewModel.isApplication
             };
 
