@@ -1,5 +1,3 @@
-import FeedbackController from "./FeedbackController.js";
-
 export default class FileDownloader {
 
     constructor(path, fileName) {

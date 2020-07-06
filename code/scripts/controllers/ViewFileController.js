@@ -17,7 +17,7 @@ export default class ViewFileController extends ModalController {
     }
 
     _initListeners = () => {
-        this.on("download", this._downloadHandler);
+        this.on("start-download", this._downloadHandler);
         this.on("start-edit", this._startEditHandler);
         this.on("save-edit", this._saveEditHandler);
 
