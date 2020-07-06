@@ -20,8 +20,11 @@ export default class ExplorerNavigatorController extends ContainerController {
         this._initNavigationLinks();
         this._initListeners();
     }
+
     listWalletContent = () => {
         let wDir = this.model.currentPath || '/';
+        // Reset the last selected item(if any), as for the moment we support only single selection
+        this._resetLastSelected();
         this.dossierService.readDirDetailed(wDir, this._updateWalletContent);
     }
 
@@ -52,7 +55,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         }
 
         // Reset the last selected item(if any), as for the moment we support only single selection
-        this._resetLastSelected(selectedItemViewModel.name);
+        this._resetLastSelected();
 
         let isSelected = selectedItemViewModel.selected === 'selected';
         if (isSelected) {
@@ -230,17 +233,14 @@ export default class ExplorerNavigatorController extends ContainerController {
         this.model.setChainValue('navigationLinks', links);
     }
 
-    _resetLastSelected = (lastSelectedName) => {
+    _resetLastSelected = () => {
         let previouslySelected = this.model.content.find((item) => {
-            return item.selected === 'selected' &&
-                (lastSelectedName && item.name !== lastSelectedName);
+            return item.selected === 'selected';
         });
+
         if (previouslySelected) {
             previouslySelected.selected = '';
-            this.model.setChainValue('selectedItem', {
-                selected: false,
-                item: {}
-            });
+            this.model.setChainValue('selectedItem', null);
         }
     }
 

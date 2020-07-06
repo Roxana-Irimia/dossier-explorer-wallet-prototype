@@ -26,7 +26,12 @@ export default class MoveDossierController extends ModalController {
         event.stopImmediatePropagation();
 
         const selectedEntryName = this.model.selectedEntryName;
-        const currentWorkingDirectory = this.model.currentWorkingDirectory || '';
+
+        let currentWorkingDirectory = this.model.currentWorkingDirectory || '';
+        if (currentWorkingDirectory === '/') {
+            currentWorkingDirectory = '';
+        }
+
         let currentPath = this.model.currentPath || '';
         if (currentPath === '/') {
             currentPath = '';
@@ -41,7 +46,6 @@ export default class MoveDossierController extends ModalController {
         const newPath = `${currentPath}/${selectedEntryName}`;
 
         if (oldPath === newPath) {
-            console.error(err);
             return this.feedbackController.updateErrorMessage(this.model.error.samePathError);
         }
 

@@ -31,7 +31,10 @@ export default class RenameDossierController extends ModalController {
     _handleRenameFile = () => {
         const oldFileName = this.model.oldFileName;
         const newFileName = this.model.fileNameInput.value;
-        const currentPath = this.model.currentPath;
+        let currentPath = this.model.currentPath;
+        if (currentPath === '/') {
+            currentPath = '';
+        }
 
         if (!newFileName.trim().length) {
             return this.feedbackController.updateErrorMessage(this.model.error.nameNotEmptyLabel);
