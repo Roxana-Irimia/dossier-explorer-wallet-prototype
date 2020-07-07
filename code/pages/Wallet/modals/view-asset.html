@@ -2,9 +2,7 @@
     <psk-modal opened expanded="true" class="asset-modal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <div class='container'>
-            <div class='content'>
-            </div>
+        <div class='content'>
         </div>
 
         <psk-condition condition='@closingConfirmation.opened'>
@@ -20,7 +18,6 @@
 
         <div class='footer' slot='footer'>
             <psk-button-group class="modal-buttons">
-                <psk-button view-model="buttons.downloadButton"> </psk-button>
                 <psk-condition condition="@textEditor.isEditable">
                     <psk-condition condition="@isEditing">
                         <psk-button-group slot='condition-true' class="modal-buttons">
@@ -31,6 +28,7 @@
                         </psk-button-group>
                     </psk-condition>
                 </psk-condition>
+                <psk-button view-model="buttons.downloadButton"> </psk-button>
             </psk-button-group>
         </div>
     </psk-modal>

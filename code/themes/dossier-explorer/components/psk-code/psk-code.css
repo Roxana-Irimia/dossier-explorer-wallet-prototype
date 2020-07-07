@@ -35,10 +35,14 @@ pre[class*="language-"] {
 pre[class*="language-"] {
     position: relative;
     margin: 0;
+    width: auto;
+    justify-content: center;
+    display: flex;
 }
 
 pre[class*="language-"]>code,
 textarea.prism-live {
+    width: 100%;
     padding: 20px;
     position: relative;
     border-left: 10px solid #572a57;
@@ -52,12 +56,15 @@ textarea.prism-live {
     margin: 0;
 }
 
-code[class*="language"] {
-    padding: 0 1em;
+.asset-modal code[class*="language"] {
     display: block;
     overflow: scroll;
-    max-height: 80vh;
+    max-height: 30vh;
     max-width: 80vw;
+}
+
+.asset-modal[expanded='true'] code[class*="language"] {
+    max-height: 60vh;
 }
 
 
@@ -65,7 +72,6 @@ code[class*="language"] {
 
 :not(pre)>code[class*="language-"],
 pre[class*="language-"] {
-    background-color: #fdfdfd;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -83,36 +89,6 @@ pre[class*="language-"] {
     border: 1px solid rgba(0, 0, 0, 0.1);
     display: inline;
     white-space: normal;
-}
-
-pre[class*="language-"]:before,
-pre[class*="language-"]:after {
-    content: '';
-    z-index: -2;
-    display: block;
-    position: absolute;
-    bottom: 0.75em;
-    left: 0.18em;
-    width: 40%;
-    height: 20%;
-    max-height: 13em;
-    box-shadow: 0px 13px 8px #979797;
-    -webkit-transform: rotate(-2deg);
-    -moz-transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg);
-    -o-transform: rotate(-2deg);
-    transform: rotate(-2deg);
-}
-
-:not(pre)>code[class*="language-"]:after,
-pre[class*="language-"]:after {
-    right: 0.75em;
-    left: auto;
-    -webkit-transform: rotate(2deg);
-    -moz-transform: rotate(2deg);
-    -ms-transform: rotate(2deg);
-    -o-transform: rotate(2deg);
-    transform: rotate(2deg);
 }
 
 .token.comment,
@@ -192,14 +168,6 @@ pre[class*="language-"]:after {
 
 .token.namespace {
     opacity: .7;
-}
-
-@media screen and (max-width: 767px) {
-    pre[class*="language-"]:before,
-    pre[class*="language-"]:after {
-        bottom: 14px;
-        box-shadow: none;
-    }
 }
 
 
