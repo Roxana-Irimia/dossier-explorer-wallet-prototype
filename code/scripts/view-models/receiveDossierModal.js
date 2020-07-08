@@ -1,9 +1,10 @@
 const receiveDossierModal = {
     title: "Receive Dossier",
     disclaimer: "In order to receive a dossier, you need to enter the dossier's SEED or to scan the QR Code generated on the device that shares you the dossier.",
-    orLabel: "or",
     receiveDossierLoadingLabel: "The dossier is being imported...",
-    scanQRCodeLabel: "Scan QR Code",
+    qrCode: {
+        title: "Scan QR Code"
+    },
     dossierNameInput: {
         label: "Name the dossier",
         value: "",
@@ -13,9 +14,17 @@ const receiveDossierModal = {
         value: ""
     },
     buttons: {
-        continueButton: {
+        scanQrCodeButton: {
             disabled: true,
-            label: "Continue",
+            label: "Scan Dossier QR Code",
+            eventData: "qr-code",
+            eventName: "receive-dossier-name",
+            buttonClass: "btn-confirm-secondary",
+        },
+        enterSeedButton: {
+            disabled: true,
+            label: "Enter Dossier SEED",
+            eventData: 'seed',
             eventName: "receive-dossier-name",
             buttonClass: "btn-confirm-primary",
         },
@@ -24,11 +33,6 @@ const receiveDossierModal = {
             label: "Finish",
             eventName: "receive-dossier-seed",
             buttonClass: "btn-confirm-primary",
-        },
-        scanQrCodeButton: {
-            label: "Open Camera",
-            eventName: "open-camera",
-            buttonClass: "btn-confirm-secondary",
         }
     },
     conditionalExpressions: {

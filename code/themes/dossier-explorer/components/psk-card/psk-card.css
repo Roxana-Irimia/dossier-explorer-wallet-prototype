@@ -143,8 +143,8 @@ psk-card.page-title .card .card-header {
     width: 100%;
 }
 
-.receive-dossier div.card-body,
-.share-dossier div.card-body {
+.receive-dossier>div.card>div.card-body,
+.share-dossier>div.card>div.card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

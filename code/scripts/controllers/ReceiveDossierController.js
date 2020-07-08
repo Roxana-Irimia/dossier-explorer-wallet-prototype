@@ -19,11 +19,17 @@ export default class ReceiveDossierController extends ModalController {
         this.on('receive-dossier-seed', this._importDossierFromSeed);
 
         this.model.onChange("dossierNameInput.value", this._validateInput);
-        this.model.onChange("dossierSeedInput.value", this._validateSeedInput);
+        this.model.onChange("dossierSeedInput.value", () => {
+            this._validateSEED(this.model.dossierSeedInput.value);
+        });
+        this.model.onChange("qrCode.data", () => {
+            this._validateSEED(this.model.qrCode.data);
+        });
     };
 
     _setNameForImportedDossier = (event) => {
         event.stopImmediatePropagation();
+
         this.feedbackController.updateErrorMessage();
 
         if (!this._validateInput()) {
@@ -40,7 +46,13 @@ export default class ReceiveDossierController extends ModalController {
                     this.feedbackController.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel);
                 } else {
                     // Go to the next step, where the user provides the SEED for the dossier
+                    const nextStep = event.data;
+                    const scanQrCode = nextStep === 'qr-code';
+                    const enterSeed = !scanQrCode;
+
                     this.model.conditionalExpressions.isDossierNameStep = false;
+                    this.model.conditionalExpressions.isDossierSeedStep = enterSeed;
+                    this.model.conditionalExpressions.isScanQrCodeStep = scanQrCode;
                 }
             }
         });
@@ -55,8 +67,7 @@ export default class ReceiveDossierController extends ModalController {
         }
         this.feedbackController.setLoadingState(true);
 
-        const SEED = this.model.dossierSeedInput.value;
-        this.dossierService.importDossier(wDir, this.dossierName, SEED, (err) => {
+        this.dossierService.importDossier(wDir, this.dossierName, this.SEED, (err) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.log(err);
@@ -75,9 +86,11 @@ export default class ReceiveDossierController extends ModalController {
         const value = this.model.dossierNameInput.value;
         const isEmptyName = value.trim().length === 0;
         const hasWhiteSpaces = value.replace(/\s/g, '') !== value;
-        this.model.setChainValue('buttons.continueButton.disabled', isEmptyName || hasWhiteSpaces);
+        const disabledButton = isEmptyName || hasWhiteSpaces;
+        this.model.setChainValue('buttons.scanQrCodeButton.disabled', disabledButton);
+        this.model.setChainValue('buttons.enterSeedButton.disabled', disabledButton);
 
-        if (isEmptyName || hasWhiteSpaces) {
+        if (disabledButton) {
             this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotValidLabel);
             return false;
         }
@@ -85,16 +98,16 @@ export default class ReceiveDossierController extends ModalController {
         return true;
     };
 
-    _validateSeedInput = () => {
+    _validateSEED = (SEED) => {
         this.feedbackController.updateErrorMessage();
-
-        let SEED = this.model.dossierSeedInput.value;
         let isEmptySeed = SEED.trim().length === 0;
 
         this.model.setChainValue('buttons.finishButton.disabled', isEmptySeed);
 
         if (isEmptySeed) {
             this.feedbackController.updateErrorMessage(this.model.error.errorLabels.seedNotEmptyLabel);
+        } else {
+            this.SEED = SEED;
         }
-    };
+    }
 }

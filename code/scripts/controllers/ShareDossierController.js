@@ -32,6 +32,7 @@ export default class ShareDossierController extends ModalController {
                 this.feedbackController.updateErrorMessage(err);
             } else {
                 this.model.setChainValue('dossierSEEDInput.value', seed);
+                this.model.setChainValue('qrCode.data', seed);
             }
         });
     }
