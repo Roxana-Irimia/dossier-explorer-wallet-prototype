@@ -40,8 +40,7 @@ pre[class*="language-"] {
     display: flex;
 }
 
-pre[class*="language-"]>code,
-textarea.prism-live {
+pre[class*="language-"]>code {
     width: 100%;
     padding: 20px;
     position: relative;

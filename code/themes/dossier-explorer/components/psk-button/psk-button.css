@@ -145,7 +145,8 @@
 }
 
 .btn-menu {
-    margin: 0.25rem 0;
+    padding: 0.5rem 0;
+    margin: 0;
     background: none;
     border: none;
     color: #fff;
@@ -153,6 +154,21 @@
     width: 100%;
     height: 100%;
     font-size: 1rem;
+}
+
+.btn-menu .btn.btn-secondary,
+.btn-menu .btn.btn-secondary label {
+    padding: 0;
+    margin: 0;
+}
+
+div.menu-icons div.dots-menu div.list-group button.btn-menu {
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .bottom-border {

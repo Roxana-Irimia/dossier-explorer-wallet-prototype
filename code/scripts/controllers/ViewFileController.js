@@ -112,8 +112,16 @@ export default class ViewFileController extends ModalController {
                 this._prepareTextEditorViewModel();
             } else {
                 this._displayFile();
+                this._clearUnsavedFileSection();
             }
         });
+    }
+
+    _clearUnsavedFileSection = () => {
+        const unsavedFileSection = this.element.querySelector('.unsaved-file');
+        if (unsavedFileSection && unsavedFileSection.parentElement) {
+            unsavedFileSection.parentElement.remove();
+        }
     }
 
     _prepareTextEditorViewModel = () => {
@@ -222,8 +230,6 @@ export default class ViewFileController extends ModalController {
     _loadOtherFile = () => {
         this._loadBlob((base64Blob) => {
             const obj = document.createElement("object");
-            obj.width = "100%";
-            obj.height = "100%";
             obj.type = this.mimeType;
             obj.data = base64Blob;
 

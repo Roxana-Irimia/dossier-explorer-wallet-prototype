@@ -4,16 +4,23 @@ div.prism-live {
     position: relative;
     box-sizing: border-box;
     flex-flow: column;
-    width: 80vw;
-    height: 75vh;
+    max-width: 80vw;
+    max-height: 30vh;
+    line-height: 1.5;
+}
+
+.asset-modal[expanded='true'] div.prism-live {
+    max-height: 60vh;
 }
 
 textarea.prism-live {
+    margin-left: 10px;
+    padding: 20px;
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: 81%;
+    width: 94.5%;
     z-index: 1000;
     color: transparent;
     cursor: text;

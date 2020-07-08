@@ -160,10 +160,13 @@ psk-modal.asset-modal .content {
     width: 100%;
 }
 
-psk-modal.asset-modal img,
+psk-modal.asset-modal img {
+    height: -webkit-fill-available;
+}
+
 psk-modal.asset-modal object {
-    max-width: 100%;
-    max-height: 100%;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
 }
 
 psk-modal.asset-modal[expanded="true"] .content {

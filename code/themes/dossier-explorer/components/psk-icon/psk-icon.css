@@ -42,3 +42,24 @@ psk-icon[descending='true'] span.icon {
     border: 2px solid #8197bc;
     border-radius: 3rem;
 }
+
+div.menu-icons {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+div.menu-icons>* {
+    padding: 0 0.25rem 0.25rem 0.25rem;
+    margin: 0 0.25rem 0.25rem 0.25rem;
+}
+
+div.menu-icons .btn-menu {
+    padding-top: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
