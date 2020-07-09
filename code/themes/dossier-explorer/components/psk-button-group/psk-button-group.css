@@ -15,7 +15,7 @@ psk-button-group[opened] .list-group {
 
 .button-group-wrapper .list-group,
 .trigger {
-    padding: 0.25rem 1rem;
+    padding: 0 1rem;
     font-size: 1.1rem;
     color: #fff;
     text-align: center;

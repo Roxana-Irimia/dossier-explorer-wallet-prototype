@@ -5,8 +5,7 @@ div.prism-live {
     box-sizing: border-box;
     flex-flow: column;
     max-width: 80vw;
-    max-height: 30vh;
-    line-height: 1.5;
+    max-height: 45vh;
 }
 
 .asset-modal[expanded='true'] div.prism-live {
@@ -19,8 +18,8 @@ textarea.prism-live {
     position: absolute;
     top: 0;
     left: 0;
-    height: 81%;
-    width: 94.5%;
+    height: 88%;
+    width: -webkit-fill-available;
     z-index: 1000;
     color: transparent;
     cursor: text;
@@ -68,6 +67,12 @@ pre.prism-live {
     pointer-events: none;
     overflow: hidden;
     max-height: 100%;
+    background-color: #fdfdfd;
+}
+
+pre[class*="language-"]>code {
+    background-image: none;
+    box-shadow: none;
 }
 
 pre.prism-live>code:empty::before {
