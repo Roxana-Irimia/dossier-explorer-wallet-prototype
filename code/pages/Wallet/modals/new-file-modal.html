@@ -3,18 +3,16 @@
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
         <psk-icon icon="pencil" color="#8197bc" class="dossier-icon icon-big"></psk-icon>
-        <div class="container align-left">
-            <psk-text-input view-model="fileNameInput"></psk-text-input>
-            <psk-textarea view-model="fileContentInput"></psk-textarea>
+        <psk-text-input class="full-width align-left" view-model="fileNameInput"></psk-text-input>
+        <psk-textarea class="full-width align-left" view-model="fileContentInput"></psk-textarea>
 
-            <psk-condition condition="@hasError">
-                <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
-            </psk-condition>
+        <psk-condition class="full-width align-left" condition="@hasError">
+            <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+        </psk-condition>
 
-            <psk-button-group class="modal-buttons">
-                <psk-button view-model="buttons.cancelButton"></psk-button>
-                <psk-button view-model="buttons.createFileButton"></psk-button>
-            </psk-button-group>
-        </div>
+        <psk-button-group class="modal-buttons">
+            <psk-button view-model="buttons.cancelButton"></psk-button>
+            <psk-button view-model="buttons.createFileButton"></psk-button>
+        </psk-button-group>
     </psk-modal>
 </psk-container>

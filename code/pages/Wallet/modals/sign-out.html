@@ -2,20 +2,17 @@
     <psk-modal opened class="exit-modal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <div class="container">
-            <psk-label label="@confirmDeleteSeedDisclaimer"></psk-label>
+        <psk-label label="@confirmDeleteSeedDisclaimer"></psk-label>
 
-            <psk-checkbox view-model="checkboxDeleteSeed"></psk-checkbox>
+        <psk-checkbox view-model="checkboxDeleteSeed"></psk-checkbox>
 
-            <psk-condition condition="@hasError">
-                <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
-            </psk-condition>
+        <psk-condition condition="@hasError">
+            <psk-label label="@errorMessage" class="h6 input-error"></psk-label>
+        </psk-condition>
 
-            <psk-button-group class="modal-buttons">
-                <psk-button view-model="buttons.confirmButton"></psk-button>
-                <psk-button view-model="buttons.exitButton"></psk-button>
-            </psk-button-group>
-        </div>
-
+        <psk-button-group class="modal-buttons">
+            <psk-button view-model="buttons.confirmButton"></psk-button>
+            <psk-button view-model="buttons.exitButton"></psk-button>
+        </psk-button-group>
     </psk-modal>
 </psk-container>
