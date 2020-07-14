@@ -1,10 +1,23 @@
 <psk-button-group label="@addMenuLabels.addLabel" icon="plus" icon-color="#ffffff" classes="add-menu">
-    <psk-button label="@addMenuLabels.newFile" event-name="new-file" button-class="btn-menu"></psk-button>
-    <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFileLabel" class="btn-menu">
-    </psk-files-chooser>
-    <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory" class="btn-menu bottom-border"></psk-files-chooser>
-    <psk-button label="@addMenuLabels.createDossierLabel" event-name="create-dossier" button-class="btn-menu">
+    <psk-button event-name="new-file" class="btn-menu" button-class=' '>
+        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="file"></psk-icon>
+        <psk-label label="@addMenuLabels.newFile"></psk-label>
     </psk-button>
-    <psk-button label="@addMenuLabels.receiveDossierLabel" event-name="receive-dossier" button-class="btn-menu">
+    <div class="btn-menu">
+        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="file"></psk-icon>
+        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFileLabel">
+        </psk-files-chooser>
+    </div>
+    <div class="btn-menu">
+        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="folder"></psk-icon>
+        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory"></psk-files-chooser>
+    </div>
+    <psk-button event-name="create-dossier" class="btn-menu" button-class=' '>
+        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="lock"></psk-icon>
+        <psk-label label="@addMenuLabels.createDossierLabel"></psk-label>
+    </psk-button>
+    <psk-button event-name="receive-dossier" class="btn-menu" button-class=' '>
+        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="upload"></psk-icon>
+        <psk-label label="@addMenuLabels.receiveDossierLabel"></psk-label>
     </psk-button>
 </psk-button-group>

@@ -62,7 +62,7 @@ const rootModel = {
     },
     conditionalExpressions: {
         isLoading: false,
-        isGridLayout: false,
+        isGridLayout: true,
     }
 };
 

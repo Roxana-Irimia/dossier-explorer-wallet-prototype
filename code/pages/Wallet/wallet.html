@@ -1,34 +1,33 @@
 <psk-container controller-name="ExplorerController">
-  <psk-page title="@pageTitle">
-    <psk-button button-class="btn-exit" event-name="sign-out">
-      <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
-      <psk-label label="@signOutLabel"></psk-label>
-    </psk-button>
-
-    <psk-card title="@sectionTitle" class="page-title">
-      <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
-        <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link'
-          disabled='@disabled'>
+    <psk-page title="@pageTitle">
+        <psk-button button-class="btn-exit" event-name="sign-out">
+            <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
+            <psk-label label="@signOutLabel"></psk-label>
         </psk-button>
-        <psk-label>/</psk-label>
-      </psk-for-each>
 
-      <psk-grid columns="3" layout="xs[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]">
-        <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]" class="m-0 p-0">
-          <psk-page-loader page-url="@pageLoader.addDossierMenu"></psk-page-loader>
-        </psk-grid>
-        <psk-page-loader page-url="@pageLoader.rightIconsMenu"></psk-page-loader>
-        <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
-      </psk-grid>
+        <psk-card title="@sectionTitle" class="page-title">
+            <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
+                <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>
+                </psk-button>
+                <psk-label>&gt;</psk-label>
+            </psk-for-each>
 
-      <psk-condition condition="@conditionalExpressions.isLoading">
-        <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
+            <psk-grid columns="3" layout="xs=[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]">
+                <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]" class="m-0 p-0">
+                    <psk-page-loader page-url="@pageLoader.addDossierMenu"></psk-page-loader>
+                </psk-grid>
+                <psk-page-loader page-url="@pageLoader.rightIconsMenu"></psk-page-loader>
+                <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
+            </psk-grid>
 
-        <psk-condition slot="condition-false" condition="@isGridLayout">
-          <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
-          <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
-        </psk-condition>
-      </psk-condition>
-    </psk-card>
-  </psk-page>
+            <psk-condition condition="@conditionalExpressions.isLoading">
+                <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
+
+                <psk-condition slot="condition-false" condition="@isGridLayout">
+                    <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
+                    <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
+                </psk-condition>
+            </psk-condition>
+        </psk-card>
+    </psk-page>
 </psk-container>
