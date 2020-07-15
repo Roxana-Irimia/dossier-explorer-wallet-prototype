@@ -8,6 +8,7 @@ import {
 
 import rootModel from "../view-models/rootModel.js";
 import newFileModal from "../view-models/newFileModal.js";
+import newFolderModal from "../view-models/newFolderModal.js";
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
@@ -44,6 +45,7 @@ export default class ExplorerController extends ContainerController {
         this.on('run-app', this._handleRunApplication);
 
         this.on('new-file', this._addNewFileHandler);
+        this.on('new-folder', this._addNewFolderHandler);
         this.on('add-file-folder', this._handleFileFolderUpload);
     };
 
@@ -227,6 +229,22 @@ export default class ExplorerController extends ContainerController {
 
         newFileModal.currentPath = wDir;
         this.showModal('newFile', newFileModal, (err, response) => {
+            // Response will be used to display notification messages using psk-feedback component
+            console.log(err, response);
+            this.navigatorController.listWalletContent();
+        });
+    }
+
+    _addNewFolderHandler = (event) => {
+        event.stopImmediatePropagation();
+
+        let wDir = this.model.currentPath || '/';
+        if (wDir == '/') {
+            wDir = '';
+        }
+
+        newFolderModal.currentPath = wDir;
+        this.showModal('newFolder', newFolderModal, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
             this.navigatorController.listWalletContent();

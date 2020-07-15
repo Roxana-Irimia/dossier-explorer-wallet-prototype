@@ -33,6 +33,11 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    addFolder(path, folderName, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "add", "folder", path, folderName)
+            .onReturn(callback);
+    }
+
     move(oldPath, newPath, callback) {
         $$.interactions.startSwarmAs("test/agent/007", "move", "start", oldPath, newPath)
             .onReturn(callback);
@@ -52,15 +57,15 @@ class DossierExplorerService {
         $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "printSeed", path, dossierName)
             .onReturn(callback);
     }
-	getMountedDossier(path,  callback) {
-		$$.interactions.startSwarmAs("test/agent/007", "listDossiers", "getMountedDossier", path)
-			.onReturn(callback);
-	}
+    getMountedDossier(path, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "getMountedDossier", path)
+            .onReturn(callback);
+    }
 
 }
 
 let dossierExplorer = new DossierExplorerService();
-let getDossierServiceInstance = function () {
+let getDossierServiceInstance = function() {
     return dossierExplorer;
 };
 

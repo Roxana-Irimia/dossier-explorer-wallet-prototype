@@ -7,14 +7,14 @@ const commons = require('./commons');
 const constants = require('./constants');
 
 $$.swarms.describe('readDir', {
-    readDir: function (path, options) {
+    readDir: function(path, options) {
         if (rawDossier) {
             return rawDossier.readDir(path, options, this.return);
         }
 
         this.return(new Error("Raw Dossier is not available."));
     },
-    start: function (path) {
+    start: function(path) {
         if (rawDossier) {
             return rawDossier.readDir(path, constants.WITH_FILE_TYPES, (err, content) => {
                 if (err) {
@@ -32,7 +32,7 @@ $$.swarms.describe('readDir', {
 
         this.return(new Error("Raw Dossier is not available."));
     },
-    checkForApplications: function () {
+    checkForApplications: function() {
         const mounts = this.content.mounts;
         const numberOfMounts = mounts.length;
         if (!numberOfMounts ||
@@ -42,21 +42,21 @@ $$.swarms.describe('readDir', {
 
         let sequence = Promise.resolve();
         mounts.forEach((mount) => {
-            sequence = sequence.then(()=>{
-                return new Promise((resolve)=>{
-					if (mount !== constants.CODE) {
-						return this.checkForAppFolder(mount, resolve);
-					}
-					resolve();
+            sequence = sequence.then(() => {
+                return new Promise((resolve) => {
+                    if (mount !== constants.CODE) {
+                        return this.checkForAppFolder(mount, resolve);
+                    }
+                    resolve();
                 })
             })
         });
 
-		sequence.then(()=>{
-			this.updateMountsList();
+        sequence.then(() => {
+            this.updateMountsList();
         })
-	},
-    updateMountsList: function () {
+    },
+    updateMountsList: function() {
         const { mounts, applications } = this.content;
         const filteredMountPoints = mounts.filter((mountPoint) => {
             let remove = false;
@@ -70,7 +70,7 @@ $$.swarms.describe('readDir', {
         this.content.mounts = filteredMountPoints;
         this.return(undefined, this.content);
     },
-    checkForAppFolder: function (mountPoint, callback) {
+    checkForAppFolder: function(mountPoint, callback) {
         const wDir = `${this.path}/${mountPoint}`;
         rawDossier.readDir(wDir, constants.WITH_FILE_TYPES, (err, mountPointContent) => {
             if (err) {
@@ -79,7 +79,7 @@ $$.swarms.describe('readDir', {
 
             const { folders, mounts } = mountPointContent;
             if (!folders || !folders.length) {
-               return this.checkForCodeDossier(mounts, mountPoint, callback);
+                return this.checkForCodeDossier(mounts, mountPoint, callback);
             }
 
             const hasAppFolder = folders.findIndex((fName) => fName === constants.APP) !== -1;
@@ -93,7 +93,7 @@ $$.swarms.describe('readDir', {
 
         });
     },
-    checkForCodeDossier: function (mounts, mountPoint, callback) {
+    checkForCodeDossier: function(mounts, mountPoint, callback) {
         const hasCodeFolder = mounts.findIndex(mPoint => mPoint === constants.CODE) !== -1;
         if (hasCodeFolder) {
             return this.checkForIndexHTML(mountPoint, callback);
@@ -101,7 +101,7 @@ $$.swarms.describe('readDir', {
 
         callback();
     },
-    checkForIndexHTML: function (mountPoint, callback) {
+    checkForIndexHTML: function(mountPoint, callback) {
         const wDir = `${this.path}/${mountPoint}`;
         rawDossier.readDir(`${wDir}/${constants.CODE}`, constants.WITH_FILE_TYPES, (err, codeContent) => {
             if (err) {
@@ -110,7 +110,7 @@ $$.swarms.describe('readDir', {
 
             const { files, folders } = codeContent;
             if (!files || !files.length) {
-				return callback();
+                return callback();
             }
 
             const hasIndexHtml = files.findIndex((fName) => fName === constants.INDEX_HTML) !== -1;
@@ -132,7 +132,7 @@ $$.swarms.describe('readDir', {
 });
 
 $$.swarms.describe('move', {
-    start: function (oldPath, newPath) {
+    start: function(oldPath, newPath) {
         if (rawDossier) {
             this.return(undefined, {
                 from: oldPath,
@@ -145,7 +145,7 @@ $$.swarms.describe('move', {
 });
 
 $$.swarms.describe("attachDossier", {
-    newDossier: function (path, dossierName) {
+    newDossier: function(path, dossierName) {
         if (rawDossier) {
             commons.createNewDossier((err, newDossier) => {
                 if (err) {
@@ -157,7 +157,7 @@ $$.swarms.describe("attachDossier", {
             this.return(new Error("Raw Dossier is not available."))
         }
     },
-    fromSeed: function (path, dossierName, SEED) {
+    fromSeed: function(path, dossierName, SEED) {
         if (rawDossier) {
             edfs.loadRawDossier(SEED, (err, loadedDossier) => {
                 if (err) {
@@ -171,7 +171,7 @@ $$.swarms.describe("attachDossier", {
             this.return(new Error("Raw Dossier is not available."))
         }
     },
-    mountDossier: function (path, mountedDossierSeed, dossierName) {
+    mountDossier: function(path, mountedDossierSeed, dossierName) {
         commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
             if (err) {
                 return this.return(err);
@@ -201,15 +201,26 @@ $$.swarms.describe("attachDossier", {
     }
 });
 
+$$.swarms.describe('add', {
+    folder: function(path, folderName) {
+        const folderPath = `${path}/${folderName}`;
+        if (rawDossier) {
+            return rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, this.return);
+        }
+
+        this.return(new Error("Raw Dossier is not available."));
+    }
+});
+
 $$.swarms.describe('delete', {
-    fileFolder: function (path) {
+    fileFolder: function(path) {
         if (rawDossier) {
             return rawDossier.delete(path, this.return);
         }
 
         this.return(new Error("Raw Dossier is not available."))
     },
-    dossier: function (path) {
+    dossier: function(path) {
         if (rawDossier) {
             return rawDossier.unmount(path, this.return);
         }
@@ -219,15 +230,15 @@ $$.swarms.describe('delete', {
 });
 
 $$.swarms.describe('listDossiers', {
-    getMountedDossier:function(path){
-		commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
-		    if(err){
+    getMountedDossier: function(path) {
+        commons.getParentDossier(rawDossier, path, (err, parentDossierSeed, relativePath) => {
+            if (err) {
                 return this.return(err);
             }
-			this.return(undefined, relativePath);
-		})
+            this.return(undefined, relativePath);
+        })
     },
-    printSeed: function (path, dossierName) {
+    printSeed: function(path, dossierName) {
         if (rawDossier) {
             return rawDossier.listMountedDossiers(path, (err, result) => {
                 if (err) {

@@ -216,10 +216,8 @@ div.global_container {
 
 aside {
     height: 100%;
-    /* background: url("/themes/blue-fluorite-theme/images/nav-background.jpg") no-repeat left bottom;
-    background-color: #8395af; */
-    background-color: rgb(195, 207, 221);
-    background: linear-gradient(180deg, rgba(195, 207, 221, 1) 0%, rgba(96, 109, 127, 1) 100%);
+    background: url("/themes/blue-fluorite-theme/images/nav-background.jpg") no-repeat left bottom;
+    background-color: #8395af;
     background-size: 100%;
     color: white;
     align-items: center;
@@ -325,6 +323,8 @@ aside::-webkit-scrollbar-button {
         flex-direction: row;
         align-items: flex-start;
         z-index: 3;
+        background-color: rgb(195, 207, 221);
+        background: linear-gradient(180deg, rgba(195, 207, 221, 1) 0%, rgba(96, 109, 127, 1) 100%);
     }
     aside psk-user-profile {
         position: absolute;

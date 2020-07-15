@@ -34,9 +34,10 @@ const rootModel = {
     },
     addMenuLabels: {
         addLabel: "Add",
-        newFile: "New File",
-        addFileLabel: "Add file",
-        addFolderLabel: "Add folder",
+        newFile: "New file",
+        newFolder: "New folder",
+        addFileLabel: "Upload file",
+        addFolderLabel: "Upload folder",
         createDossierLabel: "Create Dossier",
         receiveDossierLabel: "Receive Dossier",
     },
@@ -62,7 +63,7 @@ const rootModel = {
     },
     conditionalExpressions: {
         isLoading: false,
-        isGridLayout: true,
+        isGridLayout: false,
     }
 };
 

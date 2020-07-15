@@ -4,7 +4,7 @@ import {
 } from "../service/DossierExplorerService.js";
 import FeedbackController from "./FeedbackController.js";
 
-export default class NewFileController extends ModalController {
+export default class NewFolderController extends ModalController {
     constructor(element, history) {
         super(element, history);
 
@@ -15,15 +15,15 @@ export default class NewFileController extends ModalController {
     }
 
     _initListeners() {
-        this.on('new-file-create', this._createNewFile);
-        this.on('new-file-cancel', () => {
+        this.on('new-folder-create', this._createNewFolder);
+        this.on('new-folder-cancel', () => {
             this.responseCallback(undefined);
         });
 
-        this.model.onChange("fileNameInput.value", this._validateInput);
+        this.model.onChange("folderNameInput.value", this._validateInput);
     }
 
-    _createNewFile = (event) => {
+    _createNewFolder = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -32,31 +32,26 @@ export default class NewFileController extends ModalController {
             wDir = '';
         }
 
-        const fileName = this.model.fileNameInput.value;
-        let fileContent = this.model.fileContentInput.value || '\n';
-        if (!fileContent.trim().length) {
-            fileContent = '\n';
-        }
-
+        const folderName = this.model.folderNameInput.value;
         this.feedbackController.setLoadingState(true);
-        this.dossierService.readDirDetailed(wDir, (err, { files }) => {
+        this.dossierService.readDirDetailed(wDir, (err, { folders }) => {
             if (err) {
                 this.feedbackController.setLoadingState();
                 this.feedbackController.updateErrorMessage(err);
             } else {
-                if (files.find((el) => el === fileName)) {
+                if (folders.find((el) => el === folderName)) {
                     this.feedbackController.setLoadingState();
-                    this.feedbackController.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel);
+                    this.feedbackController.updateErrorMessage(this.model.error.errorLabels.entryExistsLabel);
                 } else {
-                    // If the name is not used, create the file
-                    this._uploadFile(`${wDir}/${fileName}`, fileContent);
+                    // If the name is not used, create the folder
+                    this._createFolder(wDir, folderName);
                 }
             }
         });
     }
 
-    _uploadFile = (path, data) => {
-        this.DSUStorage.setItem(path, data, (err, response) => {
+    _createFolder = (path, folderName) => {
+        this.dossierService.addFolder(path, folderName, (err, response) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
@@ -70,9 +65,9 @@ export default class NewFileController extends ModalController {
     _validateInput = () => {
         this.feedbackController.updateErrorMessage();
 
-        const value = this.model.fileNameInput.value;
+        const value = this.model.folderNameInput.value;
         const isEmptyName = value.trim().length === 0;
-        this.model.setChainValue('buttons.createFileButton.disabled', isEmptyName);
+        this.model.setChainValue('buttons.createFolderButton.disabled', isEmptyName);
 
         if (isEmptyName) {
             this.feedbackController.updateErrorMessage(this.model.error.errorLabels.nameNotValidLabel);

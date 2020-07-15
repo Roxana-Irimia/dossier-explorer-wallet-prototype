@@ -17,6 +17,7 @@
         "viewAsset": "Wallet/modals/view-asset.html",
         "moveDossier": "Wallet/modals/move-dossier.html",
         "runApp": "Wallet/modals/run-app.html",
-        "newFile": "Wallet/modals/new-file-modal.html"
+        "newFile": "Wallet/modals/new-file-modal.html",
+        "newFolder": "Wallet/modals/new-folder-modal.html"
     }
 }
