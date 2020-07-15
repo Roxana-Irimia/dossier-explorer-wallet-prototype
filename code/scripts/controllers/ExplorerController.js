@@ -6,13 +6,8 @@ import {
     getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
 
-import {
-    getAccountServiceInstance
-} from "../service/AccountService.js";
-
 import rootModel from "../view-models/rootModel.js";
 import newFileModal from "../view-models/newFileModal.js";
-import signOutModal from "../view-models/signOutModal.js";
 import createDossierModal from '../view-models/createDossierModal.js';
 import receiveDossierModal from '../view-models/receiveDossierModal.js';
 import deleteDossierModal from '../view-models/deleteDossierModal.js';
@@ -35,7 +30,6 @@ export default class ExplorerController extends ContainerController {
     }
 
     _initListeners = () => {
-        this.on("sign-out", this._signOutFromWalletHandler);
         this.on("switch-layout", this._handleSwitchLayout);
 
         this.on('view-file', this._handleViewFile);
@@ -88,17 +82,6 @@ export default class ExplorerController extends ContainerController {
         event.stopImmediatePropagation();
 
         this.model.isGridLayout = !this.model.isGridLayout;
-    };
-
-    _signOutFromWalletHandler = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        this.showModal("signOut", signOutModal, (err, preferences) => {
-            if (!err) {
-                getAccountServiceInstance().signOut(preferences);
-            }
-        });
     };
 
     _createDossierHandler = (event) => {

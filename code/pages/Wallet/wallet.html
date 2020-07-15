@@ -1,10 +1,5 @@
 <psk-container controller-name="ExplorerController">
     <psk-page title="@pageTitle">
-        <psk-button button-class="btn-exit" event-name="sign-out">
-            <psk-icon icon="sign-out" color="#572a57" classes="right-menu"></psk-icon>
-            <psk-label label="@signOutLabel"></psk-label>
-        </psk-button>
-
         <psk-card title="@sectionTitle" class="page-title">
             <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
                 <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>

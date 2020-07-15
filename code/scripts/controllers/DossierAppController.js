@@ -1,47 +1,66 @@
-import {getDossierServiceInstance} from "../service/DossierExplorerService.js"
+import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+
+import { getDossierServiceInstance } from "../service/DossierExplorerService.js"
+import { getAccountServiceInstance } from "../service/AccountService.js";
+
+import signOutModal from "../view-models/signOutModal.js";
+
 const DossierExplorerService = getDossierServiceInstance();
 const APPS_FOLDER = "/apps";
 
 const appTemplate = {
-	exact: false,
-	component: "psk-ssapp",
-	componentProps: {}
+    exact: false,
+    component: "psk-ssapp",
+    componentProps: {}
 };
 
-export default class DossierAppController {
-  constructor(element) {
+export default class DossierAppController extends ContainerController {
+    constructor(element, history) {
+        super(element, history);
 
-    element.addEventListener("getSSApps", function(event) {
-      if (
-        typeof event.getEventType === "function" &&
-        event.getEventType() === "PSK_SUB_MENU_EVT"
-      ) {
+        element.addEventListener("sign-out", this._signOutFromWalletHandler);
+        element.addEventListener("getSSApps", this._getSSAppsHandler);
+    }
 
-        let callback = event.data.callback;
-        let pathPrefix = event.data.pathPrefix;
-        if (typeof callback !== "function") {
-          throw new Error("Callback should be a function");
+    _getSSAppsHandler = (event) => {
+        if (typeof event.getEventType === "function" &&
+            event.getEventType() === "PSK_SUB_MENU_EVT") {
+
+            let callback = event.data.callback;
+            let pathPrefix = event.data.pathPrefix;
+            if (typeof callback !== "function") {
+                throw new Error("Callback should be a function");
+            }
+
+            DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, { applications }) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                let apps = [];
+                applications.forEach((mountedApp) => {
+                    let app = JSON.parse(JSON.stringify(appTemplate));
+                    app.name = mountedApp;
+                    app.path = pathPrefix + "/" + mountedApp;
+                    app.componentProps.appName = mountedApp;
+                    apps.push(app);
+                });
+
+                callback(err, apps);
+
+            });
+
         }
+    }
 
-        DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {applications})=>{
-			if (err) {
-				return callback(err);
-			}
+    _signOutFromWalletHandler = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
 
-			let apps = [];
-			applications.forEach((mountedApp) => {
-				let app = JSON.parse(JSON.stringify(appTemplate));
-				app.name = mountedApp;
-				app.path = pathPrefix +"/" + mountedApp;
-				app.componentProps.appName = mountedApp;
-				apps.push(app);
-			});
-
-			callback(err, apps);
-
-		});
-
-      }
-    });
-  }
+        this.showModal("signOut", signOutModal, (err, preferences) => {
+            if (!err) {
+                getAccountServiceInstance().signOut(preferences);
+            }
+        });
+    };
 }
