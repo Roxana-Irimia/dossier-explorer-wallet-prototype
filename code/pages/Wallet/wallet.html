@@ -1,6 +1,6 @@
 <psk-container controller-name="ExplorerController">
     <psk-page title="@pageTitle">
-        <psk-card title="@sectionTitle" class="page-title">
+        <psk-card>
             <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
                 <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>
                 </psk-button>

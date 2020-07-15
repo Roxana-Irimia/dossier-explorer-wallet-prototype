@@ -16,8 +16,6 @@ const rootModel = {
     content: [],
     navigationLinks: [],
     pageTitle: "Explorer",
-    sectionTitle: "Dashboard",
-    signOutLabel: "Exit",
     currentPath: '/',
     dateFormatOptions: { // Currently not used. 
         // To be used when extending the DateFormat to allow masked formats
