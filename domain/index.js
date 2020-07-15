@@ -203,9 +203,15 @@ $$.swarms.describe("attachDossier", {
 
 $$.swarms.describe('add', {
     folder: function(path, folderName) {
-        const folderPath = `${path}/${folderName}`;
         if (rawDossier) {
-            return rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, this.return);
+            const folderPath = `${path}/${folderName}`;
+
+            rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, (err, res) => {
+                console.log(folderPath, folderPath, err, res);
+                if (!err) {
+                    this.return(err, res);
+                }
+            });
         }
 
         this.return(new Error("Raw Dossier is not available."));

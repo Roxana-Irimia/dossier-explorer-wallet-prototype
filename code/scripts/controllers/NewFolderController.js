@@ -51,14 +51,33 @@ export default class NewFolderController extends ModalController {
     }
 
     _createFolder = (path, folderName) => {
-        this.dossierService.addFolder(path, folderName, (err, response) => {
+        // this.dossierService.addFolder(path, folderName, (err, response) => {
+        //     this.feedbackController.setLoadingState();
+        //     if (err) {
+        //         console.error(err);
+        //         this.feedbackController.updateErrorMessage(err);
+        //     } else {
+        //         this.responseCallback(undefined, { response: response });
+        //     }
+        // });
+
+        const folderPath = `${path}/${folderName}`;
+        const tempFilePath = `${folderPath}/temp.txt`;
+        this.DSUStorage.setItem(tempFilePath, 'temporary text', (err, result) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
-                this.feedbackController.updateErrorMessage(err);
-            } else {
-                this.responseCallback(undefined, { response: response });
+                return this.feedbackController.updateErrorMessage(err);
             }
+
+            this.dossierService.deleteFileFolder(tempFilePath, (err, deleteResult) => {
+                if (err) {
+                    console.error(err);
+                    return this.feedbackController.updateErrorMessage(err);
+                }
+
+                this.responseCallback(undefined, { result: result });
+            });
         });
     }
 
