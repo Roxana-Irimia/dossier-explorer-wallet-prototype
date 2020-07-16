@@ -10,22 +10,22 @@ const EDFS = require("edfs");
 
 const edfs = EDFS.attachToEndpoint(BRICK_STORAGE_ENDPOINT);
 
-function getCardinalDossierSeed(callback){
-    fs.readFile(CARDINAL_SEED_FILE_PATH, (err, content)=>{
+function getCardinalDossierSeed(callback) {
+    fs.readFile(CARDINAL_SEED_FILE_PATH, (err, content) => {
         if (err || content.length === 0) {
             return callback(err);
         }
-        callback(undefined, content);
+        callback(undefined, content.toString());
     })
 }
 
-function getThemeDossierSeed(themeName, callback){
+function getThemeDossierSeed(themeName, callback) {
 
-    fs.readFile(`${THEMES_PATH}/${themeName}/seed`, (err, content)=>{
+    fs.readFile(`${THEMES_PATH}/${themeName}/seed`, (err, content) => {
         if (err || content.length === 0) {
             return callback(err);
         }
-        callback(undefined, content);
+        callback(undefined, content.toString());
     })
 }
 
@@ -46,8 +46,8 @@ function createDossier(callback) {
 }
 
 function updateDossier(bar, callback) {
-    bar.delete("/", function(err){
-        if(err){
+    bar.delete("/", function(err) {
+        if (err) {
             throw err;
         }
 
@@ -57,11 +57,11 @@ function updateDossier(bar, callback) {
             }
 
             edfs.loadRawDossier(bar.getSeed(), (err, loadedDossier) => {
-                if(err){
+                if (err) {
                     return callback(err);
                 }
 
-                getCardinalDossierSeed((err, cardinalSeed)=>{
+                getCardinalDossierSeed((err, cardinalSeed) => {
                     if (err) {
                         return callback(err);
                     }
@@ -71,8 +71,9 @@ function updateDossier(bar, callback) {
                         }
                         try {
                             let themeNames = fs.readdirSync(THEMES_PATH);
-                            function addTheme(theme, callback){
-                                getThemeDossierSeed(theme,(err, themeSeed) => {
+
+                            function addTheme(theme, callback) {
+                                getThemeDossierSeed(theme, (err, themeSeed) => {
                                     if (err) {
                                         return callback(err);
                                     }
@@ -82,23 +83,23 @@ function updateDossier(bar, callback) {
                                             return callback(err);
                                         }
 
-                                        if(themeNames.length !== 0){
+                                        if (themeNames.length !== 0) {
                                             addTheme(themeNames.pop(), callback);
-                                        }else{
+                                        } else {
                                             return callback();
                                         }
                                     });
                                 })
                             }
 
-                            if(themeNames.length > 0){
-                                addTheme(themeNames.pop(), function(err){
+                            if (themeNames.length > 0) {
+                                addTheme(themeNames.pop(), function(err) {
                                     if (err) {
                                         return callback(err);
                                     }
                                     storeSeed(DOSSIER_SEED_FILE_PATH, loadedDossier.getSeed(), callback);
                                 })
-                            }else{
+                            } else {
                                 storeSeed(DOSSIER_SEED_FILE_PATH, loadedDossier.getSeed(), callback);
                             }
                         } catch (e) {
@@ -127,7 +128,7 @@ function build(callback) {
             return createDossier(callback);
         }
 
-        if(seed.getEndpoint() !== BRICK_STORAGE_ENDPOINT){
+        if (seed.getEndpoint() !== BRICK_STORAGE_ENDPOINT) {
             console.log("Endpoint change detected. Creating a new Dossier...");
             return createDossier(callback);
         }
@@ -143,7 +144,7 @@ function build(callback) {
     });
 }
 
-build(function (err, seed) {
+build(function(err, seed) {
     let path = require("path");
     let projectName = path.basename(path.join(__dirname, "../"));
     if (err) {
