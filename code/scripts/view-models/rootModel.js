@@ -21,7 +21,7 @@ const rootModel = {
         // To be used when extending the DateFormat to allow masked formats
         date: 'dd-mm-yyyy',
         time: 'HH:MM',
-        fullTime: 'dd-mm-yyyy and HH:MM'
+        fullTime: 'dd-mm-yyyy HH:MM'
     },
     contentLabels: {
         myWalletLabel: "My Wallet",

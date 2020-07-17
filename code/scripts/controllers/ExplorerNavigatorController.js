@@ -3,7 +3,6 @@ import {
     getDossierServiceInstance
 } from "../service/DossierExplorerService.js";
 import FeedbackController from "./FeedbackController.js";
-import DateFormat from "./libs/DateFormat.js";
 
 import walletContentViewModel from '../view-models/walletContentViewModel.js';
 import viewFileModal from "../view-models/viewFileModal.js";
@@ -290,16 +289,11 @@ export default class ExplorerNavigatorController extends ContainerController {
                     name: name
                 };
 
-                /**
-                 * Set the attributes regarding the displaying of the lst modification time
-                 * lastModifiedTimestamp, fullDateHover, lastModified
-                 */
-                const lastModified = this.getRandomInt(1590000000000, new Date().getTime());
-                const dateFormat = new DateFormat(lastModified, this.model.dateFormatOptions);
-                viewModelObject.lastModifiedTimestamp = lastModified;
-                viewModelObject.fullDateHover = dateFormat.getFullDateString();
-                viewModelObject.lastModified = dateFormat.isInLastDay() ?
-                    dateFormat.getFormattedTime() : dateFormat.getFormattedDate();
+                // Temporary solution until the values are provided from edfs
+                viewModelObject.lastModified = this.getRandomInt(1594500000000, new Date().getTime());
+                viewModelObject.hoverFormat = this.model.dateFormatOptions.fullTime;
+                viewModelObject.format = this._isDateInLastDay(viewModelObject.lastModified) ?
+                    this.model.dateFormatOptions.time : this.model.dateFormatOptions.date;
 
                 return viewModelObject;
             });
@@ -310,6 +304,14 @@ export default class ExplorerNavigatorController extends ContainerController {
         this.model.setChainValue('sortedTypes', sortedTypesViewModel);
 
         return mappedContent;
+    }
+
+    _isDateInLastDay = (dateValue) => {
+        const dateValueTimestamp = new Date(dateValue).getTime();
+        const timeStamp = new Date().getTime();
+        const timeStampYesterday = timeStamp - (24 * 3600 * 1000);
+
+        return dateValueTimestamp >= timeStampYesterday;
     }
 
     _sortByProperty = (arr, pName, reverse) => {
