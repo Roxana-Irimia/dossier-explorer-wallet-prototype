@@ -1,17 +1,25 @@
+<psk-button class="btn-sort" button-class="btn-sort" event-name='sort-working-directory' event-data='name'>
+    <psk-label label="@contentLabels.nameLabel"></psk-label>
+    <psk-condition condition='@sortedTypes.name.isSorted'>
+        <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
+    </psk-condition>
+</psk-button>
+
 <psk-for-each class="wallet-grid-container" data-view-model="content">
     <psk-card class="@selected">
-        <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
-            <psk-grid>
-                <psk-label>
-                    <psk-icon icon="@gridIcon" color="#572a57"></psk-icon>
-                    <psk-label label="@name"> </psk-label>
-                </psk-label>
-                <psk-condition condition="@isApplication">
-                    <psk-button button-class="btn-run" event-name="run-app" event-data="@name">
-                        <psk-icon color="#572a57" icon="play"></psk-icon>
-                    </psk-button>
-                </psk-condition>
-            </psk-grid>
+        <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
+            <psk-label>
+                <psk-icon icon="@gridIcon" color="#572a57"></psk-icon>
+                <psk-label label="@name"> </psk-label>
+            </psk-label>
+            <psk-condition condition="@isApplication">
+                <psk-button button-class="btn-run" event-name="run-app" event-data="@name">
+                    <psk-icon color="#572a57" icon="play"></psk-icon>
+                </psk-button>
+            </psk-condition>
+            <psk-button class="mobile-navigation" event-name="double-click-item" event-data="@name" button-class=" ">
+                <psk-icon icon="arrow-right"></psk-icon>
+            </psk-button>
         </psk-button>
     </psk-card>
 

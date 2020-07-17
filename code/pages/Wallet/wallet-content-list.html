@@ -1,12 +1,12 @@
 <psk-grid class="wallet-list-header" columns="3" layout="xs=[7,2,3] s=[7,2,3] m=[7,2,3] l=[7,2,3] xl=[7,2,3]">
-    <psk-button event-name='sort-working-directory' event-data='name'>
+    <psk-button class="btn-sort" button-class="btn-sort" event-name='sort-working-directory' event-data='name'>
         <psk-label label="@contentLabels.nameLabel"></psk-label>
         <psk-condition condition='@sortedTypes.name.isSorted'>
             <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
         </psk-condition>
     </psk-button>
-    <psk-label label="@contentLabels.typeLabel"></psk-label>
-    <psk-button event-name='sort-working-directory' event-data='lastModified'>
+    <psk-label class="btn-sort" label="@contentLabels.typeLabel"></psk-label>
+    <psk-button class="btn-sort" button-class="btn-sort" event-name='sort-working-directory' event-data='lastModified'>
         <psk-label label="@contentLabels.lastModifiedLabel"></psk-label>
         <psk-condition condition='@sortedTypes.lastModified.isSorted'>
             <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.lastModified.descending'></psk-icon>
@@ -16,7 +16,7 @@
 
 <psk-for-each class="wallet-list-container" data-view-model="content">
     <psk-card class="@selected">
-        <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
+        <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
             <psk-grid class="items" columns="3" layout="xs=[7,2,3] s=[7,2,3] m=[7,2,3] l=[7,2,3] xl=[7,2,3]">
                 <psk-grid>
                     <psk-label>
