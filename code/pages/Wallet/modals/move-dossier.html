@@ -11,31 +11,34 @@
             <psk-label>/</psk-label>
         </psk-for-each>
 
-        <psk-grid class="wallet-list-header" columns="2" layout="xs=[9,3] s=[9,3] m=[9,3] l=[9,3] xl=[9,3]">
-            <psk-button event-name='sort-working-directory' event-data='name'>
-                <psk-label label="@contentLabels.nameLabel"></psk-label>
-                <psk-condition condition='@sortedTypes.name.isSorted'>
-                    <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
-                </psk-condition>
-            </psk-button>
-            <psk-label label="@contentLabels.typeLabel"></psk-label>
-        </psk-grid>
-
-        <psk-for-each class="wallet-list-container" data-view-model="content">
-            <psk-card class="@selected">
-                <psk-button class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
-                    <psk-grid class="items" columns="2" layout="xs=[9,3] s=[9,3] m=[9,3] l=[9,3] xl=[9,3]">
-                        <psk-grid>
-                            <psk-label label="@name"> </psk-label>
-                            <psk-icon color="#572a57" icon="@icon"></psk-icon>
-                        </psk-grid>
-                        <psk-label label="@type"></psk-label>
-                    </psk-grid>
+        <psk-grid class="content-wrapper" data-grid-layout="@isGridLayout">
+            <psk-grid class="wallet-header">
+                <psk-button class="btn-sort col-6" button-class="btn-sort" event-name='sort-working-directory' event-data='name'>
+                    <psk-label label="@contentLabels.nameLabel"></psk-label>
+                    <psk-condition condition='@sortedTypes.name.isSorted'>
+                        <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
+                    </psk-condition>
                 </psk-button>
-            </psk-card>
+            </psk-grid>
 
-            <psk-label slot="no-data" class="h2 info" label="@noItemsLabel"></psk-label>
-        </psk-for-each>
+            <psk-for-each class="wallet-container" data-view-model="content">
+                <psk-card class="@selected" data-type="@dataType">
+                    <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
+                        <psk-icon color="#572a57" icon="@icon"></psk-icon>
+
+                        <psk-label class="item-wrapper">
+                            <psk-label class="info-wrapper">
+                                <psk-label class='name-wrapper col-12'>
+                                    <psk-label label="@name"> </psk-label>
+                                </psk-label>
+                            </psk-label>
+                        </psk-label>
+                    </psk-button>
+                </psk-card>
+
+                <psk-label slot="no-data" class="h2 info" label="@contentLabels.noItemsLabel"></psk-label>
+            </psk-for-each>
+        </psk-grid>
 
         <psk-condition condition="@error.hasError">
             <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>

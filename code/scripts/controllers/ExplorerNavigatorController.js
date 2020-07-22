@@ -41,13 +41,7 @@ export default class ExplorerNavigatorController extends ContainerController {
     selectWalletItemHandler = (event) => {
         event.stopImmediatePropagation();
 
-        let selectedItem = event.data || null;
-        if (!selectedItem) {
-            console.error('An item was not clicked!');
-            return;
-        }
-
-        let selectedItemViewModel = this.model.content.find((el) => el.name === selectedItem);
+        let selectedItemViewModel = this.model.content.find((el) => el.name === event.data);
         if (!selectedItemViewModel) {
             console.error('The clicked item is not in the view-model!');
             return;
@@ -59,25 +53,8 @@ export default class ExplorerNavigatorController extends ContainerController {
         let isSelected = selectedItemViewModel.selected === 'selected';
         if (isSelected) {
             selectedItemViewModel.selected = '';
-            this.model.setChainValue('selectedItem', {
-                selected: false,
-                item: {}
-            });
         } else {
             selectedItemViewModel.selected = 'selected';
-            let item = {
-                ...selectedItemViewModel,
-                currentPath: this.model.currentPath,
-                isFile: selectedItemViewModel.type === 'file',
-                isFolder: selectedItemViewModel.type === 'folder',
-                isDossier: selectedItemViewModel.type === 'dossier' || selectedItemViewModel.type === 'application',
-                isApplication: selectedItemViewModel.type === 'application'
-            };
-
-            this.model.setChainValue('selectedItem', {
-                selected: true,
-                item: JSON.parse(JSON.stringify(item))
-            });
         }
     };
 
@@ -239,7 +216,6 @@ export default class ExplorerNavigatorController extends ContainerController {
 
         if (previouslySelected) {
             previouslySelected.selected = '';
-            this.model.setChainValue('selectedItem', null);
         }
     }
 

@@ -27,7 +27,9 @@ const rootModel = {
         deleteLabel: "Delete",
         viewFileLabel: "View File",
         downloadFileLabel: "Download",
-        shareDossierLabel: "Share"
+        shareDossierLabel: "Share",
+        moveLabel: "Move",
+        renameLabel: "Rename"
     },
     addMenuLabels: {
         addLabel: "Add",
@@ -42,17 +44,6 @@ const rootModel = {
         switchGridHover: "Click to switch to list",
         switchListHover: "Click to switch to grid",
     },
-    iconsMenuMoreOptions: [{
-            label: "Move",
-            eventName: 'move-dossier',
-            icon: "arrow-right"
-        },
-        {
-            label: "Rename",
-            eventName: 'rename-dossier',
-            icon: "pencil"
-        }
-    ],
     error: {
         hasError: false,
         errorMessage: '',

@@ -18,7 +18,7 @@ export default class MoveDossierController extends ModalController {
 
     _initListeners = () => {
         this.on('confirm-move', this._handleMoveFile);
-        this.on('cancel-move', this._handleCancel)
+        this.on('cancel-move', this._handleCancel);
     };
 
     _handleMoveFile = (event) => {
@@ -37,9 +37,9 @@ export default class MoveDossierController extends ModalController {
             currentPath = '';
         }
 
-        let selectedItem = this.model.getChainValue('selectedItem');
-        if (selectedItem && selectedItem.selected) {
-            currentPath = `${currentPath}/${selectedItem.item.name}`;
+        const selectedItem = this.model.content.find(el => el === selectedEntryName && el.selected === 'selected');
+        if (selectedItem) {
+            currentPath = `${currentPath}/${selectedItem.name}`;
         }
 
         const oldPath = `${currentWorkingDirectory}/${selectedEntryName}`;

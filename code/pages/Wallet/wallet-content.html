@@ -35,32 +35,35 @@
                     </psk-label>
 
                     <psk-button-group icon='ellipsis-v' icon-color='#572a57' classes="dots-menu">
-                        <psk-button event-name="view-file" title="@contentLabels.viewFileLabel" button-class="btn-menu" data-type="file">
+                        <psk-button event-name="view-file" title="@contentLabels.viewFileLabel" button-class="btn-menu" data-type="file" event-data="@name">
                             <psk-icon icon="eye"></psk-icon>
                             <psk-label label="@contentLabels.viewFileLabel"></psk-label>
                         </psk-button>
 
-                        <psk-button event-name="export-dossier" title="@contentLabels.downloadFileLabel" button-class="btn-menu" data-type="file">
+                        <psk-button event-name="export-dossier" title="@contentLabels.downloadFileLabel" button-class="btn-menu" data-type="file" event-data="@name">
                             <psk-icon icon="download"></psk-icon>
                             <psk-label label="@contentLabels.downloadFileLabel"></psk-label>
                         </psk-button>
 
-                        <psk-button event-name="share-dossier" title="@contentLabels.shareDossierLabel" button-class="btn-menu" data-type="mount">
+                        <psk-button event-name="share-dossier" title="@contentLabels.shareDossierLabel" button-class="btn-menu" data-type="mount" event-data="@name">
                             <psk-icon icon="share"></psk-icon>
                             <psk-label label="@contentLabels.shareDossierLabel"></psk-label>
                         </psk-button>
 
-                        <psk-button event-name="delete-dossier" title="@contentLabels.deleteLabel" button-class="btn-menu">
+                        <psk-button event-name="delete-dossier" title="@contentLabels.deleteLabel" button-class="btn-menu" event-data="@name">
                             <psk-icon icon="trash"></psk-icon>
                             <psk-label label="@contentLabels.deleteLabel"></psk-label>
                         </psk-button>
 
-                        <psk-for-each data-view-model="iconsMenuMoreOptions">
-                            <psk-button title="@label" event-name="@eventName" button-class="btn-menu">
-                                <psk-icon icon="@icon"></psk-icon>
-                                <psk-label label="@label"></psk-label>
-                            </psk-button>
-                        </psk-for-each>
+                        <psk-button title="@contentLabels.moveLabel" event-name="move-dossier" button-class="btn-menu" event-data="@name">
+                            <psk-icon icon="arrow-right"></psk-icon>
+                            <psk-label label="@contentLabels.moveLabel"></psk-label>
+                        </psk-button>
+
+                        <psk-button title="@contentLabels.renameLabel" event-name="rename-dossier" button-class="btn-menu" event-data="@name">
+                            <psk-icon icon="pencil"></psk-icon>
+                            <psk-label label="@contentLabels.renameLabel"></psk-label>
+                        </psk-button>
                     </psk-button-group>
                 </psk-label>
             </psk-button>

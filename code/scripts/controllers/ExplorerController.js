@@ -1,7 +1,6 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 import FileDownloader from "./FileDownloader.js";
 import FeedbackController from "./FeedbackController.js";
-import Constants from "./Constants.js";
 
 import {
     getDossierServiceInstance
@@ -118,7 +117,7 @@ export default class ExplorerController extends ContainerController {
         const {
             currentPath,
             selectedItem
-        } = this._getSelectedItemAndWorkingDir();
+        } = this._getSelectedItemAndWorkingDir(event.data);
 
         deleteDossierModal.path = currentPath;
         deleteDossierModal.selectedItemName = selectedItem.name;
@@ -138,7 +137,7 @@ export default class ExplorerController extends ContainerController {
         const {
             currentPath,
             selectedItem
-        } = this._getSelectedItemAndWorkingDir();
+        } = this._getSelectedItemAndWorkingDir(event.data);
 
         const name = selectedItem.name;
         if (name === 'manifest') {
@@ -164,7 +163,7 @@ export default class ExplorerController extends ContainerController {
         const {
             currentPath,
             selectedItem
-        } = this._getSelectedItemAndWorkingDir();
+        } = this._getSelectedItemAndWorkingDir(event.data);
 
         if (selectedItem.name === 'manifest') {
             console.error(this.model.error.manifestManipulationError);
@@ -173,9 +172,10 @@ export default class ExplorerController extends ContainerController {
 
         moveDossierModal.selectedEntryName = selectedItem.name;
         moveDossierModal.currentWorkingDirectory = currentPath;
+        moveDossierModal.dateFormatOptions = this._getCleanProxyObject(this.model.dateFormatOptions);
         moveDossierModal.contentLabels = {
             ...this.model.contentLabels,
-            ...moveDossierModal.contentLabels
+            ...moveDossierModal.contentLabels,
         };
 
         this.showModal('moveDossier', moveDossierModal, (err, response) => {
@@ -192,7 +192,7 @@ export default class ExplorerController extends ContainerController {
         const {
             currentPath,
             selectedItem
-        } = this._getSelectedItemAndWorkingDir();
+        } = this._getSelectedItemAndWorkingDir(event.data);
 
         shareDossierModal.currentPath = currentPath;
         shareDossierModal.selectedFile = selectedItem.name;
@@ -202,22 +202,6 @@ export default class ExplorerController extends ContainerController {
             console.log(err, response);
             this.navigatorController.listWalletContent();
         });
-    }
-
-    _getSelectedItemAndWorkingDir = () => {
-        if (!this.model.content.length) {
-            throw console.error('No content available');
-        }
-
-        const selectedItem = this.model.selectedItem;
-        if (!selectedItem || !selectedItem.selected) {
-            throw console.error('No item selected!');
-        }
-
-        return {
-            currentPath: this.model.currentPath,
-            selectedItem: selectedItem.item
-        };
     }
 
     _addNewFileHandler = (event) => {
@@ -282,25 +266,18 @@ export default class ExplorerController extends ContainerController {
     };
 
     _handleDownload = (event) => {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
-        let selectedItem = this.model.selectedItem;
-        if (!selectedItem || !selectedItem.item) {
+        const selectedItem = this._getSelectedItem(event.data);
+        if (!selectedItem) {
             console.error(`No item selected to be downloaded!`);
             return;
         }
 
-        let itemViewModel = selectedItem.item;
-        switch (itemViewModel.type) {
-            case 'file':
-                {
-                    this._handleDownloadFile(itemViewModel.currentPath, itemViewModel.name);
-                    break;
-                }
-            case 'folder':
-            case 'dossier':
-            default:
-                break;
+        const itemViewModel = this._getCleanProxyObject(selectedItem);
+        if (itemViewModel.type === 'file') {
+            this._handleDownloadFile(itemViewModel.currentPath, itemViewModel.name);
         }
     }
 
@@ -310,20 +287,45 @@ export default class ExplorerController extends ContainerController {
     }
 
     _handleViewFile = (event) => {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
-        let selectedItem = this.model.selectedItem;
-        if (!selectedItem || !selectedItem.item) {
+        const selectedItem = this._getSelectedItem(event.data);
+        if (!selectedItem) {
             console.error(`No item selected to be downloaded!`);
             return;
         }
 
-        let itemViewModel = selectedItem.item;
+        const itemViewModel = this._getCleanProxyObject(selectedItem);
         if (itemViewModel.type !== 'file') {
             console.error(`Only files support this funtionality!`);
             return;
         }
 
         this.navigatorController.openViewFileModal(itemViewModel);
+    }
+
+    _getSelectedItemAndWorkingDir = (name) => {
+        if (!this.model.content.length) {
+            throw console.error('No content available');
+        }
+
+        const selectedItem = this._getSelectedItem(name);
+        if (!selectedItem) {
+            throw console.error('No item selected!');
+        }
+
+        return {
+            currentPath: this.model.currentPath,
+            selectedItem: this._getCleanProxyObject(selectedItem)
+        };
+    }
+
+    _getSelectedItem = (name) => {
+        return this.model.content.find((el) => el.name === name);
+    }
+
+    _getCleanProxyObject = (obj) => {
+        return obj ? JSON.parse(JSON.stringify(obj)) : null;
     }
 }
