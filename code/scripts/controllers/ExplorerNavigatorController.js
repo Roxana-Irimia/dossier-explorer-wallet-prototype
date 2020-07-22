@@ -324,7 +324,7 @@ export default class ExplorerNavigatorController extends ContainerController {
                 }
             case 'lastModified':
                 {
-                    arr = arr.sort((a, b) => a.lastModifiedTimestamp - b.lastModifiedTimestamp);
+                    arr = arr.sort((a, b) => a.lastModified - b.lastModified);
                     break;
                 }
             default:
