@@ -1,28 +1,57 @@
 <psk-container controller-name="ExplorerController">
     <psk-page title="@pageTitle">
-        <psk-card>
+        <psk-grid>
             <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
                 <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>
                 </psk-button>
                 <psk-label>&gt;</psk-label>
             </psk-for-each>
 
-            <psk-grid columns="3" layout="xs=[12,10,2] s=[12,10,2] m=[8,3,1] l=[8,3,1] lg=[8,3,1]">
-                <psk-grid columns="1" layout="xs=[12] s=[12] m=[12] l=[12] xl=[12]" class="m-0 p-0">
-                    <psk-page-loader page-url="@pageLoader.addDossierMenu"></psk-page-loader>
-                </psk-grid>
-                <psk-page-loader page-url="@pageLoader.rightIconsMenu"></psk-page-loader>
-                <psk-page-loader page-url="@pageLoader.switchLayout"></psk-page-loader>
+            <psk-grid class="add-menu">
+                <psk-button-group label="@addMenuLabels.addLabel" icon="plus" icon-color="#ffffff" class="add-menu" classes="add-menu">
+                    <psk-button event-name="new-file" class="btn-menu" button-class=' '>
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="file"></psk-icon>
+                        <psk-label label="@addMenuLabels.newFile"></psk-label>
+                    </psk-button>
+                    <psk-button event-name="new-folder" class="btn-menu" button-class=' '>
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="folder"></psk-icon>
+                        <psk-label label="@addMenuLabels.newFolder"></psk-label>
+                    </psk-button>
+                    <div class="btn-menu">
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="file"></psk-icon>
+                        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFileLabel">
+                        </psk-files-chooser>
+                    </div>
+                    <div class="btn-menu">
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="folder"></psk-icon>
+                        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory"></psk-files-chooser>
+                    </div>
+                    <psk-button event-name="create-dossier" class="btn-menu" button-class=' '>
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="lock"></psk-icon>
+                        <psk-label label="@addMenuLabels.createDossierLabel"></psk-label>
+                    </psk-button>
+                    <psk-button event-name="receive-dossier" class="btn-menu" button-class=' '>
+                        <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="upload"></psk-icon>
+                        <psk-label label="@addMenuLabels.receiveDossierLabel"></psk-label>
+                    </psk-button>
+                </psk-button-group>
+
+                <psk-condition condition="@isGridLayout" class="btn-switch-wrapper">
+                    <psk-button slot="condition-true" title="@hoverLabels.switchGridHover" event-name="switch-layout" button-class="btn-switch">
+                        <psk-icon color="#572a57" icon="th" class="right-menu"></psk-icon>
+                    </psk-button>
+
+                    <psk-button slot="condition-false" title="@hoverLabels.switchListHover" event-name="switch-layout" button-class="btn-switch">
+                        <psk-icon color="#572a57" icon="th-list" class="right-menu"></psk-icon>
+                    </psk-button>
+                </psk-condition>
             </psk-grid>
 
             <psk-condition condition="@conditionalExpressions.isLoading">
                 <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
 
-                <psk-condition slot="condition-false" condition="@isGridLayout">
-                    <psk-page-loader slot="condition-true" page-url="@pageLoader.walletGridContent"></psk-page-loader>
-                    <psk-page-loader slot="condition-false" page-url="@pageLoader.walletListContent"></psk-page-loader>
-                </psk-condition>
+                <psk-page-loader slot="condition-false" page-url="@pageLoader.walletContent"></psk-page-loader>
             </psk-condition>
-        </psk-card>
+        </psk-grid>
     </psk-page>
 </psk-container>

@@ -1,0 +1,71 @@
+<psk-grid class="content-wrapper" data-grid-layout="@isGridLayout">
+    <psk-grid class="wallet-header">
+        <psk-button class="btn-sort col-6" button-class="btn-sort" event-name='sort-working-directory' event-data='name'>
+            <psk-label label="@contentLabels.nameLabel"></psk-label>
+            <psk-condition condition='@sortedTypes.name.isSorted'>
+                <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
+            </psk-condition>
+        </psk-button>
+        <psk-label class="btn-sort col-2" label="@contentLabels.typeLabel" data-hide-mobile data-hide-grid></psk-label>
+        <psk-button class="btn-sort col-4" button-class="btn-sort" event-name='sort-working-directory' event-data='lastModified' data-hide-mobile data-hide-grid>
+            <psk-label label="@contentLabels.lastModifiedLabel"></psk-label>
+            <psk-condition condition='@sortedTypes.lastModified.isSorted'>
+                <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.lastModified.descending'></psk-icon>
+            </psk-condition>
+        </psk-button>
+    </psk-grid>
+
+    <psk-for-each class="wallet-container" data-view-model="content">
+        <psk-card class="@selected" data-type="@dataType">
+            <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
+                <psk-icon color="#572a57" icon="@icon"></psk-icon>
+
+                <psk-label class="item-wrapper">
+                    <psk-label class="info-wrapper">
+                        <psk-label class='name-wrapper col-6'>
+                            <psk-label label="@name"> </psk-label>
+                            <psk-condition condition="@isApplication">
+                                <psk-button button-class="btn-run" event-name="run-app" event-data="@name">
+                                    <psk-icon color="#572a57" icon="play"></psk-icon>
+                                </psk-button>
+                            </psk-condition>
+                        </psk-label>
+                        <psk-label class="col-2" label="@type" data-hide-mobile data-hide-grid></psk-label>
+                        <psk-date class="col-4" hover-format="@hoverFormat" format="@format" value="@lastModified" data-hide-grid></psk-date>
+                    </psk-label>
+
+                    <psk-button-group icon='ellipsis-v' icon-color='#572a57' classes="dots-menu">
+                        <psk-button event-name="view-file" title="@contentLabels.viewFileLabel" button-class="btn-menu" data-type="file">
+                            <psk-icon icon="eye"></psk-icon>
+                            <psk-label label="@contentLabels.viewFileLabel"></psk-label>
+                        </psk-button>
+
+                        <psk-button event-name="export-dossier" title="@contentLabels.downloadFileLabel" button-class="btn-menu" data-type="file">
+                            <psk-icon icon="download"></psk-icon>
+                            <psk-label label="@contentLabels.downloadFileLabel"></psk-label>
+                        </psk-button>
+
+                        <psk-button event-name="share-dossier" title="@contentLabels.shareDossierLabel" button-class="btn-menu" data-type="mount">
+                            <psk-icon icon="share"></psk-icon>
+                            <psk-label label="@contentLabels.shareDossierLabel"></psk-label>
+                        </psk-button>
+
+                        <psk-button event-name="delete-dossier" title="@contentLabels.deleteLabel" button-class="btn-menu">
+                            <psk-icon icon="trash"></psk-icon>
+                            <psk-label label="@contentLabels.deleteLabel"></psk-label>
+                        </psk-button>
+
+                        <psk-for-each data-view-model="iconsMenuMoreOptions">
+                            <psk-button title="@label" event-name="@eventName" button-class="btn-menu">
+                                <psk-icon icon="@icon"></psk-icon>
+                                <psk-label label="@label"></psk-label>
+                            </psk-button>
+                        </psk-for-each>
+                    </psk-button-group>
+                </psk-label>
+            </psk-button>
+        </psk-card>
+
+        <psk-label slot="no-data" class="h2 info" label="@contentLabels.noItemsLabel"></psk-label>
+    </psk-for-each>
+</psk-grid>

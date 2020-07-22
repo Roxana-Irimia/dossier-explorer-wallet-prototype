@@ -1,11 +1,7 @@
 const basePagesPath = "/pages/Wallet/";
 
 const pageLoader = {
-    walletGridContent: `${basePagesPath}wallet-content-grid.html`,
-    walletListContent: `${basePagesPath}wallet-content-list.html`,
-    addDossierMenu: `${basePagesPath}add-dossier-menu.html`,
-    rightIconsMenu: `${basePagesPath}right-icons-menu.html`,
-    switchLayout: `${basePagesPath}switch-layout.html`
+    walletContent: `${basePagesPath}wallet-content.html`
 };
 
 const rootModel = {
@@ -17,8 +13,7 @@ const rootModel = {
     navigationLinks: [],
     pageTitle: "Explorer",
     currentPath: '/',
-    dateFormatOptions: { // Currently not used. 
-        // To be used when extending the DateFormat to allow masked formats
+    dateFormatOptions: {
         date: 'dd-mm-yyyy',
         time: 'HH:MM',
         fullTime: 'dd-mm-yyyy HH:MM'
@@ -29,6 +24,10 @@ const rootModel = {
         typeLabel: "Type",
         nameLabel: "Name",
         noItemsLabel: "There are no items in the current folder/dossier. You can add some by using the Add button.",
+        deleteLabel: "Delete",
+        viewFileLabel: "View File",
+        downloadFileLabel: "Download",
+        shareDossierLabel: "Share"
     },
     addMenuLabels: {
         addLabel: "Add",
@@ -45,11 +44,13 @@ const rootModel = {
     },
     iconsMenuMoreOptions: [{
             label: "Move",
-            eventName: 'move-dossier'
+            eventName: 'move-dossier',
+            icon: "arrow-right"
         },
         {
             label: "Rename",
-            eventName: 'rename-dossier'
+            eventName: 'rename-dossier',
+            icon: "pencil"
         }
     ],
     error: {

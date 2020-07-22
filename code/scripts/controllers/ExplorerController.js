@@ -48,32 +48,7 @@ export default class ExplorerController extends ContainerController {
         this.on('new-file', this._addNewFileHandler);
         this.on('new-folder', this._addNewFolderHandler);
         this.on('add-file-folder', this._handleFileFolderUpload);
-
-        this._checkMobileLayout();
     };
-
-    _checkMobileLayout = () => {
-        const layoutValidator = () => {
-            const isMobileLayout = document.documentElement.clientWidth < Constants.APP_MOBILE_BREAKPOINT_LIMIT;
-            if (isMobileLayout && !this.model.isGridLayout) {
-                this.model.lastDesktopLayout = 'list';
-                this.model.isGridLayout = isMobileLayout;
-                return;
-            }
-
-            if (!isMobileLayout &&
-                this.model.lastDesktopLayout === 'list' &&
-                this.model.isGridLayout) {
-                this.model.isGridLayout = false;
-                this.model.lastDesktopLayout = null;
-            }
-        }
-
-        layoutValidator();
-        window.onresize = () => {
-            layoutValidator();
-        }
-    }
 
     _checkForLandingApp() {
         this.DSUStorage.getObject("apps/.landingApp", (err, landingApp) => {

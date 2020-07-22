@@ -1,25 +1,23 @@
 const walletContentViewModel = {
     files: {
         type: 'file',
-        gridIcon: 'file',
-        isApplication: false
+        icon: 'file',
+        dataType: 'file'
     },
     folders: {
         type: 'folder',
-        gridIcon: 'folder',
-        isApplication: false
+        icon: 'folder',
+        dataType: 'folder'
     },
     mounts: {
         type: 'dossier',
-        gridIcon: 'lock',
         icon: 'lock',
-        isApplication: false
+        dataType: 'mount'
     },
     applications: {
         type: 'application',
-        gridIcon: 'cog',
         icon: 'cog',
-        isApplication: true
+        dataType: 'mount'
     },
     defaultSortedViewModel: {
         name: {

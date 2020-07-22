@@ -70,8 +70,8 @@ export default class ExplorerNavigatorController extends ContainerController {
                 currentPath: this.model.currentPath,
                 isFile: selectedItemViewModel.type === 'file',
                 isFolder: selectedItemViewModel.type === 'folder',
-                isDossier: selectedItemViewModel.type === 'dossier' || selectedItemViewModel.isApplication,
-                isApplication: selectedItemViewModel.isApplication
+                isDossier: selectedItemViewModel.type === 'dossier' || selectedItemViewModel.type === 'application',
+                isApplication: selectedItemViewModel.type === 'application'
             };
 
             this.model.setChainValue('selectedItem', {
@@ -286,6 +286,7 @@ export default class ExplorerNavigatorController extends ContainerController {
 
                 let viewModelObject = {
                     ...defaultViewModel,
+                    contentLabels: JSON.parse(JSON.stringify(this.model.contentLabels)),
                     name: name
                 };
 
