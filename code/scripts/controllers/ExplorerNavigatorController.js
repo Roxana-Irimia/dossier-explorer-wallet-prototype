@@ -6,7 +6,6 @@ import FeedbackController from "./FeedbackController.js";
 
 import walletContentViewModel from '../view-models/walletContentViewModel.js';
 import viewFileModal from "../view-models/viewFileModal.js";
-import Constants from "./Constants.js";
 
 export default class ExplorerNavigatorController extends ContainerController {
     constructor(element, history, model) {
@@ -253,18 +252,6 @@ export default class ExplorerNavigatorController extends ContainerController {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    _getShortName = (name, lengthLimit) => {
-        if (!name || !name.length) {
-            return '';
-        }
-
-        if (name.length < lengthLimit) {
-            return name;
-        }
-
-        return `${name.substr(0, lengthLimit - 3)}...`;
-    }
-
     _updateContentForType = (content, defaultViewModel) => {
         let mappedContent = content.filter(el => !!el)
             .map(el => {
@@ -276,11 +263,8 @@ export default class ExplorerNavigatorController extends ContainerController {
                 let viewModelObject = {
                     ...defaultViewModel,
                     contentLabels: JSON.parse(JSON.stringify(this.model.contentLabels)),
-                    name: name,
+                    name: name
                 };
-
-                viewModelObject.gridShorterName = this._getShortName(name, Constants.NAME_LENGTH_GRID_LAYOUT);
-                viewModelObject.listShorterName = this._getShortName(name, Constants.NAME_LENGTH_LIST_LAYOUT);
 
                 // Temporary solution until the values are provided from edfs
                 viewModelObject.lastModified = this.getRandomInt(1594500000000, new Date().getTime());

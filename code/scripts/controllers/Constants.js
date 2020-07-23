@@ -1,6 +1,3 @@
 export default class Constants {
     static DELETE_ITEMS_PLACEHOLDER = "[DELETE_ITEMS_PLACEHOLDER]";
-    static APP_MOBILE_BREAKPOINT_LIMIT = 960;
-    static NAME_LENGTH_GRID_LAYOUT = 12;
-    static NAME_LENGTH_LIST_LAYOUT = 24;
 }
