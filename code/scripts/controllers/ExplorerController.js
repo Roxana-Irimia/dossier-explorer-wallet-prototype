@@ -32,6 +32,7 @@ export default class ExplorerController extends ContainerController {
 
     _initListeners = () => {
         this.on("switch-layout", this._handleSwitchLayout);
+        this.on('open-options-menu', this._handleOptionsMenu);
 
         this.on('view-file', this._handleViewFile);
         this.on('export-dossier', this._handleDownload);
@@ -48,6 +49,20 @@ export default class ExplorerController extends ContainerController {
         this.on('new-folder', this._addNewFolderHandler);
         this.on('add-file-folder', this._handleFileFolderUpload);
     };
+
+    _handleOptionsMenu = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const selectedItem = this._getSelectedItem(event.data);
+        if (!selectedItem) {
+            return console.error(`No item selected!`);
+        }
+
+        this.model.optionsMenu.opened = true;
+        this.model.optionsMenu.name = selectedItem.name;
+        this.model.optionsMenu.dataType = selectedItem.dataType;
+    }
 
     _checkForLandingApp() {
         this.DSUStorage.getObject("apps/.landingApp", (err, landingApp) => {
