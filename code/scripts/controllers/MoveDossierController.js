@@ -49,7 +49,7 @@ export default class MoveDossierController extends ModalController {
             return this.feedbackController.updateErrorMessage(this.model.error.samePathError);
         }
 
-        this.dossierService.move(oldPath, newPath, (err, result) => {
+        this.dossierService.rename(oldPath, newPath, (err, result) => {
             if (err) {
                 console.error(err);
                 return this.feedbackController.updateErrorMessage(err);

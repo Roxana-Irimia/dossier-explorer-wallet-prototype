@@ -131,16 +131,23 @@ $$.swarms.describe('readDir', {
     }
 });
 
-$$.swarms.describe('move', {
+$$.swarms.describe('rename', {
     start: function(oldPath, newPath) {
         if (rawDossier) {
-            this.return(undefined, {
-                from: oldPath,
-                to: newPath
-            });
-        }
+            rawDossier.rename(oldPath, newPath, (err) => {
+                if (err) {
+                    return this.return(new Error(err));
+                }
 
-        this.return(new Error("Raw Dossier is not available."));
+                this.return(undefined, {
+                    success: true,
+                    oldPath: oldPath,
+                    newPath: newPath
+                })
+            });
+        } else {
+            this.return(new Error("Raw Dossier is not available."));
+        }
     }
 });
 

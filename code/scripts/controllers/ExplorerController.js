@@ -147,6 +147,7 @@ export default class ExplorerController extends ContainerController {
 
         renameDossierModal.fileNameInput.value = name;
         renameDossierModal.oldFileName = name;
+        renameDossierModal.fileType = selectedItem.type;
         renameDossierModal.currentPath = currentPath;
 
         this.showModal('renameDossier', renameDossierModal, (err, response) => {
@@ -171,6 +172,7 @@ export default class ExplorerController extends ContainerController {
         }
 
         moveDossierModal.selectedEntryName = selectedItem.name;
+        moveDossierModal.selectedEntryType = selectedItem.type;
         moveDossierModal.currentWorkingDirectory = currentPath;
         moveDossierModal.dateFormatOptions = this._getCleanProxyObject(this.model.dateFormatOptions);
         moveDossierModal.contentLabels = {

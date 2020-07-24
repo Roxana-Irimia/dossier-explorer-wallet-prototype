@@ -38,8 +38,8 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    move(oldPath, newPath, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "move", "start", oldPath, newPath)
+    rename(oldPath, newPath, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "rename", "start", oldPath, newPath)
             .onReturn(callback);
     }
 
