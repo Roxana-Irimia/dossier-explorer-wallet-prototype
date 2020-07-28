@@ -17,7 +17,11 @@
 
     <psk-for-each class="wallet-container" data-view-model="content">
         <psk-card class="@selected" data-type="@dataType">
-            <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" event-data="@name">
+            <psk-button class="wallet-path" button-class="wallet-path"
+                        event-name="select-wallet-item"
+                        double-click-event-name="double-click-item"
+                        touch-event-name="double-click-item"
+                        event-data="@name">
                 <psk-icon color="#572a57" icon="@icon"></psk-icon>
 
                 <psk-label class="item-wrapper">
@@ -34,7 +38,7 @@
                         <psk-date class="col-4" hover-format="@hoverFormat" format="@format" value="@lastModified" data-hide-grid></psk-date>
                     </psk-label>
 
-                    <psk-button class="options-menu-trigger" button-class=" " event-name="open-options-menu" event-data="@name">
+                    <psk-button class="options-menu-trigger" button-class=" " event-name="open-options-menu" touch-event-name="open-options-menu" event-data="@">
                         <psk-icon icon='ellipsis-v' icon-color='#572a57'></psk-icon>
                     </psk-button>
                 </psk-label>
@@ -45,8 +49,12 @@
     </psk-for-each>
 </psk-grid>
 
-<psk-button-group class="options-menu" opened="@optionsMenu.opened" data-type="@optionsMenu.dataType">
+<psk-button-group class="options-menu" opened="@optionsMenu.opened" data-type="@optionsMenu.dataType" id="item-actions">
     <psk-grid class="options-wrapper">
+        <psk-card class="item-identifier">
+                <psk-icon color="#572a57" icon="@optionsMenu.icon"></psk-icon>
+                <psk-label label="@optionsMenu.name"></psk-label>
+        </psk-card>
         <psk-button event-name="view-file" title="@contentLabels.viewFileLabel" button-class="btn-menu" data-type="file" event-data="@optionsMenu.name">
             <psk-icon icon="eye"></psk-icon>
             <psk-label label="@contentLabels.viewFileLabel"></psk-label>

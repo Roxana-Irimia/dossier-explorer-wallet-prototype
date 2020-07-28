@@ -20,7 +20,6 @@ import ExplorerNavigatorController from "./ExplorerNavigatorController.js";
 export default class ExplorerController extends ContainerController {
     constructor(element, history) {
         super(element, history);
-
         this.model = this.setModel(JSON.parse(JSON.stringify(rootModel)));
         this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
@@ -53,13 +52,25 @@ export default class ExplorerController extends ContainerController {
     _handleOptionsMenu = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
+        const selectedItem = event.data;
+        let triggeredButton = event.path[0];
+        let elementRect = triggeredButton.getBoundingClientRect();
+        let itemActionsBtn = this.element.querySelector("#wallet-content-container").shadowRoot.querySelector("#item-actions");
 
-        const selectedItem = this._getSelectedItem(event.data);
+        let containerHeight = selectedItem.optionsContainerHeight;
+        let topCorrection = containerHeight/2-15 ;
+        if(window.innerHeight<elementRect.top+containerHeight/2){
+            topCorrection = topCorrection + (elementRect.top+containerHeight/2 - window.innerHeight);
+        }
+        itemActionsBtn.querySelector("psk-grid").style.top=elementRect.top - topCorrection+"px";
+        itemActionsBtn.querySelector("psk-grid").style.left=elementRect.left-220+"px";
+
         if (!selectedItem) {
             return console.error(`No item selected!`);
         }
 
         this.model.optionsMenu.opened = true;
+        this.model.optionsMenu.icon = selectedItem.icon;
         this.model.optionsMenu.name = selectedItem.name;
         this.model.optionsMenu.dataType = selectedItem.dataType;
     }

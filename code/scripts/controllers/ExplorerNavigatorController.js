@@ -276,7 +276,7 @@ export default class ExplorerNavigatorController extends ContainerController {
             });
 
         mappedContent = this._sortByProperty(mappedContent, 'name');
-        let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));;
+        let sortedTypesViewModel = JSON.parse(JSON.stringify(walletContentViewModel.defaultSortedViewModel));
         sortedTypesViewModel.name.isSorted = true;
         this.model.setChainValue('sortedTypes', sortedTypesViewModel);
 

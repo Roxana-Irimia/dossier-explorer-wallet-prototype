@@ -50,7 +50,7 @@
             <psk-condition condition="@conditionalExpressions.isLoading">
                 <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
 
-                <psk-page-loader slot="condition-false" page-url="@pageLoader.walletContent"></psk-page-loader>
+                <psk-page-loader id="wallet-content-container" slot="condition-false" page-url="@pageLoader.walletContent"></psk-page-loader>
             </psk-condition>
         </psk-grid>
     </psk-page>
