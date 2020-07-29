@@ -216,7 +216,9 @@ div.global_container {
 
 aside {
     height: 100%;
-    background: url("/themes/blue-fluorite-theme/images/nav-background.jpg") no-repeat left bottom;
+    background-image: url("/themes/blue-fluorite-theme/images/nav-background.jpg"), linear-gradient(90deg, rgba(212,219,227,1) 0%, rgba(211,218,226,1) 25%, rgba(202,211,220,1) 50%, rgba(193,203,213,1) 75%, rgba(184,196,208,1) 100%);
+    background-repeat:no-repeat;
+    background-position:left top;
     background-color: #8395af;
     background-size: 100%;
     color: white;
