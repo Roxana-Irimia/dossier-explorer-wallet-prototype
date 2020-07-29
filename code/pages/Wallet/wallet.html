@@ -17,15 +17,12 @@
                         <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="folder"></psk-icon>
                         <psk-label label="@addMenuLabels.newFolder"></psk-label>
                     </psk-button>
-                    <div class="btn-menu">
+                    <psk-files-chooser class="btn-menu" event-name="add-file-folder" label="@addMenuLabels.addFileLabel">
                         <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="file"></psk-icon>
-                        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFileLabel">
-                        </psk-files-chooser>
-                    </div>
-                    <div class="btn-menu">
+                    </psk-files-chooser>
+                    <psk-files-chooser class="btn-menu" event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory">
                         <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="folder"></psk-icon>
-                        <psk-files-chooser event-name="add-file-folder" label="@addMenuLabels.addFolderLabel" accept="directory"></psk-files-chooser>
-                    </div>
+                    </psk-files-chooser>
                     <psk-button event-name="create-dossier" class="btn-menu" button-class=' '>
                         <psk-icon class="dossier-icon icon-medium menu-icon icon-responsive" icon="lock"></psk-icon>
                         <psk-label label="@addMenuLabels.createDossierLabel"></psk-label>
