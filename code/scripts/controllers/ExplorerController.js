@@ -70,6 +70,7 @@ export default class ExplorerController extends ContainerController {
         }
 
         this.model.optionsMenu.opened = true;
+        this.model.optionsMenu.isApplication = selectedItem.isApplication;
         this.model.optionsMenu.icon = selectedItem.icon;
         this.model.optionsMenu.name = selectedItem.name;
         this.model.optionsMenu.dataType = selectedItem.dataType;

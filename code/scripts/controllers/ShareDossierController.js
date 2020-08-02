@@ -41,7 +41,7 @@ export default class ShareDossierController extends ModalController {
         event.stopImmediatePropagation();
 
         if (!this._isCopySupported()) {
-            return console.warn(`Copy to clpboard functionality is not available!`);
+            return console.warn(`Copy to clipboard functionality is not available!`);
         }
 
         let SEED = event.data || '';

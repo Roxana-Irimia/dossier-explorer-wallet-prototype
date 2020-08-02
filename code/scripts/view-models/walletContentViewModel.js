@@ -21,6 +21,7 @@ const walletContentViewModel = {
         type: 'application',
         icon: 'cog',
         dataType: 'mount',
+        isApplication:'true',
         optionsContainerHeight:322
     },
     defaultSortedViewModel: {
