@@ -36,6 +36,14 @@ const viewFileModal = {
             eventName: "save-edit",
             buttonClass: "btn-confirm-secondary",
         }
+    },
+    conditionalExpressions: {
+        isLoading: true,
+    },
+    error: {
+        hasError: false,
+        errorMessage: '',
+        manifestManipulationError: "manifest file is not available for this kind of operation!"
     }
 };
 

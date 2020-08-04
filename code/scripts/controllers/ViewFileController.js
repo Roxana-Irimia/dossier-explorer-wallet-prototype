@@ -1,5 +1,6 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
 import FileDownloader from "./FileDownloader.js";
+import FeedbackController from "./FeedbackController.js";
 
 const TEXT_MIME_TYPE = "text/";
 
@@ -10,8 +11,11 @@ export default class ViewFileController extends ModalController {
 
         this.fileName = this.model.name;
         this.path = this.model.path;
+
+        this.feedbackController = new FeedbackController(this.model);
         this.fileDownloader = new FileDownloader(this.path, this.fileName);
 
+        this.feedbackController.setLoadingState(true);
         this._downloadFile();
         this._initListeners();
     }
@@ -66,7 +70,8 @@ export default class ViewFileController extends ModalController {
         event.stopImmediatePropagation();
 
         if (this.fileName === "manifest") {
-            return console.error("manifest file cannot be edited");
+            this.feedbackController.updateErrorMessage(this.model.error.manifestManipulationError);
+            return console.error(this.model.error.manifestManipulationError);
         }
 
         this.model.setChainValue("isEditing", true);
@@ -80,6 +85,7 @@ export default class ViewFileController extends ModalController {
             this.DSUStorage.setItem(this.model.title, this.model.textEditor.value, (err) => {
                 if (err) {
                     this.model.setChainValue("isEditing", true);
+                    this.feedbackController.updateErrorMessage(err);
                     return console.error(err);
                 }
 
@@ -171,6 +177,7 @@ export default class ViewFileController extends ModalController {
         if (window.navigator && window.navigator.msSaveOrOpenBlob) {
             const file = new File([this.rawBlob], this.fileName);
             window.navigator.msSaveOrOpenBlob(file);
+            this.feedbackController.setLoadingState(true);
             return;
         }
 
@@ -242,5 +249,7 @@ export default class ViewFileController extends ModalController {
         if (assetModal) {
             assetModal.append(assetObject);
         }
+
+        this.feedbackController.setLoadingState();
     }
 }
