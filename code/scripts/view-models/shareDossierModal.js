@@ -18,7 +18,8 @@ const shareDossierModal = {
         },
     },
     conditionalExpressions: {
-        isSeedCopied: false
+        isSeedCopied: false,
+        isLoading: false
     }
 };
 

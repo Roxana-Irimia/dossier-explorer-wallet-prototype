@@ -26,7 +26,9 @@ export default class ShareDossierController extends ModalController {
     _setSeedForInput() {
         let wDir = this.model.currentPath || '/';
         let dossierName = this.model.selectedFile;
+        this.feedbackController.setLoadingState(true);
         this.dossierService.printDossierSeed(wDir, dossierName, (err, seed) => {
+            this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
                 this.feedbackController.updateErrorMessage(err);
