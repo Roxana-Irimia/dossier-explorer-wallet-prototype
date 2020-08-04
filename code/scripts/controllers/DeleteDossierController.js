@@ -1,4 +1,5 @@
 import ModalController from "../../cardinal/controllers/base-controllers/ModalController.js";
+import FeedbackController from "./FeedbackController.js";
 import Constants from "./Constants.js";
 import {
     getDossierServiceInstance
@@ -9,6 +10,7 @@ export default class DeleteDossierController extends ModalController {
         super(element, history);
 
         this.dossierService = getDossierServiceInstance();
+        this.feedbackController = new FeedbackController(this.model);
 
         this._initListeners();
         this._updateNotificationMessage();
@@ -23,7 +25,7 @@ export default class DeleteDossierController extends ModalController {
      */
     _updateNotificationMessage() {
         let message = this.model.notificationMessage;
-        message = message.replace(Constants.DELETE_ITEMS_PLACEHOLDER, '1');
+        message = message.replace(Constants.DELETE_ITEMS_PLACEHOLDER, this.model.selectedItemName);
 
         this.model.setChainValue('notificationMessage', message);
     }
@@ -32,7 +34,10 @@ export default class DeleteDossierController extends ModalController {
         event.stopImmediatePropagation();
 
         if (event.data === 'confirm-delete') {
+            this.feedbackController.setLoadingState(true);
+
             return this._deleteSelectedItems((err) => {
+                this.feedbackController.setLoadingState();
                 if (err) {
                     console.error(err);
                 }

@@ -2,17 +2,21 @@
     <psk-modal opened>
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <psk-icon icon="trash" color="#8197bc" class="dossier-icon icon-big"></psk-icon>
+        <psk-condition condition="@conditionalExpressions.isLoading">
+            <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
 
-        <psk-label label="@notificationMessage"></psk-label>
+            <psk-icon slot="condition-false" icon="trash" color="#8197bc" class="dossier-icon icon-big"></psk-icon>
 
-        <psk-condition condition="error.hasError">
-            <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+            <psk-label slot="condition-false" label="@notificationMessage"></psk-label>
+
+            <psk-condition slot="condition-false" condition="error.hasError">
+                <psk-label label="@error.errorMessage" class="h6 input-error"></psk-label>
+            </psk-condition>
+
+            <psk-button-group slot="condition-false" class="modal-buttons">
+                <psk-button view-model="buttons.cancelButton"></psk-button>
+                <psk-button view-model="buttons.deleteButton"></psk-button>
+            </psk-button-group>
         </psk-condition>
-
-        <psk-button-group class="modal-buttons">
-            <psk-button view-model="buttons.cancelButton"></psk-button>
-            <psk-button view-model="buttons.deleteButton"></psk-button>
-        </psk-button-group>
     </psk-modal>
 </psk-container>
