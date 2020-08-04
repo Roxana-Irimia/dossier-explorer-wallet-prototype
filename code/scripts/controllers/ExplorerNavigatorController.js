@@ -21,6 +21,7 @@ export default class ExplorerNavigatorController extends ContainerController {
     }
 
     listWalletContent = () => {
+        this.feedbackController.setLoadingState(true);
         let wDir = this.model.currentPath || '/';
         // Reset the last selected item(if any), as for the moment we support only single selection
         this._resetLastSelected();
@@ -223,6 +224,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         let newContent = [];
 
         if (err) {
+            this.feedbackController.setLoadingState(false);
             this.feedbackController.updateErrorMessage(err);
             this.model.setChainValue('content', newContent);
             return;
@@ -240,6 +242,7 @@ export default class ExplorerNavigatorController extends ContainerController {
         });
 
         this.model.setChainValue('content', newContent);
+        this.feedbackController.setLoadingState(false);
     }
 
     /**
