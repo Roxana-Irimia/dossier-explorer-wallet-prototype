@@ -37,7 +37,7 @@ export default class MoveDossierController extends ModalController {
             currentPath = '';
         }
 
-        const selectedItem = this.model.content.find(el => el === selectedEntryName && el.selected === 'selected');
+        const selectedItem = this.model.content.find(el => el.selected === 'selected');
         if (selectedItem) {
             currentPath = `${currentPath}/${selectedItem.name}`;
         }
@@ -49,7 +49,9 @@ export default class MoveDossierController extends ModalController {
             return this.feedbackController.updateErrorMessage(this.model.error.samePathError);
         }
 
+        this.feedbackController.setLoadingState(true);
         this.dossierService.rename(oldPath, newPath, (err, result) => {
+            this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
                 return this.feedbackController.updateErrorMessage(err);
