@@ -38,7 +38,9 @@ export default class ReceiveDossierController extends ModalController {
 
         const wDir = this.model.currentPath || '/';
         this.dossierName = this.model.dossierNameInput.value;
+        this.feedbackController.setLoadingState(true);
         this.dossierService.readDir(wDir, (err, dirContent) => {
+            this.feedbackController.setLoadingState();
             if (err) {
                 this.feedbackController.updateErrorMessage(err);
             } else {
