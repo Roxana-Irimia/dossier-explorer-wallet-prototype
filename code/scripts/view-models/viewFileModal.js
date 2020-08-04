@@ -38,7 +38,7 @@ const viewFileModal = {
         }
     },
     conditionalExpressions: {
-        isLoading: true,
+        isLoading: false,
     },
     error: {
         hasError: false,

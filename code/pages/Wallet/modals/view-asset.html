@@ -2,7 +2,7 @@
     <psk-modal opened expanded="true" class="asset-modal">
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
-        <psk-condition data-display-loader="@conditionalExpressions.isLoading" condition="@conditionalExpressions.isLoading">
+        <psk-condition condition="@conditionalExpressions.isLoading">
             <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader>
 
             <div slot="condition-false" class='content'>

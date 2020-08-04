@@ -29,13 +29,16 @@ export default class CreateDossierController extends ModalController {
             return;
         }
 
+        this.feedbackController.setLoadingState(true);
         const wDir = this.model.currentPath || '/';
         let dossierName = this.model.dossierNameInput.value;
         this.dossierService.readDir(wDir, (err, dirContent) => {
             if (err) {
+                this.feedbackController.setLoadingState();
                 this.feedbackController.updateErrorMessage(err);
             } else {
                 if (dirContent.find((el) => el === dossierName)) {
+                    this.feedbackController.setLoadingState();
                     this.feedbackController.updateErrorMessage(this.model.error.errorLabels.fileExistsLabel);
                 } else {
                     this._createDossier(dossierName);
@@ -51,12 +54,13 @@ export default class CreateDossierController extends ModalController {
         }
 
         this.dossierService.createDossier(wDir, dossierName, (err, outputSEED) => {
+            this.feedbackController.setLoadingState();
             if (err) {
                 console.log(err);
                 this.feedbackController.updateErrorMessage(err);
             } else {
                 this.model.dossierSeedOutput.value = outputSEED;
-                this.model.isDossierNameStep = false;
+                this.model.conditionalExpressions.isDossierNameStep = false;
             }
         });
     }
