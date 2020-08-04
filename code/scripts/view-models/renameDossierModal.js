@@ -22,6 +22,9 @@ const renameDossierModal = {
         nameExistsLabel: "An entry with the same name already exists!",
         nameNotValidLabel: "The entry name cannot be empty or with empty spaces!",
         specialCharactersLabel: "The entry name cannot contain special character '/'!"
+    },
+    conditionalExpressions: {
+        isLoading: false,
     }
 };
 

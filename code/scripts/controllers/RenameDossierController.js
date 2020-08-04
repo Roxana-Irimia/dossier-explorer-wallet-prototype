@@ -46,7 +46,9 @@ export default class RenameDossierController extends ModalController {
 
         const oldPath = `${currentPath}/${oldFileName}`;
         const newPath = `${currentPath}/${newFileName}`;
+        this.feedbackController.setLoadingState(true);
         this.dossierService.rename(oldPath, newPath, (err, result) => {
+            this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
                 return this.feedbackController.updateErrorMessage(err);
