@@ -306,6 +306,12 @@ export default class ExplorerNavigatorController extends ContainerController {
                     arr = arr.sort((a, b) => a.lastModified - b.lastModified);
                     break;
                 }
+            case 'type':
+                {
+                    // TODO: To check if we will implement this type of sorting
+                    // Add this type into walletContentViewModel.js
+                    break;
+                }
             default:
                 {
                     break;

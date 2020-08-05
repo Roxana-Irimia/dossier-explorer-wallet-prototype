@@ -6,7 +6,12 @@
                 <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.name.descending'></psk-icon>
             </psk-condition>
         </psk-button>
-        <psk-label class="btn-sort col-2" label="@contentLabels.typeLabel" data-hide-mobile data-hide-grid></psk-label>
+        <psk-button class="btn-sort col-2" button-class="btn-sort" event-name='sort-working-directory' event-data='type' data-hide-mobile data-hide-grid>
+            <psk-label label="@contentLabels.typeLabel"></psk-label>
+            <psk-condition condition='@sortedTypes.type.isSorted'>
+                <psk-icon icon='long-arrow-up' color='#572a57' descending='@sortedTypes.lastModified.descending'></psk-icon>
+            </psk-condition>
+        </psk-button>
         <psk-button class="btn-sort col-4" button-class="btn-sort" event-name='sort-working-directory' event-data='lastModified' data-hide-mobile data-hide-grid>
             <psk-label label="@contentLabels.lastModifiedLabel"></psk-label>
             <psk-condition condition='@sortedTypes.lastModified.isSorted'>
@@ -17,16 +22,12 @@
 
     <psk-for-each class="wallet-container" data-view-model="content">
         <psk-card class="@selected" data-type="@dataType">
-            <psk-button class="wallet-path" button-class="wallet-path"
-                        event-name="select-wallet-item"
-                        double-click-event-name="double-click-item"
-                        touch-event-name="double-click-item"
-                        event-data="@name">
+            <psk-button class="wallet-path" button-class="wallet-path" event-name="select-wallet-item" double-click-event-name="double-click-item" touch-event-name="double-click-item" event-data="@name">
                 <psk-icon color="#572a57" icon="@icon"></psk-icon>
 
                 <div class="item-wrapper">
                     <div class="info-wrapper">
-                        <div class='name-wrapper col-6' title="@name">
+                        <div class='name-wrapper col-6 col-md-6 col-lg-6 col-xl-6 p-sm-0' title="@name">
                             <psk-label label="@name"> </psk-label>
                             <psk-condition condition="@isApplication" data-hide-mobile>
                                 <psk-button button-class="btn-run" event-name="run-app" event-data="@name">
@@ -34,8 +35,8 @@
                                 </psk-button>
                             </psk-condition>
                         </div>
-                        <psk-label class="col-2" label="@type" data-hide-mobile data-hide-grid></psk-label>
-                        <psk-date class="col-8 p-0 col-md-6 col-lg-4 col-xl-4 " hover-format="@hoverFormat" format="@format" value="@lastModified" data-hide-grid></psk-date>
+                        <psk-label class="col-2 col-md-2 col-lg-2 col-xl-2 p-sm-0" label="@type" data-hide-mobile data-hide-grid></psk-label>
+                        <psk-date class="col-8 col-md-6 col-lg-4 col-xl-4 p-sm-0 px-lg-2" hover-format="@hoverFormat" format="@format" value="@lastModified" data-hide-grid></psk-date>
                     </div>
 
                     <psk-button class="options-menu-trigger" button-class=" " event-name="open-options-menu" touch-event-name="open-options-menu" event-data="@">
@@ -52,12 +53,12 @@
 <psk-button-group class="options-menu" opened="@optionsMenu.opened" data-type="@optionsMenu.dataType" id="item-actions">
     <psk-grid class="options-wrapper">
         <psk-card class="item-identifier">
-                <psk-icon color="#572a57" icon="@optionsMenu.icon"></psk-icon>
-                <psk-label label="@optionsMenu.name"></psk-label>
-                <psk-condition condition="@optionsMenu.isApplication">
-                    <psk-button button-class="btn-run" event-name="run-app" event-data="@optionsMenu.name" label="Open App">
-                    </psk-button>
-                </psk-condition>
+            <psk-icon color="#572a57" icon="@optionsMenu.icon"></psk-icon>
+            <psk-label label="@optionsMenu.name"></psk-label>
+            <psk-condition condition="@optionsMenu.isApplication">
+                <psk-button button-class="btn-run" event-name="run-app" event-data="@optionsMenu.name" label="Open App">
+                </psk-button>
+            </psk-condition>
         </psk-card>
         <psk-button event-name="view-file" title="@contentLabels.viewFileLabel" button-class="btn-menu" data-type="file" event-data="@optionsMenu.name">
             <psk-icon icon="eye"></psk-icon>
