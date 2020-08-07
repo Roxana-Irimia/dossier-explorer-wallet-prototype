@@ -74,13 +74,12 @@ export default class ExplorerController extends ContainerController {
             return console.error(`No item selected!`);
         }
 
-        this.model.optionsMenu.opened = true;
+        itemActionsBtn.setAttribute("opened","");
         this.model.optionsMenu.isApplication = selectedItem.isApplication;
         this.model.optionsMenu.icon = selectedItem.icon;
         this.model.optionsMenu.name = selectedItem.name;
         this.model.optionsMenu.dataType = selectedItem.dataType;
     }
-
     _checkForLandingApp() {
         this.DSUStorage.getObject("apps/.landingApp", (err, landingApp) => {
             if (!err && landingApp.name) {
