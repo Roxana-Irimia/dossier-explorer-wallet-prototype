@@ -47,13 +47,6 @@ const rootModel = {
     optionsMenu: {
         opened: false
     },
-    error: {
-        hasError: false,
-        errorMessage: '',
-        noFileUploadedLabel: 'No file or folder was uploaded',
-        genericErrorLabel: "There was an unknown problem, please try again. If the error persists, please contact the support team!",
-        manifestManipulationError: "manifest file is not available for this kind of operation!"
-    },
     conditionalExpressions: {
         isLoading: false,
         isGridLayout: false,

@@ -1,5 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import FileDownloader from "./FileDownloader.js";
+import FileDownloader from "./file-folder-controllers/FileDownloader.js";
 import FeedbackController from "./FeedbackController.js";
 
 import {
@@ -7,23 +7,28 @@ import {
 } from "../service/DossierExplorerService.js";
 
 import rootModel from "../view-models/rootModel.js";
-import newFileModal from "../view-models/newFileModal.js";
-import newFolderModal from "../view-models/newFolderModal.js";
-import createDossierModal from '../view-models/createDossierModal.js';
-import receiveDossierModal from '../view-models/receiveDossierModal.js';
-import deleteDossierModal from '../view-models/deleteDossierModal.js';
-import renameDossierModal from '../view-models/renameDossierModal.js';
-import moveDossierModal from '../view-models/moveDossierModal.js';
-import shareDossierModal from '../view-models/shareDossierModal.js';
-import ExplorerNavigatorController from "./ExplorerNavigatorController.js";
+
+import createDossierViewModel from '../view-models/modals/dossier-modals/createDossierViewModel.js';
+import receiveDossierViewModel from '../view-models/modals/dossier-modals/receiveDossierViewModel.js';
+import shareDossierViewModel from '../view-models/modals/dossier-modals/shareDossierViewModel.js';
+
+import newFileViewModel from "../view-models/modals/file-folder-modals/newFileViewModel.js";
+import newFolderViewModel from "../view-models/modals/file-folder-modals/newFolderViewModel.js";
+
+import deleteViewModel from '../view-models/modals/actions-modals/deleteViewModel.js';
+import renameViewModel from '../view-models/modals/actions-modals/renameViewModel.js';
+import moveViewModel from '../view-models/modals/actions-modals/moveViewModel.js';
+
+import ExplorerNavigationController from "./ExplorerNavigationController.js";
+import Constants from "./Constants.js";
 
 export default class ExplorerController extends ContainerController {
     constructor(element, history) {
         super(element, history);
-        this.model = this.setModel(JSON.parse(JSON.stringify(rootModel)));
+        this.model = this.setModel(this._getCleanProxyObject(rootModel));
         this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
-        this.navigatorController = new ExplorerNavigatorController(element, history, this.model);
+        this.explorerNavigator = new ExplorerNavigationController(element, history, this.model);
 
         this._initListeners();
         this._checkForLandingApp();
@@ -94,10 +99,10 @@ export default class ExplorerController extends ContainerController {
         event.stopImmediatePropagation();
 
         let applicationName = event.data;
-        let fullPath = this.navigatorController.getFullPath();
+        let fullPath = this.explorerNavigator.getFullPath();
 
         this.dossierService.getMountedDossier(fullPath, (err, currentDossierPath) => {
-            this.showModal("runApp", {
+            this.showModal("runAppModal", {
                 name: applicationName,
                 dossierContext: { fullPath: fullPath, currentDossierPath: currentDossierPath }
             }, () => {
@@ -117,11 +122,11 @@ export default class ExplorerController extends ContainerController {
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        createDossierModal.currentPath = this.model.currentPath;
-        this.showModal('createDossier', createDossierModal, (err, response) => {
+        createDossierViewModel.currentPath = this.model.currentPath;
+        this.showModal('createDossierModal', createDossierViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -129,11 +134,11 @@ export default class ExplorerController extends ContainerController {
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        receiveDossierModal.currentPath = this.model.currentPath;
-        this.showModal('receiveDossier', receiveDossierModal, (err, response) => {
+        receiveDossierViewModel.currentPath = this.model.currentPath;
+        this.showModal('receiveDossierModal', receiveDossierViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -146,14 +151,20 @@ export default class ExplorerController extends ContainerController {
             selectedItem
         } = this._getSelectedItemAndWorkingDir(event.data);
 
-        deleteDossierModal.path = currentPath;
-        deleteDossierModal.selectedItemName = selectedItem.name;
-        deleteDossierModal.selectedItemType = selectedItem.type;
+        const name = selectedItem.name;
+        if (name === 'manifest') {
+            console.error(this.model.error.labels.manifestManipulationError);
+            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
+        }
 
-        this.showModal('deleteDossier', deleteDossierModal, (err, response) => {
+        deleteViewModel.path = currentPath;
+        deleteViewModel.selectedItemName = selectedItem.name;
+        deleteViewModel.selectedItemType = selectedItem.type;
+
+        this.showModal('deleteModal', deleteViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -168,19 +179,19 @@ export default class ExplorerController extends ContainerController {
 
         const name = selectedItem.name;
         if (name === 'manifest') {
-            console.error(this.model.error.manifestManipulationError);
-            return this.feedbackController.updateErrorMessage(this.model.error.manifestManipulationError);
+            console.error(this.model.error.labels.manifestManipulationError);
+            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
         }
 
-        renameDossierModal.fileNameInput.value = name;
-        renameDossierModal.oldFileName = name;
-        renameDossierModal.fileType = selectedItem.type;
-        renameDossierModal.currentPath = currentPath;
+        renameViewModel.fileNameInput.value = name;
+        renameViewModel.oldFileName = name;
+        renameViewModel.fileType = selectedItem.type;
+        renameViewModel.currentPath = currentPath;
 
-        this.showModal('renameDossier', renameDossierModal, (err, response) => {
+        this.showModal('renameModal', renameViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -194,23 +205,23 @@ export default class ExplorerController extends ContainerController {
         } = this._getSelectedItemAndWorkingDir(event.data);
 
         if (selectedItem.name === 'manifest') {
-            console.error(this.model.error.manifestManipulationError);
-            return this.feedbackController.updateErrorMessage(this.model.error.manifestManipulationError);
+            console.error(this.model.error.labels.manifestManipulationError);
+            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
         }
 
-        moveDossierModal.selectedEntryName = selectedItem.name;
-        moveDossierModal.selectedEntryType = selectedItem.type;
-        moveDossierModal.currentWorkingDirectory = currentPath;
-        moveDossierModal.dateFormatOptions = this._getCleanProxyObject(this.model.dateFormatOptions);
-        moveDossierModal.contentLabels = {
+        moveViewModel.selectedEntryName = selectedItem.name;
+        moveViewModel.selectedEntryType = selectedItem.type;
+        moveViewModel.currentWorkingDirectory = currentPath;
+        moveViewModel.dateFormatOptions = this._getCleanProxyObject(this.model.dateFormatOptions);
+        moveViewModel.contentLabels = {
             ...this.model.contentLabels,
-            ...moveDossierModal.contentLabels,
+            ...moveViewModel.contentLabels,
         };
 
-        this.showModal('moveDossier', moveDossierModal, (err, response) => {
+        this.showModal('moveModal', moveViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -223,13 +234,13 @@ export default class ExplorerController extends ContainerController {
             selectedItem
         } = this._getSelectedItemAndWorkingDir(event.data);
 
-        shareDossierModal.currentPath = currentPath;
-        shareDossierModal.selectedFile = selectedItem.name;
+        shareDossierViewModel.currentPath = currentPath;
+        shareDossierViewModel.selectedFile = selectedItem.name;
 
-        this.showModal('shareDossier', shareDossierModal, (err, response) => {
+        this.showModal('shareDossierModal', shareDossierViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -241,11 +252,11 @@ export default class ExplorerController extends ContainerController {
             wDir = '';
         }
 
-        newFileModal.currentPath = wDir;
-        this.showModal('newFile', newFileModal, (err, response) => {
+        newFileViewModel.currentPath = wDir;
+        this.showModal('newFileModal', newFileViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -257,11 +268,11 @@ export default class ExplorerController extends ContainerController {
             wDir = '';
         }
 
-        newFolderModal.currentPath = wDir;
-        this.showModal('newFolder', newFolderModal, (err, response) => {
+        newFolderViewModel.currentPath = wDir;
+        this.showModal('newFolderModal', newFolderViewModel, (err, response) => {
             // Response will be used to display notification messages using psk-feedback component
             console.log(err, response);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         });
     }
 
@@ -270,7 +281,7 @@ export default class ExplorerController extends ContainerController {
 
         let filesArray = event.data || [];
         if (!filesArray.length) {
-            this.feedbackController.updateErrorMessage(this.model.error.noFileUploadedLabel);
+            this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.noFileUploaded);
             return;
         }
 
@@ -282,7 +293,7 @@ export default class ExplorerController extends ContainerController {
             //TODO: check for errors:
             //successfully uploaded files are in err.data
             if (err) {
-                return this.feedbackController.updateErrorMessage(err);
+                return this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
             }
 
             console.log(filesUploaded);
@@ -290,7 +301,7 @@ export default class ExplorerController extends ContainerController {
 
             // Close the ui-loader as upload is finished
             this.feedbackController.setLoadingState(false);
-            this.navigatorController.listWalletContent();
+            this.explorerNavigator.listWalletContent();
         })
     };
 
@@ -331,7 +342,7 @@ export default class ExplorerController extends ContainerController {
             return;
         }
 
-        this.navigatorController.openViewFileModal(itemViewModel);
+        this.explorerNavigator.openViewFileModal(itemViewModel);
     }
 
     _getSelectedItemAndWorkingDir = (name) => {
