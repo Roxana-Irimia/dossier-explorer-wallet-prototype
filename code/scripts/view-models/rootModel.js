@@ -44,9 +44,7 @@ const rootModel = {
         switchGridHover: "Click to switch to list",
         switchListHover: "Click to switch to grid",
     },
-    optionsMenu: {
-        opened: false
-    },
+    optionsMenu: {},
     conditionalExpressions: {
         isLoading: false,
         isGridLayout: false,

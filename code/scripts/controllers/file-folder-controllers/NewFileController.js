@@ -50,20 +50,24 @@ export default class NewFileController extends ModalController {
                     this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.entryExists);
                 } else {
                     // If the name is not used, create the file
-                    this._uploadFile(`${wDir}/${fileName}`, fileContent);
+                    this._uploadFile(wDir, fileName, fileContent);
                 }
             }
         });
     }
 
-    _uploadFile = (path, data) => {
-        this.DSUStorage.setItem(path, data, (err, response) => {
+    _uploadFile = (wDir, fileName, data) => {
+        this.DSUStorage.setItem(`${wDir}/${fileName}`, data, (err, response) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.error(err);
                 this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
             } else {
-                this.responseCallback(undefined, { response: response });
+
+                this.responseCallback(undefined, {
+                    name: fileName,
+                    path: response
+                });
             }
         });
     }

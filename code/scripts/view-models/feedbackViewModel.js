@@ -1,11 +1,11 @@
 const feedbackViewModel = {
-    notification: {
+    success: {
         isDisplayed: false,
         message: '',
         labels: {
-            fileCreated: "File with the name [FILE_NAME] has beed created at [FILE_PATH]",
-            folderCreated: "Folder with the name [FOLDER_NAME] has beed created at [FOLDER_PATH]",
-            dossierMounted: "Dossier with the name [DOSSIER_NAME] has beed created at [DOSSIER_PATH]"
+            fileCreated: "File with the name [NAME] has beed created at [PATH]",
+            folderCreated: "Folder with the name [NAME] has beed created at [PATH]",
+            dossierMounted: "Dossier with the name [NAME] has beed created at [PATH]"
         }
     },
     error: {

@@ -35,6 +35,10 @@ export default class ExplorerController extends ContainerController {
     }
 
     _initListeners = () => {
+        this.on('openFeedback', (evt) => {
+            this.feedbackEmitter = evt.detail;
+        });
+
         this.on("switch-layout", this._handleSwitchLayout);
         this.on('open-options-menu', this._handleOptionsMenu);
 
@@ -74,7 +78,7 @@ export default class ExplorerController extends ContainerController {
             return console.error(`No item selected!`);
         }
 
-        itemActionsBtn.setAttribute("opened","");
+        itemActionsBtn.setAttribute("opened", "");
         this.model.optionsMenu.isApplication = selectedItem.isApplication;
         this.model.optionsMenu.icon = selectedItem.icon;
         this.model.optionsMenu.name = selectedItem.name;
@@ -123,8 +127,7 @@ export default class ExplorerController extends ContainerController {
 
         createDossierViewModel.currentPath = this.model.currentPath;
         this.showModal('createDossierModal', createDossierViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -135,8 +138,7 @@ export default class ExplorerController extends ContainerController {
 
         receiveDossierViewModel.currentPath = this.model.currentPath;
         this.showModal('receiveDossierModal', receiveDossierViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -161,8 +163,7 @@ export default class ExplorerController extends ContainerController {
         deleteViewModel.selectedItemType = selectedItem.type;
 
         this.showModal('deleteModal', deleteViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -188,8 +189,7 @@ export default class ExplorerController extends ContainerController {
         renameViewModel.currentPath = currentPath;
 
         this.showModal('renameModal', renameViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -218,8 +218,7 @@ export default class ExplorerController extends ContainerController {
         };
 
         this.showModal('moveModal', moveViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -237,8 +236,7 @@ export default class ExplorerController extends ContainerController {
         shareDossierViewModel.selectedFile = selectedItem.name;
 
         this.showModal('shareDossierModal', shareDossierViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -253,8 +251,15 @@ export default class ExplorerController extends ContainerController {
 
         newFileViewModel.currentPath = wDir;
         this.showModal('newFileModal', newFileViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, "New File", Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].labels.fileCreated
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+                .replace(Constants.PATH_PLACEHOLDER, response.path);
+            this.feedbackEmitter(successMessage, "New File", Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -269,8 +274,7 @@ export default class ExplorerController extends ContainerController {
 
         newFolderViewModel.currentPath = wDir;
         this.showModal('newFolderModal', newFolderViewModel, (err, response) => {
-            // Response will be used to display notification messages using psk-feedback component
-            console.log(err, response);
+            console.log("Response from modal", err, response);
             this.explorerNavigator.listWalletContent();
         });
     }
