@@ -36,20 +36,18 @@ export default class DeleteController extends ModalController {
         if (event.data === 'confirm-delete') {
             this.feedbackController.setLoadingState(true);
 
-            return this._deleteSelectedItems((err) => {
+            return this._deleteSelectedItems((err, name) => {
                 this.feedbackController.setLoadingState();
                 if (err) {
                     console.error(err);
                 }
                 this.responseCallback(undefined, {
-                    success: true
+                    name: name
                 });
             });
         }
 
-        this.responseCallback(undefined, {
-            success: true
-        });
+        this.responseCallback();
     }
 
     _deleteSelectedItems(callback) {
@@ -62,14 +60,14 @@ export default class DeleteController extends ModalController {
             case 'folder':
                 {
                     this.dossierService.deleteFileFolder(`${path}/${name}`, (err) => {
-                        callback(err);
+                        callback(err, name);
                     });
                     break;
                 }
             case 'dossier':
                 {
                     this.dossierService.deleteDossier(`${path}/${name}`, (err) => {
-                        callback(err);
+                        callback(err, name);
                     });
                     break;
                 }

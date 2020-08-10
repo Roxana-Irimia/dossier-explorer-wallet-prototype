@@ -47,10 +47,10 @@ export default class ExplorerController extends ContainerController {
 
         this.on('create-dossier', this._createDossierHandler);
         this.on('receive-dossier', this._receiveDossierHandler);
-        this.on('delete-dossier', this._deleteDossierHandler);
         this.on('share-dossier', this._shareDossierHandler);
-        this.on('rename-dossier', this._renameDossierHandler);
-        this.on('move-dossier', this._moveDossierHandler);
+        this.on('delete', this._deleteHandler);
+        this.on('rename', this._renameHandler);
+        this.on('move', this._moveHandler);
         this.on('run-app', this._handleRunApplication);
 
         this.on('new-file', this._addNewFileHandler);
@@ -127,7 +127,14 @@ export default class ExplorerController extends ContainerController {
 
         createDossierViewModel.currentPath = this.model.currentPath;
         this.showModal('createDossierModal', createDossierViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].dossierCreated
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+                .replace(Constants.PATH_PLACEHOLDER, response.path)
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -138,12 +145,19 @@ export default class ExplorerController extends ContainerController {
 
         receiveDossierViewModel.currentPath = this.model.currentPath;
         this.showModal('receiveDossierModal', receiveDossierViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].dossierImported
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+                .replace(Constants.PATH_PLACEHOLDER, response.path)
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
 
-    _deleteDossierHandler = (event) => {
+    _deleteHandler = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -154,8 +168,7 @@ export default class ExplorerController extends ContainerController {
 
         const name = selectedItem.name;
         if (name === 'manifest') {
-            console.error(this.model.error.labels.manifestManipulationError);
-            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
+            return this.feedbackEmitter(this.model.error.labels.manifestManipulationError, null, Constants.ERROR_FEEDBACK_TYPE);
         }
 
         deleteViewModel.path = currentPath;
@@ -163,12 +176,18 @@ export default class ExplorerController extends ContainerController {
         deleteViewModel.selectedItemType = selectedItem.type;
 
         this.showModal('deleteModal', deleteViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].delete
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
 
-    _renameDossierHandler = (event) => {
+    _renameHandler = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -179,8 +198,7 @@ export default class ExplorerController extends ContainerController {
 
         const name = selectedItem.name;
         if (name === 'manifest') {
-            console.error(this.model.error.labels.manifestManipulationError);
-            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
+            return this.feedbackEmitter(this.model.error.labels.manifestManipulationError, null, Constants.ERROR_FEEDBACK_TYPE);
         }
 
         renameViewModel.fileNameInput.value = name;
@@ -189,12 +207,19 @@ export default class ExplorerController extends ContainerController {
         renameViewModel.currentPath = currentPath;
 
         this.showModal('renameModal', renameViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].rename
+                .replace(Constants.FROM_PLACEHOLDER, response.from)
+                .replace(Constants.TO_PLACEHOLDER, response.to);
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
 
-    _moveDossierHandler = (event) => {
+    _moveHandler = (event) => {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -204,8 +229,7 @@ export default class ExplorerController extends ContainerController {
         } = this._getSelectedItemAndWorkingDir(event.data);
 
         if (selectedItem.name === 'manifest') {
-            console.error(this.model.error.labels.manifestManipulationError);
-            return this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.manifestManipulationError);
+            return this.feedbackEmitter(this.model.error.labels.manifestManipulationError, null, Constants.ERROR_FEEDBACK_TYPE);
         }
 
         moveViewModel.selectedEntryName = selectedItem.name;
@@ -218,7 +242,15 @@ export default class ExplorerController extends ContainerController {
         };
 
         this.showModal('moveModal', moveViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].move
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+                .replace(Constants.FROM_PLACEHOLDER, response.from)
+                .replace(Constants.TO_PLACEHOLDER, response.to);
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -235,9 +267,10 @@ export default class ExplorerController extends ContainerController {
         shareDossierViewModel.currentPath = currentPath;
         shareDossierViewModel.selectedFile = selectedItem.name;
 
-        this.showModal('shareDossierModal', shareDossierViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
-            this.explorerNavigator.listWalletContent();
+        this.showModal('shareDossierModal', shareDossierViewModel, (err) => {
+            if (err) {
+                this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
         });
     }
 
@@ -251,15 +284,14 @@ export default class ExplorerController extends ContainerController {
 
         newFileViewModel.currentPath = wDir;
         this.showModal('newFileModal', newFileViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
             if (err) {
-                return this.feedbackEmitter(err, "New File", Constants.ERROR_FEEDBACK_TYPE);
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
             }
 
-            const successMessage = this.model[Constants.SUCCESS].labels.fileCreated
+            const successMessage = this.model[Constants.SUCCESS].fileCreated
                 .replace(Constants.NAME_PLACEHOLDER, response.name)
                 .replace(Constants.PATH_PLACEHOLDER, response.path);
-            this.feedbackEmitter(successMessage, "New File", Constants.SUCCESS_FEEDBACK_TYPE);
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -274,7 +306,14 @@ export default class ExplorerController extends ContainerController {
 
         newFolderViewModel.currentPath = wDir;
         this.showModal('newFolderModal', newFolderViewModel, (err, response) => {
-            console.log("Response from modal", err, response);
+            if (err) {
+                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            }
+
+            const successMessage = this.model[Constants.SUCCESS].folderCreated
+                .replace(Constants.NAME_PLACEHOLDER, response.name)
+                .replace(Constants.PATH_PLACEHOLDER, response.path);
+            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listWalletContent();
         });
     }
@@ -284,23 +323,44 @@ export default class ExplorerController extends ContainerController {
 
         let filesArray = event.data || [];
         if (!filesArray.length) {
-            this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.noFileUploaded);
-            return;
+            return this.feedbackEmitter(this.model.error.labels.noFileUploaded, null, Constants.ERROR_FEEDBACK_TYPE);
         }
 
         let wDir = this.model.currentPath || '/';
         // Open the ui-loader
         this.feedbackController.setLoadingState(true);
         this.DSUStorage.uploadMultipleFiles(wDir, filesArray, { preventOverwrite: true }, (err, filesUploaded) => {
-
-            //TODO: check for errors:
-            //successfully uploaded files are in err.data
             if (err) {
-                return this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
+                filesUploaded = err.data;
             }
 
-            console.log(filesUploaded);
-            console.log("[Upload Finished!]");
+            if (!Array.isArray(filesUploaded)) {
+                filesUploaded = [filesUploaded];
+            }
+            filesUploaded.forEach((entry) => {
+                let name, path, messageTemplate, messageType;
+
+                if (entry.error) {
+                    path = entry.file.path;
+                    if (entry.error.code === 30) {
+                        messageTemplate = this.model[Constants.SUCCESS].fileUploadExists;
+                        messageType = Constants.ERROR_FEEDBACK_TYPE;
+                    } else {
+                        messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
+                        messageType = Constants.SUCCESS_FEEDBACK_TYPE;
+                    }
+                } else {
+                    path = entry;
+                    messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
+                    messageType = Constants.SUCCESS_FEEDBACK_TYPE;
+                }
+
+                name = path.split('/').pop();
+                let displayedMessage = messageTemplate
+                    .replace(Constants.NAME_PLACEHOLDER, name)
+                    .replace(Constants.PATH_PLACEHOLDER, path);
+                this.feedbackEmitter(displayedMessage, null, messageType);
+            });
 
             // Close the ui-loader as upload is finished
             this.feedbackController.setLoadingState(false);

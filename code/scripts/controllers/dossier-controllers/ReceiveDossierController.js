@@ -37,10 +37,14 @@ export default class ReceiveDossierController extends ModalController {
             return;
         }
 
-        const wDir = this.model.currentPath || '/';
         this.dossierName = this.model.dossierNameInput.value;
+        this.wDir = this.model.currentPath || '/';
+        if (this.wDir == '/') {
+            this.wDir = '';
+        }
+
         this.feedbackController.setLoadingState(true);
-        this.dossierService.readDir(wDir, (err, dirContent) => {
+        this.dossierService.readDir(this.wDir, (err, dirContent) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
@@ -64,20 +68,16 @@ export default class ReceiveDossierController extends ModalController {
     _importDossierFromSeed = (event) => {
         event.stopImmediatePropagation();
 
-        let wDir = this.model.currentPath || '/';
-        if (wDir == '/') {
-            wDir = '';
-        }
         this.feedbackController.setLoadingState(true);
-
-        this.dossierService.importDossier(wDir, this.dossierName, this.SEED, (err) => {
+        this.dossierService.importDossier(this.wDir, this.dossierName, this.SEED, (err) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.log(err);
                 this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
             } else {
                 this.responseCallback(undefined, {
-                    success: true
+                    name: this.dossierName,
+                    path: `${this.wDir}/${this.dossierName}`
                 });
             }
         });
