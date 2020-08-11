@@ -30,31 +30,30 @@ export default class CreateDossierController extends ModalController {
             return;
         }
 
+        this.dossierName = this.model.dossierNameInput.value;
+        this.wDir = this.model.currentPath || '/';
+        if (this.wDir == '/') {
+            this.wDir = '';
+        }
         this.feedbackController.setLoadingState(true);
-        const wDir = this.model.currentPath || '/';
-        let dossierName = this.model.dossierNameInput.value;
-        this.dossierService.readDir(wDir, (err, dirContent) => {
+
+        this.dossierService.readDir(this.wDir, (err, dirContent) => {
             if (err) {
                 this.feedbackController.setLoadingState();
                 this.feedbackController.updateDisplayedMessage(Constants.ERROR, err);
             } else {
-                if (dirContent.find((el) => el.path === dossierName)) {
+                if (dirContent.find((el) => el.path === this.dossierName)) {
                     this.feedbackController.setLoadingState();
                     this.feedbackController.updateDisplayedMessage(Constants.ERROR, this.model.error.labels.entryExists);
                 } else {
-                    this._createDossier(dossierName);
+                    this._createDossier();
                 }
             }
         });
     };
 
-    _createDossier = (dossierName) => {
-        let wDir = this.model.currentPath || '/';
-        if (wDir == '/') {
-            wDir = '';
-        }
-
-        this.dossierService.createDossier(wDir, dossierName, (err, outputSEED) => {
+    _createDossier = () => {
+        this.dossierService.createDossier(this.wDir, this.dossierName, (err, outputSEED) => {
             this.feedbackController.setLoadingState();
             if (err) {
                 console.log(err);
@@ -70,7 +69,8 @@ export default class CreateDossierController extends ModalController {
         event.stopImmediatePropagation();
 
         this.responseCallback(undefined, {
-            success: true
+            name: this.dossierName,
+            path: `${this.wDir}/${this.dossierName}`
         });
     };
 

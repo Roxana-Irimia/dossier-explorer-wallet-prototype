@@ -3,6 +3,8 @@ export default class Constants {
 
     static NAME_PLACEHOLDER = "[NAME]";
     static PATH_PLACEHOLDER = "[PATH]";
+    static FROM_PLACEHOLDER = "[FROM]";
+    static TO_PLACEHOLDER = "[TO]";
 
     static ERROR = "error";
     static ERROR_FEEDBACK_TYPE = "alert-danger";

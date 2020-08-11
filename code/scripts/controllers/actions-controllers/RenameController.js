@@ -56,8 +56,8 @@ export default class RenameController extends ModalController {
             }
 
             this.responseCallback(undefined, {
-                success: true,
-                result: result
+                from: oldFileName,
+                to: newFileName
             });
         });
     }
