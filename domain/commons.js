@@ -8,7 +8,12 @@ const isSubPath = function (path, subPath) {
 
 const getParentDossier = function (rawDossier, path, callback) {
     if (path === '' || path === '/') {
-        return callback(undefined, rawDossier.getSeed(), "/");
+        return rawDossier.getKeySSI((err, keySSI)=>{
+            if(err){
+                return callback(err);
+            }
+            callback(undefined, keySSI, "/");
+        });
     }
 
     let paths = path.split('/');
@@ -34,18 +39,16 @@ const getParentDossier = function (rawDossier, path, callback) {
 };
 
 const createNewDossier = function (callback) {
-    edfs.createRawDossier((err, newDossier) => {
+    EDFS.createDSU("RawDossier", (err, newDossier) => {
         if (err) {
             console.error(err);
             return callback(err);
         }
-
         newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
             if (err) {
                 console.error(err);
                 return callback(err);
             }
-
             callback(undefined, newDossier);
         });
     });
