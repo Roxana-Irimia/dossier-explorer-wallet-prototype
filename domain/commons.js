@@ -1,14 +1,12 @@
-const isSubPath = function (path, subPath) {
-    if (path !== '/') {
-        path = `${path}/`;
-    }
-
-    return path.indexOf(`/${subPath}/`) !== -1;
-}
-
-const getParentDossier = function (rawDossier, path, callback) {
+const getParentDossier = function(rawDossier, path, callback) {
     if (path === '' || path === '/') {
-        return callback(undefined, rawDossier.getSeed(), "/");
+        return rawDossier.getKeySSI((err, keySSI) => {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(undefined, keySSI, "/");
+        });
     }
 
     let paths = path.split('/');
@@ -22,7 +20,7 @@ const getParentDossier = function (rawDossier, path, callback) {
         }
 
         let dossier = mountPoints.find((dsr) => {
-            return dsr.path === wDir || isSubPath(path, dsr.path);
+            return dsr.path === wDir || _isSubPath(path, dsr.path);
         });
 
         if (!dossier) {
@@ -33,35 +31,14 @@ const getParentDossier = function (rawDossier, path, callback) {
     });
 };
 
-const createNewDossier = function (callback) {
-    edfs.createRawDossier((err, newDossier) => {
-        if (err) {
-            console.error(err);
-            return callback(err);
-        }
-
-        newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
-            if (err) {
-                console.error(err);
-                return callback(err);
-            }
-
-            callback(undefined, newDossier);
-        });
-    });
-}
-
-const mountDossier = function (rawDossier, mountPoint, seed, callback) {
-    rawDossier.mount(mountPoint, seed, (err) => {
-        if (err) {
-            return callback(err)
-        }
-        callback(undefined, seed);
-    });
-}
-
 module.exports = {
-    createNewDossier,
-    mountDossier,
     getParentDossier
 };
+
+const _isSubPath = function(path, subPath) {
+    if (path !== '/') {
+        path = `${path}/`;
+    }
+
+    return path.indexOf(`/${subPath}/`) !== -1;
+}
