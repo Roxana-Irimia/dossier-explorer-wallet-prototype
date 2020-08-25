@@ -7,10 +7,11 @@
         "indexed": true,
         "historyType": "browser"
     },
-    "pages": [{
+    "pages": [
+        {
             "name": "Explorer",
             "path": "/explorer",
-            "pageSrc": "Wallet/wallet.html"
+            "pageSrc": "index.html"
         },
         {
             "name": "My Apps",
