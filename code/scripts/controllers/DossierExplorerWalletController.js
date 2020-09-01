@@ -7,6 +7,7 @@ import signOutViewModel from "../view-models/modals/signOutViewModel.js";
 
 const DossierExplorerService = getDossierServiceInstance();
 const APPS_FOLDER = "/apps";
+const DOSSIER_EXPLORER_SSAPP = "dossier-explorer-ssapp";
 
 const appTemplate = {
     exact: false,
@@ -20,6 +21,9 @@ export default class DossierExplorerWalletController extends ContainerController
 
         element.addEventListener("sign-out", this._signOutFromWalletHandler);
         element.addEventListener("getSSApps", this._getSSAppsHandler);
+
+        this.model = this.setModel({});
+        this._setKeySSI();
     }
 
     _getSSAppsHandler = (event) => {
@@ -63,4 +67,14 @@ export default class DossierExplorerWalletController extends ContainerController
             }
         });
     };
+
+    _setKeySSI = () => {
+        DossierExplorerService.printDossierSeed(APPS_FOLDER, DOSSIER_EXPLORER_SSAPP, (err, keySSI) => {
+            if (err) {
+                return console.error(err);
+            }
+
+            this.model.setChainValue("keySSI", keySSI);
+        });
+    }
 }
