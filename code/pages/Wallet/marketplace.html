@@ -1,0 +1,32 @@
+<psk-container controller-name="MarketplaceController">
+    <psk-page title="@pageTitle">
+        <psk-condition condition="@conditionalExpressions.isLoading">
+            <psk-ui-loader slot="condition-true" should-be-rendered="true"></psk-ui-loader>
+
+            <psk-grid slot="condition-false">
+                <psk-for-each class='navigation-links' data-view-model='navigationLinks'>
+                    <psk-button label='@label' event-name='change-directory' event-data='@path' button-class='cd-link' disabled='@disabled'>
+                    </psk-button>
+                    <psk-label>&gt</psk-label>
+                </psk-for-each>
+
+                <psk-grid class="add-menu">
+                    <psk-text-input class="marketplace-search-bar" view-model="searchBox"></psk-text-input>
+
+                    <psk-condition condition="@isGridLayout" class="btn-switch-wrapper">
+                        <psk-button slot="condition-true" title="@hoverLabels.switchGridHover" event-name="switch-layout" button-class="btn-switch">
+                            <psk-icon color="#572a57" icon="th" class="right-menu"></psk-icon>
+                        </psk-button>
+
+                        <psk-button slot="condition-false" title="@hoverLabels.switchListHover" event-name="switch-layout" button-class="btn-switch">
+                            <psk-icon color="#572a57" icon="th-list" class="right-menu"></psk-icon>
+                        </psk-button>
+                    </psk-condition>
+                </psk-grid>
+                <psk-page-loader id="marketplace-container" slot="condition-false" page-url="@pageLoader.walletContent"></psk-page-loader>
+            </psk-grid>
+        </psk-condition>
+    </psk-page>
+
+    <psk-list-feedbacks messages-to-display="5" time-alive="3000"> </psk-list-feedbacks>
+</psk-container>
