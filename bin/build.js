@@ -2,7 +2,7 @@ const DOSSIER_SEED_FILE_PATH = "./seed";
 const CARDINAL_SEED_FILE_PATH = "../cardinal/seed";
 const THEMES_PATH = "../themes";
 const CONFIG_PATH = "../code/config.json";
-const BRICK_STORAGE_ENDPOINT = process.env.SSAPPS_FAVORITE_EDFS_ENDPOINT || "http://127.0.0.1:8080";
+const BRICK_STORAGE_ENDPOINT = process.env.SSAPPS_FAVORITE_EDFS_ENDPOINT || "http://localhost:8080";
 
 require("./../../privatesky/psknode/bundles/csbBoot.js");
 require("./../../privatesky/psknode/bundles/edfsBar.js");
