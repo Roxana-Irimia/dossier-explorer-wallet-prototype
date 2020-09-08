@@ -25,21 +25,6 @@
             "children": "@event:getSSApps",
             "propName": "appName",
             "component": "psk-ssapp"
-        },
-        {
-            "name": "MarketplacePage",
-            "path": "/marketplace-page",
-            "pageSrc": "Wallet/marketplace.html"
-        },
-        {
-            "name": "Submit Application",
-            "path": "/submit-application",
-            "pageSrc": "Wallet/submit-application.html"
-        },
-        {
-            "name": "Accept Applications",
-            "path": "/accept-applications",
-            "pageSrc": "Wallet/accept-applications.html"
         }
     ]
 }
