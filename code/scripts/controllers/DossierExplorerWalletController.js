@@ -6,7 +6,7 @@ import { getAccountServiceInstance } from "../service/AccountService.js";
 import signOutViewModel from "../view-models/modals/signOutViewModel.js";
 
 const DossierExplorerService = getDossierServiceInstance();
-const APPS_FOLDER = "/apps";
+const APPS_FOLDER = "/apps/psk-marketplace-ssapp/my-apps";
 
 const appTemplate = {
     exact: false,
@@ -37,25 +37,37 @@ export default class DossierExplorerWalletController extends ContainerController
                 throw new Error("Callback should be a function");
             }
 
-            DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, { applications }) => {
+            DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {mounts}) => {
                 if (err) {
                     return callback(err);
                 }
 
-                let apps = [];
-                applications.forEach((mountedApp) => {
-                    console.log(mountedApp);
+                let auxApps = [];
+
+                let chain = (mounts) => {
+                    if (mounts.length === 0) {
+                        return callback(err, auxApps);
+                    }
+                    let mountedApp = mounts.shift();
+                    let path = APPS_FOLDER + '/' + mountedApp;
+
                     let app = JSON.parse(JSON.stringify(appTemplate));
-                    app.name = mountedApp;
-                    app.path = pathPrefix + "/" + mountedApp;
-                    app.componentProps.appName = mountedApp;
-                    apps.push(app);
-                });
+                    app.path = pathPrefix + '/' + mountedApp;
 
-                callback(err, apps);
-
+                    this.DSUStorage.getObject(path + '/data', (err, data) => {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        app.name = data.name;
+                        app.componentProps.appName = mountedApp;
+                        app.componentProps.keySSI = data.keySSI;
+                        auxApps.push({...app});
+                        chain(mounts);
+                    });
+                }
+                chain(mounts);
             });
-
         }
     }
 
@@ -71,7 +83,7 @@ export default class DossierExplorerWalletController extends ContainerController
     };
 
     _setKeySSI = () => {
-        DossierExplorerService.printDossierSeed(APPS_FOLDER, this.ssappName, (err, keySSI) => {
+        DossierExplorerService.printDossierSeed("/apps", this.ssappName, (err, keySSI) => {
             if (err) {
                 return console.error(err);
             }
