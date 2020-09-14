@@ -3,23 +3,21 @@ const CARDINAL_SEED_FILE_PATH = "../cardinal/seed";
 const THEMES_PATH = "../themes";
 const CONFIG_PATH = "../code/config.json";
 const BRICK_STORAGE_ENDPOINT = process.env.SSAPPS_FAVORITE_EDFS_ENDPOINT || "http://localhost:8080";
+const DEFAULT_DOMAIN = "default";
 
-require("./../../privatesky/psknode/bundles/csbBoot.js");
-require("./../../privatesky/psknode/bundles/edfsBar.js");
+require("./../../../privatesky/psknode/bundles/csbBoot.js");
+require("./../../../privatesky/psknode/bundles/openDSU.js");
 const fs = require("fs");
 const EDFS = require("edfs");
-$$.BDNS.addConfig("default", {
-    endpoints: [
-        {
-            endpoint: BRICK_STORAGE_ENDPOINT,
-            type: 'brickStorage'
-        },
-        {
-            endpoint: BRICK_STORAGE_ENDPOINT,
-            type: 'anchorService'
-        }
-    ]
+const openDSU = require("opendsu");
+const bdns = openDSU.loadApi("bdns");
+const keyssi = openDSU.loadApi("keyssi");
+const resolver = openDSU.loadApi("resolver");
+bdns.addRawInfo(DEFAULT_DOMAIN, {
+    brickStorages: [BRICK_STORAGE_ENDPOINT],
+    anchoringServices: [BRICK_STORAGE_ENDPOINT]
 })
+
 let APP_CONFIG = {};
 
 function getCardinalDossierSeed(callback){
@@ -48,7 +46,7 @@ function storeKeySSI(seed_path, keySSI, callback) {
 }
 
 function createDossier(callback) {
-    EDFS.createDSU("Bar", (err, bar) => {
+    resolver.createDSU(keyssi.buildSeedSSI(DEFAULT_DOMAIN), (err, bar) => {
         if (err) {
             return callback(err);
         }
@@ -73,7 +71,7 @@ function updateDossier(bar, callback) {
                     return callback(err);
                 }
 
-                EDFS.resolveSSI(barKeySSI, "RawDossier", (err, loadedDossier) => {
+                resolver.loadDSU(barKeySSI, (err, loadedDossier) => {
                     if(err){
                         return callback(err);
                     }
@@ -138,19 +136,14 @@ function build(callback) {
 
         let keySSI;
         try {
-            keySSI = require("key-ssi-resolver").KeySSIFactory.create(content.toString());
+            keySSI = keyssi.parse(content.toString());
         } catch (err) {
             console.log("Invalid keySSI. Creating a new Dossier...");
             return createDossier(callback);
         }
 
-        if(keySSI.getHint() !== BRICK_STORAGE_ENDPOINT){
-            console.log("Endpoint change detected. Creating a new Dossier...");
-            return createDossier(callback);
-        }
-
         console.log("Dossier updating...");
-        EDFS.resolveSSI(content.toString(), "Bar", (err, bar) => {
+        resolver.loadDSU(content.toString(), (err, bar) => {
             if (err) {
                 return callback(err);
             }
