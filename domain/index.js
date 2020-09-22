@@ -1,5 +1,5 @@
 console.log("Loaded from domain.js");
-const EDFS = require("edfs");
+const keyssiresolver = require("opendsu").loadApi("resolver");
 const commons = require('./commons');
 const constants = require('./constants');
 
@@ -179,7 +179,9 @@ $$.swarms.describe("attachDossier", {
                     return this.return(err);
                 }
 
-                EDFS.createDSU("RawDossier", (err, newDossier) => {
+                const keyssiSpace = require("opendsu").loadApi("keyssi");
+                const keyssi = keyssiSpace.buildTemplateKeySSI("default");
+                keyssiresolver.createDSU(keyssi, (err, newDossier) => {
                     if (err) {
                         return this.return(err);
                     }
@@ -198,7 +200,7 @@ $$.swarms.describe("attachDossier", {
     },
     fromSeed: function(path, dossierName, SEED) {
         if (rawDossier) {
-            EDFS.resolveSSI(SEED, "RawDossier", (err, loadedDossier) => {
+            keyssiresolver.loadDSU(SEED, (err, loadedDossier) => {
                 if (err) {
                     return this.return(err);
                 }
@@ -241,7 +243,7 @@ $$.swarms.describe("attachDossier", {
                 }
 
                 if (parentKeySSI !== keySSI) {
-                    return EDFS.resolveSSI(parentKeySSI, "RawDossier", (err, parentRawDossier) => {
+                    return keyssiresolver.loadDSU(parentKeySSI, (err, parentRawDossier) => {
                         if (err) {
                             return this.return(err);
                         }
