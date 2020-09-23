@@ -1,26 +1,11 @@
 console.log("Loaded from domain.js");
-const keyssiresolver = require("opendsu").loadApi("resolver");
 const commons = require('./commons');
 const constants = require('./constants');
-
 function initializeBDNS(callback) {
     rawDossier.getKeySSI((err, keySSI) => {
         if (err) {
             return callback(err);
         }
-
-        const keySSIInstance = require("key-ssi-resolver").KeySSIFactory.create(keySSI);
-        $$.BDNS.addConfig("default", {
-            endpoints: [{
-                    endpoint: keySSIInstance.getHint(),
-                    type: 'brickStorage'
-                },
-                {
-                    endpoint: keySSIInstance.getHint(),
-                    type: 'anchorService'
-                }
-            ]
-        })
         callback(undefined);
     });
 }
@@ -151,144 +136,6 @@ $$.swarms.describe('readDir', {
     }
 });
 
-$$.swarms.describe('rename', {
-    start: function(oldPath, newPath) {
-        if (rawDossier) {
-            rawDossier.rename(oldPath, newPath, (err) => {
-                if (err) {
-                    return this.return(new Error(err));
-                }
-
-                this.return(undefined, {
-                    success: true,
-                    oldPath: oldPath,
-                    newPath: newPath
-                })
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."));
-        }
-    }
-});
-
-$$.swarms.describe("attachDossier", {
-    newDossier: function(path, dossierName) {
-        if (rawDossier) {
-            initializeBDNS((err) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                const keyssiSpace = require("opendsu").loadApi("keyssi");
-                const keyssi = keyssiSpace.buildTemplateKeySSI("default");
-                keyssiresolver.createDSU(keyssi, (err, newDossier) => {
-                    if (err) {
-                        return this.return(err);
-                    }
-                    newDossier.getKeySSI((err, keySSI) => {
-                        if (err) {
-                            return this.return(err);
-                        }
-
-                        this.mountDossier(path, keySSI, dossierName);
-                    });
-                });
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."))
-        }
-    },
-    fromSeed: function(path, dossierName, SEED) {
-        if (rawDossier) {
-            keyssiresolver.loadDSU(SEED, (err, loadedDossier) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                loadedDossier.getKeySSI((err, keySSI) => {
-                    if (err) {
-                        return this.return(err);
-                    }
-                    this.mountDossier(path, keySSI, dossierName);
-                });
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."))
-        }
-    },
-    mountDossier: function(path, keySSI, dossierName) {
-        commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
-            if (err) {
-                return this.return(err);
-            }
-
-            let mountDossierIn = (parentDossier) => {
-
-                let mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
-                if (!mountPoint.startsWith("/")) {
-                    mountPoint = "/" + mountPoint;
-                }
-                parentDossier.mount(mountPoint, keySSI, (err) => {
-                    if (err) {
-                        return this.return(err)
-                    }
-                    this.return(undefined, keySSI);
-                });
-            }
-
-            //make sure if is the case to work with the current rawDossier instance
-            rawDossier.getKeySSI((err, keySSI) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                if (parentKeySSI !== keySSI) {
-                    return keyssiresolver.loadDSU(parentKeySSI, (err, parentRawDossier) => {
-                        if (err) {
-                            return this.return(err);
-                        }
-                        mountDossierIn(parentRawDossier);
-                    });
-                }
-                mountDossierIn(rawDossier);
-            });
-        });
-    }
-});
-
-$$.swarms.describe('add', {
-    folder: function(path, folderName) {
-        if (rawDossier) {
-            const folderPath = `${path}/${folderName}`;
-
-            rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, (err, res) => {
-                console.log(folderPath, folderPath, err, res);
-                if (!err) {
-                    this.return(err, res);
-                }
-            });
-        }
-
-        this.return(new Error("Raw Dossier is not available."));
-    }
-});
-
-$$.swarms.describe('delete', {
-    fileFolder: function(path) {
-        if (rawDossier) {
-            return rawDossier.delete(path, this.return);
-        }
-
-        this.return(new Error("Raw Dossier is not available."))
-    },
-    dossier: function(path) {
-        if (rawDossier) {
-            return rawDossier.unmount(path, this.return);
-        }
-
-        this.return(new Error("Raw Dossier is not available."))
-    }
-});
 
 $$.swarms.describe('listDossiers', {
     getMountedDossier: function(path) {
