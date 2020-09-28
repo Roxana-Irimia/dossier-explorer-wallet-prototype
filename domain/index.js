@@ -1,26 +1,19 @@
 console.log("Loaded from domain.js");
-const EDFS = require("edfs");
 const commons = require('./commons');
 const constants = require('./constants');
+
+const MARKETPLACE_APP_SEED = `/web-wallet/apps/psk-marketplace-ssapp/seed`;
+const CODE_FOLDER = "/code";
+const INSTALLED_APPLICATIONS_MOUNTING_PATH = "/my-apps";
+const IN_REVIEW_APPLICATIONS_MOUNTING_PATH = "/appsInReview";
+const AVAILABLE_APPLICATIONS_MOUNTING_PATH = "/availableApps";
+const MARKETPLACES_MOUNTING_PATH = "/marketplaces";
 
 function initializeBDNS(callback) {
     rawDossier.getKeySSI((err, keySSI) => {
         if (err) {
             return callback(err);
         }
-
-        const keySSIInstance = require("key-ssi-resolver").KeySSIFactory.create(keySSI);
-        $$.BDNS.addConfig("default", {
-            endpoints: [{
-                    endpoint: keySSIInstance.getHint(),
-                    type: 'brickStorage'
-                },
-                {
-                    endpoint: keySSIInstance.getHint(),
-                    type: 'anchorService'
-                }
-            ]
-        })
         callback(undefined);
     });
 }
@@ -151,142 +144,6 @@ $$.swarms.describe('readDir', {
     }
 });
 
-$$.swarms.describe('rename', {
-    start: function(oldPath, newPath) {
-        if (rawDossier) {
-            rawDossier.rename(oldPath, newPath, (err) => {
-                if (err) {
-                    return this.return(new Error(err));
-                }
-
-                this.return(undefined, {
-                    success: true,
-                    oldPath: oldPath,
-                    newPath: newPath
-                })
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."));
-        }
-    }
-});
-
-$$.swarms.describe("attachDossier", {
-    newDossier: function(path, dossierName) {
-        if (rawDossier) {
-            initializeBDNS((err) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                EDFS.createDSU("RawDossier", (err, newDossier) => {
-                    if (err) {
-                        return this.return(err);
-                    }
-                    newDossier.getKeySSI((err, keySSI) => {
-                        if (err) {
-                            return this.return(err);
-                        }
-
-                        this.mountDossier(path, keySSI, dossierName);
-                    });
-                });
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."))
-        }
-    },
-    fromSeed: function(path, dossierName, SEED) {
-        if (rawDossier) {
-            EDFS.resolveSSI(SEED, "RawDossier", (err, loadedDossier) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                loadedDossier.getKeySSI((err, keySSI) => {
-                    if (err) {
-                        return this.return(err);
-                    }
-                    this.mountDossier(path, keySSI, dossierName);
-                });
-            });
-        } else {
-            this.return(new Error("Raw Dossier is not available."))
-        }
-    },
-    mountDossier: function(path, keySSI, dossierName) {
-        commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
-            if (err) {
-                return this.return(err);
-            }
-
-            let mountDossierIn = (parentDossier) => {
-
-                let mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
-                if (!mountPoint.startsWith("/")) {
-                    mountPoint = "/" + mountPoint;
-                }
-                parentDossier.mount(mountPoint, keySSI, (err) => {
-                    if (err) {
-                        return this.return(err)
-                    }
-                    this.return(undefined, keySSI);
-                });
-            }
-
-            //make sure if is the case to work with the current rawDossier instance
-            rawDossier.getKeySSI((err, keySSI) => {
-                if (err) {
-                    return this.return(err);
-                }
-
-                if (parentKeySSI !== keySSI) {
-                    return EDFS.resolveSSI(parentKeySSI, "RawDossier", (err, parentRawDossier) => {
-                        if (err) {
-                            return this.return(err);
-                        }
-                        mountDossierIn(parentRawDossier);
-                    });
-                }
-                mountDossierIn(rawDossier);
-            });
-        });
-    }
-});
-
-$$.swarms.describe('add', {
-    folder: function(path, folderName) {
-        if (rawDossier) {
-            const folderPath = `${path}/${folderName}`;
-
-            rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, (err, res) => {
-                console.log(folderPath, folderPath, err, res);
-                if (!err) {
-                    this.return(err, res);
-                }
-            });
-        }
-
-        this.return(new Error("Raw Dossier is not available."));
-    }
-});
-
-$$.swarms.describe('delete', {
-    fileFolder: function(path) {
-        if (rawDossier) {
-            return rawDossier.delete(path, this.return);
-        }
-
-        this.return(new Error("Raw Dossier is not available."))
-    },
-    dossier: function(path) {
-        if (rawDossier) {
-            return rawDossier.unmount(path, this.return);
-        }
-
-        this.return(new Error("Raw Dossier is not available."))
-    }
-});
 
 $$.swarms.describe('listDossiers', {
     getMountedDossier: function(path) {
@@ -314,5 +171,144 @@ $$.swarms.describe('listDossiers', {
         }
 
         this.return(new Error("Raw Dossier is not available."));
+    }
+});
+
+$$.BDNS.addConfig("default", {
+    endpoints: [
+        {
+            endpoint: "http://localhost:8080",
+            type: 'brickStorage'
+        },
+        {
+            endpoint: "http://localhost:8080",
+            type: 'anchorService'
+        }
+    ]
+})
+
+$$.swarms.describe('applicationsSwarm', {
+    start: function (data) {
+        if (rawDossier) {
+            return this.createApplicationsDossier(data);
+        }
+        this.return(new Error("Raw Dossier is not available."));
+    },
+
+    __createMarketplaceDossier: function (data, callback) {
+        EDFS.createDSU("RawDossier", (err, newDossier) => {
+            if (err) {
+                console.error(err);
+                return callback(err);
+            }
+            newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
+                if (err) {
+                    console.error(err);
+                    return callback(err);
+                }
+
+                newDossier.getKeySSI((err, keySSI) => {
+                    if (err) {
+                        return callback(err);
+                    }
+                    data.keySSI = keySSI;
+                    newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
+                        if (err) {
+                            console.error(err);
+                            return callback(err);
+                        }
+
+                        fetch(MARKETPLACE_APP_SEED)
+                            .then(response => response.text())
+                            .then(seed => {
+                                newDossier.mount(CODE_FOLDER, seed, (err) => {
+                                    if (err) {
+                                        return callback(err);
+                                    }
+                                    callback(err, keySSI);
+                                })
+                            });
+                    });
+                });
+            });
+        });
+    },
+
+    createMarketplaceDossier: function (data) {
+        this.__createMarketplaceDossier(data, (err, keySSI) => {
+            if (err) {
+                console.error(err);
+                return this.return(err);
+            }
+            this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, keySSI);
+        })
+    },
+
+    importMarketplace: function (keySSI) {
+        this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, keySSI);
+    },
+
+    listMarketplaces: function () {
+        this.__listMarketplaces(MARKETPLACES_MOUNTING_PATH, (err, data) => {
+            if (err) {
+                return this.return(err);
+            }
+            this.return(err, data);
+        });
+    },
+
+    __listMarketplaces: function (PATH, callback) {
+        if (!rawDossier) {
+            this.return(new Error("Raw Dossier is not available."));
+        }
+        rawDossier.readDir(PATH, (err, marketplaces) => {
+            if (err) {
+                return callback(err);
+            }
+            let toBeReturned = [];
+
+            let getMarketplaceData = (marketplace) => {
+                let appPath = PATH + '/' + marketplace.path;
+                rawDossier.readFile(appPath + '/data', (err, fileContent) => {
+                    toBeReturned.push({
+                        ...JSON.parse(fileContent),
+                        path: appPath,
+                        identifier: marketplace.identifier
+                    });
+                    if (marketplaces.length > 0) {
+                        getMarketplaceData(marketplaces.shift())
+                    } else {
+                        return callback(undefined, toBeReturned);
+                    }
+                });
+            };
+            if (marketplaces.length > 0) {
+                return getMarketplaceData(marketplaces.shift());
+            }
+            return callback(undefined, toBeReturned);
+        })
+    },
+
+
+    removeMarketplace: function (marketplaceData) {
+        rawDossier.unmount(marketplaceData.path, (err, data) => {
+            if (err) {
+                return this.return(err);
+            }
+            return this.return(err, data);
+        });
+    },
+
+    mountDossier: function (parentDossier, mountingPath, seed) {
+        const PskCrypto = require("pskcrypto");
+        const hexDigest = PskCrypto.pskHash(seed, "hex");
+        let path = `${mountingPath}/${hexDigest}`;
+        parentDossier.mount(path, seed, (err) => {
+            if (err) {
+                console.error(err);
+                return this.return(err);
+            }
+            this.return(undefined, {path: path, seed: seed});
+        });
     }
 });

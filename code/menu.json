@@ -14,16 +14,35 @@
             "pageSrc": "index.html"
         },
         {
-            "name": "Marketplace",
-            "path": "/marketplace",
-            "pageSrc": "marketplace.html"
+            "name": "Marketplaces",
+            "children": [
+                {
+                    "name": "Marketplace Manager",
+                    "path": "/marketplace-manager",
+                    "pageSrc": "marketplace-manager.html",
+                    "tags": "marketplace-manager"
+
+                },
+                {
+                    "name": "Submit Marketplace",
+                    "tags": "submit-marketplace",
+                    "indexed": false
+                },
+                {
+                    "name": "Marketplace List",
+                    "path": "/marketplaces",
+                    "children": "@event:getMarketplaces",
+                    "component": "psk-ssapp",
+                    "propName": "keySSI"
+                }
+            ]
         },
         {
             "name": "My Apps",
             "path": "/my-apps",
             "icon": "fa-plug",
             "children": "@event:getSSApps",
-            "propName": "appName",
+            "propName": "keySSI",
             "component": "psk-ssapp"
         }
     ]

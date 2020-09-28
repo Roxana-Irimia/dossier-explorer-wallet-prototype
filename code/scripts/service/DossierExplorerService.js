@@ -61,7 +61,22 @@ class DossierExplorerService {
         $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "getMountedDossier", path)
             .onReturn(callback);
     }
-
+    addMarketplace(marketplaceData, callback) {
+        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "createMarketplaceDossier", marketplaceData)
+            .onReturn(callback);
+    }
+    importMarketplace(marketplaceKeySSI, callback) {
+        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "importMarketplace", marketplaceKeySSI)
+            .onReturn(callback);
+    }
+    listMarketplaces(callback) {
+        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "listMarketplaces")
+            .onReturn(callback);
+    }
+    removeMarketplace(marketplaceData, callback) {
+        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "removeMarketplace", marketplaceData)
+            .onReturn(callback);
+    }
 }
 
 let dossierExplorer = new DossierExplorerService();

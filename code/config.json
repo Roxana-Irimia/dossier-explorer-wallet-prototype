@@ -7,6 +7,9 @@
         "avatar": "/assets/images/dossier-explorer.png"
     },
     "modals": {
-        "signOutModal": "Wallet/modals/sign-out-modal.html"
+        "signOutModal": "Wallet/modals/sign-out-modal.html",
+        "importQRCodeModal": "import-qrcode-modal.html",
+        "confirmActionModal": "confirm-action-modal.html",
+        "runAppModal": "run-app-modal.html"
     }
 }

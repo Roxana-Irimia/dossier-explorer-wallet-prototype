@@ -6,6 +6,7 @@ import { getAccountServiceInstance } from "../service/AccountService.js";
 import signOutViewModel from "../view-models/modals/signOutViewModel.js";
 
 const DossierExplorerService = getDossierServiceInstance();
+const MARKETPLACES_FOLDER = "/marketplaces";
 const APPS_FOLDER = "/apps/psk-marketplace-ssapp/my-apps";
 
 const appTemplate = {
@@ -22,6 +23,7 @@ export default class DossierExplorerWalletController extends ContainerController
 
         element.addEventListener("sign-out", this._signOutFromWalletHandler);
         element.addEventListener("getSSApps", this._getSSAppsHandler);
+        element.addEventListener("getMarketplaces", this._getMarketplacesHandler);
 
         this.model = this.setModel({});
         this._setKeySSI();
@@ -37,33 +39,89 @@ export default class DossierExplorerWalletController extends ContainerController
                 throw new Error("Callback should be a function");
             }
 
-            DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {mounts}) => {
+            DossierExplorerService.readDirDetailed(MARKETPLACES_FOLDER, (err, data) => {
                 if (err) {
                     return callback(err);
                 }
+                let mounts = data.applications;
+
+                let auxApps = [];
+                let marketplaceMounts = (applications) => {
+                    if (applications.length === 0) {
+                        return callback(err, auxApps);
+                    }
+                    let mountedApp = applications.shift();
+                    let marketplacePath = MARKETPLACES_FOLDER + '/' + mountedApp;
+
+                    DossierExplorerService.readDirDetailed(marketplacePath + '/my-apps', (err, {mounts}) => {
+                        if (err) {
+                            return callback(err);
+                        }
+
+                        let auxApps = [];
+
+                        let appMounts = (mounts) => {
+                            if (mounts.length === 0) {
+                                return callback(err, auxApps);
+                            }
+                            let mountedApp = mounts.shift();
+                            let path = marketplacePath + '/my-apps/' + mountedApp;
+
+                            this.DSUStorage.getObject(path + '/data', (err, data) => {
+                                if (err) {
+                                    console.log(err);
+                                    return;
+                                }
+                                let app = JSON.parse(JSON.stringify(appTemplate));
+                                app.path = pathPrefix + '/' + btoa(data.keySSI);
+                                app.name = data.name;
+                                auxApps.push({...app});
+                                appMounts(mounts);
+                            });
+                        }
+                        appMounts(mounts);
+                    });
+                }
+                marketplaceMounts(mounts);
+            });
+        }
+    }
+
+    _getMarketplacesHandler = (event) => {
+        if (typeof event.getEventType === "function" &&
+            event.getEventType() === "PSK_SUB_MENU_EVT") {
+
+            let callback = event.data.callback;
+            let pathPrefix = event.data.pathPrefix;
+            if (typeof callback !== "function") {
+                throw new Error("Callback should be a function");
+            }
+
+            DossierExplorerService.readDirDetailed(MARKETPLACES_FOLDER, (err, data) => {
+                if (err) {
+                    return callback(err);
+                }
+                let mounts = data.applications;
 
                 let auxApps = [];
 
-                let chain = (mounts) => {
-                    if (mounts.length === 0) {
+                let chain = (applications) => {
+                    if (applications.length === 0) {
                         return callback(err, auxApps);
                     }
-                    let mountedApp = mounts.shift();
-                    let path = APPS_FOLDER + '/' + mountedApp;
-
-                    let app = JSON.parse(JSON.stringify(appTemplate));
-                    app.path = pathPrefix + '/' + mountedApp;
+                    let mountedApp = applications.shift();
+                    let path = MARKETPLACES_FOLDER + '/' + mountedApp;
 
                     this.DSUStorage.getObject(path + '/data', (err, data) => {
                         if (err) {
                             console.log(err);
                             return;
                         }
+                        let app = JSON.parse(JSON.stringify(appTemplate));
+                        app.path = pathPrefix + '/' + btoa(data.keySSI);
                         app.name = data.name;
-                        app.componentProps.appName = mountedApp;
-                        app.componentProps.keySSI = data.keySSI;
                         auxApps.push({...app});
-                        chain(mounts);
+                        chain(applications);
                     });
                 }
                 chain(mounts);
