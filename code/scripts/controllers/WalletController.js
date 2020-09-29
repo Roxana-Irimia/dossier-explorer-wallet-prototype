@@ -6,7 +6,8 @@ import { getAccountServiceInstance } from "../service/AccountService.js";
 import signOutViewModel from "../view-models/modals/signOutViewModel.js";
 
 const DossierExplorerService = getDossierServiceInstance();
-const APPS_FOLDER = "/apps";
+const APPS_FOLDER = "/apps/psk-marketplace-ssapp/my-apps";
+const MARKETPLACES_FOLDER = "/marketplaces";
 
 const appTemplate = {
 	exact: false,
@@ -22,6 +23,7 @@ export default class WalletController extends ContainerController {
 	}
 
 	_getSSAppsHandler = (event) => {
+		debugger
 		if (typeof event.getEventType === "function" &&
 			event.getEventType() === "PSK_SUB_MENU_EVT") {
 
@@ -31,25 +33,35 @@ export default class WalletController extends ContainerController {
 				throw new Error("Callback should be a function");
 			}
 
-			DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, { applications }) => {
+			DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {mounts}) => {
 				if (err) {
 					return callback(err);
 				}
+				let auxApps = [];
+				let chain = (mounts) => {
+					if (mounts.length === 0) {
+						return callback(err, auxApps);
+					}
+					let mountedApp = mounts.shift();
+					let path = APPS_FOLDER + '/' + mountedApp;
 
-				let apps = [];
-				applications.forEach((mountedApp) => {
-					console.log(mountedApp);
 					let app = JSON.parse(JSON.stringify(appTemplate));
-					app.name = mountedApp;
-					app.path = pathPrefix + "/" + mountedApp;
-					app.componentProps.appName = mountedApp;
-					apps.push(app);
-				});
+					app.path = pathPrefix + '/' + mountedApp;
 
-				callback(err, apps);
-
+					this.DSUStorage.getObject(path + '/data', (err, data) => {
+						if (err) {
+							console.log(err);
+							return;
+						}
+						app.name = data.name;
+						app.componentProps.appName = mountedApp;
+						app.componentProps.keySSI = data.keySSI;
+						auxApps.push({...app});
+						chain(mounts);
+					});
+				}
+				chain(mounts);
 			});
-
 		}
 	}
 

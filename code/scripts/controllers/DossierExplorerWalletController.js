@@ -24,12 +24,13 @@ export default class DossierExplorerWalletController extends ContainerController
         element.addEventListener("sign-out", this._signOutFromWalletHandler);
         element.addEventListener("getSSApps", this._getSSAppsHandler);
         element.addEventListener("getMarketplaces", this._getMarketplacesHandler);
-
+        debugger
         this.model = this.setModel({});
         this._setKeySSI();
     }
 
     _getSSAppsHandler = (event) => {
+        debugger
         if (typeof event.getEventType === "function" &&
             event.getEventType() === "PSK_SUB_MENU_EVT") {
 
@@ -39,55 +40,42 @@ export default class DossierExplorerWalletController extends ContainerController
                 throw new Error("Callback should be a function");
             }
 
-            DossierExplorerService.readDirDetailed(MARKETPLACES_FOLDER, (err, data) => {
+            DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {mounts}) => {
                 if (err) {
                     return callback(err);
                 }
-                let mounts = data.applications;
 
                 let auxApps = [];
-                let marketplaceMounts = (applications) => {
-                    if (applications.length === 0) {
+
+                let chain = (mounts) => {
+                    if (mounts.length === 0) {
                         return callback(err, auxApps);
                     }
-                    let mountedApp = applications.shift();
-                    let marketplacePath = MARKETPLACES_FOLDER + '/' + mountedApp;
+                    let mountedApp = mounts.shift();
+                    let path = APPS_FOLDER + '/' + mountedApp;
 
-                    DossierExplorerService.readDirDetailed(marketplacePath + '/my-apps', (err, {mounts}) => {
+                    let app = JSON.parse(JSON.stringify(appTemplate));
+                    app.path = pathPrefix + '/' + mountedApp;
+
+                    this.DSUStorage.getObject(path + '/data', (err, data) => {
                         if (err) {
-                            return callback(err);
+                            console.log(err);
+                            return;
                         }
-
-                        let auxApps = [];
-
-                        let appMounts = (mounts) => {
-                            if (mounts.length === 0) {
-                                return callback(err, auxApps);
-                            }
-                            let mountedApp = mounts.shift();
-                            let path = marketplacePath + '/my-apps/' + mountedApp;
-
-                            this.DSUStorage.getObject(path + '/data', (err, data) => {
-                                if (err) {
-                                    console.log(err);
-                                    return;
-                                }
-                                let app = JSON.parse(JSON.stringify(appTemplate));
-                                app.path = pathPrefix + '/' + btoa(data.keySSI);
-                                app.name = data.name;
-                                auxApps.push({...app});
-                                appMounts(mounts);
-                            });
-                        }
-                        appMounts(mounts);
+                        app.name = data.name;
+                        app.componentProps.appName = mountedApp;
+                        app.componentProps.keySSI = data.keySSI;
+                        auxApps.push({...app});
+                        chain(mounts);
                     });
                 }
-                marketplaceMounts(mounts);
+                chain(mounts);
             });
         }
     }
 
     _getMarketplacesHandler = (event) => {
+        debugger;
         if (typeof event.getEventType === "function" &&
             event.getEventType() === "PSK_SUB_MENU_EVT") {
 
@@ -118,7 +106,7 @@ export default class DossierExplorerWalletController extends ContainerController
                             return;
                         }
                         let app = JSON.parse(JSON.stringify(appTemplate));
-                        app.path = pathPrefix + '/' + btoa(data.keySSI);
+                        app.path = pathPrefix + '/' + data.keySSI;
                         app.name = data.name;
                         auxApps.push({...app});
                         chain(applications);

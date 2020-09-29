@@ -9,7 +9,6 @@
     "modals": {
         "signOutModal": "Wallet/modals/sign-out-modal.html",
         "importQRCodeModal": "import-qrcode-modal.html",
-        "confirmActionModal": "confirm-action-modal.html",
-        "runAppModal": "run-app-modal.html"
+        "confirmActionModal": "confirm-action-modal.html"
     }
 }

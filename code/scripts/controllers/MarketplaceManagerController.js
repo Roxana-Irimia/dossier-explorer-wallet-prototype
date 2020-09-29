@@ -115,12 +115,10 @@ export default class MarketplaceManagerController extends ContainerController {
 
     _marketplaceOpenHandler(event) {
         let marketplace = event.data;
-        this.showModal("runAppModal", {
+        this.History.navigateToPageByTag('access-marketplace', {
             name: marketplace.name,
             keySSI: marketplace.keySSI
-        }, () => {
-            //TODO: what should happen when user closes the app?
-        })
+        });
     }
 
     _marketplaceDeleteHandler(event) {

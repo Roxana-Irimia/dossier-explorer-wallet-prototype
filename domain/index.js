@@ -8,16 +8,7 @@ const INSTALLED_APPLICATIONS_MOUNTING_PATH = "/my-apps";
 const IN_REVIEW_APPLICATIONS_MOUNTING_PATH = "/appsInReview";
 const AVAILABLE_APPLICATIONS_MOUNTING_PATH = "/availableApps";
 const MARKETPLACES_MOUNTING_PATH = "/marketplaces";
-
-function initializeBDNS(callback) {
-    rawDossier.getKeySSI((err, keySSI) => {
-        if (err) {
-            return callback(err);
-        }
-        callback(undefined);
-    });
-}
-
+const keyssiresolver = require("opendsu").loadApi("resolver");
 
 $$.swarms.describe('readDir', {
     readDir: function(path, options) {
@@ -144,7 +135,6 @@ $$.swarms.describe('readDir', {
     }
 });
 
-
 $$.swarms.describe('listDossiers', {
     getMountedDossier: function(path) {
         commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
@@ -174,19 +164,6 @@ $$.swarms.describe('listDossiers', {
     }
 });
 
-$$.BDNS.addConfig("default", {
-    endpoints: [
-        {
-            endpoint: "http://localhost:8080",
-            type: 'brickStorage'
-        },
-        {
-            endpoint: "http://localhost:8080",
-            type: 'anchorService'
-        }
-    ]
-})
-
 $$.swarms.describe('applicationsSwarm', {
     start: function (data) {
         if (rawDossier) {
@@ -196,38 +173,45 @@ $$.swarms.describe('applicationsSwarm', {
     },
 
     __createMarketplaceDossier: function (data, callback) {
-        EDFS.createDSU("RawDossier", (err, newDossier) => {
+        const keyssiSpace = require("opendsu").loadApi("keyssi");
+        rawDossier.getKeySSI((err, ssi) => {
             if (err) {
-                console.error(err);
-                return callback(err);
+                return this.return(err);
             }
-            newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
+            const templateSSI = keyssiSpace.buildSeedSSI(keyssiSpace.parse(ssi).getDLDomain());
+            keyssiresolver.createDSU(templateSSI, (err, newDossier) => {
                 if (err) {
                     console.error(err);
-                    return callback(err);
+                    this.return(err);
                 }
-
-                newDossier.getKeySSI((err, keySSI) => {
+                newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
                     if (err) {
+                        console.error(err);
                         return callback(err);
                     }
-                    data.keySSI = keySSI;
-                    newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
+
+                    newDossier.getKeySSI((err, keySSI) => {
                         if (err) {
-                            console.error(err);
                             return callback(err);
                         }
+                        data.keySSI = keySSI;
+                        newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
+                            if (err) {
+                                console.error(err);
+                                return callback(err);
+                            }
 
-                        fetch(MARKETPLACE_APP_SEED)
-                            .then(response => response.text())
-                            .then(seed => {
-                                newDossier.mount(CODE_FOLDER, seed, (err) => {
-                                    if (err) {
-                                        return callback(err);
-                                    }
-                                    callback(err, keySSI);
-                                })
-                            });
+                            fetch(MARKETPLACE_APP_SEED)
+                                .then(response => response.text())
+                                .then(seed => {
+                                    newDossier.mount(CODE_FOLDER, seed, (err) => {
+                                        if (err) {
+                                            return callback(err);
+                                        }
+                                        callback(err, keySSI);
+                                    })
+                                });
+                        });
                     });
                 });
             });
