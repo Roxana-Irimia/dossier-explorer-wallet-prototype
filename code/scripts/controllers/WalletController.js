@@ -23,7 +23,6 @@ export default class WalletController extends ContainerController {
 	}
 
 	_getSSAppsHandler = (event) => {
-		debugger
 		if (typeof event.getEventType === "function" &&
 			event.getEventType() === "PSK_SUB_MENU_EVT") {
 
@@ -33,36 +32,65 @@ export default class WalletController extends ContainerController {
 				throw new Error("Callback should be a function");
 			}
 
-			DossierExplorerService.readDirDetailed(APPS_FOLDER, (err, {mounts}) => {
+			DossierExplorerService.readDirDetailed(MARKETPLACES_FOLDER, (err, data) => {
 				if (err) {
 					return callback(err);
 				}
+				let mounts = data.applications;
+
 				let auxApps = [];
-				let chain = (mounts) => {
-					if (mounts.length === 0) {
+
+				let chain = (applications) => {
+					if (applications.length === 0) {
 						return callback(err, auxApps);
 					}
-					let mountedApp = mounts.shift();
-					let path = APPS_FOLDER + '/' + mountedApp;
-
-					let app = JSON.parse(JSON.stringify(appTemplate));
-					app.path = pathPrefix + '/' + mountedApp;
-
-					this.DSUStorage.getObject(path + '/data', (err, data) => {
+					let mountedApp = applications.shift();
+					let marketplacePath = MARKETPLACES_FOLDER + '/' + mountedApp + '/my-apps';
+					this.getAppsFromMarketplace(marketplacePath, pathPrefix, (err, apps) => {
 						if (err) {
-							console.log(err);
-							return;
+							return callback(err);
 						}
-						app.name = data.name;
-						app.componentProps.appName = mountedApp;
-						app.componentProps.keySSI = data.keySSI;
-						auxApps.push({...app});
+						auxApps = [...auxApps, ...apps];
+
 						chain(mounts);
 					});
 				}
 				chain(mounts);
 			});
 		}
+	}
+
+	getAppsFromMarketplace(marketplacePath, pathPrefix, callback) {
+		DossierExplorerService.readDirDetailed(marketplacePath, (err, {mounts}) => {
+			if (err) {
+				return callback(err);
+			}
+			let auxApps = [];
+
+			let appChain = (mounts) => {
+				if (mounts.length === 0) {
+					return callback(err, auxApps);
+				}
+				let mountedApp = mounts.shift();
+				let path = marketplacePath + '/' + mountedApp;
+
+				let app = JSON.parse(JSON.stringify(appTemplate));
+				app.path = pathPrefix + '/' + mountedApp;
+
+				this.DSUStorage.getObject(path + '/data', (err, data) => {
+					if (err) {
+						console.log(err);
+						return;
+					}
+					app.name = data.name;
+					app.componentProps.appName = mountedApp;
+					app.componentProps.keySSI = data.keySSI;
+					auxApps.push({...app});
+					appChain(mounts);
+				});
+			}
+			appChain(mounts);
+		});
 	}
 
 	_signOutFromWalletHandler = (event) => {
