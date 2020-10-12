@@ -262,7 +262,7 @@ section {
     background-color: rgba(245, 245, 245, 0.75);
 }
 
-app-menu,
+psk-app-menu,
 psk-app-router {
     flex-grow: 1;
     width: 100%;
