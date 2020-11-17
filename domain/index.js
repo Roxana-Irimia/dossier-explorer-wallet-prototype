@@ -2,11 +2,8 @@ console.log("Loaded from domain.js");
 const commons = require('./commons');
 const constants = require('./constants');
 
-const MARKETPLACE_APP_SEED = `/web-wallet/apps/psk-marketplace-ssapp/seed`;
+const MARKETPLACE_APP_MANIFEST = "/apps/psk-marketplace-ssapp/manifest";
 const CODE_FOLDER = "/code";
-const INSTALLED_APPLICATIONS_MOUNTING_PATH = "/my-apps";
-const IN_REVIEW_APPLICATIONS_MOUNTING_PATH = "/appsInReview";
-const AVAILABLE_APPLICATIONS_MOUNTING_PATH = "/availableApps";
 const MARKETPLACES_MOUNTING_PATH = "/marketplaces";
 const keyssiresolver = require("opendsu").loadApi("resolver");
 
@@ -62,7 +59,7 @@ $$.swarms.describe('readDir', {
     },
     updateMountsList: function() {
         const { mounts, applications } = this.content;
-        const filteredMountPoints = mounts.filter((mountPoint) => {
+        this.content.mounts = mounts.filter((mountPoint) => {
             let remove = false;
             applications.forEach((appName) => {
                 remove = remove || appName === mountPoint;
@@ -71,7 +68,6 @@ $$.swarms.describe('readDir', {
             return !remove;
         });
 
-        this.content.mounts = filteredMountPoints;
         this.return(undefined, this.content);
     },
     checkForAppFolder: function(mountPoint, callback) {
@@ -184,33 +180,42 @@ $$.swarms.describe('applicationsSwarm', {
                     console.error(err);
                     this.return(err);
                 }
-                newDossier.writeFile('/manifest', `{"mounts":{}}`, (err, digest) => {
+
+                newDossier.getKeySSI((err, keySSI) => {
                     if (err) {
-                        console.error(err);
                         return callback(err);
                     }
-
-                    newDossier.getKeySSI((err, keySSI) => {
+                    data.keySSI = keySSI;
+                    newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
                         if (err) {
+                            console.error(err);
                             return callback(err);
                         }
-                        data.keySSI = keySSI;
-                        newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
+
+                        rawDossier.readFile(MARKETPLACE_APP_MANIFEST, (err, manifestData) => {
                             if (err) {
-                                console.error(err);
                                 return callback(err);
                             }
 
-                            fetch(MARKETPLACE_APP_SEED)
-                                .then(response => response.text())
-                                .then(seed => {
-                                    newDossier.mount(CODE_FOLDER, seed, (err) => {
-                                        if (err) {
-                                            return callback(err);
-                                        }
-                                        callback(err, keySSI);
-                                    })
-                                });
+                            try {
+                                manifestData = JSON.parse(manifestData.toString());
+                            } catch (e) {
+                                console.error("[Manifest data parse error]", manifestData);
+                                return callback(e);
+                            }
+
+                            let templateSSI = manifestData.mounts && manifestData.mounts["/code"];
+                            if (!templateSSI) {
+                                return callback(new Error("Template SSI not found for Marketplace SSApp!"), manifestData);
+                            }
+
+                            templateSSI = templateSSI.replace(/\s/g, "");
+                            newDossier.mount(CODE_FOLDER, templateSSI, (err) => {
+                                if (err) {
+                                    return callback(err);
+                                }
+                                callback(err, keySSI);
+                            });
                         });
                     });
                 });
