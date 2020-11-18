@@ -31,7 +31,7 @@
         },
         {
             "name": "My Apps",
-            "path": "/my-apps",
+            "path": "/apps",
             "icon": "fa-plug",
             "children": "@event:getSSApps",
             "propName": "keySSI",
