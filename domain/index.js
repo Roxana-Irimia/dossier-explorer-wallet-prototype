@@ -204,13 +204,13 @@ $$.swarms.describe('applicationsSwarm', {
                                 return callback(e);
                             }
 
-                            let templateSSI = manifestData.mounts && manifestData.mounts["/code"];
-                            if (!templateSSI) {
+                            let codeTemplateSSI = manifestData.mounts && manifestData.mounts["/code"];
+                            if (!codeTemplateSSI) {
                                 return callback(new Error("Template SSI not found for Marketplace SSApp!"), manifestData);
                             }
 
-                            templateSSI = templateSSI.replace(/\s/g, "");
-                            newDossier.mount(CODE_FOLDER, templateSSI, (err) => {
+                            codeTemplateSSI = codeTemplateSSI.replace(/\s/g, "");
+                            newDossier.mount(CODE_FOLDER, codeTemplateSSI, (err) => {
                                 if (err) {
                                     return callback(err);
                                 }
@@ -229,12 +229,17 @@ $$.swarms.describe('applicationsSwarm', {
                 console.error(err);
                 return this.return(err);
             }
-            this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, keySSI);
+            this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, data.name, keySSI);
         })
     },
 
-    importMarketplace: function (keySSI) {
-        this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, keySSI);
+    importMarketplace: function (keySSI, name) {
+        if(!name || !name.length) {
+            const PskCrypto = require("pskcrypto");
+            name = PskCrypto.pskHash(keySSI, "hex");
+        }
+
+        this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, name, keySSI);
     },
 
     listMarketplaces: function () {
@@ -288,16 +293,14 @@ $$.swarms.describe('applicationsSwarm', {
         });
     },
 
-    mountDossier: function (parentDossier, mountingPath, seed) {
-        const PskCrypto = require("pskcrypto");
-        const hexDigest = PskCrypto.pskHash(seed, "hex");
-        let path = `${mountingPath}/${hexDigest}`;
-        parentDossier.mount(path, seed, (err) => {
+    mountDossier: function (parentDossier, mountingPath, dsuName, keySSI) {
+        let path = `${mountingPath}/${dsuName}`;
+        parentDossier.mount(path, keySSI, (err) => {
             if (err) {
                 console.error(err);
                 return this.return(err);
             }
-            this.return(undefined, {path: path, seed: seed});
+            this.return(undefined, {path: path, seed: keySSI});
         });
     }
 });

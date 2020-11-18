@@ -1,5 +1,6 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
-import { getDossierServiceInstance } from "../service/DossierExplorerService.js"
+import {getDossierServiceInstance} from "../service/DossierExplorerService.js"
+import {getImportMarketplaceViewModel} from "../view-models/importMarketplace.js";
 
 const rootModel = {
     pageLoader: {
@@ -100,17 +101,26 @@ export default class MarketplaceManagerController extends ContainerController {
     _marketplaceImportHandler(event) {
         this._importQRCodeModalHandler(event, (err, data) => {
             if (err) {
-                this._emitFeedback(event, 'Importing failed!', 'alert-danger')
+                this._emitFeedback(event, 'Importing failed!', 'alert-danger');
                 return;
             }
 
-            this.DossierExplorerService.importMarketplace(data.value, (err, data) => {
+            this.DossierExplorerService.importMarketplace(data.marketplaceSSI, (err, _) => {
                 if (err) {
-                    this._emitFeedback(event, 'Importing failed!', 'alert-danger')
+                    return this._emitFeedback(event, 'Importing failed!', 'alert-danger');
                 }
-                this._emitFeedback(event, 'Importing successfully!', 'alert-success')
+
+                this._emitFeedback(event, 'Importing successfully!', 'alert-success');
+                this._populateMarketplaceList();
             });
         });
+    }
+
+    _importQRCodeModalHandler(event, callback) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        let qrCodeModalModel = getImportMarketplaceViewModel();
+        this.showModal('importQRCodeModal', qrCodeModalModel, callback);
     }
 
     _marketplaceOpenHandler(event) {
@@ -141,16 +151,6 @@ export default class MarketplaceManagerController extends ContainerController {
             });
 
         });
-    }
-
-    _importQRCodeModalHandler(event, callback) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        let qrCodeModalModel = {
-            title: 'Scan a QR Code or insert the SEED of wanted marketplace',
-            importButtonName: 'Import marketplace'
-        }
-        this.showModal('importQRCodeModal', qrCodeModalModel, callback);
     }
 
     _getCleanProxyObject = (obj) => {

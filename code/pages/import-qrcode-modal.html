@@ -3,10 +3,11 @@
         <psk-label slot="title" class="title" label="@title"></psk-label>
 
         <div class='content'>
-            <psk-input value="@data"></psk-input>
+            <psk-input label="Marketplace KeySSI" value="@marketplaceSSI"></psk-input>
             <psk-grid columns="1" layout="xs=[12] m=[6] l=[6] xl=[6]">
-                <psk-barcode-scanner data="@data"></psk-barcode-scanner>
+                <psk-barcode-scanner data="@marketplaceSSI"></psk-barcode-scanner>
             </psk-grid>
+
             <psk-button label="@importButtonName" event-name="import-on-click" disabled="@importIsDisabled"></psk-button>
         </div>
         </div>

@@ -4,31 +4,38 @@ export default class ImportQRCodeController extends ModalController {
     constructor(element, history) {
         super(element, history);
 
-        this.model.setChainValue('data', '');
-        this.model.setChainValue('importIsDisabled', true);
-
-        this.importSeedInputOnChange();
+        this.inputChangeHandler();
         this.importOnClick();
     }
 
-    importSeedInputOnChange() {
-        this.model.onChange("data", (value) => {
-            if (this.model.data.length > 5) {
-                this.model.setChainValue('importIsDisabled', false);
-            } else {
-                this.model.setChainValue('importIsDisabled', true);
-            }
-        })
-    }
-
-    importOnClick() {
-        this.on('import-on-click', (event) => {
-            this._finishProcess(event, {value: this.model.data});
+    inputChangeHandler() {
+        this.model.onChange("marketplaceSSI", () => {
+            this.model.setChainValue('importIsDisabled', false);
         });
     }
 
-    _finishProcess(event, response) {
+    importOnClick() {
+        this.on('import-on-click', this._handleImport);
+    }
+
+    _handleImport = (event) => {
         event.stopImmediatePropagation();
-        this.responseCallback(undefined, response);
+
+        if (!this._validateImportMarketplace()) {
+            return;
+        }
+
+        const responseData = {
+            marketplaceSSI: this.model.marketplaceSSI
+        };
+
+        this.responseCallback(undefined, responseData);
     };
+
+    _validateImportMarketplace() {
+        const hasSSI = this.model.marketplaceSSI.replace(/\s/g, "").length > 0;
+
+        this.model.setChainValue('importIsDisabled', !hasSSI);
+        return hasSSI;
+    }
 }
