@@ -1,4 +1,4 @@
-console.log("Loaded from domain.js");
+console.log("Loaded from domain.js - dsu-explorer-wallet");
 const commons = require('./commons');
 const constants = require('./constants');
 
@@ -132,7 +132,7 @@ $$.swarms.describe('readDir', {
 });
 
 $$.swarms.describe('listDossiers', {
-    getMountedDossier: function(path) {
+    getMountedDossier: function (path) {
         commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
             if (err) {
                 return this.return(err);
@@ -140,23 +140,54 @@ $$.swarms.describe('listDossiers', {
             this.return(undefined, relativePath);
         })
     },
-    printSeed: function(path, dossierName) {
+
+    printSeed: function (path, dossierName) {
         if (rawDossier) {
-            return rawDossier.listMountedDossiers(path, (err, result) => {
+            return this._getDSUKeySSI(path, dossierName, this.return);
+        }
+
+        this.return(new Error("Raw Dossier is not available."));
+    },
+
+    getSReadSSI: function (path, dsuName) {
+        if (!rawDossier) {
+            return this.return(new Error("Raw Dossier is not available."));
+        }
+
+        this._getDSUKeySSI(path, dsuName, (err, keySSI) => {
+            if (err) {
+                return this.return(err);
+            }
+
+            keyssiresolver.loadDSU(keySSI, (err, loadedDSU) => {
                 if (err) {
                     return this.return(err);
                 }
 
-                let dossier = result.find((dsr) => dsr.path === dossierName);
-                if (!dossier) {
-                    return this.return(new Error(`Dossier with the name ${dossierName} was not found in the mounted points!`));
-                }
+                loadedDSU.getKeySSI("sread", (err, sReadSSI) => {
+                    if (err) {
+                        return this.return(err);
+                    }
 
-                this.return(undefined, dossier.identifier);
+                    this.return(undefined, sReadSSI);
+                });
             });
-        }
+        });
+    },
 
-        this.return(new Error("Raw Dossier is not available."));
+    _getDSUKeySSI: function (path, dsuName, callback) {
+        return rawDossier.listMountedDossiers(path, (err, result) => {
+            if (err) {
+                return callback(err);
+            }
+
+            let dsu = result.find((dsr) => dsr.path === dsuName);
+            if (!dsu) {
+                return callback(`Dossier with the name ${dsuName} was not found in the mounted points!`);
+            }
+
+            callback(undefined, dsu.identifier);
+        });
     }
 });
 
@@ -168,6 +199,20 @@ $$.swarms.describe('applicationsSwarm', {
         this.return(new Error("Raw Dossier is not available."));
     },
 
+    hasMarketplace: function (marketplaceName) {
+        if (!rawDossier) {
+            return this.return(new Error("Raw Dossier is not available."));
+        }
+
+        rawDossier.readDir(MARKETPLACES_MOUNTING_PATH, (err, marketplaces) => {
+            if (err) {
+                return this.return(err);
+            }
+
+            this.return(undefined, marketplaces.indexOf(marketplaceName) !== -1);
+        });
+    },
+
     __createMarketplaceDossier: function (data, callback) {
         const keyssiSpace = require("opendsu").loadApi("keyssi");
         rawDossier.getKeySSI((err, ssi) => {
@@ -177,7 +222,6 @@ $$.swarms.describe('applicationsSwarm', {
             const templateSSI = keyssiSpace.buildSeedSSI(keyssiSpace.parse(ssi).getDLDomain());
             keyssiresolver.createDSU(templateSSI, (err, newDossier) => {
                 if (err) {
-                    console.error(err);
                     this.return(err);
                 }
 
@@ -188,7 +232,6 @@ $$.swarms.describe('applicationsSwarm', {
                     data.keySSI = keySSI;
                     newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
                         if (err) {
-                            console.error(err);
                             return callback(err);
                         }
 
@@ -226,7 +269,6 @@ $$.swarms.describe('applicationsSwarm', {
     createMarketplaceDossier: function (data) {
         this.__createMarketplaceDossier(data, (err, keySSI) => {
             if (err) {
-                console.error(err);
                 return this.return(err);
             }
             this.mountDossier(rawDossier, MARKETPLACES_MOUNTING_PATH, data.name, keySSI);
@@ -260,29 +302,35 @@ $$.swarms.describe('applicationsSwarm', {
                 return callback(err);
             }
             let toBeReturned = [];
+            let getMarketplaceData = (marketplacesList) => {
+                if (!marketplaces.length) {
+                    return callback(undefined, toBeReturned);
+                }
 
-            let getMarketplaceData = (marketplace) => {
+                const marketplace = marketplacesList.shift();
+                if (!marketplace.path) {
+                    return getMarketplaceData(marketplacesList);
+                }
+
                 let appPath = PATH + '/' + marketplace.path;
                 rawDossier.readFile(appPath + '/data', (err, fileContent) => {
+                    if (err) {
+                        return callback(err);
+                    }
+
                     toBeReturned.push({
                         ...JSON.parse(fileContent),
                         path: appPath,
                         identifier: marketplace.identifier
                     });
-                    if (marketplaces.length > 0) {
-                        getMarketplaceData(marketplaces.shift())
-                    } else {
-                        return callback(undefined, toBeReturned);
-                    }
+
+                    getMarketplaceData(marketplacesList);
                 });
             };
-            if (marketplaces.length > 0) {
-                return getMarketplaceData(marketplaces.shift());
-            }
-            return callback(undefined, toBeReturned);
-        })
-    },
 
+            getMarketplaceData(marketplaces);
+        });
+    },
 
     removeMarketplace: function (marketplaceData) {
         rawDossier.unmount(marketplaceData.path, (err, data) => {
@@ -297,10 +345,88 @@ $$.swarms.describe('applicationsSwarm', {
         let path = `${mountingPath}/${dsuName}`;
         parentDossier.mount(path, keySSI, (err) => {
             if (err) {
-                console.error(err);
                 return this.return(err);
             }
             this.return(undefined, {path: path, seed: keySSI});
+        });
+    }
+});
+
+$$.swarms.describe("attachDossier", {
+    newDossier: function (path, dossierName, keySSI) {
+        if (!rawDossier) {
+            this.return(new Error("Raw Dossier is not available."))
+        }
+
+        if (!keySSI) {
+            return this.createNewDSU((err, newDSUKeySSI) => {
+                if (err) {
+                    return this.return(err);
+                }
+
+                this.mountDossier(path, newDSUKeySSI, dossierName);
+            });
+        }
+
+        this.mountDossier(path, keySSI, dossierName);
+    },
+    createNewDSU: function (callback) {
+        const keyssiSpace = require("opendsu").loadApi("keyssi");
+        rawDossier.getKeySSI((err, ssi) => {
+            if (err) {
+                return callback(err);
+            }
+            const templateSSI = keyssiSpace.buildSeedSSI(keyssiSpace.parse(ssi).getDLDomain());
+            keyssiresolver.createDSU(templateSSI, (err, newDossier) => {
+                if (err) {
+                    return callback(err);
+                }
+                newDossier.getKeySSI((err, keySSI) => {
+                    if (err) {
+                        return callback(err);
+                    }
+
+                    callback(undefined, keySSI);
+                });
+            });
+        });
+    },
+    mountDossier: function (path, keySSI, dossierName) {
+        commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
+            if (err) {
+                return this.return(err);
+            }
+
+            let mountDossierIn = (parentDossier) => {
+
+                let mountPoint = `${path.replace(relativePath, '')}/${dossierName}`;
+                if (!mountPoint.startsWith("/")) {
+                    mountPoint = "/" + mountPoint;
+                }
+                parentDossier.mount(mountPoint, keySSI, (err) => {
+                    if (err) {
+                        return this.return(err)
+                    }
+                    this.return(undefined, keySSI);
+                });
+            };
+
+            //make sure if is the case to work with the current rawDossier instance
+            rawDossier.getKeySSI((err, keySSI) => {
+                if (err) {
+                    return this.return(err);
+                }
+
+                if (parentKeySSI !== keySSI) {
+                    return keyssiresolver.loadDSU(parentKeySSI, (err, parentRawDossier) => {
+                        if (err) {
+                            return this.return(err);
+                        }
+                        mountDossierIn(parentRawDossier);
+                    });
+                }
+                mountDossierIn(rawDossier);
+            });
         });
     }
 });

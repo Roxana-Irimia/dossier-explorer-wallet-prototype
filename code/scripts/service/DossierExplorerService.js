@@ -43,6 +43,11 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    getDSUSReadSSI(path, dsuName, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "getSReadSSI", path, dsuName)
+            .onReturn(callback);
+    }
+
     addMarketplace(marketplaceData, callback) {
         $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "createMarketplaceDossier", marketplaceData)
             .onReturn(callback);
@@ -65,7 +70,7 @@ class DossierExplorerService {
 }
 
 let dossierExplorer = new DossierExplorerService();
-let getDossierServiceInstance = function() {
+let getDossierServiceInstance = function () {
     return dossierExplorer;
 };
 

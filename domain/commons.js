@@ -1,4 +1,4 @@
-const getParentDossier = function(rawDossier, path, callback) {
+const getParentDossier = function (rawDossier, path, callback) {
     if (path === '' || path === '/') {
         return rawDossier.getKeySSI((err, keySSI) => {
             if (err) {
@@ -20,7 +20,8 @@ const getParentDossier = function(rawDossier, path, callback) {
         }
 
         let dossier = mountPoints.find((dsr) => {
-            return dsr.path === wDir || _isSubPath(path, dsr.path);
+            const dsuPath = dsr.path.replace(/\//g, "");
+            return dsuPath === wDir || _isSubPath(path, dsuPath);
         });
 
         if (!dossier) {
@@ -31,14 +32,14 @@ const getParentDossier = function(rawDossier, path, callback) {
     });
 };
 
-module.exports = {
-    getParentDossier
-};
-
-const _isSubPath = function(path, subPath) {
+const _isSubPath = function (path, subPath) {
     if (path !== '/') {
         path = `${path}/`;
     }
 
     return path.indexOf(`/${subPath}/`) !== -1;
-}
+};
+
+module.exports = {
+    getParentDossier
+};
