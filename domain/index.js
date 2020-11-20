@@ -191,29 +191,8 @@ $$.swarms.describe('listDossiers', {
     }
 });
 
-$$.swarms.describe('applicationsSwarm', {
-    start: function (data) {
-        if (rawDossier) {
-            return this.createApplicationsDossier(data);
-        }
-        this.return(new Error("Raw Dossier is not available."));
-    },
-
-    hasMarketplace: function (marketplaceName) {
-        if (!rawDossier) {
-            return this.return(new Error("Raw Dossier is not available."));
-        }
-
-        rawDossier.readDir(MARKETPLACES_MOUNTING_PATH, (err, marketplaces) => {
-            if (err) {
-                return this.return(err);
-            }
-
-            this.return(undefined, marketplaces.indexOf(marketplaceName) !== -1);
-        });
-    },
-
-    __createMarketplaceDossier: function (data, callback) {
+$$.swarms.describe('marketplaceSwarm', {
+    __createMarketplace: function (data, callback) {
         const keyssiSpace = require("opendsu").loadApi("keyssi");
         rawDossier.getKeySSI((err, ssi) => {
             if (err) {
@@ -266,8 +245,8 @@ $$.swarms.describe('applicationsSwarm', {
         });
     },
 
-    createMarketplaceDossier: function (data) {
-        this.__createMarketplaceDossier(data, (err, keySSI) => {
+    createMarketplace: function (data) {
+        this.__createMarketplace(data, (err, keySSI) => {
             if (err) {
                 return this.return(err);
             }

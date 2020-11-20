@@ -49,22 +49,22 @@ class DossierExplorerService {
     }
 
     addMarketplace(marketplaceData, callback) {
-        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "createMarketplaceDossier", marketplaceData)
+        $$.interaction.startSwarmAs("test/agent/007", "marketplaceSwarm", "createMarketplace", marketplaceData)
             .onReturn(callback);
     }
 
     importMarketplace(marketplaceKeySSI, callback) {
-        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "importMarketplace", marketplaceKeySSI)
+        $$.interaction.startSwarmAs("test/agent/007", "marketplaceSwarm", "importMarketplace", marketplaceKeySSI)
             .onReturn(callback);
     }
 
     listMarketplaces(callback) {
-        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "listMarketplaces")
+        $$.interaction.startSwarmAs("test/agent/007", "marketplaceSwarm", "listMarketplaces")
             .onReturn(callback);
     }
 
     removeMarketplace(marketplaceData, callback) {
-        $$.interaction.startSwarmAs("test/agent/007", "applicationsSwarm", "removeMarketplace", marketplaceData)
+        $$.interaction.startSwarmAs("test/agent/007", "marketplaceSwarm", "removeMarketplace", marketplaceData)
             .onReturn(callback);
     }
 }
