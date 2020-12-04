@@ -23,28 +23,24 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
+    hasFile(path, callback) {
+        $$.interactions
+            .startSwarmAs("test/agent/007", "readDir", "hasFile", path, fileName)
+            .onReturn(callback);
+    }
+
     createDossier(path, dossierName, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "newDossier", path, dossierName)
+        $$.interactions.startSwarmAs("test/agent/007", "attachDossier", "start", path, dossierName)
             .onReturn(callback);
     }
 
-    addFolder(path, folderName, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "add", "folder", path, folderName)
-            .onReturn(callback);
-    }
-
-    rename(oldPath, newPath, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "rename", "start", oldPath, newPath)
-            .onReturn(callback);
-    }
-
-    printDossierSeed(path, dossierName, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "printSeed", path, dossierName)
+    getDSUSeedSSI(path, dossierName, callback) {
+        $$.interactions.startSwarmAs("test/agent/007", "getSSI", "getSeedSSI", path, dossierName)
             .onReturn(callback);
     }
 
     getDSUSReadSSI(path, dsuName, callback) {
-        $$.interactions.startSwarmAs("test/agent/007", "listDossiers", "getSReadSSI", path, dsuName)
+        $$.interactions.startSwarmAs("test/agent/007", "getSSI", "getSReadSSI", path, dsuName)
             .onReturn(callback);
     }
 
@@ -70,7 +66,7 @@ class DossierExplorerService {
 }
 
 let dossierExplorer = new DossierExplorerService();
-let getDossierServiceInstance = function () {
+let getDossierServiceInstance = function() {
     return dossierExplorer;
 };
 

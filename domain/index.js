@@ -15,6 +15,20 @@ $$.swarms.describe('readDir', {
 
         this.return(new Error("Raw Dossier is not available."));
     },
+    hasFile: function (path, fileName) {
+        if (!rawDossier) {
+            return this.return(new Error("Raw Dossier is not available."));
+        }
+
+        rawDossier.readDir(path, constants.WITH_FILE_TYPES, (err, { files }) => {
+            if (err) {
+                return this.return(err);
+            }
+
+            const hasFile = files.indexOf(fileName) !== -1;
+            callback(undefined, hasFile);
+        });
+    },
     start: function(path) {
         if (rawDossier) {
             return rawDossier.readDir(path, constants.WITH_FILE_TYPES, (err, content) => {
@@ -131,17 +145,8 @@ $$.swarms.describe('readDir', {
     }
 });
 
-$$.swarms.describe('listDossiers', {
-    getMountedDossier: function (path) {
-        commons.getParentDossier(rawDossier, path, (err, parentKeySSI, relativePath) => {
-            if (err) {
-                return this.return(err);
-            }
-            this.return(undefined, relativePath);
-        })
-    },
-
-    printSeed: function (path, dossierName) {
+$$.swarms.describe('getSSI', {
+    getSeedSSI: function (path, dossierName) {
         if (rawDossier) {
             return this._getDSUKeySSI(path, dossierName, this.return);
         }
@@ -332,7 +337,7 @@ $$.swarms.describe('marketplaceSwarm', {
 });
 
 $$.swarms.describe("attachDossier", {
-    newDossier: function (path, dossierName, keySSI) {
+    start: function (path, dossierName, keySSI) {
         if (!rawDossier) {
             this.return(new Error("Raw Dossier is not available."))
         }

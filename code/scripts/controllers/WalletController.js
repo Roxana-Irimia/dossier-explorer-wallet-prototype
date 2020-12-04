@@ -1,4 +1,5 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+import Constants from "./Constants.js";
 
 import {getDossierServiceInstance} from "../service/DossierExplorerService.js"
 import {getAccountServiceInstance} from "../service/AccountService.js";
@@ -9,12 +10,7 @@ export default class WalletController extends ContainerController {
     constructor(element, history) {
         super(element, history);
 
-        this.APPS_FOLDER = "/apps";
         this.DossierExplorerService = getDossierServiceInstance();
-        this.DEFAULT_MARKETPLACE = "Default marketplace";
-        this.MARKETPLACE_SSAPP = "psk-marketplace-ssapp";
-        this.EXCLUDED_APPS_FOR_REGISTER = [this.MARKETPLACE_SSAPP, "dossier-explorer-ssapp"];
-        this.AVAILABLE_APPLICATIONS_MARKETPLACE = "/availableApps";
 
         element.addEventListener("sign-out", this._signOutFromWalletHandler);
         element.addEventListener("getSSApps", this._getSSAppsHandler);
@@ -32,7 +28,7 @@ export default class WalletController extends ContainerController {
                 throw new Error("Callback should be a function");
             }
 
-            this.DossierExplorerService.readDirDetailed(this.APPS_FOLDER, (err, {applications}) => {
+            this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, {applications}) => {
                 if (err) {
                     return callback(err);
                 }
@@ -44,7 +40,7 @@ export default class WalletController extends ContainerController {
                     }
 
                     let appName = appNamesList.pop();
-                    this.DossierExplorerService.printDossierSeed(this.APPS_FOLDER, appName, (err, appSSI) => {
+                    this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, appName, (err, appSSI) => {
                         if (err) {
                             console.error(err);
                             return chain(appNamesList);
@@ -73,14 +69,14 @@ export default class WalletController extends ContainerController {
         };
     }
 
-    _getMaketplaceAppTemplate() {
+    _getMaketplaceAppTemplate(appName) {
+        let appDetails = this.defaultMarketplaceData[appName] || {};
+
         return {
-            name: "",
-            description: "",
             keySSI: "",
-            image: "",
             visible: true,
-            installed: true
+            installed: true,
+            ...appDetails
         }
     }
 
@@ -95,8 +91,37 @@ export default class WalletController extends ContainerController {
         });
     };
 
+    _getMaketplaceDefaultData(callback) {
+        this.DossierExplorerService.hasFile("/code", "defaultMarketplaceData", (err, hasFile) => {
+            if (err) {
+                return callback(err);
+            }
+
+            if (!hasFile) {
+                return callback(undefined, {});
+            }
+
+            this.DSUStorage.getObject("/code/defaultMarketplaceData", (err, marketplaceData) => {
+                callback(err, marketplaceData);
+            });
+        });
+    }
+
     _registerDefaultMarketplace() {
-        const defaultMarketplacePath = `${this.APPS_FOLDER}/${this.MARKETPLACE_SSAPP}${this.AVAILABLE_APPLICATIONS_MARKETPLACE}`;
+        this._getMaketplaceDefaultData((err, marketplaceData) => {
+            if (err) {
+                return console.error(err);
+            }
+
+            if (Object.keys(marketplaceData).length === 0) {
+                console.log("[REGISTERING DEFAULT MARKETPLACE] defaultMarketplaceData is emnpty!");
+                return;
+            }
+
+            this.defaultMarketplaceData = JSON.parse(JSON.stringify(marketplaceData));
+        });
+
+        const defaultMarketplacePath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.AVAILABLE_APPLICATIONS_MARKETPLACE}`;
         this.DossierExplorerService.readDir(defaultMarketplacePath, (err, defaultMarketplaceContent) => {
             if (err) {
                 return console.error(err);
@@ -104,8 +129,8 @@ export default class WalletController extends ContainerController {
 
             if (!defaultMarketplaceContent.length) {
                 const defaultMarketplaceData = {
-                    name: this.DEFAULT_MARKETPLACE,
-                    description: this.DEFAULT_MARKETPLACE
+                    name: Constants.DEFAULT_MARKETPLACE,
+                    description: Constants.DEFAULT_MARKETPLACE
                 };
 
                 this._setDefaultMarketplace(defaultMarketplaceData);
@@ -114,7 +139,7 @@ export default class WalletController extends ContainerController {
     }
 
     _setDefaultMarketplace(marketplaceData) {
-        this.DossierExplorerService.printDossierSeed(this.APPS_FOLDER, this.MARKETPLACE_SSAPP, (err, keySSI) => {
+        this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, Constants.MARKETPLACE_SSAPP, (err, keySSI) => {
             if (err) {
                 return console.error(err);
             }
@@ -125,7 +150,7 @@ export default class WalletController extends ContainerController {
                 }
 
                 marketplaceData.keySSI = keySSI;
-                const dataPath = `${this.APPS_FOLDER}/${this.MARKETPLACE_SSAPP}/data`;
+                const dataPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}/data`;
                 this.DSUStorage.setObject(dataPath, marketplaceData, (err) => {
                     if (err) {
                         return console.error(err);
@@ -138,18 +163,22 @@ export default class WalletController extends ContainerController {
     }
 
     _addDefaultApplications(marketplacePath) {
-        this.DossierExplorerService.readDirDetailed(this.APPS_FOLDER, (err, {applications}) => {
+        this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, {applications}) => {
+            if (err) {
+                return console.error(err);
+            }
+
             let chain = (appNamesList) => {
                 if (!appNamesList.length) {
                     return;
                 }
 
                 let appName = appNamesList.pop();
-                if (this.EXCLUDED_APPS_FOR_REGISTER.indexOf(appName) !== -1) {
+                if (Constants.EXCLUDED_APPS_FOR_REGISTER.indexOf(appName) !== -1) {
                     return chain(appNamesList);
                 }
 
-                this.DossierExplorerService.getDSUSReadSSI(this.APPS_FOLDER, appName, (err, sReadSSI) => {
+                this.DossierExplorerService.getDSUSReadSSI(Constants.APPS_FOLDER, appName, (err, sReadSSI) => {
                     if (err) {
                         console.error(err);
                         return chain(appNamesList);
@@ -170,13 +199,10 @@ export default class WalletController extends ContainerController {
     }
 
     _registerApp(marketplacePath, appName, sReadSSI, callback) {
-        const appTemplate = this._getMaketplaceAppTemplate();
-        appTemplate.name = appName;
-        appTemplate.description = appName;
+        const appTemplate = this._getMaketplaceAppTemplate(appName);
         appTemplate.keySSI = sReadSSI;
-        appTemplate.image = "assets/images/" + appName;
 
-        const availableAppsPath = marketplacePath + this.AVAILABLE_APPLICATIONS_MARKETPLACE;
+        const availableAppsPath = marketplacePath + Constants.AVAILABLE_APPLICATIONS_MARKETPLACE;
         this.DossierExplorerService.createDossier(availableAppsPath, appName, (err) => {
             if (err) {
                 return callback(err);
@@ -184,7 +210,18 @@ export default class WalletController extends ContainerController {
 
             const dataPath = `${availableAppsPath}/${appName}/data`;
             this.DSUStorage.setObject(dataPath, appTemplate, (err) => {
-                callback(err);
+                if (err) {
+                    return callback(err);
+                }
+
+                const appDataPath = `${Constants.APPS_FOLDER}/${appName}/appData`;
+                appTemplate.ssappData = {
+                    name: appName,
+                    keySSI: sReadSSI
+                };
+                this.DSUStorage.setObject(appDataPath, appTemplate, (err) => {
+                    return callback(err)
+                });
             });
         });
     }
