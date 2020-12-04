@@ -10,7 +10,7 @@ export default class SSAppController extends ContainerController {
         this.DossierExplorerService = getDossierServiceInstance();
 
         this.ssappName = element.getAttribute('data-ssapp-name');
-        DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, this.ssappName, (err, keySSI) => {
+        this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, this.ssappName, (err, keySSI) => {
             if (err) {
                 return console.error(err);
             }

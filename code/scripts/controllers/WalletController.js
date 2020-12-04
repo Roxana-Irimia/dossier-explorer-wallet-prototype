@@ -70,7 +70,10 @@ export default class WalletController extends ContainerController {
     }
 
     _getMaketplaceAppTemplate(appName) {
-        let appDetails = this.defaultMarketplaceData[appName] || {};
+        let appDetails = {};
+        if (this.defaultMarketplaceData && this.defaultMarketplaceData[appName]) {
+            appDetails = this.defaultMarketplaceData[appName];
+        }
 
         return {
             keySSI: "",

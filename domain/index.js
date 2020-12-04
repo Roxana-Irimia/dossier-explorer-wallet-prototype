@@ -26,7 +26,7 @@ $$.swarms.describe('readDir', {
             }
 
             const hasFile = files.indexOf(fileName) !== -1;
-            callback(undefined, hasFile);
+            this.return(undefined, hasFile);
         });
     },
     start: function(path) {

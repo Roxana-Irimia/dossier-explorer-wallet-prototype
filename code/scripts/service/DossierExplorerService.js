@@ -23,7 +23,7 @@ class DossierExplorerService {
             .onReturn(callback);
     }
 
-    hasFile(path, callback) {
+    hasFile(path, fileName, callback) {
         $$.interactions
             .startSwarmAs("test/agent/007", "readDir", "hasFile", path, fileName)
             .onReturn(callback);
