@@ -3,12 +3,11 @@
   "version": "0.2.0",
   "description": "Open Source Dossier Explorer",
   "scripts": {
-    "postinstall": "node ./node_modules/octopus/scripts/run",
-    "prebuild": "node ./node_modules/octopus/scripts/run prebuild",
-    "build": "node ./bin/build.js"
+    "prebuild": "node ./node_modules/octopus/scripts/run prebuild devmode",
+    "build": "node ./node_modules/octopus/scripts/buildDossier"
   },
   "dependencies": {
-    "octopus": "git+http://github.com/privatesky/octopus.git#1.0"
+    "octopus": "git+https://github.com/PrivateSky/octopus.git"
   },
   "license": "MIT"
 }
