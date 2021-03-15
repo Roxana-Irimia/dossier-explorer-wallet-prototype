@@ -169,7 +169,7 @@ $$.swarms.describe('getSSI', {
                     return this.return(err);
                 }
 
-                loadedDSU.getKeySSI("sread", (err, sReadSSI) => {
+                loadedDSU.getKeySSIAsString("sread", (err, sReadSSI) => {
                     if (err) {
                         return this.return(err);
                     }
@@ -199,7 +199,7 @@ $$.swarms.describe('getSSI', {
 $$.swarms.describe('marketplaceSwarm', {
     __createMarketplace: function (data, callback) {
         const keyssiSpace = require("opendsu").loadApi("keyssi");
-        rawDossier.getKeySSI((err, ssi) => {
+        rawDossier.getKeySSIAsString((err, ssi) => {
             if (err) {
                 return this.return(err);
             }
@@ -209,7 +209,7 @@ $$.swarms.describe('marketplaceSwarm', {
                     this.return(err);
                 }
 
-                newDossier.getKeySSI((err, keySSI) => {
+                newDossier.getKeySSIAsString((err, keySSI) => {
                     if (err) {
                         return callback(err);
                     }
@@ -356,7 +356,7 @@ $$.swarms.describe("attachDossier", {
     },
     createNewDSU: function (callback) {
         const keyssiSpace = require("opendsu").loadApi("keyssi");
-        rawDossier.getKeySSI((err, ssi) => {
+        rawDossier.getKeySSIAsString((err, ssi) => {
             if (err) {
                 return callback(err);
             }
@@ -365,7 +365,7 @@ $$.swarms.describe("attachDossier", {
                 if (err) {
                     return callback(err);
                 }
-                newDossier.getKeySSI((err, keySSI) => {
+                newDossier.getKeySSIAsString((err, keySSI) => {
                     if (err) {
                         return callback(err);
                     }
@@ -396,7 +396,7 @@ $$.swarms.describe("attachDossier", {
             };
 
             //make sure if is the case to work with the current rawDossier instance
-            rawDossier.getKeySSI((err, keySSI) => {
+            rawDossier.getKeySSIAsString((err, keySSI) => {
                 if (err) {
                     return this.return(err);
                 }

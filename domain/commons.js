@@ -1,6 +1,6 @@
 const getParentDossier = function (rawDossier, path, callback) {
     if (path === '' || path === '/') {
-        return rawDossier.getKeySSI((err, keySSI) => {
+        return rawDossier.getKeySSIAsString((err, keySSI) => {
             if (err) {
                 return callback(err);
             }
