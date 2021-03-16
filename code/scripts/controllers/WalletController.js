@@ -181,13 +181,13 @@ export default class WalletController extends ContainerController {
                     return chain(appNamesList);
                 }
 
-                this.DossierExplorerService.getDSUSReadSSI(Constants.APPS_FOLDER, appName, (err, sReadSSI) => {
+                this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, appName, (err, seedSSI) => {
                     if (err) {
                         console.error(err);
                         return chain(appNamesList);
                     }
 
-                    this._registerApp(marketplacePath, appName, sReadSSI, (err) => {
+                    this._registerApp(marketplacePath, appName, seedSSI, (err) => {
                         if (err) {
                             console.error(err, appName);
                         }
@@ -201,9 +201,9 @@ export default class WalletController extends ContainerController {
         });
     }
 
-    _registerApp(marketplacePath, appName, sReadSSI, callback) {
+    _registerApp(marketplacePath, appName, seedSSI, callback) {
         const appTemplate = this._getMaketplaceAppTemplate(appName);
-        appTemplate.keySSI = sReadSSI;
+        appTemplate.keySSI = seedSSI;
 
         const availableAppsPath = marketplacePath + Constants.AVAILABLE_APPLICATIONS_MARKETPLACE;
         this.DossierExplorerService.createDossier(availableAppsPath, appName, (err) => {
@@ -220,7 +220,7 @@ export default class WalletController extends ContainerController {
                 const appDataPath = `${Constants.APPS_FOLDER}/${appName}/appData`;
                 appTemplate.ssappData = {
                     name: appName,
-                    keySSI: sReadSSI
+                    keySSI: seedSSI
                 };
                 this.DSUStorage.setObject(appDataPath, appTemplate, (err) => {
                     return callback(err)
