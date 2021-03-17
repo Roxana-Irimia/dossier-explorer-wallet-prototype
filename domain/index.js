@@ -355,13 +355,11 @@ $$.swarms.describe("attachDossier", {
         this.mountDossier(path, keySSI, dossierName);
     },
     createNewDSU: function (callback) {
-        const keyssiSpace = require("opendsu").loadApi("keyssi");
         rawDossier.getKeySSIAsString((err, ssi) => {
             if (err) {
                 return callback(err);
             }
-            const templateSSI = keyssiSpace.buildTemplateSeedSSI(keyssiSpace.parse(ssi).getDLDomain());
-            keyssiresolver.createDSU(templateSSI, (err, newDossier) => {
+            keyssiresolver.createDSU(ssi, (err, newDossier) => {
                 if (err) {
                     return callback(err);
                 }
