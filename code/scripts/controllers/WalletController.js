@@ -80,7 +80,7 @@ export default class WalletController extends ContainerController {
             visible: true,
             installed: true,
             ...appDetails
-        }
+        };
     }
 
     _signOutFromWalletHandler = (event) => {
@@ -117,29 +117,36 @@ export default class WalletController extends ContainerController {
             }
 
             if (Object.keys(marketplaceData).length === 0) {
-                console.log("[REGISTERING DEFAULT MARKETPLACE] defaultMarketplaceData is emnpty!");
+                console.log("[REGISTERING DEFAULT MARKETPLACE] defaultMarketplaceData is empty!");
                 return;
             }
 
             this.defaultMarketplaceData = JSON.parse(JSON.stringify(marketplaceData));
         });
 
-        const defaultMarketplacePath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.AVAILABLE_APPLICATIONS_MARKETPLACE}`;
-        this.DossierExplorerService.readDir(defaultMarketplacePath, (err, defaultMarketplaceContent) => {
+        const defaultMarketplaceInstalledAppsPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.MY_INSTALLED_APPLICATIONS}`;
+        this.DossierExplorerService.readDir(defaultMarketplaceInstalledAppsPath, (err, defaultMarketplaceInstalledApps) => {
             if (err) {
                 return console.error(err);
             }
 
-            if (!defaultMarketplaceContent.length) {
-                const defaultMarketplaceData = {
-                    name: Constants.DEFAULT_MARKETPLACE,
-                    description: Constants.DEFAULT_MARKETPLACE
-                };
+            const defaultMarketplaceAvailableAppsPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.AVAILABLE_APPLICATIONS_MARKETPLACE}`;
+            this.DossierExplorerService.readDir(defaultMarketplaceAvailableAppsPath, (err, defaultMarketplaceAvailableApps) => {
+                if (err) {
+                    return console.error(err);
+                }
 
-                this._setDefaultMarketplace(defaultMarketplaceData);
-            }
+                if (!defaultMarketplaceInstalledApps.length && !defaultMarketplaceAvailableApps.length) {
+                    const defaultMarketplaceData = {
+                        name: Constants.DEFAULT_MARKETPLACE,
+                        description: Constants.DEFAULT_MARKETPLACE
+                    };
+
+                    this._setDefaultMarketplace(defaultMarketplaceData);
+                }
+            });
         });
-    }
+    };
 
     _setDefaultMarketplace(marketplaceData) {
         this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, Constants.MARKETPLACE_SSAPP, (err, keySSI) => {
@@ -205,7 +212,7 @@ export default class WalletController extends ContainerController {
         const appTemplate = this._getMaketplaceAppTemplate(appName);
         appTemplate.keySSI = seedSSI;
 
-        const availableAppsPath = marketplacePath + Constants.AVAILABLE_APPLICATIONS_MARKETPLACE;
+        const availableAppsPath = marketplacePath + Constants.MY_INSTALLED_APPLICATIONS;
         this.DossierExplorerService.createDossier(availableAppsPath, appName, (err) => {
             if (err) {
                 return callback(err);

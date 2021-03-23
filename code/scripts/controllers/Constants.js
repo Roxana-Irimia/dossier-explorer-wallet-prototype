@@ -6,4 +6,5 @@ export default class Constants {
     static DOSSIER_EXPLORER_SSAPP = "dossier-explorer-ssapp";
     static EXCLUDED_APPS_FOR_REGISTER = [Constants.MARKETPLACE_SSAPP, Constants.DOSSIER_EXPLORER_SSAPP];
     static AVAILABLE_APPLICATIONS_MARKETPLACE = "/availableApps";
+    static MY_INSTALLED_APPLICATIONS = "/my-apps";
 }
