@@ -198,13 +198,12 @@ $$.swarms.describe('getSSI', {
 
 $$.swarms.describe('marketplaceSwarm', {
     __createMarketplace: function (data, callback) {
-        const keyssiSpace = require("opendsu").loadApi("keyssi");
         rawDossier.getKeySSIAsString((err, ssi) => {
             if (err) {
                 return this.return(err);
             }
-            const templateSSI = keyssiSpace.buildTemplateSeedSSI(keyssiSpace.parse(ssi).getDLDomain());
-            keyssiresolver.createDSU(templateSSI, (err, newDossier) => {
+
+            keyssiresolver.createDSU(ssi, (err, newDossier) => {
                 if (err) {
                     this.return(err);
                 }
@@ -214,7 +213,7 @@ $$.swarms.describe('marketplaceSwarm', {
                         return callback(err);
                     }
                     data.keySSI = keySSI;
-                    newDossier.writeFile('/data', JSON.stringify(data), (err, digest) => {
+                    newDossier.writeFile('/data', JSON.stringify(data), (err) => {
                         if (err) {
                             return callback(err);
                         }
@@ -241,7 +240,20 @@ $$.swarms.describe('marketplaceSwarm', {
                                 if (err) {
                                     return callback(err);
                                 }
-                                callback(err, keySSI);
+
+                                const mainDSU = require("opendsu").loadAPI("sc").getMainDSU();
+                                mainDSU.readFile("/environment.json", (err, envContent) => {
+                                    if (err) {
+                                        return this.return(err);
+                                    }
+
+                                    newDossier.writeFile("/environment.json", envContent, (err) => {
+                                        if (err) {
+                                            return this.return(err);
+                                        }
+                                        callback(err, keySSI);
+                                    });
+                                });
                             });
                         });
                     });
@@ -359,6 +371,7 @@ $$.swarms.describe("attachDossier", {
             if (err) {
                 return callback(err);
             }
+
             keyssiresolver.createDSU(ssi, (err, newDossier) => {
                 if (err) {
                     return callback(err);
