@@ -4,7 +4,7 @@
   "description": "Open Source Dossier Explorer",
   "scripts": {
     "prebuild": "node ./node_modules/octopus/scripts/run prebuild devmode",
-    "build": "node ./node_modules/octopus/scripts/buildDossier"
+    "build": "node ./node_modules/octopus/scripts/buildDSU.js"
   },
   "dependencies": {
     "octopus": "git+https://github.com/PrivateSky/octopus.git"
