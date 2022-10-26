@@ -7,7 +7,7 @@
         "build": "node ./node_modules/octopus/scripts/buildDSU.js"
     },
     "dependencies": {
-        "octopus": "git+https://github.com/PrivateSky/octopus.git"
+        "octopus": "git+https://github.com/opendsu/octopus.git"
     },
     "license": "MIT"
 }
