@@ -1,21 +1,22 @@
 import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 import Constants from "./Constants.js";
 
-import {getDossierServiceInstance} from "../service/DossierExplorerService.js"
-import {getAccountServiceInstance} from "../service/AccountService.js";
+import { getAccountServiceInstance } from "../service/AccountService.js";
 
 import signOutViewModel from "../view-models/modals/signOutViewModel.js";
+import { getNewDossierServiceInstance } from "../service/NewDossierExplorerServiceWallet.js";
 
 export default class WalletController extends ContainerController {
     constructor(element, history) {
         super(element, history);
+        this._init(element);
+    }
 
-        this.DossierExplorerService = getDossierServiceInstance();
+    async _init(element){
+        this.DossierExplorerService = await getNewDossierServiceInstance();
 
         element.addEventListener("sign-out", this._signOutFromWalletHandler);
         element.addEventListener("getSSApps", this._getSSAppsHandler);
-
-        this._registerDefaultMarketplace();
     }
 
     _getSSAppsHandler = (event) => {
@@ -28,7 +29,7 @@ export default class WalletController extends ContainerController {
                 throw new Error("Callback should be a function");
             }
 
-            this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, {applications}) => {
+            this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, { applications }) => {
                 if (err) {
                     return callback(err);
                 }
@@ -94,86 +95,8 @@ export default class WalletController extends ContainerController {
         });
     };
 
-    _getMaketplaceDefaultData(callback) {
-        this.DossierExplorerService.hasFile("/code", "defaultMarketplaceData", (err, hasFile) => {
-            if (err) {
-                return callback(err);
-            }
-
-            if (!hasFile) {
-                return callback(undefined, {});
-            }
-
-            this.DSUStorage.getObject("/code/defaultMarketplaceData", (err, marketplaceData) => {
-                callback(err, marketplaceData);
-            });
-        });
-    }
-
-    _registerDefaultMarketplace() {
-        this._getMaketplaceDefaultData((err, marketplaceData) => {
-            if (err) {
-                return console.error(err);
-            }
-
-            if (Object.keys(marketplaceData).length === 0) {
-                console.log("[REGISTERING DEFAULT MARKETPLACE] defaultMarketplaceData is empty!");
-                return;
-            }
-
-            this.defaultMarketplaceData = JSON.parse(JSON.stringify(marketplaceData));
-        });
-
-        const defaultMarketplaceInstalledAppsPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.MY_INSTALLED_APPLICATIONS}`;
-        this.DossierExplorerService.readDir(defaultMarketplaceInstalledAppsPath, (err, defaultMarketplaceInstalledApps) => {
-            if (err) {
-                return console.error(err);
-            }
-
-            const defaultMarketplaceAvailableAppsPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}${Constants.AVAILABLE_APPLICATIONS_MARKETPLACE}`;
-            this.DossierExplorerService.readDir(defaultMarketplaceAvailableAppsPath, (err, defaultMarketplaceAvailableApps) => {
-                if (err) {
-                    return console.error(err);
-                }
-
-                if (!defaultMarketplaceInstalledApps.length && !defaultMarketplaceAvailableApps.length) {
-                    const defaultMarketplaceData = {
-                        name: Constants.DEFAULT_MARKETPLACE,
-                        description: Constants.DEFAULT_MARKETPLACE
-                    };
-
-                    this._setDefaultMarketplace(defaultMarketplaceData);
-                }
-            });
-        });
-    };
-
-    _setDefaultMarketplace(marketplaceData) {
-        this.DossierExplorerService.getDSUSeedSSI(Constants.APPS_FOLDER, Constants.MARKETPLACE_SSAPP, (err, keySSI) => {
-            if (err) {
-                return console.error(err);
-            }
-
-            this.DossierExplorerService.importMarketplace(keySSI, (err, marketplaceInformation) => {
-                if (err) {
-                    return console.error(err);
-                }
-
-                marketplaceData.keySSI = keySSI;
-                const dataPath = `${Constants.APPS_FOLDER}/${Constants.MARKETPLACE_SSAPP}/data`;
-                this.DSUStorage.setObject(dataPath, marketplaceData, (err) => {
-                    if (err) {
-                        return console.error(err);
-                    }
-
-                    this._addDefaultApplications(marketplaceInformation.path);
-                });
-            });
-        });
-    }
-
     _addDefaultApplications(marketplacePath) {
-        this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, {applications}) => {
+        this.DossierExplorerService.readDirDetailed(Constants.APPS_FOLDER, (err, { applications }) => {
             if (err) {
                 return console.error(err);
             }

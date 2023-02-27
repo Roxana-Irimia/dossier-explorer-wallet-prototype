@@ -14,22 +14,6 @@
             "pageSrc": "index.html"
         },
         {
-            "name": "Marketplaces",
-            "path": "/marketplace-manager",
-            "pageSrc": "marketplace-manager.html",
-            "tags": "marketplace-manager"
-        },
-        {
-            "name": "Submit Marketplace",
-            "tags": "submit-marketplace",
-            "indexed": false
-        },
-        {
-            "name": "Access Marketplace",
-            "tags": "access-marketplace",
-            "indexed": false
-        },
-        {
             "name": "My Apps",
             "path": "/apps",
             "icon": "fa-plug",
