@@ -122,6 +122,125 @@ class NewDossierExplorerService {
         });
     }
 
+    importDossier(path, dossierName, SEED, callback) {
+        if (this.rawDossier) {
+            return keyssiresolver.loadDSU(SEED, (err) => {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                }
+
+                this.mountDossier(path, SEED, dossierName, callback);
+            });
+        }
+        callback("Raw Dossier is not available.");
+    }
+
+    addFolder(path, folderName, callback) {
+        if (this.rawDossier) {
+            const folderPath = `${path}/${folderName}`;
+
+            this.rawDossier.addFolder(folderPath, folderPath, { ignoreMounts: false }, (err, res) => {
+                if (!err) {
+                    this.return(err, res);
+                }
+            });
+        }
+
+        callback("Raw Dossier is not available.");
+    }
+
+    rename(oldPath, newPath, callback) {
+        if (this.rawDossier) {
+            this.rawDossier.rename(oldPath, newPath, (err) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                callback(undefined, {
+                    success: true,
+                    oldPath: oldPath,
+                    newPath: newPath
+                })
+            });
+        } else {
+            callback("Raw Dossier is not available.");
+        }
+    }
+
+    deleteFileFolder(path, callback) {
+        if (this.rawDossier) {
+            return this.rawDossier.delete(path, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                }
+
+                callback(undefined, {
+                    success: true,
+                    path: path,
+                    result: result
+                });
+            });
+        }
+
+        callback("Raw Dossier is not available.");
+    }
+
+    deleteDossier(path, name, callback) {
+        if (this.rawDossier) {
+            return getParentDossier(this.rawDossier, path, (err, parentKeySSI, relativePath) => {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                }
+
+                keyssiresolver.loadDSU(parentKeySSI, (err, parentDSU) => {
+                    if (err) {
+                        console.log(err);
+                        return callback(err);
+                    }
+
+                    const unmountPath = `${path.replace(relativePath, '')}/${name}`;
+                    parentDSU.unmount(unmountPath, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            return callback(err);
+                        }
+
+                        callback(undefined, {
+                            success: true,
+                            path: path,
+                            unmountPath: unmountPath,
+                            result: result
+                        });
+                    });
+                });
+            });
+        }
+
+        callback("Raw Dossier is not available.");
+    }
+
+    printDossierSeed(path, dossierName, callback) {
+        if (this.rawDossier) {
+            return this.rawDossier.listMountedDossiers(path, (err, result) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                let dossier = result.find((dsr) => dsr.path === dossierName);
+                if (!dossier) {
+                    return callback(`Dossier with the name ${dossierName} was not found in the mounted points!`);
+                }
+
+                callback(undefined, dossier.identifier);
+            });
+        }
+
+        callback("Raw Dossier is not available.");
+    }
+
     mountDossier(path, keySSI, dossierName, callback) {
         getParentDossier(this.rawDossier, path, (err, parentKeySSI, relativePath) => {
             if (err) {

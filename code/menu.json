@@ -12,14 +12,6 @@
             "name": "Explorer",
             "path": "/explorer",
             "pageSrc": "index.html"
-        },
-        {
-            "name": "My Apps",
-            "path": "/apps",
-            "icon": "fa-plug",
-            "children": "@event:getSSApps",
-            "propName": "keySSI",
-            "component": "psk-ssapp"
         }
     ]
 }
