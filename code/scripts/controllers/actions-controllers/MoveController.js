@@ -7,11 +7,11 @@ import { getNewDossierServiceInstance } from "../../service/NewDossierExplorerSe
 export default class MoveController extends ModalController {
     constructor(element, history) {
         super(element, history);
-        this._init();
+        this._init(element, history);
        
     }
 
-    async _init(){
+    async _init(element, history){
         this.dossierService = await getNewDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
         this.explorerNavigator = new ExplorerNavigationController(element, history, this.model);

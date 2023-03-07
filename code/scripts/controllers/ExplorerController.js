@@ -30,7 +30,6 @@ export default class ExplorerController extends ContainerController {
 
     async _init(element, history){
         this.dossierService = await getNewDossierServiceInstance();
-        // this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
         this.explorerNavigator = new ExplorerNavigationController(element, history, this.model);
 
@@ -57,6 +56,7 @@ export default class ExplorerController extends ContainerController {
         this.on('delete', this._deleteHandler);
         this.on('rename', this._renameHandler);
         this.on('move', this._moveHandler);
+        this.on('close', this._closeHandler)
         this.on('run-app', this._handleRunApplication);
 
         this.on('new-file', this._addNewFileHandler);
@@ -68,21 +68,21 @@ export default class ExplorerController extends ContainerController {
         event.preventDefault();
         event.stopImmediatePropagation();
         const selectedItem = event.data;
-        let triggeredButton = event.path[0];
-        let elementRect = triggeredButton.getBoundingClientRect();
+        // let triggeredButton = event.path[0];
+        // let elementRect = triggeredButton.getBoundingClientRect();
         let itemActionsBtn = this.element.querySelector("#wallet-content-container").shadowRoot.querySelector("#item-actions");
 
-        let containerHeight = selectedItem.optionsContainerHeight;
-        let topCorrection = containerHeight / 2 - 15;
-        if (window.innerHeight < elementRect.top + containerHeight / 2) {
-            topCorrection = topCorrection + (elementRect.top + containerHeight / 2 - window.innerHeight);
-        }
-        itemActionsBtn.querySelector("psk-grid").style.top = elementRect.top - topCorrection + "px";
-        itemActionsBtn.querySelector("psk-grid").style.left = elementRect.left - 220 + "px";
+        // let containerHeight = selectedItem.optionsContainerHeight;
+        // let topCorrection = containerHeight / 2 - 15;
+        // if (window.innerHeight < elementRect.top + containerHeight / 2) {
+        //     topCorrection = topCorrection + (elementRect.top + containerHeight / 2 - window.innerHeight);
+        // }
+        // itemActionsBtn.querySelector("psk-grid").style.top = elementRect.top - topCorrection + "px";
+        // itemActionsBtn.querySelector("psk-grid").style.left = elementRect.left - 220 + "px";
 
-        if (!selectedItem) {
-            return console.error(`No item selected!`);
-        }
+        // if (!selectedItem) {
+        //     return console.error(`No item selected!`);
+        // }
 
         itemActionsBtn.setAttribute("opened", "");
         this.model.optionsMenu.isApplication = selectedItem.isApplication;
@@ -90,6 +90,11 @@ export default class ExplorerController extends ContainerController {
         this.model.optionsMenu.name = selectedItem.name;
         this.model.optionsMenu.dataType = selectedItem.dataType;
     };
+
+    _closeHandler(){
+        let itemActionsBtn = this.element.querySelector("#wallet-content-container").shadowRoot.querySelector("#item-actions");
+        itemActionsBtn.removeAttribute("opened");
+    }
 
     _checkForLandingApp() {
         this.DSUStorage.getObject("apps/.landingApp", (err, landingApp) => {

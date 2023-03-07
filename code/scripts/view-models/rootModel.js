@@ -24,7 +24,8 @@ const rootModel = {
         downloadFileLabel: "Download",
         shareDossierLabel: "Share",
         moveLabel: "Move",
-        renameLabel: "Rename"
+        renameLabel: "Rename",
+        closeLabel: "Close"
     },
     addMenuLabels: {
         addLabel: "Add",
