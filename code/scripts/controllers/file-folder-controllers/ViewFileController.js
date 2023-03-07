@@ -1,11 +1,11 @@
-import ModalController from "../../../cardinal/controllers/base-controllers/ModalController.js";
+const { WebcController } = WebCardinal.controllers;
 import FileDownloader from "./FileDownloader.js";
 import FeedbackController from "../FeedbackController.js";
 import Constants from "../Constants.js";
 
 const TEXT_MIME_TYPE = "text/";
 
-export default class ViewFileController extends ModalController {
+export default class ViewFileController extends WebcController {
 
     constructor(element, history) {
         super(element, history);
@@ -246,11 +246,11 @@ export default class ViewFileController extends ModalController {
     }
 
     _appendAsset = (assetObject) => {
-        let assetModal = this.element.querySelector(".asset-modal .content");
+        let assetModal = this.element.querySelector(".content");
         if (assetModal) {
             assetModal.append(assetObject);
         }
 
-        this.feedbackController.setLoadingState(false);
+        // this.feedbackController.setLoadingState(false);
     }
 }

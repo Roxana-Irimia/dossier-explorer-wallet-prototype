@@ -1,0 +1,52 @@
+<header slot="header" class="title">{{@title}}</header>
+
+<!-- 
+<psk-condition condition="@conditionalExpressions.isLoading">
+    <psk-ui-loader should-be-rendered="true"> </psk-ui-loader>
+</psk-condition> -->
+
+<main>
+    <div class='content'>
+    </div>
+</main>
+
+
+<footer slot="footer">
+    <div class='footer'>
+
+        <div data-if="@textEditor.isEditable">
+            <container slot="true">
+                <div data-if="@isEditing">
+                    <container slot="true">
+                        <div data-if='@closingConfirmation.opened'>
+                            <container slot="true">
+                                <div class='unsaved-file'>
+                                    <label>{{@@closingConfirmation.disclaimerMessage}}</label>
+                                    <button data-view-model="@closingConfirmation.buttons.saveAndExitButton">
+                                    </button>
+                                    <button data-view-model="@closingConfirmation.buttons.dismissAndExitButton">
+                                    </button>
+                                    <button data-view-model="@closingConfirmation.buttons.cancelButton">
+                                    </button>
+                                </div>
+                            </container>
+
+                            <container slot="false">
+                                <button>Save </button>
+                            </container>
+                        </div>
+                    </container>
+
+                    <container slot="false">
+                        <psk-button data-view-model="buttons.editButton">Edit</psk-button>
+                        <psk-button data-view-model="buttons.downloadButton">Download</psk-button>
+                    </container>
+                </div>
+            </container>
+            <container slot="false">
+                <psk-button slot="condition-false" view-model="buttons.downloadButton">Download</psk-button>
+            </container>
+        </div>
+
+    </div>
+</footer>

@@ -1,0 +1,19 @@
+
+webc-app-container {
+    --background: transparent;
+    position: relative;
+}
+
+webc-app-menu {
+    --disable-identity: true;
+}
+
+webc-app-menu[mode=vertical] {
+    --background: #328569;
+    --min-width: 240px;
+}
+
+
+webc-app-menu[mode=mobile] {
+    --background: #328569;
+}

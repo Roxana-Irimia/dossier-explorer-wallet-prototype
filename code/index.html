@@ -11,34 +11,68 @@
     <script src="/scripts/bundles/webshims.js"></script>
     <script src="/scripts/bundles/pskruntime.js"></script>
     <script type="module" src="/scripts/service/LoaderCommunication.js"></script>
+
+    <script src="/webcardinal/webcardinal.js" type="module"></script>
+    <link href="/webcardinal/webcardinal.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <psk-app-root>
-        <psk-container controller-name="WalletController">
+    <!-- <webc-app-root>
             <div class="global_container">
                 <aside>
-                    <psk-app-menu item-renderer="sidebar-renderer" hamburger-max-width="992">
-                        <psk-user-profile slot="before"></psk-user-profile>
+                    <webc-app-menu>
 
                         <div slot="after" class="exit-wrapper">
-                            <psk-button button-class="btn-exit" event-name="sign-out">
-                                <psk-icon icon="sign-out"></psk-icon>
-                                <psk-label label="Exit"></psk-label>
-                            </psk-button>
+                            <button class="btn-exit" onclick="sign-out">
+                                <img icon="sign-out"></img>
+                                <label label="Exit"></label>
+                            </button>
                         </div>
 
-                    </psk-app-menu>
-                </aside>
+                    </webc-app-menu>
+                </aside> 
                 <section>
-                    <psk-app-router></psk-app-router>
+                    <webc-app-router></webc-app-router>
                 </section>
             </div>
-        </psk-container>
-    </psk-app-root>
+    </webc-app-root> -->
 
-    <script type="module" src="/cardinal/cardinal.esm.js"></script>
-    <script>
+    <!-- <webc-app-root>
+        <webc-app-menu>
+        </webc-app-menu>
+        <webc-app-container>
+            <webc-container controller="WalletController" slot="content-slot">
+    
+                This is my first page. I'm learning.
+        
+                My name is {{@name}} and I'm {{@age}} years old.
+        
+                My favorite hobby is {{@hobby}}.
+        
+            </webc-container>
+        </webc-app-container>
+    
+    </webc-app-root> -->
+    <!-- <style>
+        *{
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+    </style> -->
+    
+        <webc-app-root>
+                        <webc-app-router></webc-app-router>
+        </webc-app-root> 
+    <!-- <script type="module" src="/cardinal/cardinal.esm.js"></script> -->
+    <!-- <script>
         if (window.frameElement) {
             let iframeIdentity = window.frameElement.getAttribute('identity');
 
@@ -77,7 +111,7 @@
                 }));
             }
         }
-    </script>
+    </script> -->
 </body>
 
 </html>

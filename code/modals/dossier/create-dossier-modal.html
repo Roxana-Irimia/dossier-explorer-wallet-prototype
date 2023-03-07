@@ -1,0 +1,56 @@
+<!-- <psk-container controller="dossier-controllers/CreateDossierController">
+    <psk-modal opened> -->
+<header slot="header" class="title">{{@title}}</header>
+
+<!-- <psk-condition condition="@conditionalExpressions.isLoading">
+            <psk-ui-loader slot="condition-true" should-be-rendered="true"> </psk-ui-loader> -->
+
+<!-- <psk-condition slot="condition-false" condition="@conditionalExpressions.isDossierNameStep">
+    <psk-icon slot="condition-true" icon="pencil" color="#8197bc" class="dossier-icon icon-big"></psk-icon>
+    <psk-text-input slot="condition-true" view-model="dossierNameInput"></psk-text-input>
+
+    <psk-icon slot="condition-false" icon="check" color="#8197bc" class="dossier-icon icon-big"></psk-icon>
+    <psk-text-input slot="condition-false" view-model="dossierSeedOutput"></psk-text-input>
+</psk-condition>
+
+<psk-condition slot="condition-false" condition="@conditionalExpressions.isDossierNameStep">
+    <psk-button-group slot="condition-true" class="modal-buttons">
+        <psk-button view-model="buttons.createDossier"></psk-button>
+    </psk-button-group>
+    <psk-button-group slot="condition-false" class="modal-buttons">
+        <psk-button view-model="buttons.finishDossier"></psk-button>
+    </psk-button-group>
+</psk-condition> -->
+<main>
+    <div data-if="@isDossierNameStep">
+        <container slot="true">
+            <label>Dossier name</label>
+            <input id="dossier-name" data-tag="dossier-name" type="text" data-view-model="@dossierName"></input>
+        </container>
+        <container slot="false">
+            <label>Dossier seed</label>
+            <input id="dossier-seed" data-tag="dossier-seed" type="text" value="@dossierSeedOutput" readonly></input>
+        </container>
+    </div>
+</main>
+
+<footer slot="footer">
+    <div data-if="@isDossierNameStep">
+        <container slot="true">
+            <button data-tag="confirm">Confirm</button>
+        </container>
+        <container slot="false">
+        </container>
+    </div>
+    
+</footer>
+
+
+
+
+<!-- 
+        </psk-condition> -->
+
+<!-- <psk-label label="@error.message" class="error"></psk-label> -->
+<!-- </psk-modal>
+</psk-container> -->

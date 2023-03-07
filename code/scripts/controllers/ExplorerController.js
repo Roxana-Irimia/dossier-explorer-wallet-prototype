@@ -1,10 +1,9 @@
-import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+const { WebcController } = WebCardinal.controllers;
 import FileDownloader from "./file-folder-controllers/FileDownloader.js";
 import FeedbackController from "./FeedbackController.js";
 
 import rootModel from "../view-models/rootModel.js";
 
-import createDossierViewModel from '../view-models/modals/dossier-modals/createDossierViewModel.js';
 import receiveDossierViewModel from '../view-models/modals/dossier-modals/receiveDossierViewModel.js';
 import testDossierHandlerViewModel from '../view-models/modals/dossier-modals/testDossierHandlerViewModel.js';
 import testContractViewModel from '../view-models/modals/dossier-modals/testContractViewModel.js';
@@ -21,14 +20,14 @@ import ExplorerNavigationController from "./ExplorerNavigationController.js";
 import Constants from "./Constants.js";
 import { getNewDossierServiceInstance } from "../service/NewDossierExplorerServiceWallet.js";
 
-export default class ExplorerController extends ContainerController {
-    constructor(element, history) {
-        super(element, history);
-        this.model = this.setModel(this._getCleanProxyObject(rootModel));
-        this._init(element, history);      
+export default class ExplorerController extends WebcController {
+    constructor(...props) {
+        super(...props);
+        this.model = this._getCleanProxyObject(rootModel);
+        this._init(props[0], props[1]);
     }
 
-    async _init(element, history){
+    async _init(element, history) {
         this.dossierService = await getNewDossierServiceInstance();
         // this.dossierService = getDossierServiceInstance();
         this.feedbackController = new FeedbackController(this.model);
@@ -39,34 +38,34 @@ export default class ExplorerController extends ContainerController {
     }
 
     _initListeners = () => {
-        this.on('openFeedback', (evt) => {
+        this.onTagClick('openFeedback', (evt) => {
             this.feedbackEmitter = evt.detail;
         });
 
-        this.on("switch-layout", this._handleSwitchLayout);
-        this.on('open-options-menu', this._handleOptionsMenu);
+        this.onTagClick("switch-layout", this._handleSwitchLayout);
+        this.onTagClick('open-options-menu', this._handleOptionsMenu);
 
-        this.on('view-file', this._handleViewFile);
-        this.on('export-dossier', this._handleDownload);
+        this.onTagClick('view-file', this._handleViewFile);
+        this.onTagClick('export-dossier', this._handleDownload);
 
-        this.on('create-dossier', this._createDossierHandler);
-        this.on('receive-dossier', this._receiveDossierHandler);
-        this.on('test-dossier-handler', this._testDossierHandler);
-        this.on('test-contract', this._testContract);
-        this.on('share-dossier', this._shareDossierHandler);
-        this.on('delete', this._deleteHandler);
-        this.on('rename', this._renameHandler);
-        this.on('move', this._moveHandler);
-        this.on('run-app', this._handleRunApplication);
+        this.onTagClick('create-dossier', this._createDossierHandler);
+        this.onTagClick('receive-dossier', this._receiveDossierHandler);
+        this.onTagClick('test-dossier-handler', this._testDossierHandler);
+        this.onTagClick('test-contract', this._testContract);
+        this.onTagClick('share-dossier', this._shareDossierHandler);
+        this.onTagClick('delete', this._deleteHandler);
+        this.onTagClick('rename', this._renameHandler);
+        this.onTagClick('move', this._moveHandler);
+        this.onTagClick('run-app', this._handleRunApplication);
 
-        this.on('new-file', this._addNewFileHandler);
-        this.on('new-folder', this._addNewFolderHandler);
-        this.on('add-file-folder', this._handleFileFolderUpload);
+        this.onTagClick('new-file', this._addNewFileHandler);
+        this.onTagClick('new-folder', this._addNewFolderHandler);
+        document.querySelector("#folder-upload").addEventListener('change', this._handleFileFolderUpload);
     };
 
     _handleOptionsMenu = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
+        // event.preventDefault();
+        // event.stopImmediatePropagation();
         const selectedItem = event.data;
         let triggeredButton = event.path[0];
         let elementRect = triggeredButton.getBoundingClientRect();
@@ -134,20 +133,19 @@ export default class ExplorerController extends ContainerController {
     };
 
     _createDossierHandler = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
+        // event.preventDefault();
+        // event.stopImmediatePropagation();
 
-        createDossierViewModel.currentPath = this.model.currentPath;
-        this.showModal('createDossierModal', createDossierViewModel, (err, response) => {
-            if (err) {
-                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
-            }
-
-            const successMessage = this.model[Constants.SUCCESS].dossierCreated
-                .replace(Constants.NAME_PLACEHOLDER, response.name)
-                .replace(Constants.PATH_PLACEHOLDER, response.path);
-            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
+       
+        this.showModalFromTemplate('./dossier/create-dossier-modal', () => {}, (event) => {
+            // const successMessage = this.model[Constants.SUCCESS].dossierCreated
+            //     .replace(Constants.NAME_PLACEHOLDER, response.name)
+            //     .replace(Constants.PATH_PLACEHOLDER, response.path);
+            // this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listDossierContent();
+        }, {
+            controller: "dossier-controllers/CreateDossierController",
+            model: this.model
         });
     };
 
@@ -329,7 +327,7 @@ export default class ExplorerController extends ContainerController {
     };
 
     _addNewFolderHandler = (event) => {
-        event.stopImmediatePropagation();
+        //event.stopImmediatePropagation();
 
         let wDir = this.model.currentPath || '/';
         if (wDir === '/') {
@@ -337,26 +335,31 @@ export default class ExplorerController extends ContainerController {
         }
 
         newFolderViewModel.currentPath = wDir;
-        this.showModal('newFolderModal', newFolderViewModel, (err, response) => {
-            if (err) {
-                return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
-            }
+        this.showModalFromTemplate('file-folder/new-folder-modal', ()=>{}, (err, response) => {
+            // if (err) {
+            //     return this.feedbackEmitter(err, null, Constants.ERROR_FEEDBACK_TYPE);
+            // }
 
-            const successMessage = this.model[Constants.SUCCESS].folderCreated
-                .replace(Constants.NAME_PLACEHOLDER, response.name)
-                .replace(Constants.PATH_PLACEHOLDER, response.path);
-            this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
+            // const successMessage = this.model[Constants.SUCCESS].folderCreated
+            //     .replace(Constants.NAME_PLACEHOLDER, response.name)
+            //     .replace(Constants.PATH_PLACEHOLDER, response.path);
+            // this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listDossierContent();
+        }, {
+            controller: "file-folder-controllers/NewFolderController"
         });
     };
 
     _handleFileFolderUpload = (event) => {
-        event.stopImmediatePropagation();
-
-        let filesArray = event.data || [];
-        if (!filesArray.length) {
-            return this.feedbackEmitter(this.model.error.labels.noFileUploaded, null, Constants.ERROR_FEEDBACK_TYPE);
+        //event.stopImmediatePropagation();
+        const files = document.querySelector("#folder-upload").files || [];
+        if (!files.length) {
+            console.log("No file selected");
+            return;
+            //return this.feedbackEmitter(this.model.error.labels.noFileUploaded, null, Constants.ERROR_FEEDBACK_TYPE);
         }
+
+        const filesArray = Object.keys(files).map(key => files[key])
 
         let wDir = this.model.currentPath || '/';
         // Open the ui-loader
@@ -371,27 +374,28 @@ export default class ExplorerController extends ContainerController {
             }
             filesUploaded.forEach((entry) => {
                 let name, path, messageTemplate, messageType;
-
+                if(entry === undefined) return;
                 if (entry.error) {
                     path = entry.file.path;
                     if (entry.error.code === 30) {
-                        messageTemplate = this.model[Constants.SUCCESS].fileUploadExists;
-                        messageType = Constants.ERROR_FEEDBACK_TYPE;
+                        console.log("File exists")
+                        // messageTemplate = this.model[Constants.SUCCESS].fileUploadExists;
+                        // messageType = Constants.ERROR_FEEDBACK_TYPE;
                     } else {
-                        messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
-                        messageType = Constants.SUCCESS_FEEDBACK_TYPE;
+                        // messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
+                        // messageType = Constants.SUCCESS_FEEDBACK_TYPE;
                     }
                 } else {
                     path = entry;
-                    messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
-                    messageType = Constants.SUCCESS_FEEDBACK_TYPE;
+                    // messageTemplate = this.model[Constants.SUCCESS].fileUploaded;
+                    // messageType = Constants.SUCCESS_FEEDBACK_TYPE;
                 }
 
                 name = path.split('/').pop();
-                let displayedMessage = messageTemplate
-                    .replace(Constants.NAME_PLACEHOLDER, name)
-                    .replace(Constants.PATH_PLACEHOLDER, path);
-                this.feedbackEmitter(displayedMessage, null, messageType);
+                // let displayedMessage = messageTemplate
+                //     .replace(Constants.NAME_PLACEHOLDER, name)
+                //     .replace(Constants.PATH_PLACEHOLDER, path);
+                // this.feedbackEmitter(displayedMessage, null, messageType);
             });
 
             // Close the ui-loader as upload is finished

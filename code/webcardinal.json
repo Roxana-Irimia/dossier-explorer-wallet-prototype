@@ -1,0 +1,14 @@
+{
+    "pagesFallback": {
+        "name": "Home",
+        "src": "./explorer-page/explorer-page.html"
+    },
+    "pages": [
+        {
+            "name": "Home",
+            "tag": "explorer",
+            "src": "./explorer-page/explorer-page.html",
+            "path": "./"
+        }
+    ]
+}

@@ -1,4 +1,5 @@
-import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
+
+const { WebcController } = WebCardinal.controllers;
 
 import FeedbackController from "./FeedbackController.js";
 
@@ -7,9 +8,9 @@ import viewFileViewModel from "../view-models/modals/file-folder-modals/viewFile
 import Constants from "./Constants.js";
 import { getNewDossierServiceInstance } from "../service/NewDossierExplorerServiceWallet.js";
 
-export default class ExplorerNavigationController extends ContainerController {
+export default class ExplorerNavigationController extends WebcController {
     constructor(element, history, model) {
-        super(element, history);
+        super(...[element, history]);
 
         this.model = model;
         this._init();
@@ -65,10 +66,9 @@ export default class ExplorerNavigationController extends ContainerController {
         }
     };
 
-    doubleClickHandler = (event) => {
-        event.stopImmediatePropagation();
+    clickHandler = (event) => {
 
-        let clickedItem = event.data;
+        let clickedItem = event.name;
         if (!clickedItem) {
             console.error(`Clicked item is not valid!`, event);
             return;
@@ -153,8 +153,11 @@ export default class ExplorerNavigationController extends ContainerController {
             ...viewFileViewModel,
             ...viewModel
         };
-        this.showModal('viewFileModal', viewModel, (err, response) => {
+        this.showModalFromTemplate('./file-folder/view-file-modal', ()=>{}, (err, response) => {
             console.log(err, response);
+        }, {
+            controller: "file-folder-controllers/ViewFileController",
+            model: viewModel
         });
     }
 
@@ -162,7 +165,7 @@ export default class ExplorerNavigationController extends ContainerController {
 
     _initListeners = () => {
         this.on('select-wallet-item', this.selectWalletItemHandler);
-        this.on('double-click-item', this.doubleClickHandler);
+        this.onTagClick('item-click', this.clickHandler);
         this.on('breadcrumb-click', this.changeDirectoryHandler);
         this.on('sort-working-directory', this.sortWorkingDirectoryHandler);
 

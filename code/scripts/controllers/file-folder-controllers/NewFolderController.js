@@ -1,9 +1,9 @@
-import ModalController from "../../../cardinal/controllers/base-controllers/ModalController.js";
+const { WebcController } = WebCardinal.controllers;
 import FeedbackController from "../FeedbackController.js";
 import Constants from "../Constants.js";
 import { getNewDossierServiceInstance } from "../../service/NewDossierExplorerServiceWallet.js";
 
-export default class NewFolderController extends ModalController {
+export default class NewFolderController extends WebcController {
     constructor(element, history) {
         super(element, history);
         
@@ -18,24 +18,29 @@ export default class NewFolderController extends ModalController {
     }
 
     _initListeners() {
-        this.on('new-folder-create', this._createNewFolder);
-        this.on('new-folder-cancel', () => {
+        this.onTagClick('create', this._createNewFolder);
+        this.onTagClick('cancel', () => {
             this.responseCallback(undefined);
         });
 
-        this.model.onChange("folderNameInput.value", this._validateInput);
+        //this.model.onChange("folderNameInput.value", this._validateInput);
     }
 
     _createNewFolder = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
+        // event.preventDefault();
+        // event.stopImmediatePropagation();
+        const value = document.querySelector("#folder-name").value;
+        if(!this._validateInput(value)){
+            return;
+        }
+       
 
         let wDir = this.model.currentPath || '/';
         if (wDir == '/') {
             wDir = '';
         }
 
-        const folderName = this.model.folderNameInput.value;
+        const folderName = value;
         this.feedbackController.setLoadingState(true);
         this.dossierService.readDirDetailed(wDir, (err, { folders }) => {
             if (err) {
@@ -77,10 +82,8 @@ export default class NewFolderController extends ModalController {
         });
     }
 
-    _validateInput = () => {
-        this.feedbackController.updateDisplayedMessage(Constants.ERROR);
-
-        const value = this.model.folderNameInput.value;
+    _validateInput = (value) => {
+        // this.feedbackController.updateDisplayedMessage(Constants.ERROR);
         const isEmptyName = value.trim().length === 0;
         this.model.setChainValue('buttons.createFolderButton.disabled', isEmptyName);
 
