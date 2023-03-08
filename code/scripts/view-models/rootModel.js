@@ -34,9 +34,7 @@ const rootModel = {
         addFileLabel: "Upload file",
         addFolderLabel: "Upload folder",
         createDossierLabel: "Create Dossier",
-        receiveDossierLabel: "Receive Dossier",
-        testDossierHandlerLabel: "Test Dossier Handler",
-        testContractLabel: "Test Contract Method",
+        receiveDossierLabel: "Receive Dossier"
     },
     hoverLabels: {
         switchGridHover: "Click to switch to list",

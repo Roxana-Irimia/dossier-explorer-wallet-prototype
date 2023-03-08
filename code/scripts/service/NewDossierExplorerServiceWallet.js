@@ -82,7 +82,6 @@ class NewDossierExplorerService {
 
     createDossier(path, dossierName, callback) {
         if (this.rawDossier) {
-            const keyssiSpace = require("opendsu").loadApi("keyssi");
             this.rawDossier.getKeySSIAsString((err, ssi) => {
                 if (err) {
                     return callback(err);

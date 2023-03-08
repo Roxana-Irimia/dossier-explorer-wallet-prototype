@@ -6,8 +6,6 @@ import rootModel from "../view-models/rootModel.js";
 
 import createDossierViewModel from '../view-models/modals/dossier-modals/createDossierViewModel.js';
 import receiveDossierViewModel from '../view-models/modals/dossier-modals/receiveDossierViewModel.js';
-import testDossierHandlerViewModel from '../view-models/modals/dossier-modals/testDossierHandlerViewModel.js';
-import testContractViewModel from '../view-models/modals/dossier-modals/testContractViewModel.js';
 import shareDossierViewModel from '../view-models/modals/dossier-modals/shareDossierViewModel.js';
 
 import newFileViewModel from "../view-models/modals/file-folder-modals/newFileViewModel.js";
