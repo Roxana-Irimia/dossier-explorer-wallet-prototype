@@ -50,8 +50,6 @@ export default class ExplorerController extends ContainerController {
 
         this.on('create-dossier', this._createDossierHandler);
         this.on('receive-dossier', this._receiveDossierHandler);
-        this.on('test-dossier-handler', this._testDossierHandler);
-        this.on('test-contract', this._testContract);
         this.on('share-dossier', this._shareDossierHandler);
         this.on('delete', this._deleteHandler);
         this.on('rename', this._renameHandler);
@@ -172,23 +170,7 @@ export default class ExplorerController extends ContainerController {
             this.feedbackEmitter(successMessage, null, Constants.SUCCESS_FEEDBACK_TYPE);
             this.explorerNavigator.listDossierContent();
         });
-    };
-
-    _testDossierHandler = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        testDossierHandlerViewModel.currentPath = this.model.currentPath;
-        this.showModal('testDossierHandlerModal', testDossierHandlerViewModel);
-    }
-
-    _testContract = (event) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        testContractViewModel.currentPath = this.model.currentPath;
-        this.showModal('testContractModal', testContractViewModel);
-    }
+    };zzzzz
 
     _deleteHandler = (event) => {
         event.preventDefault();
